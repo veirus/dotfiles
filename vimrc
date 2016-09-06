@@ -221,8 +221,8 @@ set noswapfile            " и свапа
 set statusline=                                " clear the statusline for when vimrc is reloaded
 set statusline+=%1*\ %n
 set statusline+=\ %7*%{CurBufIndicator('')}%<%2*
-set statusline+=\ %{&fenc!=#''?&fenc:&enc}\ %3* " from Lightline plugin
-set statusline+=\ %{&ff}
+set statusline+=\ %{&ff}\ %3*
+set statusline+=\ %{&fenc!=#''?&fenc:&enc} " from Lightline plugin
 set statusline+=\ %#SignColumn#\ %{&ft!=''?','.&ft:'empty'}
 set statusline+=\ %{CurBufIndicator('')}%#Directory#
 set statusline+=\ %{&mod?'[+]':''}\ %-.69f%=
