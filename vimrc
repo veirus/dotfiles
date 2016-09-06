@@ -1,4 +1,4 @@
-" vimtest3 config | last edit:2016-07-29
+" vimtest3 config | last edit: 2016-09-06
 
 " Be Improved, mapleader, OS detect, clipboard, rtp and encoding {
 set nocompatible
@@ -27,13 +27,18 @@ endif
 
 " Plugin Install {{{
 call plug#begin($HOMEDIR.'/plugged/')
-" -- Unused plugins -- {
+" == Unused plugins == {{
+" Plug 'junegunn/rainbow_parentheses.vim' " doesn't work?
 " Plug 'Shougo/neocomplete'
 " Plug 'Shougo/neosnippet'
 " Plug 'Shougo/neosnippet-snippets'
 " let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
 " let g:neosnippet#enable_snipmate_compatibility=1
-
+"" == Snipmate and dependencies == {{
+"Plug 'MarcWeber/vim-addon-mw-utils'
+"Plug 'tomtom/tlib_vim'
+"Plug 'garbas/vim-snipmate'
+""}}
 " Supertab {
 " Plug 'ervandew/supertab'
 " set completeopt=longest,menuone
@@ -44,9 +49,9 @@ call plug#begin($HOMEDIR.'/plugged/')
 " Plug 'itchyny/lightline.vim'
 " Plug 'skammer/vim-css-color'
 " Plug 'tomtom/tcomment_vim'
-" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " Plug 'vim-scripts/Colour-Sampler-Pack'
-"}
+"}}
 " == Necessity == {{
 Plug 'matchit.zip' "{
   let b:match_ignorecase = 1
@@ -73,10 +78,10 @@ Plug 'rking/ag.vim', {'on' :'Ag'} " trying this one instead of all that
 " elseif executable('ack')
 "   Plug 'mileszs/ack.vim', {'on' :'Ack'}
 " endif "}
-" Plug 'luochen1990/rainbow' "{
-" if isdirectory($HOMEDIR."/plugged/rainbow/")
-"   let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-" endif "}
+Plug 'luochen1990/rainbow' "{
+  if isdirectory($HOMEDIR."/plugged/rainbow/")
+    let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+  endif "}
 Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind'] } " {
 if isdirectory($HOMEDIR."/plugged/nerdtree")
   nnoremap <F2> :NERDTreeToggle<CR>
@@ -95,10 +100,6 @@ if isdirectory($HOMEDIR."/plugged/nerdtree")
 endif "}
 " }}
 " == Colorschemes == {{
-" if !s:is_gui && !s:is_nvim
-" i don't think i even need that
-"   Plug 'godlygeek/csapprox'
-" endif
 " Plug 'chriskempson/base16-vim'
 " Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'dracula/vim'
@@ -107,9 +108,9 @@ Plug 'tomasr/molokai'
 Plug 'sjl/badwolf'
 Plug 'nanotech/jellybeans.vim'
 Plug 'KabbAmine/yowish.vim'
-Plug 'zeis/vim-kolor' "{{{
+Plug 'zeis/vim-kolor' "{
   let g:kolor_underlined=1
-"}}}
+"}
 Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
 let s:cs_wingui='yowish'
@@ -120,50 +121,41 @@ let s:cs_cmder='badwolf'
 " == new stuff == {{
 Plug 'konfekt/fastfold'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'jiangmiao/auto-pairs'
-" Plug 'vim-scripts/auto-pairs-gentle' "{
-" let g:AutoPairsUseInsertedCount = 1
-"}
 Plug 'kana/vim-textobj-user'
 Plug 'jceb/vim-textobj-uri'
 Plug 'osyo-manga/vim-over', {'on':'OverCommandLine'}
 Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
 Plug 'nathanaelkane/vim-indent-guides' "{
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
-let g:indent_guides_color_change_percent=3
-if !has('gui_running')
-  let g:indent_guides_auto_colors=0
-  function! s:indent_set_console_colors()
-    hi IndentGuidesOdd ctermbg=235
-    hi IndentGuidesEven ctermbg=236
-  endfunction
-  autocmd VimEnter,Colorscheme * call s:indent_set_console_colors()
-endif
+  let g:indent_guides_start_level = 2
+  let g:indent_guides_guide_size = 1
+  let g:indent_guides_color_change_percent=3
+  if !has('gui_running')
+    let g:indent_guides_auto_colors=0
+    function! s:indent_set_console_colors()
+      hi IndentGuidesOdd ctermbg=235
+      hi IndentGuidesEven ctermbg=236
+    endfunction
+    autocmd VimEnter,Colorscheme * call s:indent_set_console_colors()
+  endif
 " }
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } "{
-" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-xmap <Enter> <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap <Leader>a <Plug>(EasyAlign)
+  " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+  xmap <Enter> <Plug>(EasyAlign)
+  " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+  nmap <Leader>a <Plug>(EasyAlign)
 " }
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-markdown', {'for': ['markdown', 'md', 'mdown', 'mkd', 'mkdn']}
 Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
   let g:vim_json_syntax_conceal = 0
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'js', 'html'] }
 "}}
-"" == Snipmate and dependencies == {{
-"Plug 'MarcWeber/vim-addon-mw-utils'
-"Plug 'tomtom/tlib_vim'
-"Plug 'garbas/vim-snipmate'
-""}}
 " == < webdev \> == {{
 Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
 Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass']}
 Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'js', 'html'] }
 Plug 'gorodinskiy/vim-coloresque', {'for': ['html', 'css', 'less', 'php']} " *^* This
 " Plug 'ap/vim-css-color', {'for': ['html', 'css', 'less', 'php']} " Trying *^* instead of this colorizer
 Plug 'mattn/emmet-vim', {'for': ['html','smarty','php','xml','xsl','xslt','xsd','css','sass','scss','less','mustache','handlebars']} "{
@@ -176,19 +168,18 @@ Plug 'mattn/emmet-vim', {'for': ['html','smarty','php','xml','xsl','xslt','xsd',
 "   \        'filters' : 'html,c',
 "  },
 " }
-function! s:zen_html_tab()
-  if !emmet#isExpandable()
-    return "\<plug>(emmet-move-next)"
-  endif
-  return "\<plug>(emmet-expand-abbr)"
-endfunction
-autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
-autocmd FileType html imap <buffer><expr><tab> <sid>zen_html_tab()
+  function! s:zen_html_tab()
+    if !emmet#isExpandable()
+      return "\<plug>(emmet-move-next)"
+    endif
+    return "\<plug>(emmet-expand-abbr)"
+  endfunction
+  autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
+  autocmd FileType html imap <buffer><expr><tab> <sid>zen_html_tab()
 "}
 "}}
 " == Nyaovim == {{
 if s:is_nyaovim
-    " Write NyaoVim specific code here
     " echom "nyaovim version: ".g:nyaovim_version
     Plug 'rhysd/nyaovim-popup-tooltip'
     Plug 'rhysd/nyaovim-markdown-preview', {'for': 'markdown'}
@@ -226,7 +217,7 @@ set noswapfile            " и свапа
 "}}}
 
 " UI {{{1
-" Statusline { Quick Powerline symbols ref: , , , , , , 
+" Statusline { Powerline symbols quick ref: , , , , , , 
 set statusline=                                " clear the statusline for when vimrc is reloaded
 set statusline+=%1*\ %n
 set statusline+=\ %7*%{CurBufIndicator('')}%<%2*
@@ -249,16 +240,16 @@ set statusline+=%*
 set laststatus=2
 " execute "set colorcolumn=".join(range(80,335), ',')|   "Discolor every column past column 80
 set colorcolumn=+1
-set vb t_vb=                                   " Turn off blinking and sounds
+" already set below in GUI block
+" set vb t_vb=                                   " Turn off blinking and sounds
 set noeb
 set scrolloff=3                                " Minimum lines to keep above and below cursor
-set scrolljump=5                               " minimum number of lines to scroll
-" set scrolljump=5                               " Lines to scroll when cursor leaves screen
+set scrolljump=5                               " Lines to scroll when cursor leaves screen
 set shortmess+=filmnrxoOtT                     " Abbrev. of messages (avoids 'hit enter')
 set cursorline
 set linespace=0                                " No extra spaces between rows
-set relativenumber
 set number                                     " Line numbers on
+set relativenumber
 set numberwidth=5
 set showmatch                                  " Show matching brackets/parenthesis
 set matchtime=2                                " tens of a second to show matching parentheses
@@ -271,13 +262,13 @@ set wildmenu                                   " Show list instead of just compl
 set wildmode=list:longest,full                 " Command <Tab> completion, list matches, then longest common part, then all.
 set whichwrap=b,s,h,l,<,>,[,]                  " Backspace and cursor keys wrap too
 set foldenable                                 " Auto fold code
-" set foldcolumn=2                             " do i even need that?
-set fdm=indent                                 " indent - cворачивание по отступам; *>
+set foldcolumn=3
+" set fdm=indent                                 " indent - cворачивание по отступам; *>
 " * manual - вручную через комманды
 " set foldopen=all                             " Автооткрытие сверток при заходе в них
 set list
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-" set listchars=tab:▷⋅,trail:⋅,nbsp:⋅          " Alternative
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
+" set listchars=tab:▷⋅,trail:⋅,nbsp:⋅          " Alternative settings
 
 set splitright                                 " Puts new vsplit windows to the right of the current
 set splitbelow                                 " Puts new split windows to the bottom of the current
@@ -287,20 +278,20 @@ set splitbelow                                 " Puts new split windows to the b
   set nowrap
   set textwidth=0                " Don't automatically insert linebreaks
   set formatoptions-=t           " don't automatically wrap text when typing
-  set autoindent                 " автоотступы
+  set autoindent
   set shiftround
   set linebreak
   let &showbreak='↪ '
   set tabstop=4                  " размер табов
   set softtabstop=4
   set shiftwidth=4               " размер отступов
-  set smarttab                   " 'умные' табы
+  set smarttab
   " set expandtab
   set nojoinspaces               " Prevents inserting two spaces after punctuation on a join (J)
   set backspace=indent,eol,start " Backspace for dummies
 " }}}
 
-syntax on            " подсветка синтакса (before colorscheme!)
+syntax on            " must be before colorscheme!
 
 " GUI & Terminal settings {{{
 if s:is_gui
@@ -322,58 +313,16 @@ if s:is_gui
   set guioptions-=e       " Disable fancy tabline (repositions vim on tab in Win32)
   set guioptions-=L       " Disable left scrollbar (repositions vim on vsplit in Win32)
   set guioptions-=T       " No toolbar
-  " set guicursor+=a:blinkon0 " disable blinking cursor
   set noshowmode
   set ballooneval
   autocmd GUIEnter * set vb t_vb= lines=40 columns=103 linespace=0
   " }
 else
-  " terminal stuff {
-  " i commented most of this shit
-  " because it fucks up windows console badly
-  " and also cursor stop showing up in conemu/cmder
-  " while spf-13 config has no this kind of problems in cmder and zsh
-  " Surprise! Surprise! echom makes cursor invisible in conemu!
-  " echom "*2* >> This is not a GUI"
-  " set noerrorbells novisualbell t_vb=
-  " above doesn't work for some reason, below version is ok in most terminals
   set vb t_vb=
   if s:is_nvim
     execute 'colorscheme '.s:cs_nvim
   endif
-  " after [not nvim] if, everything below is being executed on windows
-  " if !s:is_nvim
-  "   echom "*3* >> &if not nvim, set term to xterm&"
-  "   set term=xterm
-  " endif
-  " if &term == 'xterm' || &term == 'screen'
-  "   echom "*4* >> if xterm, set 256 colors*"
-  "   echom "Enable 256 colors to stop the CSApprox warning and make xterm vim shine"
-  "   set t_Co=256
-  "   execute 'colorscheme '.s:cs_xterm
-  " endif
-  " if has('termguicolors')
-  " " for some reason it shows wrong colors in conemu
-  "   set termguicolors
-  " endif
-  " set t_ut= " setting for looking properly in tmux
-  " " it's the same as 'set t_Co=256'?
-  " " let &t_Co = 256
-  " echom "(here should be let t_Co=256)"
-  " if s:is_windows
-  "   " trick to support 256 colors and scroll in conemu
-  "   " for some reason it makes vim's cursor invisible in conemu/cmdr
-  "   " this is fucking strange because almost the same block below works ok
-  "   echom "#Win Terminal - badwolf#"
-  "   let &t_AF="\e[38;5;%dm"
-  "   let &t_AB="\e[48;5;%dm"
-  "   inoremap <esc>[62~ <c-x><c-e>
-  "   inoremap <esc>[63~ <c-x><c-y>
-  "   nnoremap <esc>[62~ 3<c-e>
-  "   nnoremap <esc>[63~ 3<c-y>
-  "   execute 'colorscheme '.s:cs_cmder
-  " endif
-  " }
+
   " ConEmu terminal settings {
   if s:is_conemu
     " it's already set above
@@ -392,7 +341,7 @@ endif
 
 " Functions {{{
 
-" Shell command © spf-13 {
+" Shell command @ spf-13 {
   function! s:RunShellCommand(cmdline)
       botright new
 
@@ -414,9 +363,8 @@ endif
   command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
 " e.g. Grep current file for <search_term>: Shell grep -Hn <search_term> %
 " }
-
 " Cycle through relativenumber + number, number (only), and no numbering. {
-" © wincent aka Greg Hurrell
+" @ wincent aka Greg Hurrell
 function! Cycle_numbering() abort
     if exists('+relativenumber')
         execute {
@@ -429,10 +377,9 @@ function! Cycle_numbering() abort
         set number!<CR>
     endif
 endfunction " }
-
 "return '[&et]' if &et is set wrong {
 "return '[mixed-indenting]' if spaces and tabs are used to indent
-"return an empty string if everything is fine © Martin Grefnel
+"return an empty string if everything is fine @ Martin Grefnel
 function! StatuslineTabWarning()
     if !exists("b:statusline_tab_warning")
         let tabs = search('^\t', 'nw') != 0
@@ -448,9 +395,8 @@ function! StatuslineTabWarning()
     endif
     return b:statusline_tab_warning
 endfunction " }
-
 "return '[\s]' if trailing white space is detected {
-"return '' otherwise © Martin Grefnel
+"return '' otherwise @ Martin Grefnel
 function! StatuslineTrailingSpaceWarning()
     if !exists("b:statusline_trailing_space_warning")
         if search('\s\+$', 'nw') != 0
@@ -461,7 +407,6 @@ function! StatuslineTrailingSpaceWarning()
     endif
     return b:statusline_trailing_space_warning
 endfunction " }
-
 " Preserve by Jonathan Palardy {
 function! Preserve(command)
   " Preparation: save last search, and cursor position.
@@ -475,8 +420,7 @@ function! Preserve(command)
   call cursor(l, c)
 endfunction
 " }
-
-" Window Killer © bling {
+" Window Killer @ bling {
 function! CloseWindowOrKillBuffer()
     let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
 
@@ -492,16 +436,14 @@ function! CloseWindowOrKillBuffer()
         bdelete
     endif
 endfunction " }
-
-" New Python Buffer Autofill © jenay.net {
+" New Python Buffer Autofill @ jenay.net {
 function! BufNewFile_PY()
     0put = '#!/usr/bin/env python3'
     1put = '#-*- coding: utf-8 -*-'
     $put = ''
     normal G
 endfunction " }
-
-" Current Buffer Indicator © VimBuddy {
+" Current Buffer Indicator @ VimBuddy {
 function! CurBufIndicator(sym)
   if !exists('g:actual_curbuf')
     let g:actual_curbuf = bufnr("%")
@@ -514,7 +456,6 @@ function! CurBufIndicator(sym)
   endif
 endfunction
 " }
-
 " Statusline colorize {
 function! ColorStatusline() abort
   hi User1 ctermfg=231 ctermbg=60 guifg=#FFFFFF guibg=#483D8B gui=bold
@@ -526,9 +467,9 @@ function! ColorStatusline() abort
   hi User7 term=standout ctermfg=60 guifg=#483D8B guibg=#6A5ACD
   hi User8 ctermfg=235 guifg=#483D8B
   " hi! link FoldColumn User8
-  hi FoldColumn term=standout ctermfg=61 ctermbg=235 guifg=#6272a4 guibg=#282a36
+  " Only for Dracula colorscheme:
+  " hi FoldColumn term=standout ctermfg=61 ctermbg=235 guifg=#6272a4 guibg=#282a36
 endfunction " }
-
 " Decolorize the statusline {
 function! DeColorStatusline() abort
     hi User1 term=bold,reverse cterm=bold ctermfg=231 ctermbg=236 gui=bold guifg=#f8f8f2 guibg=#64666d
@@ -559,7 +500,6 @@ augroup active_relative_number
     autocmd WinLeave * :setlocal norelativenumber
 augroup END
 " }
-
 " Focus~ cursorline in the active window {
 augroup highlight_follows_focus
     autocmd!
@@ -567,7 +507,6 @@ augroup highlight_follows_focus
     autocmd WinLeave,FocusLost  * :setlocal nocursorline
 augroup END
 " }
-
 " Focus~ Statusline {
 augroup focus_statusline
     autocmd!
@@ -575,7 +514,6 @@ augroup focus_statusline
     autocmd BufLeave,FocusLost,WinLeave * call DeColorStatusline()
 augroup END
 "}
-
 " Autosource for _vimrc {
 augroup reload_vimrc
     autocmd!
@@ -584,7 +522,6 @@ augroup reload_vimrc
     " autocmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC
     " autocmd bufwritepost $HOME/_vimrc execute "normal! :source ~/_vimrc"
 augroup END " }
-
 augroup Python " {
     autocmd!
     autocmd BufNewFile *.py call BufNewFile_PY()
@@ -594,7 +531,7 @@ augroup Python " {
     autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8
                 \ formatoptions+=croq softtabstop=4 smartindent
     "В .py файлах включаем умные отступы после ключевых слов
-    autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+    autocmd BufRead *.py setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class
     autocmd FileType python let python_highlight_all = 1
     autocmd FileType python nnoremap <buffer> <Leader><F7> :!python %<CR>
     autocmd FileType python nnoremap <buffer> <F7> :exec '!python' shellescape(@%, 1)<CR>
