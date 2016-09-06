@@ -1,18 +1,32 @@
-" vimtest3 config | last edit:2016-07-18
+" vimtest3 config | last edit:2016-07-29
 
-" Be Improved, mapleader, rtp and encoding {
+" Be Improved, mapleader, OS detect, clipboard, rtp and encoding {
 set nocompatible
 set encoding=utf-8
-let mapleader = "\<space>"
+let mapleader    = "\<space>"
 let s:is_windows = has('win32') || has('win64')
-let s:is_nvim = has('nvim')
+let s:is_cygwin = has('win32unix')
+let s:is_macvim = has('gui_macvim')
+let s:is_nvim    = has('nvim')
 let s:is_nyaovim = exists('g:nyaovim_version')
-let g:homedir='$HOME/vimtest3'
-set rtp^=$HOME/vimtest3
+let s:is_gui     = has('gui_running')
+let s:is_conemu  = !empty($CONEMUBUILD)
+let $HOMEDIR     = expand('$HOME/vimtest3')
+set rtp^=$HOMEDIR
+" set backupdir=~/.vim/backups
+" set directory=~/.vim/swaps
+set undodir=~/.vim/undo
+if has('clipboard')
+  if has('unnamedplus')         " When possible use + register for copy-paste
+    set clipboard=unnamed,unnamedplus
+  else                          " On mac and Windows, use * register for copy-paste
+    set clipboard=unnamed
+  endif
+endif
 " }
 
 " Plugin Install {{{
-call plug#begin(g:homedir.'/plugged/')
+call plug#begin($HOMEDIR.'/plugged/')
 " -- Unused plugins -- {
 " Plug 'Shougo/neocomplete'
 " Plug 'Shougo/neosnippet'
@@ -25,8 +39,6 @@ call plug#begin(g:homedir.'/plugged/')
 " set completeopt=longest,menuone
 " let g:SuperTabDefaultCompletionType = "context"
 " }
-" Plug 'chaoren/vim-wordmotion'
-" Plug 'jonmorehouse/vim-nav'
 " Plug 'lokaltog/vim-easymotion'
 " Plug 'critiqjo/vim-bufferline'
 " Plug 'itchyny/lightline.vim'
@@ -35,7 +47,7 @@ call plug#begin(g:homedir.'/plugged/')
 " Plug 'tpope/vim-fugitive'
 " Plug 'vim-scripts/Colour-Sampler-Pack'
 "}
-" == Necessity ==
+" == Necessity == {{
 Plug 'matchit.zip' "{
   let b:match_ignorecase = 1
   "}
@@ -51,21 +63,22 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'irrationalistic/vim-tasks' " ST's PlainTasks compatible!
 " Ag {
-if executable('ag')
-  Plug 'mileszs/ack.vim', {'on' :'Ack'}
-  let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
-elseif executable('ack-grep')
-  let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-  Plug 'mileszs/ack.vim', {'on' :'Ack'}
-elseif executable('ack')
-  Plug 'mileszs/ack.vim', {'on' :'Ack'}
-endif "}
-Plug 'luochen1990/rainbow' "{
-if isdirectory(expand(g:homedir."/plugged/rainbow/"))
-  let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-endif "}
+Plug 'rking/ag.vim', {'on' :'Ag'} " trying this one instead of all that
+" if executable('ag')
+"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
+"   let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+" elseif executable('ack-grep')
+"   let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
+" elseif executable('ack')
+"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
+" endif "}
+" Plug 'luochen1990/rainbow' "{
+" if isdirectory($HOMEDIR."/plugged/rainbow/")
+"   let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+" endif "}
 Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind'] } " {
-if isdirectory(expand(g:homedir."/plugged/nerdtree"))
+if isdirectory($HOMEDIR."/plugged/nerdtree")
   nnoremap <F2> :NERDTreeToggle<CR>
   nnoremap <leader><F2> :NERDTreeFind<CR>
   " map <C-e> <plug>NERDTreeTabsToggle<CR>
@@ -80,30 +93,43 @@ if isdirectory(expand(g:homedir."/plugged/nerdtree"))
   let NERDTreeKeepTreeInNewTab=1
   let g:nerdtree_tabs_open_on_gui_startup=0
 endif "}
-" ** Colorschemes ** {
-if !has('gui_running')
-  Plug 'godlygeek/csapprox'
-endif
+" }}
+" == Colorschemes == {{
+" if !s:is_gui && !s:is_nvim
+" i don't think i even need that
+"   Plug 'godlygeek/csapprox'
+" endif
 " Plug 'chriskempson/base16-vim'
 " Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'dracula/vim'
-Plug 'nanotech/jellybeans.vim'
-Plug 'sjl/badwolf'
+Plug 'junegunn/seoul256.vim'
 Plug 'tomasr/molokai'
+Plug 'sjl/badwolf'
+Plug 'nanotech/jellybeans.vim'
+Plug 'KabbAmine/yowish.vim'
 Plug 'zeis/vim-kolor' "{{{
   let g:kolor_underlined=1
 "}}}
 Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
-let s:cs_wingui='kolor'
-let s:cs_xterm='kolor'
+let s:cs_wingui='yowish'
+let s:cs_xterm='jellybeans'
+let s:cs_nvim='molokai'
 let s:cs_cmder='badwolf'
+"}}
+" == new stuff == {{
+Plug 'konfekt/fastfold'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'junegunn/vim-peekaboo'
+Plug 'jiangmiao/auto-pairs'
+" Plug 'vim-scripts/auto-pairs-gentle' "{
+" let g:AutoPairsUseInsertedCount = 1
 "}
-" new stuff {{
 Plug 'kana/vim-textobj-user'
 Plug 'jceb/vim-textobj-uri'
 Plug 'osyo-manga/vim-over', {'on':'OverCommandLine'}
-Plug 'mbbill/fencview'
+Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
 Plug 'nathanaelkane/vim-indent-guides' "{
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
@@ -117,9 +143,9 @@ if !has('gui_running')
   autocmd VimEnter,Colorscheme * call s:indent_set_console_colors()
 endif
 " }
-Plug 'junegunn/vim-easy-align' "{
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } "{
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vmap <Enter> <Plug>(EasyAlign)
+xmap <Enter> <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap <Leader>a <Plug>(EasyAlign)
 " }
@@ -129,20 +155,27 @@ Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
   let g:vim_json_syntax_conceal = 0
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'js', 'html'] }
 "}}
-" --Snipmate and dependencies-- {
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-Plug 'garbas/vim-snipmate'
-"}
-" < webdev \> {{
+"" == Snipmate and dependencies == {{
+"Plug 'MarcWeber/vim-addon-mw-utils'
+"Plug 'tomtom/tlib_vim'
+"Plug 'garbas/vim-snipmate'
+""}}
+" == < webdev \> == {{
+Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
 Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass']}
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'gorodinskiy/vim-coloresque', {'for': ['html', 'css', 'less', 'php']} " *^* This
 " Plug 'ap/vim-css-color', {'for': ['html', 'css', 'less', 'php']} " Trying *^* instead of this colorizer
-Plug 'mattn/emmet-vim', {'for': ['html','xml','xsl','xslt','xsd','css','sass','scss','less','mustache','handlebars']} "{
+Plug 'mattn/emmet-vim', {'for': ['html','smarty','php','xml','xsl','xslt','xsd','css','sass','scss','less','mustache','handlebars']} "{
 " let g:user_emmet_install_global = 0
 " autocmd FileType html,css,less EmmetInstall
 " let g:user_emmet_leader_key='<M-,>'
+" let g:user_emmet_settings = {
+"  'php' : {
+"   \        'extends' : 'html',
+"   \        'filters' : 'html,c',
+"  },
+" }
 function! s:zen_html_tab()
   if !emmet#isExpandable()
     return "\<plug>(emmet-move-next)"
@@ -153,7 +186,7 @@ autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab>
 autocmd FileType html imap <buffer><expr><tab> <sid>zen_html_tab()
 "}
 "}}
-" Nyaovim {
+" == Nyaovim == {{
 if s:is_nyaovim
     " Write NyaoVim specific code here
     " echom "nyaovim version: ".g:nyaovim_version
@@ -163,11 +196,11 @@ if s:is_nyaovim
     " Plug 'rhysd/nyaovim-running-gopher'
     " Plug 'rhysd/nyaovim-tree-view'
     Plug 'MaxMEllon/nyaovim-nicolive-comment-viewer', {'do': 'npm install -g nicolive@0.0.4'}
-endif "}
+endif "}}
 call plug#end()
 " required }}}
 
-" General {{{
+" General {{{1
 " Список кодировок для автоматического определения, в порядке предпочтения
 " взято с http://jenyay.net/Programming/Vim
 set fileencodings=utf-8,cp1251,utf-16le,cp866,koi8r,ucs-2le
@@ -183,21 +216,6 @@ set keymap=russian-jcukenwin
 set iminsert=0                  " раскладка по умолчанию для ввода - английская
 set imsearch=0                  " раскладка по умолчанию для поиска - английская
 
-" detect OS © bling {{{
-  let s:is_windows = has('win32') || has('win64')
-  let s:is_cygwin = has('win32unix')
-  let s:is_macvim = has('gui_macvim')
-"}}}
-
-if has('clipboard')
-
-  if has('unnamedplus')         " When possible use + register for copy-paste
-    set clipboard=unnamed,unnamedplus
-  else                          " On mac and Windows, use * register for copy-paste
-    set clipboard=unnamed
-  endif
-endif
-
 set ssop-=options         " do not store global and local values in a session
 filetype plugin indent on " Automatically detect file types.
 set autochdir             " Автопереключение рабочей папки.
@@ -205,10 +223,9 @@ set hidden                " Allow buffer switching without saving
 set nobackup              " Отключить создание файлов бекапа
 set nowritebackup
 set noswapfile            " и свапа
-" }}}
+"}}}
 
-" UI {{{
-
+" UI {{{1
 " Statusline { Quick Powerline symbols ref: , , , , , , 
 set statusline=                                " clear the statusline for when vimrc is reloaded
 set statusline+=%1*\ %n
@@ -242,6 +259,7 @@ set cursorline
 set linespace=0                                " No extra spaces between rows
 set relativenumber
 set number                                     " Line numbers on
+set numberwidth=5
 set showmatch                                  " Show matching brackets/parenthesis
 set matchtime=2                                " tens of a second to show matching parentheses
 set incsearch                                  " Find as you type search
@@ -253,7 +271,7 @@ set wildmenu                                   " Show list instead of just compl
 set wildmode=list:longest,full                 " Command <Tab> completion, list matches, then longest common part, then all.
 set whichwrap=b,s,h,l,<,>,[,]                  " Backspace and cursor keys wrap too
 set foldenable                                 " Auto fold code
-set foldcolumn=2
+" set foldcolumn=2                             " do i even need that?
 set fdm=indent                                 " indent - cворачивание по отступам; *>
 " * manual - вручную через комманды
 " set foldopen=all                             " Автооткрытие сверток при заходе в них
@@ -277,21 +295,18 @@ set splitbelow                                 " Puts new split windows to the b
   set softtabstop=4
   set shiftwidth=4               " размер отступов
   set smarttab                   " 'умные' табы
-  set expandtab
+  " set expandtab
   set nojoinspaces               " Prevents inserting two spaces after punctuation on a join (J)
   set backspace=indent,eol,start " Backspace for dummies
 " }}}
 
 syntax on            " подсветка синтакса (before colorscheme!)
 
-if has('termguicolors')
-    set termguicolors
-endif
-
 " GUI & Terminal settings {{{
-if has("gui_running")
+if s:is_gui
   if has("gui_macvim")
     set guifont=Consolas:h15
+  " Win GUI settings {
   elseif has("gui_win32")
     set guifont=DejaVu_Sans_Mono_for_Powerline:h11:cRUSSIAN
     " Меню выбора кодировки текста (utf8, cp1251, koi8-r, cp866)
@@ -301,55 +316,78 @@ if has("gui_running")
     menu Кодировка.cp866 :e ++enc=cp866<CR>
     menu Кодировка.koi8-r :e ++enc=koi8-r<CR>
     execute 'colorscheme '.s:cs_wingui
-  endif
-  " echom "^General GUI block^"
+  endif " }
+  " echom "^General GUI block^" {
   set guioptions+=c       " Use console dialogs
   set guioptions-=e       " Disable fancy tabline (repositions vim on tab in Win32)
   set guioptions-=L       " Disable left scrollbar (repositions vim on vsplit in Win32)
   set guioptions-=T       " No toolbar
-  set guicursor+=a:blinkon0 " disable blinking cursor
+  " set guicursor+=a:blinkon0 " disable blinking cursor
   set noshowmode
   set ballooneval
   autocmd GUIEnter * set vb t_vb= lines=40 columns=103 linespace=0
+  " }
 else
-  echom "*2* >> This is not a GUI"
+  " terminal stuff {
+  " i commented most of this shit
+  " because it fucks up windows console badly
+  " and also cursor stop showing up in conemu/cmder
+  " while spf-13 config has no this kind of problems in cmder and zsh
+  " Surprise! Surprise! echom makes cursor invisible in conemu!
+  " echom "*2* >> This is not a GUI"
   " set noerrorbells novisualbell t_vb=
+  " above doesn't work for some reason, below version is ok in most terminals
   set vb t_vb=
-  if !s:is_nvim
-    echom "*3* >> &if not nvim, set term to xterm&"
+  if s:is_nvim
+    execute 'colorscheme '.s:cs_nvim
+  endif
+  " after [not nvim] if, everything below is being executed on windows
+  " if !s:is_nvim
+  "   echom "*3* >> &if not nvim, set term to xterm&"
+  "   set term=xterm
+  " endif
+  " if &term == 'xterm' || &term == 'screen'
+  "   echom "*4* >> if xterm, set 256 colors*"
+  "   echom "Enable 256 colors to stop the CSApprox warning and make xterm vim shine"
+  "   set t_Co=256
+  "   execute 'colorscheme '.s:cs_xterm
+  " endif
+  " if has('termguicolors')
+  " " for some reason it shows wrong colors in conemu
+  "   set termguicolors
+  " endif
+  " set t_ut= " setting for looking properly in tmux
+  " " it's the same as 'set t_Co=256'?
+  " " let &t_Co = 256
+  " echom "(here should be let t_Co=256)"
+  " if s:is_windows
+  "   " trick to support 256 colors and scroll in conemu
+  "   " for some reason it makes vim's cursor invisible in conemu/cmdr
+  "   " this is fucking strange because almost the same block below works ok
+  "   echom "#Win Terminal - badwolf#"
+  "   let &t_AF="\e[38;5;%dm"
+  "   let &t_AB="\e[48;5;%dm"
+  "   inoremap <esc>[62~ <c-x><c-e>
+  "   inoremap <esc>[63~ <c-x><c-y>
+  "   nnoremap <esc>[62~ 3<c-e>
+  "   nnoremap <esc>[63~ 3<c-y>
+  "   execute 'colorscheme '.s:cs_cmder
+  " endif
+  " }
+  " ConEmu terminal settings {
+  if s:is_conemu
+    " it's already set above
+    " set vb t_vb=
     set term=xterm
-  endif
-  if &term == 'xterm' || &term == 'screen'
-    echom "*4* >> if xterm, set 256 colors*"
-    echom "Enable 256 colors to stop the CSApprox warning and make xterm vim shine"
+    set termencoding=utf8
     set t_Co=256
-    execute 'colorscheme '.s:cs_xterm
-  endif
-  set t_ut= " setting for looking properly in tmux
-  let &t_Co = 256
-  echom "(here should be let t_Co=256)"
-  if s:is_windows " trick to support 256 colors and scroll in conemu
-    echom "#Win Terminal - badwolf#"
-    let &t_AF="\e[38;5;%dm"
     let &t_AB="\e[48;5;%dm"
-    inoremap <esc>[62~ <c-x><c-e>
-    inoremap <esc>[63~ <c-x><c-y>
-    nnoremap <esc>[62~ 3<c-e>
-    nnoremap <esc>[63~ 3<c-y>
+    let &t_AF="\e[38;5;%dm"
     execute 'colorscheme '.s:cs_cmder
   endif
+  " }
 endif
-" " ConEmu terminal settings {
-" if !empty($CONEMUBUILD) && !has('gui_running')
-"     set vb t_vb=
-"     set term=xterm
-"     set termencoding=utf8
-"     set t_Co=256
-"     let &t_AB="\e[48;5;%dm"
-"     let &t_AF="\e[38;5;%dm"
-"     colorscheme wombat256
-" endif
-" " }
+
 "}}}
 
 " Functions {{{
@@ -424,18 +462,19 @@ function! StatuslineTrailingSpaceWarning()
     return b:statusline_trailing_space_warning
 endfunction " }
 
-" Strip whitespace © spf-13 {
-function! StripTrailingWhitespace()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " do the business:
-    %s/\s\+$//e
-    " clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction " }
+" Preserve by Jonathan Palardy {
+function! Preserve(command)
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  execute a:command
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+" }
 
 " Window Killer © bling {
 function! CloseWindowOrKillBuffer()
@@ -479,10 +518,10 @@ endfunction
 " Statusline colorize {
 function! ColorStatusline() abort
   hi User1 ctermfg=231 ctermbg=60 guifg=#FFFFFF guibg=#483D8B gui=bold
-  hi User2 ctermfg=231 ctermbg=62 guifg=#cccccc guibg=#6A5ACD gui=None
+  hi User2 term=None ctermfg=231 ctermbg=62 guifg=#cccccc guibg=#6A5ACD gui=None
   hi User3 ctermfg=16 ctermbg=99 guifg=#cccccc guibg=#7B68EE gui=None
   hi User4 term=bold,reverse cterm=bold ctermfg=231 ctermbg=236 gui=bold guifg=#f8f8f2 guibg=#64666d
-  hi User5 term=underline cterm=underline ctermfg=15 ctermbg=8 guifg=#666666 guibg=#282a36
+  hi User5 ctermfg=15 ctermbg=8 guifg=#666666 guibg=#282a36
   hi User6 term=standout ctermfg=246 ctermbg=235 guifg=#909194 guibg=#44475a
   hi User7 term=standout ctermfg=60 guifg=#483D8B guibg=#6A5ACD
   hi User8 ctermfg=235 guifg=#483D8B
@@ -493,7 +532,7 @@ endfunction " }
 " Decolorize the statusline {
 function! DeColorStatusline() abort
     hi User1 term=bold,reverse cterm=bold ctermfg=231 ctermbg=236 gui=bold guifg=#f8f8f2 guibg=#64666d
-    hi User2 term=underline cterm=underline ctermfg=15 ctermbg=8 guifg=#666666 guibg=#282a36
+    hi User2 ctermfg=15 ctermbg=8 guifg=#666666 guibg=#282a36
     hi User3 term=standout ctermfg=246 ctermbg=235 guifg=#909194 guibg=#44475a
     hi User7 term=standout ctermfg=60 guifg=#64666D guibg=#282a36
 endfunction " }
@@ -503,6 +542,9 @@ endfunction " }
 " Autocommands {{{
 " --- Vim ---
 autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
+
+" --- php ---
+autocmd FileType php,smarty,tpl setlocal commentstring=<!--\ %s\ -->
 
 "recalculate the tab warning flag when idle and after writing
 autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
@@ -573,7 +615,7 @@ nnoremap <Leader>m :w <BAR> !lessc % > %:t:r.css<CR><space>
 " Map <Leader>ff to display all lines with keyword under cursor
 " and ask which one to jump to
 nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-" fast copy-paste
+" fast copy-paste | do i really need it? #2016-07-21
 vnoremap <Leader>y "+y
 vnoremap <Leader>p "+p
 
@@ -594,7 +636,7 @@ vnoremap ? ?\v
 nnoremap :s/ :s/\v
 "}}}
 " visual paste without losing the copied content
-xnoremap p "0p
+" xnoremap p "0p
 " Allow using the repeat operator with a visual selection (!)
 " http://stackoverflow.com/a/8064607/127816
 vnoremap . :normal .<CR>
@@ -608,15 +650,15 @@ nmap <C-m> o<Esc>k
 nnoremap <M-j> a<CR><Esc>k$
 
 " Fast bracketing
-inoremap {{ {<CR>}<ESC>kA| "}} because it's parsed as foldmarker :\
+" inoremap {{ {<CR>}<ESC>kA| "}} because it's parsed as foldmarker :\
 
 " Insert date on <F3> and <S-F3> {
-nmap <F3> i<C-R>=strftime("%Y-%m-%d")<CR><Esc>
-imap <F3> <C-R>=strftime("%Y-%m-%d")<CR>
-vmap <F3> di<C-R>=strftime("%Y-%m-%d")<CR><Esc>
-nmap <S-F3> i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
-imap <S-F3> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
-vmap <S-F3> di<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
+nnoremap <F3> i<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+inoremap <F3> <C-R>=strftime("%Y-%m-%d")<CR>
+vnoremap <F3> di<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+nnoremap <S-F3> i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
+inoremap <S-F3> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
+vnoremap <S-F3> di<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
 " }
 
 " window killer
@@ -631,6 +673,7 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+nnoremap <C-TAB> <C-^>
 "}
 
 " shortcuts for tabs
@@ -648,12 +691,10 @@ nnoremap gb :ls<cr>:e #
 nnoremap <leader>b :ls<CR>:b<space>
 
 " formatting shortcuts
-nmap <leader>f4 :call StripTrailingWhitespace()<CR>
+" nmap <leader>f4 :call StripTrailingWhitespace()<CR>
+nmap <leader>f4 :call Preserve("%s/\\s\\+$//e")<CR>
+nmap _= :call Preserve("normal gg=G")<CR>
 vmap <leader>s :sort<cr>
-
-" Allow using the repeat operator with a visual selection (!)
-" http://stackoverflow.com/a/8064607/127816
-vnoremap . :normal .<CR>
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
@@ -667,14 +708,14 @@ map zh zH
 " nnoremap <silent> <leader>q gwip
 
 " smash escape
-inoremap ,, <esc>
+" inoremap ,, <esc>
 " }
 
 " change cursor position in insert mode
 inoremap <C-h> <left>
 inoremap <C-l> <right>
 " easier paste
-inoremap <C-f> <C-r><C-o>+
+inoremap <C-q> <C-r><C-p>+
 
 " folds {
 nnoremap zr zr:echo 'foldlevel: ' . &foldlevel<cr>
@@ -710,6 +751,6 @@ cmap <silent> <M-s> <C-^>
 nmap <M-s> a<C-^><Esc>
 vmap <silent> <M-s> <Esc>a<C-^><Esc>gv
 
-" }}} Mappings
+" }}} Mappings end
 
 " vim: set sw=2 ts=4 sts=2 et tw=80 foldmarker={,} foldlevel=0 foldmethod=marker:
