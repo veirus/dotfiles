@@ -61,6 +61,7 @@ Plug 'mhinz/vim-startify' "{
   let g:startify_list_order = ['sessions', 'files']
   let g:startify_session_autoload = 1
   let g:startify_session_persistence = 1
+  let g:startify_session_delete_buffers = 1
   "}
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-commentary'
@@ -102,18 +103,19 @@ endif "}
 " == Colorschemes == {{
 " Plug 'chriskempson/base16-vim'
 " Plug 'chriskempson/vim-tomorrow-theme'
-Plug 'dracula/vim'
-Plug 'junegunn/seoul256.vim'
+" Plug 'dracula/vim'
+Plug 'jacoborus/tender'
+" Plug 'junegunn/seoul256.vim'
 Plug 'tomasr/molokai'
 Plug 'sjl/badwolf'
 Plug 'nanotech/jellybeans.vim'
 Plug 'KabbAmine/yowish.vim'
-Plug 'zeis/vim-kolor' "{
-  let g:kolor_underlined=1
+" Plug 'zeis/vim-kolor' "{
+"   let g:kolor_underlined=1
 "}
 Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
-let s:cs_wingui='yowish'
+let s:cs_wingui='tender'
 let s:cs_xterm='jellybeans'
 let s:cs_nvim='molokai'
 let s:cs_cmder='badwolf'
@@ -214,6 +216,7 @@ set hidden                " Allow buffer switching without saving
 set nobackup              " Отключить создание файлов бекапа
 set nowritebackup
 set noswapfile            " и свапа
+set history=100
 "}}}
 
 " UI {{{1
@@ -223,7 +226,8 @@ set statusline+=%1*\ %n
 set statusline+=\ %7*%{CurBufIndicator('')}%<%2*
 set statusline+=\ %{&ff}\ %3*
 set statusline+=\ %{&fenc!=#''?&fenc:&enc} " from Lightline plugin
-set statusline+=\ %#SignColumn#\ %{&ft!=''?','.&ft:'empty'}
+set statusline+=\ %#Directory#\ %{&ft!=''?','.&ft:'empty'}
+" set statusline+=\ %#SignColumn#\ %{&ft!=''?','.&ft:'empty'}
 set statusline+=\ %{CurBufIndicator('')}%#Directory#
 set statusline+=\ %{&mod?'[+]':''}\ %-.69f%=
 set statusline+=\ %k\ %m%r%w
@@ -243,6 +247,7 @@ set colorcolumn=+1
 " already set below in GUI block
 " set vb t_vb=                                   " Turn off blinking and sounds
 set noeb
+set lazyredraw
 set scrolloff=3                                " Minimum lines to keep above and below cursor
 set scrolljump=5                               " Lines to scroll when cursor leaves screen
 set shortmess+=filmnrxoOtT                     " Abbrev. of messages (avoids 'hit enter')
@@ -485,7 +490,7 @@ endfunction " }
 autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
 
 " --- php ---
-autocmd FileType php,smarty,tpl setlocal commentstring=<!--\ %s\ -->
+autocmd FileType smarty,tpl setlocal commentstring=<!--\ %s\ -->
 
 "recalculate the tab warning flag when idle and after writing
 autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
@@ -614,8 +619,8 @@ nnoremap <C-TAB> <C-^>
 "}
 
 " shortcuts for tabs
-" map <leader>tn :tabnew<CR>
-" map <leader>tc :tabclose<CR>
+map <leader>tn :tabnew<CR>
+map <leader>tc :tabclose<CR>
 nnoremap <up> :tabnext<CR>
 nnoremap <down> :tabprev<CR>
 
