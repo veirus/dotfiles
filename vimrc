@@ -29,6 +29,22 @@ endif
 call plug#begin($HOMEDIR.'/plugged/')
 " == Unused plugins == {{2
 " Plug 'junegunn/rainbow_parentheses.vim' " doesn't work?
+" Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind'] } " {3
+" if isdirectory($HOMEDIR."/plugged/nerdtree")
+"   nnoremap <F2> :NERDTreeToggle<CR>
+"   nnoremap <leader><F2> :NERDTreeFind<CR>
+"   " map <C-e> <plug>NERDTreeTabsToggle<CR>
+"   let g:NERDShutUp=1
+"   let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+"   let NERDTreeChDirMode=0
+"   let NERDTreeMouseMode=2
+"   let NERDTreeQuitOnOpen=1
+"   let NERDTreeShowHidden=1
+"   let NERDTreeShowBookmarks=1
+"   let NERDTreeShowLineNumbers=1
+"   let NERDTreeKeepTreeInNewTab=1
+"   let g:nerdtree_tabs_open_on_gui_startup=0
+" endif "}3
 " Plug 'Shougo/neocomplete'
 " Plug 'Shougo/neosnippet'
 " Plug 'Shougo/neosnippet-snippets'
@@ -84,22 +100,6 @@ Plug 'luochen1990/rainbow' "{3
   if isdirectory($HOMEDIR."/plugged/rainbow/")
     let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
   endif "}3
-Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind'] } " {3
-if isdirectory($HOMEDIR."/plugged/nerdtree")
-  nnoremap <F2> :NERDTreeToggle<CR>
-  nnoremap <leader><F2> :NERDTreeFind<CR>
-  " map <C-e> <plug>NERDTreeTabsToggle<CR>
-  let g:NERDShutUp=1
-  let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
-  let NERDTreeChDirMode=0
-  let NERDTreeMouseMode=2
-  let NERDTreeQuitOnOpen=1
-  let NERDTreeShowHidden=1
-  let NERDTreeShowBookmarks=1
-  let NERDTreeShowLineNumbers=1
-  let NERDTreeKeepTreeInNewTab=1
-  let g:nerdtree_tabs_open_on_gui_startup=0
-endif "}3
 " }}2
 " == Colorschemes == {{2
 " Plug 'chriskempson/base16-vim'
@@ -122,6 +122,7 @@ let s:cs_nvim='molokai'
 let s:cs_cmder='badwolf'
 "}}2
 " == new stuff == {{2
+Plug 'justinmk/vim-dirvish'
 Plug 'konfekt/fastfold'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/vim-peekaboo'
