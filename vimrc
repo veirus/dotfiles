@@ -27,23 +27,23 @@ endif
 
 " Plugin Install {{{
 call plug#begin($HOMEDIR.'/plugged/')
-" == Unused plugins == {{
+" == Unused plugins == {{2
 " Plug 'junegunn/rainbow_parentheses.vim' " doesn't work?
 " Plug 'Shougo/neocomplete'
 " Plug 'Shougo/neosnippet'
 " Plug 'Shougo/neosnippet-snippets'
 " let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
 " let g:neosnippet#enable_snipmate_compatibility=1
-"" == Snipmate and dependencies == {{
+"" == Snipmate and dependencies == {{3
 "Plug 'MarcWeber/vim-addon-mw-utils'
 "Plug 'tomtom/tlib_vim'
 "Plug 'garbas/vim-snipmate'
-""}}
-" Supertab {
+""}}3
+" Supertab {3
 " Plug 'ervandew/supertab'
 " set completeopt=longest,menuone
 " let g:SuperTabDefaultCompletionType = "context"
-" }
+" }3
 " Plug 'lokaltog/vim-easymotion'
 " Plug 'critiqjo/vim-bufferline'
 " Plug 'itchyny/lightline.vim'
@@ -51,24 +51,24 @@ call plug#begin($HOMEDIR.'/plugged/')
 " Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
 " Plug 'vim-scripts/Colour-Sampler-Pack'
-"}}
-" == Necessity == {{
-Plug 'matchit.zip' "{
+"}}2
+" == Necessity == {{2
+Plug 'matchit.zip' "{3
   let b:match_ignorecase = 1
-  "}
-Plug 'mhinz/vim-startify' "{
+  "}3
+Plug 'mhinz/vim-startify' "{3
   nnoremap <F1> :Startify<CR>
   let g:startify_list_order = ['sessions', 'files']
   let g:startify_session_autoload = 1
   let g:startify_session_persistence = 1
   let g:startify_session_delete_buffers = 1
-  "}
+  "}3
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'irrationalistic/vim-tasks' " ST's PlainTasks compatible!
-" Ag {
+" Ag {3
 Plug 'rking/ag.vim', {'on' :'Ag'} " trying this one instead of all that
 " if executable('ag')
 "   Plug 'mileszs/ack.vim', {'on' :'Ack'}
@@ -78,12 +78,13 @@ Plug 'rking/ag.vim', {'on' :'Ag'} " trying this one instead of all that
 "   Plug 'mileszs/ack.vim', {'on' :'Ack'}
 " elseif executable('ack')
 "   Plug 'mileszs/ack.vim', {'on' :'Ack'}
-" endif "}
-Plug 'luochen1990/rainbow' "{
+" endif
+"}3
+Plug 'luochen1990/rainbow' "{3
   if isdirectory($HOMEDIR."/plugged/rainbow/")
     let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-  endif "}
-Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind'] } " {
+  endif "}3
+Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind'] } " {3
 if isdirectory($HOMEDIR."/plugged/nerdtree")
   nnoremap <F2> :NERDTreeToggle<CR>
   nnoremap <leader><F2> :NERDTreeFind<CR>
@@ -98,9 +99,9 @@ if isdirectory($HOMEDIR."/plugged/nerdtree")
   let NERDTreeShowLineNumbers=1
   let NERDTreeKeepTreeInNewTab=1
   let g:nerdtree_tabs_open_on_gui_startup=0
-endif "}
-" }}
-" == Colorschemes == {{
+endif "}3
+" }}2
+" == Colorschemes == {{2
 " Plug 'chriskempson/base16-vim'
 " Plug 'chriskempson/vim-tomorrow-theme'
 " Plug 'dracula/vim'
@@ -110,17 +111,17 @@ Plug 'tomasr/molokai'
 Plug 'sjl/badwolf'
 Plug 'nanotech/jellybeans.vim'
 Plug 'KabbAmine/yowish.vim'
-" Plug 'zeis/vim-kolor' "{
+" Plug 'zeis/vim-kolor' "{3
 "   let g:kolor_underlined=1
-"}
+"}3
 Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
 let s:cs_wingui='tender'
 let s:cs_xterm='jellybeans'
 let s:cs_nvim='molokai'
 let s:cs_cmder='badwolf'
-"}}
-" == new stuff == {{
+"}}2
+" == new stuff == {{2
 Plug 'konfekt/fastfold'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/vim-peekaboo'
@@ -129,7 +130,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'jceb/vim-textobj-uri'
 Plug 'osyo-manga/vim-over', {'on':'OverCommandLine'}
 Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
-Plug 'nathanaelkane/vim-indent-guides' "{
+Plug 'nathanaelkane/vim-indent-guides' "{3
   let g:indent_guides_start_level = 2
   let g:indent_guides_guide_size = 1
   let g:indent_guides_color_change_percent=3
@@ -141,26 +142,26 @@ Plug 'nathanaelkane/vim-indent-guides' "{
     endfunction
     autocmd VimEnter,Colorscheme * call s:indent_set_console_colors()
   endif
-" }
-Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } "{
+" }3
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } "{3
   " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
   xmap <Enter> <Plug>(EasyAlign)
   " Start interactive EasyAlign for a motion/text object (e.g. gaip)
   nmap <Leader>a <Plug>(EasyAlign)
-" }
+" }3
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-markdown', {'for': ['markdown', 'md', 'mdown', 'mkd', 'mkdn']}
 Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
   let g:vim_json_syntax_conceal = 0
-"}}
-" == < webdev \> == {{
+"}}2
+" == < webdev \> == {{2
 Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
 Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass']}
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'js', 'html'] }
 Plug 'gorodinskiy/vim-coloresque', {'for': ['html', 'css', 'less', 'php']} " *^* This
 " Plug 'ap/vim-css-color', {'for': ['html', 'css', 'less', 'php']} " Trying *^* instead of this colorizer
-Plug 'mattn/emmet-vim', {'for': ['html','smarty','php','xml','xsl','xslt','xsd','css','sass','scss','less','mustache','handlebars']} "{
+Plug 'mattn/emmet-vim', {'for': ['html','smarty','php','xml','xsl','xslt','xsd','css','sass','scss','less','mustache','handlebars']} "{3
 " let g:user_emmet_install_global = 0
 " autocmd FileType html,css,less EmmetInstall
 " let g:user_emmet_leader_key='<M-,>'
@@ -178,9 +179,9 @@ Plug 'mattn/emmet-vim', {'for': ['html','smarty','php','xml','xsl','xslt','xsd',
   endfunction
   autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
   autocmd FileType html imap <buffer><expr><tab> <sid>zen_html_tab()
-"}
-"}}
-" == Nyaovim == {{
+"}3
+"}}2
+" == Nyaovim == {{2
 if s:is_nyaovim
     " echom "nyaovim version: ".g:nyaovim_version
     Plug 'rhysd/nyaovim-popup-tooltip'
@@ -189,7 +190,7 @@ if s:is_nyaovim
     " Plug 'rhysd/nyaovim-running-gopher'
     " Plug 'rhysd/nyaovim-tree-view'
     Plug 'MaxMEllon/nyaovim-nicolive-comment-viewer', {'do': 'npm install -g nicolive@0.0.4'}
-endif "}}
+endif "}}2
 call plug#end()
 " required }}}
 
@@ -250,7 +251,7 @@ set noeb
 set lazyredraw
 set scrolloff=3                                " Minimum lines to keep above and below cursor
 set scrolljump=5                               " Lines to scroll when cursor leaves screen
-set shortmess+=filmnrxoOtT                     " Abbrev. of messages (avoids 'hit enter')
+set shortmess+=afilmnrxoOtT                     " Abbrev. of messages (avoids 'hit enter')
 set cursorline
 set linespace=0                                " No extra spaces between rows
 set number                                     " Line numbers on
@@ -569,7 +570,7 @@ map <F12> :set invpaste<CR>:set paste?<CR>
 
 " -- Hacks --
 " https://sts10.github.io/blog/2016/02/16/one-solution-to-a-problem-with-vims-gx-command/
-nnoremap gx :normal viugx<cr>
+nnoremap <silent> gx :normal viugx<CR><CR>
 " sane regex {{{
 nnoremap / /\v
 vnoremap / /\v
