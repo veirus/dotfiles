@@ -1,17 +1,19 @@
-" vimtest3 config | last edit: 2016-09-30
+" vimtest3 config | last edit: 2016-10-02
 
 " Be Improved, mapleader, OS detect, clipboard, rtp and encoding {{{
 set nocompatible
 set encoding=utf-8
 let mapleader    = "\<space>"
 let s:is_windows = has('win32') || has('win64')
-let s:is_cygwin = has('win32unix')
-let s:is_macvim = has('gui_macvim')
+let s:is_wingui  = has("gui_win32")
+let s:is_cygwin  = has('win32unix')
+let s:is_macvim  = has('gui_macvim')
 let s:is_nvim    = has('nvim')
 let s:is_nyaovim = exists('g:nyaovim_version')
 let s:is_gui     = has('gui_running')
 let s:is_conemu  = !empty($CONEMUBUILD)
 let $HOMEDIR     = expand('$HOME/vimtest3')
+" let $HOMEDIR     = expand('$VIM/vimfiles')	| " portability shim
 set rtp^=$HOMEDIR
 " set backupdir=~/.vim/backups
 " set directory=~/.vim/swaps
@@ -297,10 +299,10 @@ syntax on            " must be before colorscheme!
 
 " GUI & Terminal settings {{{
 if s:is_gui
-  if has("gui_macvim")
+  if s:is_macvim
     set guifont=Consolas:h15
   " Win GUI settings {{{
-  elseif has("gui_win32")
+  elseif s:is_wingui
     set guifont=DejaVu_Sans_Mono_for_Powerline:h11:cRUSSIAN
     " Меню выбора кодировки текста (utf8, cp1251, koi8-r, cp866)
     menu Кодировка.utf-8 :e ++enc=utf8<CR>
@@ -551,7 +553,7 @@ nnoremap <leader><F11> :so $MYVIMRC<CR> :echo "* .vimrc loaded *"<CR>
 nnoremap <Leader><F12> :tabe $MYVIMRC<CR>
 " nnoremap <Leader><F12> :vsp $MYVIMRC<CR>
 " compile LESS
-nnoremap <Leader>m :w <BAR> !lessc % > %:t:r.css<CR><space>
+nnoremap <Leader>mm :w <BAR> !lessc % > %:t:r.css<CR><space>
 " Map <Leader>ff to display all lines with keyword under cursor
 " and ask which one to jump to
 nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
@@ -687,7 +689,7 @@ vnoremap > >gv
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " language switching
-cmap <silent> <leader>6 <C-^>
+" cmap <silent> <leader>6 <C-^>
 nmap <leader>6 a<C-^><Esc>
 vmap <silent> <leader>6 <Esc>a<C-^><Esc>gv
 
