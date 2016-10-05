@@ -12,7 +12,7 @@ let s:is_nvim    = has('nvim')
 let s:is_nyaovim = exists('g:nyaovim_version')
 let s:is_gui     = has('gui_running')
 let s:is_conemu  = !empty($CONEMUBUILD)
-let $HOMEDIR     = expand('$HOME/vimtest3')
+let $HOMEDIR     = expand('$HOME/dotfiles')
 " let $HOMEDIR     = expand('$VIM/vimfiles')	| " portability shim
 set rtp^=$HOMEDIR
 " set backupdir=~/.vim/backups
@@ -52,12 +52,12 @@ call plug#begin($HOMEDIR.'/plugged/')
 " Plug 'Shougo/neosnippet-snippets'
 " let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
 " let g:neosnippet#enable_snipmate_compatibility=1
-" }}}
-"" == Snipmate and dependencies == {{{3
+"
+" == Snipmate and dependencies == {{{3
 "Plug 'MarcWeber/vim-addon-mw-utils'
 "Plug 'tomtom/tlib_vim'
 "Plug 'garbas/vim-snipmate'
-""}}}3
+"
 " Plug 'ervandew/supertab' " {{{3
 " set completeopt=longest,menuone
 " let g:SuperTabDefaultCompletionType = "context"
@@ -121,6 +121,9 @@ let s:cs_nvim='molokai'
 let s:cs_cmder='badwolf'
 " == new stuff == {{{2
 " Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
+Plug 'kana/vim-textobj-fold'
+Plug 'kana/vim-textobj-function'
+Plug 'kana/vim-textobj-indent'
 Plug 'konfekt/fastfold'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/vim-peekaboo'
@@ -218,9 +221,27 @@ set noswapfile            " и свапа
 set history=100
 "}}}
 
+" Formatting {{{
+  set nowrap
+  set textwidth=0                " Don't automatically insert linebreaks
+  set formatoptions-=t           " don't automatically wrap text when typing
+  set autoindent
+  set shiftround
+  set linebreak
+  let &showbreak='↪ '
+  set tabstop=4                  " размер табов
+  set softtabstop=4
+  set shiftwidth=4               " размер отступов
+  set smarttab
+  set noexpandtab
+  " set expandtab
+  set nojoinspaces               " Prevents inserting two spaces after punctuation on a join (J)
+  set backspace=indent,eol,start " Backspace for dummies
+" }}}
+
 " UI {{{1
 " Statusline {{{ Powerline symbols quick ref: , , , , , , 
-set statusline=                                " clear the statusline for when vimrc is reloaded
+set statusline=                               | " clear the statusline for when vimrc is reloaded
 set statusline+=%1*\ %n
 set statusline+=\ %7*%{CurBufIndicator('')}%<%2*
 set statusline+=\ %{&ff}\ %3*
@@ -249,7 +270,8 @@ set noeb
 set lazyredraw
 set scrolloff=3                                " Minimum lines to keep above and below cursor
 set scrolljump=5                               " Lines to scroll when cursor leaves screen
-set shortmess+=afilmnrxoOtT                     " Abbrev. of messages (avoids 'hit enter')
+set shortmess+=aoOtT                           " Abbrev. of messages (avoids 'hit enter')
+" set shortmess+=filmnrxoOtT                     " Abbrev. of messages (avoids 'hit enter')
 set cursorline
 set linespace=0                                " No extra spaces between rows
 set number                                     " Line numbers on
@@ -278,23 +300,6 @@ set splitright                                 " Puts new vsplit windows to the 
 set splitbelow                                 " Puts new split windows to the bottom of the current
 " }}}
 
-" Formatting {{{
-  set nowrap
-  set textwidth=0                " Don't automatically insert linebreaks
-  set formatoptions-=t           " don't automatically wrap text when typing
-  set autoindent
-  set shiftround
-  set linebreak
-  let &showbreak='↪ '
-  set tabstop=4                  " размер табов
-  set softtabstop=4
-  set shiftwidth=4               " размер отступов
-  set smarttab
-  " set expandtab
-  set nojoinspaces               " Prevents inserting two spaces after punctuation on a join (J)
-  set backspace=indent,eol,start " Backspace for dummies
-" }}}
-
 syntax on            " must be before colorscheme!
 
 " GUI & Terminal settings {{{
@@ -313,6 +318,13 @@ if s:is_gui
     execute 'colorscheme '.s:cs_wingui
   endif " }}}
   " echom "^General GUI block^" {{{
+  " currently is go=gmtch
+  if s:is_conemu
+    set guioptions+=h
+    set guioptions-=b
+    set guioptions-=r
+    set guioptions-=R
+  endif
   set guioptions+=c       " Use console dialogs
   set guioptions-=e       " Disable fancy tabline (repositions vim on tab in Win32)
   set guioptions-=L       " Disable left scrollbar (repositions vim on vsplit in Win32)
@@ -323,9 +335,52 @@ if s:is_gui
   " }}}
 else
   set vb t_vb=
+  " neovim {{{
   if s:is_nvim
+    let s:editor_root=expand("~/AppData/Local/nvim")
+    let g:python_host_prog = '/usr/bin/python'
+    let g:python3_host_prog = '/usr/bin/python3'
+    if exists('g:GuiFont')
+
+      " WTF?! Doesn't work?
+      " let g:Guifont="DejaVu Sans Mono for Powerline:h13"
+
+      " Works and even looks nice, however reports bad fixed pitch metrics
+      " Also it's risky to install patched version on Windows
+      " GuiFont Consolas:h12
+
+      " Warning: bad fixed pitch metrics?!
+      " GuiFont Anonymice Powerline:h12
+
+      "is not fixed pitch font?!
+      " GuiFont Arimo for Powerline:h12
+
+      " is not fixed pitch font?!
+      " GuiFont DejaVu Sans Mono for Powerline:h13
+
+      " Sluggish unaliased look
+      " GuiFont Droid Sans Mono for Powerline:h12
+
+      " Sluggish unaliased look
+      " GuiFont Fira Mono Medium for Powerline:h12
+
+      " is not fixed pitch font?!
+      " GuiFont Literation Mono Powerline:h12
+
+      " A little better look than Droid Sans and Fira
+      GuiFont monofur for Powerline:h14
+
+      " is not fixed pitch font?!
+      " GuiFont Roboto Mono for Powerline:h13
+
+      " is not fixed pitch font?!
+      " GuiFont Tinos for Powerline:h12
+
+      " Unknown font
+      " GuiFont Ubuntu Mono derivative Powerline:h12
+    endif
     execute 'colorscheme '.s:cs_nvim
-  endif
+  endif " }}}
 
   " ConEmu terminal settings {{{
   if s:is_conemu
@@ -521,7 +576,7 @@ augroup END
 " Autosource for _vimrc {{{
 augroup reload_vimrc
     autocmd!
-    autocmd bufwritepost _vimrc nested source $MYVIMRC
+    autocmd bufwritepost _vimrc,init.vim nested source $MYVIMRC
     " Alternative, not working very well, so disabled:
     " autocmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC
     " autocmd bufwritepost $HOME/_vimrc execute "normal! :source ~/_vimrc"
@@ -550,8 +605,7 @@ nnoremap <silent> <leader>r :call Cycle_numbering()<CR>
 nnoremap <leader><F5> :wa<cr> :mksession! ~/vimtest3/lsession.vim<cr>
 nnoremap <leader><F9> :so ~/vimtest3/lsession.vim<cr> :echo '* Session restored! *'<cr>
 nnoremap <leader><F11> :so $MYVIMRC<CR> :echo "* .vimrc loaded *"<CR>
-nnoremap <Leader><F12> :tabe $MYVIMRC<CR>
-" nnoremap <Leader><F12> :vsp $MYVIMRC<CR>
+nnoremap <Leader><F12> :vsp $MYVIMRC<CR>
 " compile LESS
 nnoremap <Leader>mm :w <BAR> !lessc % > %:t:r.css<CR><space>
 " Map <Leader>ff to display all lines with keyword under cursor
@@ -615,7 +669,8 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-nnoremap <C-TAB> <C-^>
+nnoremap <leader><leader> <C-^>
+" nnoremap <C-TAB> <C-^>
 "}}}
 
 " shortcuts for tabs
@@ -656,7 +711,7 @@ map zh zH
 " change cursor position in insert mode
 inoremap <C-h> <left>
 inoremap <C-l> <right>
-" easier paste
+" easy paste
 inoremap <C-q> <C-r><C-p>+
 
 " folds {{{
@@ -690,9 +745,9 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " language switching
 " cmap <silent> <leader>6 <C-^>
-nmap <leader>6 a<C-^><Esc>
-vmap <silent> <leader>6 <Esc>a<C-^><Esc>gv
-
+" nmap <M-s> a<C-^><Esc>
+nmap <C-Space> a<C-^><Esc>
+vmap <silent> <C-Space> <Esc>a<C-^><Esc>gv
 " }}} Mappings end
 
 " vim: set sw=2 ts=4 sts=2 et tw=80 foldlevel=0 foldmethod=marker:
