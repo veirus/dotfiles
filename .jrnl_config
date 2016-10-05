@@ -1,0 +1,13 @@
+{
+  "timeformat": "%Y-%m-%d %H:%M",
+  "tagsymbols": "@",
+  "linewrap": 79,
+  "encrypt": false,
+  "journals": {
+    "default": "C:\\Users\\Neil\\journal.txt"
+  },
+  "default_hour": 9,
+  "default_minute": 0,
+  "editor": "H:\\progz\\npp\\notepad++.exe -multiInst -nosession",
+  "highlight": true
+}

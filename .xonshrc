@@ -1,0 +1,12 @@
+$SHELL_TYPE = 'prompt_toolkit'
+aliases['di'] = ['cmd', '/c', 'dir']
+aliases['gs'] = ['git', 'status']
+aliases['ga'] = ['git', 'add']
+aliases['gb'] = ['git', 'branch']
+aliases['gc'] = ['git', 'commit']
+aliases['gd'] = ['git', 'diff']
+aliases['go'] = ['git', 'checkout']
+aliases['gk'] = ['gitk', '--all&']
+aliases['gx'] = ['gitx', '--all']
+aliases['got'] =['git ']
+aliases['get'] =['git ']
