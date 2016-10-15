@@ -29,8 +29,34 @@ endif
 
 " Plugin Install {{{
 call plug#begin($HOMEDIR.'/plugged/')
-" == Necessity == {{{2
+" == Already in pack/start dir: == {{{2
+" Plug 'KabbAmine/gulp-vim'
+" Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
+" Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
+" Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-endwise'
+" Plug 'tpope/vim-surround'
+"Plug 'mattn/emmet-vim', {'for': ['html','smarty','pug','php','xml','xsl','xslt','xsd','css','sass','scss','less','mustache','handlebars']} "{{{3
+"" let g:user_emmet_install_global = 0
+"" autocmd FileType html,css,less EmmetInstall
+"" let g:user_emmet_leader_key='<M-,>'
+"" let g:user_emmet_settings = {
+""  'php' : {
+""   \        'extends' : 'html',
+""   \        'filters' : 'html,c',
+""  },
+"" }
+"  function! s:zen_html_tab()
+"    if !emmet#isExpandable()
+"      return "\<plug>(emmet-move-next)"
+"    endif
+"    return "\<plug>(emmet-expand-abbr)"
+"  endfunction
+"  autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
+"  autocmd FileType html,css,sass,less,scss imap <buffer><expr><tab> <sid>zen_html_tab()
+""}}}3
 
+" == Necessity == {{{2
 Plug 'matchit.zip' "{{{3
   let b:match_ignorecase = 1
 
@@ -41,14 +67,10 @@ Plug 'mhinz/vim-startify' "{{{3
  let g:startify_session_persistence = 1
  let g:startify_session_delete_buffers = 1
  "}}}3
-
-Plug 'tpope/vim-fugitive'
-Plug 'justinmk/vim-sneak'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'irrationalistic/vim-tasks' " ST's PlainTasks compatible!
-
+Plug 'luochen1990/rainbow' "{{{3
+  if isdirectory($HOMEDIR."/plugged/rainbow/")
+    let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+  endif "}}}3
 " Ag {{{3
 Plug 'rking/ag.vim', {'on' :'Ag'} " trying this one instead of all that
 " if executable('ag')
@@ -61,11 +83,10 @@ Plug 'rking/ag.vim', {'on' :'Ag'} " trying this one instead of all that
 "   Plug 'mileszs/ack.vim', {'on' :'Ack'}
 " endif
 "}}}3
-
-Plug 'luochen1990/rainbow' "{{{3
-  if isdirectory($HOMEDIR."/plugged/rainbow/")
-    let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-  endif "}}}3
+Plug 'tpope/vim-fugitive'
+Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-repeat'
+Plug 'irrationalistic/vim-tasks' " ST's PlainTasks compatible!
 
 " == Colorschemes == {{{2
 " Plug 'chriskempson/base16-vim'
@@ -89,8 +110,6 @@ let s:cs_nvim='molokai'
 let s:cs_cmder='badwolf'
 
 " == new stuff == {{{2
-" Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
-Plug 'KabbAmine/gulp-vim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'konfekt/fastfold'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -125,38 +144,16 @@ Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } "{{
   nmap <Leader>a <Plug>(EasyAlign)
 " }}}3
 
-Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-markdown', {'for': ['markdown', 'md', 'mdown', 'mkd', 'mkdn']}
 Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
   let g:vim_json_syntax_conceal = 0
 
 " == < webdev \> == {{{2
-Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
 Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass']}
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'js', 'html'] }
 Plug 'gorodinskiy/vim-coloresque', {'for': ['html', 'css', 'less', 'php']} " *^* This
 " Plug 'ap/vim-css-color', {'for': ['html', 'css', 'less', 'php']} " Trying *^* instead of this colorizer
-Plug 'mattn/emmet-vim', {'for': ['html','smarty','pug','php','xml','xsl','xslt','xsd','css','sass','scss','less','mustache','handlebars']} "{{{3
-" let g:user_emmet_install_global = 0
-" autocmd FileType html,css,less EmmetInstall
-" let g:user_emmet_leader_key='<M-,>'
-" let g:user_emmet_settings = {
-"  'php' : {
-"   \        'extends' : 'html',
-"   \        'filters' : 'html,c',
-"  },
-" }
-  function! s:zen_html_tab()
-    if !emmet#isExpandable()
-      return "\<plug>(emmet-move-next)"
-    endif
-    return "\<plug>(emmet-expand-abbr)"
-  endfunction
-  autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
-  autocmd FileType html,css,sass,less,scss imap <buffer><expr><tab> <sid>zen_html_tab()
-"}}}3
-
 " == Nyaovim == {{{2
 if s:is_nyaovim
     " echom "nyaovim version: ".g:nyaovim_version
@@ -215,34 +212,17 @@ set history=100
 " }}}
 
 " UI {{{1
-" Statusline {{{
-" Powerline symbols quick ref: , , , , , , 
-" set statusline=                               | " clear the statusline for when vimrc is reloaded
-" set statusline+=%1*\ %n
-" set statusline+=\ %7*%{CurBufIndicator('')}%<%2*
-" set statusline+=\ %{&ff}\ %3*
-" set statusline+=\ %{&fenc!=#''?&fenc:&enc} " from Lightline plugin
-" set statusline+=\ %#Directory#\ %{&ft!=''?','.&ft:'empty'}
-" " set statusline+=\ %#SignColumn#\ %{&ft!=''?','.&ft:'empty'}
-" set statusline+=\ %{CurBufIndicator('')}%#Directory#
-" set statusline+=\ %{&mod?'[+]':''}
-" set statusline+=\ %-.69f%=
-" set statusline+=\ %k\ %m%r%w
-" set statusline+=\ %3*\ col:%3c
-" set statusline+=\ %2*\ :%4l/%L\ %1*
-" set statusline+=\ %2p%%\ %*
-" }}}
-
-" New Optimized Statusline {{{
+" New Optimized Statusline {{{2
+" Modelist {{{3
 let g:currentmode={
     \ 'n'  : 'N ',
     \ 'no' : 'N·Operator Pending ',
     \ 'v'  : 'V ',
     \ 'V'  : 'V·Line ',
-    \ '^V' : 'V·Block ',
+    \ '' : 'V·Block ',
     \ 's'  : 'Select ',
     \ 'S'  : 'S·Line ',
-    \ '^S' : 'S·Block ',
+    \ '' : 'S·Block ',
     \ 'i'  : 'I ',
     \ 'R'  : 'R ',
     \ 'Rv' : 'V·Replace ',
@@ -256,22 +236,22 @@ let g:currentmode={
     \ 't'  : 'Terminal '
     \}
 
-" Automatically change the statusline color depending on mode
+" Automatically change the statusline color depending on mode {{{3
 function! ChangeStatuslineColor()
   if (mode() =~# '\v(n|no)')
-    exe 'hi! StatusLine ctermfg=008 guibg=RoyalBlue2 guifg=fg'
+    exe 'hi! StatusLine ctermfg=008 guifg=RoyalBlue2 guibg=fg'
   elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
-    exe 'hi! StatusLine ctermfg=005 guibg=goldenrod2 guifg=bg'
+    exe 'hi! StatusLine ctermfg=005 guifg=goldenrod2 guibg=bg'
   elseif (mode() ==# 'i')
-    exe 'hi! StatusLine ctermfg=004 guibg=chartreuse3 guifg=bg'
+    exe 'hi! StatusLine ctermfg=004 guifg=chartreuse3 guibg=bg'
   else
-    exe 'hi! StatusLine ctermfg=006 guibg=lavender guifg=bg'
+    exe 'hi! StatusLine ctermfg=006 guifg=lavender guibg=bg'
   endif
 
   return ''
 endfunction
 
-" Find out current buffer's size and output it.
+" Find out current buffer's size and output it. {{{3
 function! FileSize()
     let bytes = getfsize(expand('%:p'))
     if (bytes >= 1024)
@@ -294,6 +274,7 @@ function! FileSize()
     endif
 endfunction
 
+" Readonly {{{3
 function! ReadOnly()
   if &readonly || !&modifiable
     return ''
@@ -301,39 +282,45 @@ function! ReadOnly()
     return ''
 endfunction
 
-hi User1 ctermfg=007
-hi User2 ctermfg=008
-hi User3 ctermfg=008
-hi User4 ctermfg=008
-hi User5 ctermfg=008
-hi User7 ctermfg=008
-hi User8 ctermfg=008
-hi User9 ctermfg=007
+" Static hilight doesn't work? {{{3
+" hi User1 ctermfg=007 guifg=#ffdad8  guibg=#880c0e
+" hi User2 ctermfg=008 guifg=#292b00  guibg=#f4f597
+" hi User3 ctermfg=008 guifg=#112605  guibg=#aefe7B
+" hi User4 ctermfg=008 guifg=#051d00  guibg=#7dcc7d
+" hi User5 ctermfg=008 guifg=#ffffff  guibg=#880c0e gui=bold
+" hi User7 ctermfg=008 guifg=RoyalBlue2  guibg=RoyalBlue2
+" hi User8 ctermfg=008 guifg=#ffffff  guibg=#810085
+" hi User9 ctermfg=007 guifg=#ffffff  guibg=#094afe
 
-" Only for Dracula colorscheme:
+" Only for Dracula colorscheme: {{{3
 if exists('g:colors_name') && g:colors_name ==# 'dracula'
 " hi! link FoldColumn User8
   hi FoldColumn term=standout ctermfg=61 ctermbg=235 guifg=#6272a4 guibg=#282a36 gui=None
 endif
 
+" Statusline {{{3
+" Powerline symbols quick ref: , , , , , , 
 set statusline=
 set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
 set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
-set statusline+=%8*\ [%n]                                " buffernr
-set statusline+=\ %7*%{CurBufIndicator('')}
-set statusline+=%8*\ %<%F\ %{ReadOnly()}\ %m\ %w\        " File+path
-set statusline+=%9*\ %=                                  " Space
+set statusline+=%0*\ %n
+set statusline+=\ %8*\ %<%F\ %{ReadOnly()}
+set statusline+=\ %0*%=                                  " Space
+set statusline+=\ %8*%k%m%r%w
+set statusline+=%0*\ %-3(%{FileSize()}%)                 " File size
 set statusline+=%8*\ %y\                                 " FileType
-set statusline+=%7*\ %{(&fenc!=#'utf-8'?&fenc:'')}
+set statusline+=%0*\ %{(&fenc!=#'utf-8'?&fenc:'')}
 set statusline+=%{&ff!=#'unix'?'['.&ff.']':''}           " Encoding & Fileformat
-set statusline+=%8*\ %-3(%{FileSize()}%)                 " File size
-set statusline+=%0*\ %3p%%\ \ %l:\ %3c\                 " Rownumber/total (%)
-"display a warning if &et is wrong, or we have mixed-indenting
+set statusline+=\ %0*col:%3c
+set statusline+=\ %2*\ :%4l/%L\ %0*
+set statusline+=\ %2p%%\ %*
+" ========================================
+"display a warning if &et is wrong, or we have mixed-indenting {{{3
 set statusline+=%#error#
 set statusline+=%{StatuslineTabWarning()}
 set statusline+=%{StatuslineTrailingSpaceWarning()}
 set statusline+=%*
-" }}}
+" }}}2
 
 set laststatus=2
 " execute "set colorcolumn=".join(range(80,335), ',')|   "Discolor every column past column 80
@@ -344,10 +331,10 @@ set noeb
 set lazyredraw
 set scrolloff=3                                " Minimum lines to keep above and below cursor
 set scrolljump=5                               " Lines to scroll when cursor leaves screen
-set shortmess+=aoOtT                           " Abbrev. of messages (avoids 'hit enter')
+set shortmess+=amroOtT                           " a doesn't add m and r despite what docs says
 " set shortmess+=filmnrxoOtT                     " Abbrev. of messages (avoids 'hit enter')
 set cursorline
-set linespace=0                                " No extra spaces between rows
+" set linespace=0                                " No extra spaces between rows
 set number                                     " Line numbers on
 set relativenumber
 set numberwidth=5
@@ -360,11 +347,9 @@ set ignorecase                                 " Case insensitive search
 set smartcase                                  " Case sensitive when uc present
 set wildmenu                                   " Show list instead of just completing
 set wildmode=list:longest,full                 " Command <Tab> completion, list matches, then longest common part, then all.
-set whichwrap=b,s,h,l,<,>,[,]                  " Backspace and cursor keys wrap too
+" set whichwrap=b,s,h,l,<,>,[,]                  " Backspace and cursor keys wrap too
 set foldenable                                 " Auto fold code
-set foldcolumn=3
-" set fdm=indent                                 " indent - cворачивание по отступам; *>
-" * manual - вручную через комманды
+set foldcolumn=2
 " set foldopen=all                             " Автооткрытие сверток при заходе в них
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
@@ -372,9 +357,9 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:⋅ " Highlight problematic whi
 
 set splitright                                 " Puts new vsplit windows to the right of the current
 set splitbelow                                 " Puts new split windows to the bottom of the current
-" }}}
 
-syntax on            " must be before colorscheme!
+syntax on                                      " must be before colorscheme!
+" /UI }}}1
 
 " GUI & Terminal settings {{{
 if s:is_gui
@@ -470,6 +455,11 @@ else
     execute 'colorscheme '.s:cs_cmder
   endif
   " }}}
+  " Disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  if &term =~ '256color'
+    set t_ut=
+  endif
 endif
 
 "}}}
@@ -632,7 +622,7 @@ endfunction " }}}
 
 " Autocommands {{{
 " --- Vim ---
-autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
+" autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
 
 " --- php ---
 autocmd FileType smarty,tpl setlocal commentstring=<!--\ %s\ -->
@@ -695,7 +685,13 @@ augroup Python " {{{
 augroup END " }}}
 " }}}
 
-" Mappings {{{
+" Commands {{{1
+" >>> Conversion between TABS ans SPACES {{{2
+command! Respace :setlocal expandtab | %retab!
+command! Retab :setlocal noexpandtab | %retab!
+" }}}1
+
+" Mappings {{{1
 " General leader maps
 nnoremap <leader>w :w<cr>
 nnoremap <leader>l :set list! list?<cr>
@@ -846,6 +842,6 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " nmap <M-s> a<C-^><Esc>
 nmap <C-Space> a<C-^><Esc>
 vmap <silent> <C-Space> <Esc>a<C-^><Esc>gv
-" }}} Mappings end
+" }}}1
 
 " vim: set sw=2 ts=4 sts=2 et tw=80 foldlevel=0 foldmethod=marker:
