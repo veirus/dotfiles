@@ -1,4 +1,4 @@
-" vimtest3 config | last edit: 2016-10-15
+" vimtest3 config | last edit: 2016-10-02
 
 " Be Improved, mapleader, OS detect, clipboard, rtp and encoding {{{
 set nocompatible
@@ -13,7 +13,7 @@ let s:is_nyaovim = exists('g:nyaovim_version')
 let s:is_gui     = has('gui_running')
 let s:is_conemu  = !empty($CONEMUBUILD)
 let $HOMEDIR     = expand('$HOME/dotfiles')
-" let $HOMEDIR     = expand('$VIM/vimfiles')    | " portability shim
+" let $HOMEDIR     = expand('$VIM/vimfiles')
 set rtp^=$HOMEDIR
 " set backupdir=~/.vim/backups
 " set directory=~/.vim/swaps
@@ -29,26 +29,45 @@ endif
 
 " Plugin Install {{{
 call plug#begin($HOMEDIR.'/plugged/')
+" == Unused plugins == {{{2
+" Plug 'junegunn/rainbow_parentheses.vim' " doesn't work?
+" Plug 'Shougo/neocomplete' {{{3
+" Plug 'Shougo/neosnippet'
+" Plug 'Shougo/neosnippet-snippets'
+" let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
+" let g:neosnippet#enable_snipmate_compatibility=1
+"
+" == Snipmate and dependencies == {{{3
+"Plug 'MarcWeber/vim-addon-mw-utils'
+"Plug 'tomtom/tlib_vim'
+"Plug 'garbas/vim-snipmate'
+"
+" Plug 'ervandew/supertab' " {{{3
+" set completeopt=longest,menuone
+" let g:SuperTabDefaultCompletionType = "context"
+" }}}3
+" Plug 'lokaltog/vim-easymotion'
+" Plug 'critiqjo/vim-bufferline'
+" Plug 'itchyny/lightline.vim'
+" Plug 'skammer/vim-css-color'
+" Plug 'tomtom/tcomment_vim'
+" Plug 'vim-scripts/Colour-Sampler-Pack'
 " == Necessity == {{{2
-
 Plug 'matchit.zip' "{{{3
   let b:match_ignorecase = 1
-
 Plug 'mhinz/vim-startify' "{{{3
- nnoremap <F1> :Startify<CR>
- let g:startify_list_order = ['sessions', 'files']
- let g:startify_session_autoload = 1
- let g:startify_session_persistence = 1
- let g:startify_session_delete_buffers = 1
- "}}}3
-
+  nnoremap <F1> :Startify<CR>
+  let g:startify_list_order = ['sessions', 'files']
+  let g:startify_session_autoload = 1
+  let g:startify_session_persistence = 1
+  let g:startify_session_delete_buffers = 1
+  "}}}3
 Plug 'tpope/vim-fugitive'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'irrationalistic/vim-tasks' " ST's PlainTasks compatible!
-
 " Ag {{{3
 Plug 'rking/ag.vim', {'on' :'Ag'} " trying this one instead of all that
 " if executable('ag')
@@ -61,49 +80,56 @@ Plug 'rking/ag.vim', {'on' :'Ag'} " trying this one instead of all that
 "   Plug 'mileszs/ack.vim', {'on' :'Ack'}
 " endif
 "}}}3
-
 Plug 'luochen1990/rainbow' "{{{3
   if isdirectory($HOMEDIR."/plugged/rainbow/")
     let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
   endif "}}}3
-
+Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind'] } " {
+if isdirectory($HOMEDIR."/plugged/nerdtree")
+  nnoremap <F2> :NERDTreeToggle<CR>
+  nnoremap <leader><F2> :NERDTreeFind<CR>
+  " map <C-e> <plug>NERDTreeTabsToggle<CR>
+  let g:NERDShutUp=1
+  let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+  let NERDTreeChDirMode=0
+  let NERDTreeMouseMode=2
+  let NERDTreeQuitOnOpen=1
+  let NERDTreeShowHidden=1
+  let NERDTreeShowBookmarks=1
+  let NERDTreeShowLineNumbers=1
+  let NERDTreeKeepTreeInNewTab=1
+  let g:nerdtree_tabs_open_on_gui_startup=0
+endif "}
+" }}
 " == Colorschemes == {{{2
 " Plug 'chriskempson/base16-vim'
 " Plug 'chriskempson/vim-tomorrow-theme'
-" Plug 'junegunn/seoul256.vim'
-Plug 'dracula/vim'
+" Plug 'dracula/vim'
 Plug 'jacoborus/tender'
+" Plug 'junegunn/seoul256.vim'
 Plug 'tomasr/molokai'
 Plug 'sjl/badwolf'
 Plug 'nanotech/jellybeans.vim'
 Plug 'KabbAmine/yowish.vim'
-Plug 'zeis/vim-kolor'
-"{{{3 kolor settings
-   let g:kolor_underlined=1
+" Plug 'zeis/vim-kolor' "{{{3
+"   let g:kolor_underlined=1
 "}}}3
 Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
-let s:cs_wingui='molokai'
+let s:cs_wingui='tender'
 let s:cs_xterm='jellybeans'
 let s:cs_nvim='molokai'
-let s:cs_cmder='badwolf'
-
+let s:cs_cmder='kolor'
 " == new stuff == {{{2
 " Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
-Plug 'KabbAmine/gulp-vim'
-Plug 'skywind3000/asyncrun.vim'
 Plug 'konfekt/fastfold'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'jiangmiao/auto-pairs'
 Plug 'kana/vim-textobj-user'
 Plug 'jceb/vim-textobj-uri'
-Plug 'kana/vim-textobj-fold'
-Plug 'kana/vim-textobj-function'
-Plug 'kana/vim-textobj-indent'
 Plug 'osyo-manga/vim-over', {'on':'OverCommandLine'}
 Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
-
 Plug 'nathanaelkane/vim-indent-guides' "{{{3
   let g:indent_guides_start_level = 2
   let g:indent_guides_guide_size = 1
@@ -117,19 +143,16 @@ Plug 'nathanaelkane/vim-indent-guides' "{{{3
     autocmd VimEnter,Colorscheme * call s:indent_set_console_colors()
   endif
 " }}}3
-
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } "{{{3
   " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
   xmap <Enter> <Plug>(EasyAlign)
   " Start interactive EasyAlign for a motion/text object (e.g. gaip)
   nmap <Leader>a <Plug>(EasyAlign)
 " }}}3
-
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-markdown', {'for': ['markdown', 'md', 'mdown', 'mkd', 'mkdn']}
 Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
   let g:vim_json_syntax_conceal = 0
-
 " == < webdev \> == {{{2
 Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
 Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass']}
@@ -156,7 +179,6 @@ Plug 'mattn/emmet-vim', {'for': ['html','smarty','pug','php','xml','xsl','xslt',
   autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
   autocmd FileType html,css,sass,less,scss imap <buffer><expr><tab> <sid>zen_html_tab()
 "}}}3
-
 " == Nyaovim == {{{2
 if s:is_nyaovim
     " echom "nyaovim version: ".g:nyaovim_version
@@ -168,7 +190,8 @@ if s:is_nyaovim
     Plug 'MaxMEllon/nyaovim-nicolive-comment-viewer', {'do': 'npm install -g nicolive@0.0.4'}
 endif
 "}}}2
-call plug#end() " required }}}
+call plug#end()
+" required }}}
 
 " General {{{
 " Список кодировок для автоматического определения, в порядке предпочтения
@@ -208,126 +231,26 @@ set history=100
   set softtabstop=4
   set shiftwidth=4               " размер отступов
   set smarttab
-  set noexpandtab
   " set expandtab
   set nojoinspaces               " Prevents inserting two spaces after punctuation on a join (J)
   set backspace=indent,eol,start " Backspace for dummies
 " }}}
 
 " UI {{{1
-" Statusline {{{
-" Powerline symbols quick ref: , , , , , , 
-" set statusline=                               | " clear the statusline for when vimrc is reloaded
-" set statusline+=%1*\ %n
-" set statusline+=\ %7*%{CurBufIndicator('')}%<%2*
-" set statusline+=\ %{&ff}\ %3*
-" set statusline+=\ %{&fenc!=#''?&fenc:&enc} " from Lightline plugin
-" set statusline+=\ %#Directory#\ %{&ft!=''?','.&ft:'empty'}
-" " set statusline+=\ %#SignColumn#\ %{&ft!=''?','.&ft:'empty'}
-" set statusline+=\ %{CurBufIndicator('')}%#Directory#
-" set statusline+=\ %{&mod?'[+]':''}
-" set statusline+=\ %-.69f%=
-" set statusline+=\ %k\ %m%r%w
-" set statusline+=\ %3*\ col:%3c
-" set statusline+=\ %2*\ :%4l/%L\ %1*
-" set statusline+=\ %2p%%\ %*
-" }}}
-
-" New Optimized Statusline {{{
-let g:currentmode={
-    \ 'n'  : 'N ',
-    \ 'no' : 'N·Operator Pending ',
-    \ 'v'  : 'V ',
-    \ 'V'  : 'V·Line ',
-    \ '^V' : 'V·Block ',
-    \ 's'  : 'Select ',
-    \ 'S'  : 'S·Line ',
-    \ '^S' : 'S·Block ',
-    \ 'i'  : 'I ',
-    \ 'R'  : 'R ',
-    \ 'Rv' : 'V·Replace ',
-    \ 'c'  : 'Command ',
-    \ 'cv' : 'Vim Ex ',
-    \ 'ce' : 'Ex ',
-    \ 'r'  : 'Prompt ',
-    \ 'rm' : 'More ',
-    \ 'r?' : 'Confirm ',
-    \ '!'  : 'Shell ',
-    \ 't'  : 'Terminal '
-    \}
-
-" Automatically change the statusline color depending on mode
-function! ChangeStatuslineColor()
-  if (mode() =~# '\v(n|no)')
-    exe 'hi! StatusLine ctermfg=008 guibg=RoyalBlue2 guifg=fg'
-  elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
-    exe 'hi! StatusLine ctermfg=005 guibg=goldenrod2 guifg=bg'
-  elseif (mode() ==# 'i')
-    exe 'hi! StatusLine ctermfg=004 guibg=chartreuse3 guifg=bg'
-  else
-    exe 'hi! StatusLine ctermfg=006 guibg=lavender guifg=bg'
-  endif
-
-  return ''
-endfunction
-
-" Find out current buffer's size and output it.
-function! FileSize()
-    let bytes = getfsize(expand('%:p'))
-    if (bytes >= 1024)
-        let kbytes = bytes / 1024
-    endif
-    if (exists('kbytes') && kbytes >= 1000)
-        let mbytes = kbytes / 1000
-    endif
-
-    if bytes <= 0
-        return '0'
-    endif
-
-    if (exists('mbytes'))
-        return mbytes . 'MB '
-    elseif (exists('kbytes'))
-        return kbytes . 'KB '
-    else
-        return bytes . 'B '
-    endif
-endfunction
-
-function! ReadOnly()
-  if &readonly || !&modifiable
-    return ''
-  else
-    return ''
-endfunction
-
-hi User1 ctermfg=007
-hi User2 ctermfg=008
-hi User3 ctermfg=008
-hi User4 ctermfg=008
-hi User5 ctermfg=008
-hi User7 ctermfg=008
-hi User8 ctermfg=008
-hi User9 ctermfg=007
-
-" Only for Dracula colorscheme:
-if exists('g:colors_name') && g:colors_name ==# 'dracula'
-" hi! link FoldColumn User8
-  hi FoldColumn term=standout ctermfg=61 ctermbg=235 guifg=#6272a4 guibg=#282a36 gui=None
-endif
-
-set statusline=
-set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
-set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
-set statusline+=%8*\ [%n]                                " buffernr
-set statusline+=\ %7*%{CurBufIndicator('')}
-set statusline+=%8*\ %<%F\ %{ReadOnly()}\ %m\ %w\        " File+path
-set statusline+=%9*\ %=                                  " Space
-set statusline+=%8*\ %y\                                 " FileType
-set statusline+=%7*\ %{(&fenc!=#'utf-8'?&fenc:'')}
-set statusline+=%{&ff!=#'unix'?'['.&ff.']':''}           " Encoding & Fileformat
-set statusline+=%8*\ %-3(%{FileSize()}%)                 " File size
-set statusline+=%0*\ %3p%%\ \ %l:\ %3c\                 " Rownumber/total (%)
+" Statusline {{{ Powerline symbols quick ref: , , , , , , 
+set statusline=                               | " clear the statusline for when vimrc is reloaded
+set statusline+=%1*\ %n
+set statusline+=\ %7*%{CurBufIndicator('')}%<%2*
+set statusline+=\ %{&ff}\ %3*
+set statusline+=\ %{&fenc!=#''?&fenc:&enc} " from Lightline plugin
+set statusline+=\ %#Directory#\ %{&ft!=''?','.&ft:'empty'}
+" set statusline+=\ %#SignColumn#\ %{&ft!=''?','.&ft:'empty'}
+set statusline+=\ %{CurBufIndicator('')}%#Directory#
+set statusline+=\ %{&mod?'[+]':''}\ %-.69f%=
+set statusline+=\ %k\ %m%r%w
+set statusline+=\ %3*\ col:%3c
+set statusline+=\ %2*\ :%4l/%L\ %1*
+set statusline+=\ %2p%%\ %*
 "display a warning if &et is wrong, or we have mixed-indenting
 set statusline+=%#error#
 set statusline+=%{StatuslineTabWarning()}
@@ -409,8 +332,6 @@ if s:is_gui
   " }}}
 else
   set vb t_vb=
-  set ttimeout
-  set ttimeoutlen=100
   " neovim {{{
   if s:is_nvim
     let s:editor_root=expand("~/AppData/Local/nvim")
@@ -578,9 +499,6 @@ function! BufNewFile_PY()
     $put = ''
     normal G
 endfunction " }}}
-function! SkeletonPY() "{{{
-  exe '0r $HOME\vimfiles\skeleton.py | norm 2j'
-endfunction "}}}
 " Current Buffer Indicator @ VimBuddy {{{
 function! CurBufIndicator(sym)
   if !exists('g:actual_curbuf')
@@ -596,36 +514,24 @@ endfunction
 " }}}
 " Statusline colorize {{{
 function! ColorStatusline() abort
-  hi User1 ctermfg=231 ctermbg=57 guifg=#FFFFFF guibg=#483D8B gui=bold
+  hi User1 ctermfg=231 ctermbg=60 guifg=#FFFFFF guibg=#483D8B gui=bold
   hi User2 term=None ctermfg=231 ctermbg=62 guifg=#cccccc guibg=#6A5ACD gui=None
   hi User3 ctermfg=16 ctermbg=99 guifg=#cccccc guibg=#7B68EE gui=None
   hi User4 term=bold,reverse cterm=bold ctermfg=231 ctermbg=236 gui=bold guifg=#f8f8f2 guibg=#64666d
   hi User5 ctermfg=15 ctermbg=8 guifg=#666666 guibg=#282a36
   hi User6 term=standout ctermfg=246 ctermbg=235 guifg=#909194 guibg=#44475a
-  hi User7 term=standout ctermfg=57 ctermbg=62 guifg=#483D8B guibg=#6A5ACD
+  hi User7 term=standout ctermfg=60 guifg=#483D8B guibg=#6A5ACD
   hi User8 ctermfg=235 guifg=#483D8B
   " hi! link FoldColumn User8
   " Only for Dracula colorscheme:
-  " if exists('g:colors_name') && g:colors_name ==# 'dracula'
-  "   hi FoldColumn term=standout ctermfg=61 ctermbg=235 guifg=#6272a4 guibg=#282a36
-  " endif
-endfunction " }}}
-" Statusline insert mode indication {{{
-function! InsertModeStatusline(insert) abort
-  if a:insert == 0
-    hi User1 ctermfg=231 ctermbg=57 guifg=#FFFFFF guibg=#483D8B gui=bold
-    hi User7 term=standout ctermfg=57 ctermbg=62 guifg=#483D8B guibg=#6A5ACD
-  else
-    hi User1 term=reverse ctermbg=5 guifg=black guibg=lavender guisp=Magenta
-    hi User7 term=reverse ctermfg=5 ctermbg=62 guifg=lavender guisp=Magenta
-  endif
+  " hi FoldColumn term=standout ctermfg=61 ctermbg=235 guifg=#6272a4 guibg=#282a36
 endfunction " }}}
 " Decolorize the statusline {{{
 function! DeColorStatusline() abort
     hi User1 term=bold,reverse cterm=bold ctermfg=231 ctermbg=236 gui=bold guifg=#f8f8f2 guibg=#64666d
     hi User2 ctermfg=15 ctermbg=8 guifg=#666666 guibg=#282a36
     hi User3 term=standout ctermfg=246 ctermbg=235 guifg=#909194 guibg=#44475a
-    hi User7 term=standout ctermfg=236 ctermbg=8 guifg=#64666D guibg=#282a36
+    hi User7 term=standout ctermfg=60 guifg=#64666D guibg=#282a36
 endfunction " }}}
 
 " }}}
@@ -658,18 +564,12 @@ augroup highlight_follows_focus
 augroup END
 " }}}
 " Focus~ Statusline {{{
-" augroup focus_statusline
-"     autocmd!
-"     autocmd BufEnter,FocusGained,VimEnter,WinEnter * call ColorStatusline()
-"     autocmd BufLeave,FocusLost,WinLeave * call DeColorStatusline()
-" augroup END
+augroup focus_statusline
+    autocmd!
+    autocmd BufEnter,FocusGained,VimEnter,WinEnter * call ColorStatusline()
+    autocmd BufLeave,FocusLost,WinLeave * call DeColorStatusline()
+augroup END
 "}}}
-" Insert mode statusline indication (from vimwiki) {{{
-" augroup statusline_mode
-"   autocmd!
-"   autocmd InsertEnter * call InsertModeStatusline(1)
-"   autocmd InsertLeave * call InsertModeStatusline(0)
-" augroup END " }}}
 " Autosource for _vimrc {{{
 augroup reload_vimrc
     autocmd!
@@ -680,9 +580,8 @@ augroup reload_vimrc
 augroup END " }}}
 augroup Python " {{{
     autocmd!
-    " autocmd BufNewFile *.py call BufNewFile_PY()
-    autocmd BufNewFile *.py call SkeletonPY()
-    autocmd BufNewFile *.pyw call SkeletonPY()
+    autocmd BufNewFile *.py call BufNewFile_PY()
+    autocmd BufNewFile *.pyw call BufNewFile_PY()
     "Перед сохранением вырезаем пробелы на концах (только в .py файлах)
     autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
     autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8
@@ -700,8 +599,8 @@ augroup END " }}}
 nnoremap <leader>w :w<cr>
 nnoremap <leader>l :set list! list?<cr>
 nnoremap <silent> <leader>r :call Cycle_numbering()<CR>
-" nnoremap <leader><F5> :wa<cr> :mksession! ~/vimtest3/lsession.vim<cr>
-" nnoremap <leader><F9> :so ~/vimtest3/lsession.vim<cr> :echo '* Session restored! *'<cr>
+nnoremap <leader><F5> :wa<cr> :mksession! ~/vimtest3/lsession.vim<cr>
+nnoremap <leader><F9> :so ~/vimtest3/lsession.vim<cr> :echo '* Session restored! *'<cr>
 nnoremap <leader><F11> :so $MYVIMRC<CR> :echo "* .vimrc loaded *"<CR>
 nnoremap <Leader><F12> :vsp $MYVIMRC<CR>
 " compile LESS
