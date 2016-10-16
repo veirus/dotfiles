@@ -30,31 +30,31 @@ endif
 " Plugin Install {{{
 call plug#begin($HOMEDIR.'/plugged/')
 " == Already in pack/start dir: == {{{2
-" Plug 'KabbAmine/gulp-vim'
-" Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
-" Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
-" Plug 'tpope/vim-commentary'
-" Plug 'tpope/vim-endwise'
-" Plug 'tpope/vim-surround'
-"Plug 'mattn/emmet-vim', {'for': ['html','smarty','pug','php','xml','xsl','xslt','xsd','css','sass','scss','less','mustache','handlebars']} "{{{3
-"" let g:user_emmet_install_global = 0
-"" autocmd FileType html,css,less EmmetInstall
-"" let g:user_emmet_leader_key='<M-,>'
-"" let g:user_emmet_settings = {
-""  'php' : {
-""   \        'extends' : 'html',
-""   \        'filters' : 'html,c',
-""  },
-"" }
-"  function! s:zen_html_tab()
-"    if !emmet#isExpandable()
-"      return "\<plug>(emmet-move-next)"
-"    endif
-"    return "\<plug>(emmet-expand-abbr)"
-"  endfunction
-"  autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
-"  autocmd FileType html,css,sass,less,scss imap <buffer><expr><tab> <sid>zen_html_tab()
-""}}}3
+Plug 'KabbAmine/gulp-vim'
+Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
+Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-surround'
+Plug 'mattn/emmet-vim', {'for': ['html','smarty','pug','php','xml','xsl','xslt','xsd','css','sass','scss','less','mustache','handlebars']} "{{{3
+" let g:user_emmet_install_global = 0
+" autocmd FileType html,css,less EmmetInstall
+" let g:user_emmet_leader_key='<M-,>'
+" let g:user_emmet_settings = {
+"  'php' : {
+"   \        'extends' : 'html',
+"   \        'filters' : 'html,c',
+"  },
+" }
+  function! s:zen_html_tab()
+    if !emmet#isExpandable()
+      return "\<plug>(emmet-move-next)"
+    endif
+    return "\<plug>(emmet-expand-abbr)"
+  endfunction
+  autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
+  autocmd FileType html,css,sass,less,scss imap <buffer><expr><tab> <sid>zen_html_tab()
+"}}}3
 
 " == Necessity == {{{2
 Plug 'matchit.zip' "{{{3
@@ -163,8 +163,7 @@ if s:is_nyaovim
     " Plug 'rhysd/nyaovim-running-gopher'
     " Plug 'rhysd/nyaovim-tree-view'
     Plug 'MaxMEllon/nyaovim-nicolive-comment-viewer', {'do': 'npm install -g nicolive@0.0.4'}
-endif
-"}}}2
+endif "}}}2
 call plug#end() " required }}}
 
 " General {{{
@@ -185,6 +184,7 @@ set imsearch=0                  " раскладка по умолчанию д�
 
 set ssop-=options         " do not store global and local values in a session
 filetype plugin indent on " Automatically detect file types.
+syntax on                 " must be before colorscheme!
 set autochdir             " Автопереключение рабочей папки.
 set hidden                " Allow buffer switching without saving
 set nobackup              " Отключить создание файлов бекапа
@@ -212,8 +212,8 @@ set history=100
 " }}}
 
 " UI {{{1
-" New Optimized Statusline {{{2
-" Modelist {{{3
+" New Optimized (?) Statusline {{{2
+" Mode list {{{3
 let g:currentmode={
     \ 'n'  : 'N ',
     \ 'no' : 'N·Operator Pending ',
@@ -236,10 +236,17 @@ let g:currentmode={
     \ 't'  : 'Terminal '
     \}
 
+
 " Automatically change the statusline color depending on mode {{{3
 function! ChangeStatuslineColor()
+   " Inverted Error styling, for left-hand side "Powerline" triangle.
+  let l:prefix=has('gui') || has('termguicolors') ? 'gui' : 'cterm'
+  let l:fg=synIDattr(synIDtrans(hlID('StatusLine')), 'fg', l:prefix)
+  let l:bg=synIDattr(synIDtrans(hlID('StatusLine')), 'bg', l:prefix)
+  execute 'highlight! User4 ' . l:prefix . 'fg=' . l:fg . ' ' . l:prefix . 'bg=' . l:bg
+  execute 'highlight! User5 ' . l:prefix . 'fg=' . l:bg . ' ' . l:prefix . 'bg=' . l:bg
   if (mode() =~# '\v(n|no)')
-    exe 'hi! StatusLine ctermfg=008 guifg=RoyalBlue2 guibg=fg'
+    exe 'hi! StatusLine ctermfg=008 guifg=RoyalBlue2 guibg=bg'
   elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
     exe 'hi! StatusLine ctermfg=005 guifg=goldenrod2 guibg=bg'
   elseif (mode() ==# 'i')
@@ -282,7 +289,7 @@ function! ReadOnly()
     return ''
 endfunction
 
-" Static hilight doesn't work? {{{3
+" Static highlight doesn't work? {{{3
 " hi User1 ctermfg=007 guifg=#ffdad8  guibg=#880c0e
 " hi User2 ctermfg=008 guifg=#292b00  guibg=#f4f597
 " hi User3 ctermfg=008 guifg=#112605  guibg=#aefe7B
@@ -301,19 +308,20 @@ endif
 " Statusline {{{3
 " Powerline symbols quick ref: , , , , , , 
 set statusline=
-set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
-set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
+set statusline+=%{ChangeStatuslineColor()}             " Changing the statusline color
+set statusline+=%0*\ %{toupper(g:currentmode[mode()])} " Current mode
 set statusline+=%0*\ %n
-set statusline+=\ %8*\ %<%F\ %{ReadOnly()}
-set statusline+=\ %0*%=                                  " Space
+set statusline+=\ %4*%*
+set statusline+=%8*\ %<%F\ %{ReadOnly()}
+set statusline+=%5*\ %0*%=                            " Space
 set statusline+=\ %8*%k%m%r%w
-set statusline+=%0*\ %-3(%{FileSize()}%)                 " File size
-set statusline+=%8*\ %y\                                 " FileType
+set statusline+=%0*\ %-3(%{FileSize()}%)              " File size
+set statusline+=%0*%8*\ %y\ %4*                      " FileType
 set statusline+=%0*\ %{(&fenc!=#'utf-8'?&fenc:'')}
-set statusline+=%{&ff!=#'unix'?'['.&ff.']':''}           " Encoding & Fileformat
-set statusline+=\ %0*col:%3c
-set statusline+=\ %2*\ :%4l/%L\ %0*
-set statusline+=\ %2p%%\ %*
+set statusline+=%{&ff!=#'unix'?'['.&ff.']':''}         " Encoding & Fileformat
+set statusline+=%0*\col:%3c
+set statusline+=\ %2*\ :%4l/%L\ %4*
+set statusline+=%0*\ %2p%%\ %*
 " ========================================
 "display a warning if &et is wrong, or we have mixed-indenting {{{3
 set statusline+=%#error#
@@ -322,6 +330,10 @@ set statusline+=%{StatuslineTrailingSpaceWarning()}
 set statusline+=%*
 " }}}2
 
+if has("directx") && $VIM_USE_DIRECTX != '0'
+  set renderoptions=type:directx
+  let s:use_directx=1
+endif
 set laststatus=2
 " execute "set colorcolumn=".join(range(80,335), ',')|   "Discolor every column past column 80
 set colorcolumn=+1
@@ -358,14 +370,13 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:⋅ " Highlight problematic whi
 set splitright                                 " Puts new vsplit windows to the right of the current
 set splitbelow                                 " Puts new split windows to the bottom of the current
 
-syntax on                                      " must be before colorscheme!
 " /UI }}}1
 
-" GUI & Terminal settings {{{
+" GUI & Terminal settings {{{1
 if s:is_gui
   if s:is_macvim
     set guifont=Consolas:h15
-  " Win GUI settings {{{
+  " Win GUI settings {{{2
   elseif s:is_wingui
     set guifont=DejaVu_Sans_Mono_for_Powerline:h11:cRUSSIAN
     " Меню выбора кодировки текста (utf8, cp1251, koi8-r, cp866)
@@ -375,8 +386,8 @@ if s:is_gui
     menu Кодировка.cp866 :e ++enc=cp866<CR>
     menu Кодировка.koi8-r :e ++enc=koi8-r<CR>
     execute 'colorscheme '.s:cs_wingui
-  endif " }}}
-  " echom "^General GUI block^" {{{
+  endif " }}}2
+  " echom "^General GUI block^" {{{2
   " currently is go=gmtch
   if s:is_conemu
     set guioptions+=h
@@ -391,12 +402,13 @@ if s:is_gui
   set noshowmode
   set ballooneval
   autocmd GUIEnter * set vb t_vb= lines=40 columns=103 linespace=0
-  " }}}
+        " \ | call libcallnr('maximize', 'Maximize', 1)
+  " }}}2
 else
   set vb t_vb=
   set ttimeout
   set ttimeoutlen=100
-  " neovim {{{
+  " neovim {{{2
   if s:is_nvim
     let s:editor_root=expand("~/AppData/Local/nvim")
     let g:python_host_prog = '/usr/bin/python'
@@ -441,9 +453,9 @@ else
       " GuiFont Ubuntu Mono derivative Powerline:h12
     endif
     execute 'colorscheme '.s:cs_nvim
-  endif " }}}
+  endif " }}}2
 
-  " ConEmu terminal settings {{{
+  " ConEmu terminal settings {{{2
   if s:is_conemu
     " it's already set above
     " set vb t_vb=
@@ -454,7 +466,7 @@ else
     let &t_AF="\e[38;5;%dm"
     execute 'colorscheme '.s:cs_cmder
   endif
-  " }}}
+  " }}}2
   " Disable Background Color Erase (BCE) so that color schemes
   " render properly when inside 256-color tmux and GNU screen.
   if &term =~ '256color'
@@ -621,8 +633,6 @@ endfunction " }}}
 " }}}
 
 " Autocommands {{{
-" --- Vim ---
-" autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
 
 " --- php ---
 autocmd FileType smarty,tpl setlocal commentstring=<!--\ %s\ -->
