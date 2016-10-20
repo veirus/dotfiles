@@ -29,87 +29,9 @@ endif
 
 " Plugin Install {{{
 call plug#begin($HOMEDIR.'/plugged/')
-" == Already in pack/start dir: == {{{2
-Plug 'KabbAmine/gulp-vim'
-Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
-Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-surround'
-Plug 'mattn/emmet-vim', {'for': ['html','smarty','pug','php','xml','xsl','xslt','xsd','css','sass','scss','less','mustache','handlebars']} "{{{3
-" let g:user_emmet_install_global = 0
-" autocmd FileType html,css,less EmmetInstall
-" let g:user_emmet_leader_key='<M-,>'
-" let g:user_emmet_settings = {
-"  'php' : {
-"   \        'extends' : 'html',
-"   \        'filters' : 'html,c',
-"  },
-" }
-  function! s:zen_html_tab()
-    if !emmet#isExpandable()
-      return "\<plug>(emmet-move-next)"
-    endif
-    return "\<plug>(emmet-expand-abbr)"
-  endfunction
-  autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
-  autocmd FileType html,css,sass,less,scss imap <buffer><expr><tab> <sid>zen_html_tab()
-"}}}3
-
-" == Necessity == {{{2
-Plug 'matchit.zip' "{{{3
-  let b:match_ignorecase = 1
-
-Plug 'mhinz/vim-startify' "{{{3
- nnoremap <F1> :Startify<CR>
- let g:startify_list_order = ['sessions', 'files']
- let g:startify_session_autoload = 1
- let g:startify_session_persistence = 1
- let g:startify_session_delete_buffers = 1
- "}}}3
-Plug 'luochen1990/rainbow' "{{{3
-  if isdirectory($HOMEDIR."/plugged/rainbow/")
-    let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-  endif "}}}3
-" Ag {{{3
-Plug 'rking/ag.vim', {'on' :'Ag'} " trying this one instead of all that
-" if executable('ag')
-"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
-"   let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
-" elseif executable('ack-grep')
-"   let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
-" elseif executable('ack')
-"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
-" endif
-"}}}3
-Plug 'tpope/vim-fugitive'
-Plug 'justinmk/vim-sneak'
-Plug 'tpope/vim-repeat'
-Plug 'irrationalistic/vim-tasks' " ST's PlainTasks compatible!
-
-" == Colorschemes == {{{2
-" Plug 'chriskempson/base16-vim'
-" Plug 'chriskempson/vim-tomorrow-theme'
-" Plug 'junegunn/seoul256.vim'
-Plug 'dracula/vim'
-Plug 'jacoborus/tender'
-Plug 'tomasr/molokai'
-Plug 'sjl/badwolf'
-Plug 'nanotech/jellybeans.vim'
-Plug 'KabbAmine/yowish.vim'
-Plug 'zeis/vim-kolor'
-"{{{3 kolor settings
-   let g:kolor_underlined=1
-"}}}3
-Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
-Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
-let s:cs_wingui='molokai'
-let s:cs_xterm='jellybeans'
-let s:cs_nvim='molokai'
-let s:cs_cmder='badwolf'
-
 " == new stuff == {{{2
+Plug 'tyru/open-browser.vim'
+Plug 'junegunn/vim-emoji'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'konfekt/fastfold'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -148,6 +70,78 @@ Plug 'tpope/vim-markdown', {'for': ['markdown', 'md', 'mdown', 'mkd', 'mkdn']}
 Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
   let g:vim_json_syntax_conceal = 0
 
+" == Already in pack/start dir: == {{{2
+Plug 'KabbAmine/gulp-vim'
+Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
+" Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-surround'
+Plug 'mattn/emmet-vim', {'for': ['html','smarty','pug','php','xml','xsl','xslt','xsd','css','sass','scss','less','mustache','handlebars']} "{{{3
+  function! s:zen_html_tab()
+    if !emmet#isExpandable()
+      return "\<plug>(emmet-move-next)"
+    endif
+    return "\<plug>(emmet-expand-abbr)"
+  endfunction
+  autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
+  autocmd FileType html,css,sass,less,scss imap <buffer><expr><tab> <sid>zen_html_tab()
+"}}}3
+
+" == Necessity == {{{2
+Plug 'matchit.zip' "{{{3
+  let b:match_ignorecase = 1
+
+Plug 'mhinz/vim-startify' "{{{3
+ nnoremap <F1> :Startify<CR>
+ let g:startify_list_order = ['files', 'sessions']
+ let g:startify_session_autoload = 1
+ let g:startify_session_persistence = 1
+ let g:startify_session_delete_buffers = 1
+ "}}}3
+Plug 'luochen1990/rainbow' "{{{3
+  if isdirectory($HOMEDIR."/plugged/rainbow/")
+    let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+  endif "}}}3
+" Ag {{{3
+Plug 'rking/ag.vim', {'on' :'Ag'} " trying this one instead of all that
+" if executable('ag')
+"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
+"   let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+" elseif executable('ack-grep')
+"   let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
+" elseif executable('ack')
+"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
+" endif
+"}}}3
+Plug 'tpope/vim-fugitive'
+Plug 'justinmk/vim-sneak'
+  let g:sneak#streak=1
+Plug 'tpope/vim-repeat'
+Plug 'irrationalistic/vim-tasks' " ST's PlainTasks compatible!
+
+" == Colorschemes == {{{2
+" Plug 'chriskempson/base16-vim'
+" Plug 'chriskempson/vim-tomorrow-theme'
+" Plug 'junegunn/seoul256.vim'
+Plug 'dracula/vim'
+Plug 'jacoborus/tender'
+Plug 'tomasr/molokai'
+Plug 'sjl/badwolf'
+Plug 'nanotech/jellybeans.vim'
+Plug 'KabbAmine/yowish.vim'
+Plug 'zeis/vim-kolor'
+"{{{3 kolor settings
+   let g:kolor_underlined=1
+"}}}3
+Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
+Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
+let s:cs_wingui='molokai'
+let s:cs_xterm='jellybeans'
+let s:cs_nvim='molokai'
+let s:cs_cmder='badwolf'
+
 " == < webdev \> == {{{2
 Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass']}
 Plug 'groenewege/vim-less', { 'for': 'less' }
@@ -173,14 +167,14 @@ set fileencodings=utf-8,cp1251,utf-16le,cp866,koi8r,ucs-2le
 if &termencoding == ""
   let &termencoding = &encoding
 else
-  set termencoding=utf-8                      " set terminal encoding
+  set termencoding=utf-8  " set terminal encoding
 endif
-set fileencoding=utf-8                      " set save encoding
+set fileencoding=utf-8    " set save encoding
 scriptencoding utf-8
 set iskeyword=@,a-z,A-Z,48-57,_,128-175,192-255
 set keymap=russian-jcukenwin
-set iminsert=0                  " раскладка по умолчанию для ввода - английская
-set imsearch=0                  " раскладка по умолчанию для поиска - английская
+set iminsert=0            " раскладка по умолчанию для ввода - английская
+set imsearch=0            " раскладка по умолчанию для поиска - английская
 
 set ssop-=options         " do not store global and local values in a session
 filetype plugin indent on " Automatically detect file types.
@@ -208,6 +202,7 @@ set history=100
   set noexpandtab
   " set expandtab
   set nojoinspaces               " Prevents inserting two spaces after punctuation on a join (J)
+  set formatoptions+=j           " Delete comment character when joining commented lines
   set backspace=indent,eol,start " Backspace for dummies
 " }}}
 
@@ -237,16 +232,32 @@ let g:currentmode={
     \}
 
 
+" Highlight statusline {{{3
+function! ChSlCl()
+    " Inverted Error styling, for left-hand side "Powerline" triangle.
+    " works only instide the function, constantly recoloring, i guess.
+  let l:prefix=has('gui') || has('termguicolors') ? 'gui' : 'cterm'
+  let l:fg=synIDattr(synIDtrans(hlID('StatusLine')), 'fg', l:prefix)
+  let l:bg=synIDattr(synIDtrans(hlID('TabLineFill')), 'bg', l:prefix)
+    exe 'hi! StatusLine ctermfg=005 guifg=goldenrod2 guibg='.l:bg
+  execute 'highlight! User4 ' . l:prefix . 'fg=' . l:fg . ' ' . l:prefix . 'bg=' . l:bg
+  " execute 'highlight! User5 ' . l:prefix . 'fg=' . l:bg . ' ' . l:prefix . 'bg=' . l:fg
+  return ''
+endfunction
+
 " Automatically change the statusline color depending on mode {{{3
 function! ChangeStatuslineColor()
    " Inverted Error styling, for left-hand side "Powerline" triangle.
+   " works only instide the function, constantly recoloring, i guess.
   let l:prefix=has('gui') || has('termguicolors') ? 'gui' : 'cterm'
   let l:fg=synIDattr(synIDtrans(hlID('StatusLine')), 'fg', l:prefix)
-  let l:bg=synIDattr(synIDtrans(hlID('StatusLine')), 'bg', l:prefix)
+  let l:bg=synIDattr(synIDtrans(hlID('TabLineFill')), 'bg', l:prefix)
   execute 'highlight! User4 ' . l:prefix . 'fg=' . l:fg . ' ' . l:prefix . 'bg=' . l:bg
-  execute 'highlight! User5 ' . l:prefix . 'fg=' . l:bg . ' ' . l:prefix . 'bg=' . l:bg
+  " execute 'highlight! User5 ' . l:prefix . 'fg=' . l:bg . ' ' . l:prefix . 'bg=' . l:bg
+  execute 'highlight! link User5 TabLineFill'
+  " ========================================
   if (mode() =~# '\v(n|no)')
-    exe 'hi! StatusLine ctermfg=008 guifg=RoyalBlue2 guibg=bg'
+    exe 'hi! StatusLine ctermfg=008 guifg=RoyalBlue2 guibg='.l:bg
   elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
     exe 'hi! StatusLine ctermfg=005 guifg=goldenrod2 guibg=bg'
   elseif (mode() ==# 'i')
@@ -289,15 +300,6 @@ function! ReadOnly()
     return ''
 endfunction
 
-" Static highlight doesn't work? {{{3
-" hi User1 ctermfg=007 guifg=#ffdad8  guibg=#880c0e
-" hi User2 ctermfg=008 guifg=#292b00  guibg=#f4f597
-" hi User3 ctermfg=008 guifg=#112605  guibg=#aefe7B
-" hi User4 ctermfg=008 guifg=#051d00  guibg=#7dcc7d
-" hi User5 ctermfg=008 guifg=#ffffff  guibg=#880c0e gui=bold
-" hi User7 ctermfg=008 guifg=RoyalBlue2  guibg=RoyalBlue2
-" hi User8 ctermfg=008 guifg=#ffffff  guibg=#810085
-" hi User9 ctermfg=007 guifg=#ffffff  guibg=#094afe
 
 " Only for Dracula colorscheme: {{{3
 if exists('g:colors_name') && g:colors_name ==# 'dracula'
@@ -305,23 +307,25 @@ if exists('g:colors_name') && g:colors_name ==# 'dracula'
   hi FoldColumn term=standout ctermfg=61 ctermbg=235 guifg=#6272a4 guibg=#282a36 gui=None
 endif
 
-" Statusline {{{3
-" Powerline symbols quick ref: , , , , , , 
+" Actual Statusline {{{3
+" Powerline symbols quick ref:
+"  > Triangle U+e0b0,  > U+e0b1,  < Triangle U+e0b2,
+"  < U+e0b3,  Git U+e0a0,  LN U+e0a1,  Lock U+e0a2
 set statusline=
-set statusline+=%{ChangeStatuslineColor()}             " Changing the statusline color
+set statusline+=%{ChSlCl()}
+" set statusline+=%{ChangeStatuslineColor()}             " Changing the statusline color
 set statusline+=%0*\ %{toupper(g:currentmode[mode()])} " Current mode
 set statusline+=%0*\ %n
 set statusline+=\ %4*%*
-set statusline+=%8*\ %<%F\ %{ReadOnly()}
-set statusline+=%5*\ %0*%=                            " Space
-set statusline+=\ %8*%k%m%r%w
-set statusline+=%0*\ %-3(%{FileSize()}%)              " File size
-set statusline+=%0*%8*\ %y\ %4*                      " FileType
-set statusline+=%0*\ %{(&fenc!=#'utf-8'?&fenc:'')}
-set statusline+=%{&ff!=#'unix'?'['.&ff.']':''}         " Encoding & Fileformat
-set statusline+=%0*\col:%3c
-set statusline+=\ %2*\ :%4l/%L\ %4*
-set statusline+=%0*\ %2p%%\ %*
+set statusline+=%7*\ %<%F\ %{ReadOnly()}
+" set statusline+=\ %5*
+set statusline+=\ %0*%=                            " Space
+set statusline+=%8*%k%m%r%w
+set statusline+=%0*%y%{(&fenc!=?'utf-8'?'['.&fenc.']':'')}
+set statusline+=%{&ff!=?'unix'?'['.&ff.']':''}         " Encoding & Fileformat
+set statusline+=\ %-3(%{FileSize()}%)                  " File size
+set statusline+=%8*%3c:%3l/%L
+set statusline+=\ %0*\ %2p%%\ %*
 " ========================================
 "display a warning if &et is wrong, or we have mixed-indenting {{{3
 set statusline+=%#error#
@@ -330,13 +334,10 @@ set statusline+=%{StatuslineTrailingSpaceWarning()}
 set statusline+=%*
 " }}}2
 
-if has("directx") && $VIM_USE_DIRECTX != '0'
-  set renderoptions=type:directx
-  let s:use_directx=1
-endif
 set laststatus=2
 " execute "set colorcolumn=".join(range(80,335), ',')|   "Discolor every column past column 80
 set colorcolumn=+1
+set cmdheight=2
 " already set below in GUI block
 " set vb t_vb=                                   " Turn off blinking and sounds
 set noeb
@@ -370,6 +371,8 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:⋅ " Highlight problematic whi
 set splitright                                 " Puts new vsplit windows to the right of the current
 set splitbelow                                 " Puts new split windows to the bottom of the current
 
+let g:netrw_banner=0
+let g:netrw_liststyle=3
 " /UI }}}1
 
 " GUI & Terminal settings {{{1
@@ -706,8 +709,6 @@ command! Retab :setlocal noexpandtab | %retab!
 nnoremap <leader>w :w<cr>
 nnoremap <leader>l :set list! list?<cr>
 nnoremap <silent> <leader>r :call Cycle_numbering()<CR>
-" nnoremap <leader><F5> :wa<cr> :mksession! ~/vimtest3/lsession.vim<cr>
-" nnoremap <leader><F9> :so ~/vimtest3/lsession.vim<cr> :echo '* Session restored! *'<cr>
 nnoremap <leader><F11> :so $MYVIMRC<CR> :echo "* .vimrc loaded *"<CR>
 nnoremap <Leader><F12> :vsp $MYVIMRC<CR>
 " compile LESS
@@ -726,8 +727,14 @@ nnoremap <F4> :set hlsearch! hlsearch?<cr>
 map <F12> :set invpaste<CR>:set paste?<CR>
 
 " -- Hacks --
+
+" URL opening :\
 " https://sts10.github.io/blog/2016/02/16/one-solution-to-a-problem-with-vims-gx-command/
-nnoremap <silent> gx :normal viugx<CR><CR>
+nnoremap <silent> gx :normal viugx<CR>
+let g:netrw_silent = 1
+nmap gk <Plug>(openbrowser-smart-search)
+vmap gk <Plug>(openbrowser-smart-search)
+
 " sane regex {{{
 nnoremap / /\v
 vnoremap / /\v
@@ -745,9 +752,10 @@ nmap <F6> :setl wrap!<bar>:set wrap?<CR>
 imap <F6> <C-O><F6>
 
 " Sneaky new line
-nmap <M-m> O<Esc>j
-nmap <C-m> o<Esc>k
-nnoremap <M-j> a<CR><Esc>k$
+nnoremap <silent> <leader><CR> i<CR><ESC>
+nnoremap <silent> <leader>j a<CR><Esc>k$
+nnoremap <silent> <leader>o m`o<ESC>``
+nnoremap <silent> <leader>O m`O<ESC>``
 
 " Fast bracketing
 " inoremap {{ {<CR>}<ESC>kA| "}} because it's parsed as foldmarker :\
@@ -794,6 +802,7 @@ nnoremap <leader>b :ls<CR>:b<space>
 " formatting shortcuts
 " nmap <leader>f4 :call StripTrailingWhitespace()<CR>
 nmap <leader>f4 :call Preserve("%s/\\s\\+$//e")<CR>
+nmap <expr> <leader>f5 ':%s/' . @/ . '//g<LEFT><LEFT>'
 nmap _= :call Preserve("normal gg=G")<CR>
 vmap <leader>s :sort<cr>
 
