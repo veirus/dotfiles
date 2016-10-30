@@ -757,6 +757,8 @@ nnoremap <silent> <leader><CR> i<CR><ESC>
 nnoremap <silent> <leader>j a<CR><Esc>k$
 nnoremap <silent> <leader>o m`o<ESC>``
 nnoremap <silent> <leader>O m`O<ESC>``
+nnoremap <silent> <C-CR> m`o<ESC>``
+nnoremap <silent> <S-CR> m`O<ESC>``
 
 " Fast bracketing
 " inoremap {{ {<CR>}<ESC>kA| "}} because it's parsed as foldmarker :\
