@@ -34,6 +34,7 @@ Plug 'tyru/open-browser.vim'
 Plug 'junegunn/vim-emoji'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'konfekt/fastfold'
+  let g:fastfold_savehook = 0
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'jiangmiao/auto-pairs'
