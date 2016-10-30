@@ -772,6 +772,10 @@ vnoremap <S-F3> di<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
 
 " window killer
 nnoremap <silent> Q :call CloseWindowOrKillBuffer()<cr>
+" buffer killer
+nnoremap <leader>q :bn<bar>sp<bar>bp<bar>bd<cr>
+" and shorter alternative (requires at least 2 buffers)
+nnoremap <leader>Q :b#<bar>bd#<cr>
 
 " shortcuts for windows {{{
 nnoremap <leader>= <C-w>=
