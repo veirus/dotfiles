@@ -71,7 +71,7 @@ Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
   let g:vim_json_syntax_conceal = 0
 
 " == Already in pack/start dir: == {{{2
-Plug 'KabbAmine/gulp-vim'
+Plug 'KabbAmine/gulp-vim', {'on':['Gulp','GulpExt']}
 Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
 " Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
 Plug 'tpope/vim-commentary'
