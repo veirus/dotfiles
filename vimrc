@@ -143,7 +143,8 @@ let s:cs_nvim='molokai'
 let s:cs_cmder='badwolf'
 
 " == < webdev \> == {{{2
-Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass']}
+Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass','less']}
+Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss']}
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'js', 'html'] }
 Plug 'gorodinskiy/vim-coloresque', {'for': ['html', 'css', 'less', 'php']} " *^* This
