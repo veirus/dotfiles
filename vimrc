@@ -729,6 +729,16 @@ map <F12> :set invpaste<CR>:set paste?<CR>
 
 " -- Hacks --
 
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+" Revert with ":iunmap <C-U>".
+inoremap <C-U> <C-G>u<C-U>
+
+" [From sensible.vim] Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<BACKSPACE>', 'n') ==# ''
+	nnoremap <silent> <BACKSPACE> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><BACKSPACE>
+endif
+
 " URL opening :\
 " https://sts10.github.io/blog/2016/02/16/one-solution-to-a-problem-with-vims-gx-command/
 nnoremap <silent> gx :normal viugx<CR>
