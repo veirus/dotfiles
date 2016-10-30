@@ -707,19 +707,16 @@ command! Retab :setlocal noexpandtab | %retab!
 
 " Mappings {{{1
 " General leader maps
-nnoremap <leader>w :w<cr>
-nnoremap <leader>l :set list! list?<cr>
+nnoremap <leader>w :up<cr>
+nnoremap <leader><BS> :set list! list?<cr>
 nnoremap <silent> <leader>r :call Cycle_numbering()<CR>
 nnoremap <leader><F11> :so $MYVIMRC<CR> :echo "* .vimrc loaded *"<CR>
 nnoremap <Leader><F12> :vsp $MYVIMRC<CR>
 " compile LESS
-nnoremap <Leader>mm :w <BAR> !lessc % > %:t:r.css<CR><space>
+" nnoremap <Leader>mm :w <BAR> !lessc % > %:t:r.css<CR><space>
 " Map <Leader>ff to display all lines with keyword under cursor
 " and ask which one to jump to
 nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-" fast copy-paste | do i really need it? #2016-07-21
-vnoremap <Leader>y "+y
-vnoremap <Leader>p "+p
 
 " <F#> keys:
 nnoremap <F4> :set hlsearch! hlsearch?<cr>
@@ -820,7 +817,7 @@ nnoremap <leader>b :ls<CR>:b<space>
 " nmap <leader>f4 :call StripTrailingWhitespace()<CR>
 nmap <leader>f4 :call Preserve("%s/\\s\\+$//e")<CR>
 nmap <expr> <leader>f5 ':%s/' . @/ . '//g<LEFT><LEFT>'
-nmap _= :call Preserve("normal gg=G")<CR>
+" nmap _= :call Preserve("normal gg=G")<CR>
 vmap <leader>s :sort<cr>
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
