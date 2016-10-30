@@ -148,6 +148,7 @@ Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'js', 'html'] }
 Plug 'gorodinskiy/vim-coloresque', {'for': ['html', 'css', 'less', 'php']} " *^* This
 " Plug 'ap/vim-css-color', {'for': ['html', 'css', 'less', 'php']} " Trying *^* instead of this colorizer
+
 " == Nyaovim == {{{2
 if s:is_nyaovim
     " echom "nyaovim version: ".g:nyaovim_version
@@ -362,7 +363,7 @@ set wildmenu                                   " Show list instead of just compl
 set wildmode=list:longest,full                 " Command <Tab> completion, list matches, then longest common part, then all.
 " set whichwrap=b,s,h,l,<,>,[,]                  " Backspace and cursor keys wrap too
 set foldenable                                 " Auto fold code
-set foldcolumn=2
+" set foldcolumn=2 " I don't need it! I don't need eeeet!
 " set foldopen=all                             " Автооткрытие сверток при заходе в них
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
