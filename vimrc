@@ -31,7 +31,7 @@ endif
 call plug#begin($HOMEDIR.'/plugged/')
 " == new stuff == {{{2
 Plug 'tyru/open-browser.vim'
-Plug 'junegunn/vim-emoji'
+" Plug 'junegunn/vim-emoji'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'konfekt/fastfold'
   let g:fastfold_savehook = 0
@@ -126,6 +126,7 @@ Plug 'irrationalistic/vim-tasks' " ST's PlainTasks compatible!
 " Plug 'chriskempson/base16-vim'
 " Plug 'chriskempson/vim-tomorrow-theme'
 " Plug 'junegunn/seoul256.vim'
+" Plug 'ajh17/Spacegray.vim'
 Plug 'dracula/vim'
 Plug 'jacoborus/tender'
 Plug 'tomasr/molokai'
@@ -138,7 +139,7 @@ Plug 'zeis/vim-kolor'
 "}}}3
 Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
-let s:cs_wingui='molokai'
+let s:cs_wingui='yowish'
 let s:cs_xterm='jellybeans'
 let s:cs_nvim='molokai'
 let s:cs_cmder='badwolf'
@@ -303,7 +304,6 @@ function! ReadOnly()
     return ''
 endfunction
 
-
 " Only for Dracula colorscheme: {{{3
 if exists('g:colors_name') && g:colors_name ==# 'dracula'
 " hi! link FoldColumn User8
@@ -315,12 +315,12 @@ endif
 "  > Triangle U+e0b0,  > U+e0b1,  < Triangle U+e0b2,
 "  < U+e0b3,  Git U+e0a0,  LN U+e0a1,  Lock U+e0a2
 set statusline=
-set statusline+=%{ChSlCl()}
+" set statusline+=%{ChSlCl()}
 " set statusline+=%{ChangeStatuslineColor()}             " Changing the statusline color
 set statusline+=%0*\ %{toupper(g:currentmode[mode()])} " Current mode
 set statusline+=%0*\ %n
-set statusline+=\ %4*%*
-set statusline+=%7*\ %<%F\ %{ReadOnly()}
+" set statusline+=\ %4*%*
+set statusline+=\ %7*\ %<%F\ %{ReadOnly()}
 " set statusline+=\ %5*
 set statusline+=\ %0*%=                            " Space
 set statusline+=%8*%k%m%r%w
@@ -738,7 +738,7 @@ inoremap <C-U> <C-G>u<C-U>
 
 " [From sensible.vim] Use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<BACKSPACE>', 'n') ==# ''
-	nnoremap <silent> <BACKSPACE> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><BACKSPACE>
+    nnoremap <silent> <BACKSPACE> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><BACKSPACE>
 endif
 
 " URL opening :\
@@ -778,10 +778,10 @@ nnoremap <silent> <S-CR> m`O<ESC>``
 " Insert date on <F3> and <S-F3> {{{
 nnoremap <F3> i<C-R>=strftime("%Y-%m-%d")<CR><Esc>
 inoremap <F3> <C-R>=strftime("%Y-%m-%d")<CR>
-vnoremap <F3> di<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+vnoremap <F3> da<C-R>=strftime("%Y-%m-%d")<CR><Esc>
 nnoremap <S-F3> i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
 inoremap <S-F3> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
-vnoremap <S-F3> di<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
+vnoremap <S-F3> da<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
 " }}}
 
 " window killer
