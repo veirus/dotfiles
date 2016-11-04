@@ -1,4 +1,4 @@
-" vimtest3 config | last edit: 2016-10-15
+" vimtest3 config | last edit: 2016-11-04
 
 " Be Improved, mapleader, OS detect, clipboard, rtp and encoding {{{
 set nocompatible
@@ -30,6 +30,8 @@ endif
 " Plugin Install {{{
 call plug#begin($HOMEDIR.'/plugged/')
 " == new stuff == {{{2
+Plug 'csscomb/vim-csscomb', {'for': ['css', 'less', 'scss', 'sass'], 'on': 'CSScomb'}
+Plug 'maxboisvert/vim-simple-complete'
 Plug 'tyru/open-browser.vim'
 " Plug 'junegunn/vim-emoji'
 Plug 'skywind3000/asyncrun.vim'
