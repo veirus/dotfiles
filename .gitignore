@@ -1,7 +1,5 @@
 .netrwhist
 autoload/
-lsession.vim
 plugged/
 snippets/
-vimtest3.7z
 
