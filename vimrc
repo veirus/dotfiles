@@ -214,6 +214,7 @@ set history=100
   set shiftround
   set linebreak
   let &showbreak='↪ '
+  set breakindent
   set tabstop=4                  " размер табов
   set softtabstop=4
   set shiftwidth=4               " размер отступов
@@ -221,7 +222,6 @@ set history=100
   set noexpandtab
   " set expandtab
   set nojoinspaces               " Prevents inserting two spaces after punctuation on a join (J)
-  set formatoptions+=j           " Delete comment character when joining commented lines
   set backspace=indent,eol,start " Backspace for dummies
 " }}}
 
