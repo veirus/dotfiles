@@ -356,16 +356,14 @@ set laststatus=2
 " execute "set colorcolumn=".join(range(80,335), ',')|   "Discolor every column past column 80
 set colorcolumn=+1
 set cmdheight=2
-" already set below in GUI block
-" set vb t_vb=                                   " Turn off blinking and sounds
 set noeb
 set lazyredraw
 set scrolloff=3                                " Minimum lines to keep above and below cursor
 set scrolljump=5                               " Lines to scroll when cursor leaves screen
-set shortmess+=amroOtT                           " a doesn't add m and r despite what docs says
+set shortmess+=amr
+" set shortmess+=amroOtT                           " a doesn't add m and r despite what docs says
 " set shortmess+=filmnrxoOtT                     " Abbrev. of messages (avoids 'hit enter')
 set cursorline
-" set linespace=0                                " No extra spaces between rows
 set number                                     " Line numbers on
 set relativenumber
 set numberwidth=5
@@ -393,7 +391,15 @@ let g:netrw_banner=0
 let g:netrw_liststyle=3
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
+let g:netrw_silent = 1
 let g:netrw_browse_split = 4
+
+" switched off because they're handled by vim-plug {{{2
+" moved syntax here to be enabled as late as possible
+" due to failed highlighting in number of files
+" filetype plugin indent on " Automatically detect file types.
+" syntax on                 " must be before colorscheme!
+" }}}2
 " /UI }}}1
 
 " GUI & Terminal settings {{{1
@@ -426,7 +432,6 @@ if s:is_gui
   set noshowmode
   set ballooneval
   autocmd GUIEnter * set vb t_vb= lines=40 columns=103 linespace=0
-        " \ | call libcallnr('maximize', 'Maximize', 1)
   " }}}2
 else
   set vb t_vb=
