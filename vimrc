@@ -525,9 +525,6 @@ endif
       setlocal nomodifiable
       1
   endfunction
-
-  command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
-" e.g. Grep current file for <search_term>: Shell grep -Hn <search_term> %
 " }}}
 " Cycle through relativenumber + number, number (only), and no numbering. {{{
 " @ wincent aka Greg Hurrell
@@ -725,6 +722,9 @@ augroup END " }}}
 " }}}
 
 " Commands {{{1
+" >>> Shell command @ spf-13 {{{2
+" e.g. Grep current file for <search_term>: Shell grep -Hn <search_term> %
+command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
 " >>> Conversion between TABS ans SPACES {{{2
 command! Respace :setlocal expandtab | %retab!
 command! Retab :setlocal noexpandtab | %retab!
