@@ -2,8 +2,22 @@
 
 " Be Improved, mapleader, OS detect, clipboard, rtp and encoding {{{
 set nocompatible
+" ========================================
 set encoding=utf-8
+" Список кодировок для автоматического определения, в порядке предпочтения
+" взято с http://jenyay.net/Programming/Vim
+set fileencodings=utf-8,cp1251,utf-16le,cp866,koi8r,ucs-2le
+set fileencoding=utf-8    " set save encoding
+" ========================================
+if &termencoding == ""
+    let &termencoding = &encoding
+else
+    set termencoding=utf-8  " set terminal encoding
+endif
+" ========================================
 let mapleader    = "\<space>"
+let g:mapleader    = "\<space>"
+" ========================================
 let s:is_windows = has('win32') || has('win64')
 let s:is_wingui  = has("gui_win32")
 let s:is_cygwin  = has('win32unix')
@@ -12,12 +26,20 @@ let s:is_nvim    = has('nvim')
 let s:is_nyaovim = exists('g:nyaovim_version')
 let s:is_gui     = has('gui_running')
 let s:is_conemu  = !empty($CONEMUBUILD)
-let $HOMEDIR     = expand('$HOME/dotfiles')
-" let $HOMEDIR     = expand('$VIM/vimfiles')    | " portability shim
-set rtp^=$HOMEDIR
-" set backupdir=~/.vim/backups
-" set directory=~/.vim/swaps
-set undodir=~/.vim/undo
+" ========================================
+" portability shim:
+let $MYVIMDIR = expand('$HOME/dotfiles')
+if !isdirectory(expand('$MYVIMDIR'))
+    let $MYVIMDIR = expand('$VIM/vimfiles')
+    echom "** ! **: dotfiles don't exist"
+endif
+set rtp^=$MYVIMDIR
+" ========================================
+let s:plugdir = $MYVIMDIR . "/plugged"
+set backupdir=$MYVIMDIR/backups
+set directory=$MYVIMDIR/swap
+set undodir=$MYVIMDIR/undo
+" ========================================
 if has('clipboard')
   if has('unnamedplus')         " When possible use + register for copy-paste
     set clipboard=unnamed,unnamedplus
