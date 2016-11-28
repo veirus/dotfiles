@@ -189,24 +189,14 @@ endif "}}}2
 call plug#end() " required }}}
 
 " General {{{
-" Список кодировок для автоматического определения, в порядке предпочтения
-" взято с http://jenyay.net/Programming/Vim
-set fileencodings=utf-8,cp1251,utf-16le,cp866,koi8r,ucs-2le
-if &termencoding == ""
-  let &termencoding = &encoding
-else
-  set termencoding=utf-8  " set terminal encoding
-endif
-set fileencoding=utf-8    " set save encoding
+" Don't set scriptencoding before 'encoding' option is set!
 scriptencoding utf-8
 set iskeyword=@,a-z,A-Z,48-57,_,128-175,192-255
 set keymap=russian-jcukenwin
 set iminsert=0            " раскладка по умолчанию для ввода - английская
 set imsearch=0            " раскладка по умолчанию для поиска - английская
-
-set ssop-=options         " do not store global and local values in a session
-filetype plugin indent on " Automatically detect file types.
-syntax on                 " must be before colorscheme!
+set mouse=a
+set sessionoptions-=options         " do not store global and local values in a session
 set autochdir             " Автопереключение рабочей папки.
 set hidden                " Allow buffer switching without saving
 set nobackup              " Отключить создание файлов бекапа
