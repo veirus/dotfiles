@@ -209,6 +209,7 @@ set history=100
   set nowrap
   set textwidth=0                " Don't automatically insert linebreaks
   set formatoptions-=t           " don't automatically wrap text when typing
+  set formatoptions+=j           " Delete comment character when joining commented lines
   set autoindent
   set shiftround
   set linebreak
