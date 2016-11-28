@@ -1,6 +1,6 @@
-" vimtest3 config | last edit: 2016-11-04
+" vimtest3 config | last edit: 2016-11-28
 
-" Be Improved, mapleader, OS detect, clipboard, rtp and encoding {{{
+" Be Improved, encoding, mapleader, OS detect, rtp and clipboard {{{
 set nocompatible
 " ========================================
 set encoding=utf-8
