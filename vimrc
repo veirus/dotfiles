@@ -1,6 +1,6 @@
 " PROSTOR _vimrc | based on vimtest3
 " ========================================
-" last edit: 2016-12-28
+" last edit: 2017-03-02
 " ========================================
 " Be Improved, encoding, mapleader, OS detect, rtp and clipboard {{{
 set nocompatible
@@ -57,10 +57,11 @@ set timeout timeoutlen=250 ttimeoutlen=100
 let g:plug_threads = 2
 call plug#begin(s:plugdir)
 " == Necessity == {{{2
-Plug 'matchit.zip' "{{{3
+Plug 'matchit.zip'
   let b:match_ignorecase = 1
-
-Plug 'mattn/emmet-vim', {'for': ['html','smarty','pug','php','xml','xsl','xslt','xsd','css','sass','scss','less','styl','stylus','mustache','handlebars']} "{{{3
+" Emmet {{{3
+let emmetlist = ['html','smarty','pug','php','xml','xsl','xslt','xsd','css','sass','scss','less','styl','stylus','mustache','handlebars']
+Plug 'mattn/emmet-vim', {'for': emmetlist }
   let g:user_emmet_leader_key = '\'
   function! s:zen_html_tab()
     if !emmet#isExpandable()
@@ -75,6 +76,8 @@ Plug 'mattn/emmet-vim', {'for': ['html','smarty','pug','php','xml','xsl','xslt',
 
 "}}}3
 
+Plug 'editorconfig/editorconfig-vim'
+Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-repeat'
 " Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -116,12 +119,26 @@ Plug 'justinmk/vim-sneak'
 Plug 'irrationalistic/vim-tasks'
 
 " == < webdev \> == {{{2
-Plug 'KabbAmine/gulp-vim', {'on':['Gulp','GulpExt']}
-Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
+" Main
+Plug 'othree/html5.vim'
+Plug 'JulesWang/css.vim'
 Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass','less']}
+" ---------------
+" Pre HTML
+Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
+Plug 'tpope/vim-markdown', {'for': ['markdown', 'md', 'mdown', 'mkd', 'mkdn']}
+" ---------------
+" Pre CSS
 Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss']}
 Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'wavded/vim-stylus', {'for':['styl','stylus']}
+" ---------------
+" Js
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'js', 'html'] }
+Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
+  let g:vim_json_syntax_conceal = 0
+" ---------------
+Plug 'KabbAmine/gulp-vim', {'on':['Gulp','GulpExt']}
 Plug 'gorodinskiy/vim-coloresque', {'for': ['html', 'css', 'less', 'sass', 'stylus', 'php']} " *^* This
 " Plug 'ap/vim-css-color', {'for': ['html', 'css', 'less', 'php']} " Trying *^* instead of this colorizer
 
@@ -157,6 +174,14 @@ let s:cs_xterm='jellybeans'
 let s:cs_nvim='molokai'
 let s:cs_cmder='badwolf'
 " == new stuff == {{{2
+" 2017-02-22 {{{3
+Plug 'fcpg/vim-showmap'
+" 2017-02-06 {{{3
+Plug 'w0rp/ale'
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+Plug 'ternjs/tern_for_vim'
+Plug 'itspriddle/vim-jquery'
 " 2017-02-01 {{{3
 Plug 'svermeulen/vim-easyclip'
 " 2017-01-26 {{{3
@@ -172,11 +197,13 @@ Plug 'amadeus/vim-evokai'
 Plug 'romainl/vim-qf'
 Plug 'tpope/vim-unimpaired'
 "}}}3
+" old {{{3
 Plug 'wellle/targets.vim'
+" gist-vim {{{4
 Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/vim-rsi'
+" }}}4
+
 Plug 'tomtom/tcomment_vim'
 Plug 'kana/vim-operator-user'
 " Plug 'lyokha/vim-xkbswitch'
@@ -205,7 +232,6 @@ Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
 Plug 'osyo-manga/vim-over', {'on':'OverCommandLine'}
 Plug 'skywind3000/asyncrun.vim', {'on':['Gulp','GulpExt']}
 Plug 'tyru/open-browser.vim'
-Plug 'wavded/vim-stylus', {'for':['styl','stylus']}
 
 Plug 'nathanaelkane/vim-indent-guides' "{{{3
   " <leader>ig
@@ -229,9 +255,6 @@ Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } "{{
   nmap <Leader>a <Plug>(EasyAlign)
 " }}}3
 
-Plug 'tpope/vim-markdown', {'for': ['markdown', 'md', 'mdown', 'mkd', 'mkdn']}
-Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
-  let g:vim_json_syntax_conceal = 0
 Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
 " god fucking dammit autochdir is so fucking annoying sometimes - 2016-12-15
 
@@ -278,6 +301,7 @@ set path+=**
 
 " UI {{{1
 " New Optimized (?) Statusline {{{2
+
 " Mode list {{{3
 let g:currentmode={
     \ 'n'  : 'N ',
@@ -300,7 +324,6 @@ let g:currentmode={
     \ '!'  : 'Shell ',
     \ 't'  : 'Terminal '
     \}
-
 
 " Highlight statusline {{{3
 function! ChSlCl()
@@ -862,7 +885,7 @@ augroup Python " {{{
     autocmd BufNewFile *.py call SkeletonPY()
     autocmd BufNewFile *.pyw call SkeletonPY()
     "Перед сохранением вырезаем пробелы на концах (только в .py файлах)
-    autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
+    autocmd BufWritePre *.py normal! m`:%s/\s\+$//e ``
     autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8
                 \ formatoptions+=croq softtabstop=4 smartindent
     "В .py файлах включаем умные отступы после ключевых слов
@@ -895,6 +918,12 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
   "========================================
   " I -- new things and experiments -- {{{2
   "========================================
+    " from http://twily.info/.vimrc#view {{{3
+    " Open vimgrep and put the cursor in the right position
+    map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
+    " Vimgreps in the current file
+    map <leader>/ :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
+    "}}}3
     nnoremap <leader>c <C-W>c
     nnoremap <S-F12> K
     nnoremap K m`a<CR><ESC>``
@@ -910,9 +939,6 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     " nmap ]b :bnext<CR>
     nnoremap [<CR> m`i<CR><ESC>``
     nnoremap ]<CR> m`a<CR><ESC>``
-    " emacs command mode :)
-    nmap <M-x> :
-    vmap <M-x> :
     " from Konfekt's leader key post
     " not as useful as emacs binding as it appears
     " nnoremap : ,
