@@ -19,6 +19,7 @@
 [[ "$-" != *i* ]] && return
 
 PATH=/c/OpenSSL-Win64/bin:$PATH
+export PATH=./node_modules/.bin:$PATH
 
 # echo Checking for tmux
 # if [ -z ${TMUX} ]; then
@@ -87,6 +88,7 @@ alias gd='git diff'
 alias gk='gitk --all&'
 alias gx='gitx --all'
 alias ll='ls -la --color'
+alias nexe='PATH=$(npm bin):$PATH'
 alias tmux='tmux attach || tmux new'
 # Some people use a different file for aliases
 # if [ -f "${HOME}/.bash_aliases" ]; then
