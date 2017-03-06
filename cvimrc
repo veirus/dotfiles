@@ -16,3 +16,4 @@ map ъъ ]]
 map хх [[
 unmap <C-b>
 let blacklists = ["http://www.typing.com/*","http://www.heuxasoftware.com/*","http://www.keybr.com/*","http://www.reddit.com/*","https://mail.google.com/*"]
+" let blacklists = ["http://www.typing.com/*","http://www.heuxasoftware.com/*","http://www.keybr.com/*","http://www.reddit.com/*","https://sirxemic.github.io/*","http://vim-adventures.com/*","https://mail.google.com/*","https://timeinvariant.github.io/*","http://www.platinumgames.co.jp/*","http://codecombat.com/*","http://johanw123.nu/*","http://hughsk.io/*","https://np.reddit.com/*","chrome-extension://hgimloonaobbeeagepickockgdcghfnn/*","https://blastar-1984.appspot.com/*","http://redditp.com/*","https://www.reddit.com/*","https://twitter.com/*"]
