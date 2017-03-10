@@ -15,3 +15,12 @@
 	hide-dirty  = 1
 [core]
 	autocrlf    = input
+	editor = \"C:/Program Files (x86)/GitExtensions/GitExtensions.exe\" fileeditor
+[github]
+	user = veirus
+[color]
+	ui = true
+[merge]
+	tool = kdiff3
+[diff]
+	guitool = kdiff3

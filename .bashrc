@@ -90,6 +90,8 @@ alias gx='gitx --all'
 alias ll='ls -la --color'
 alias nexe='PATH=$(npm bin):$PATH'
 alias tmux='tmux attach || tmux new'
+alias e.='explorer .'
+#
 # Some people use a different file for aliases
 # if [ -f "${HOME}/.bash_aliases" ]; then
 #   source "${HOME}/.bash_aliases"
