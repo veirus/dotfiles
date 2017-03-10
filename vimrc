@@ -1,5 +1,7 @@
-" vimtest3 config | last edit: 2016-11-28
-
+" PROSTOR _vimrc | based on vimtest3
+" ========================================
+" last edit: 2017-03-02
+" ========================================
 " Be Improved, encoding, mapleader, OS detect, rtp and clipboard {{{
 set nocompatible
 " ========================================
@@ -10,9 +12,9 @@ set fileencodings=utf-8,cp1251,utf-16le,cp866,koi8r,ucs-2le
 set fileencoding=utf-8    " set save encoding
 " ========================================
 if &termencoding == ""
-    let &termencoding = &encoding
+  let &termencoding = &encoding
 else
-    set termencoding=utf-8  " set terminal encoding
+  set termencoding=utf-8  " set terminal encoding
 endif
 " ========================================
 let mapleader    = "\<space>"
@@ -28,17 +30,18 @@ let s:is_gui     = has('gui_running')
 let s:is_conemu  = !empty($CONEMUBUILD)
 " ========================================
 " portability shim:
-let $MYVIMDIR = expand('$HOME/dotfiles')
-if !isdirectory(expand('$MYVIMDIR'))
-    let $MYVIMDIR = expand('$VIM/vimfiles')
-    echom "** ! **: dotfiles don't exist"
+let $DOTVIMDIR = expand('$HOME/dotfiles')
+if !isdirectory(expand('$DOTVIMDIR'))
+  let $DOTVIMDIR = expand('$VIM/vimfiles')
+  echom "** ! **: dotfiles don't exist"
 endif
-set rtp^=$MYVIMDIR
+set rtp^=$DOTVIMDIR
 " ========================================
-let s:plugdir = $MYVIMDIR . "/plugged"
-set backupdir=$MYVIMDIR/backups
-set directory=$MYVIMDIR/swap
-set undodir=$MYVIMDIR/undo
+let s:plugs = "plugged"
+let s:plugdir = $DOTVIMDIR.'\'.s:plugs
+set backupdir=$DOTVIMDIR/backups
+set directory=$DOTVIMDIR/swap
+set undodir=$DOTVIMDIR/undo
 " ========================================
 if has('clipboard')
   if has('unnamedplus')         " When possible use + register for copy-paste
@@ -47,30 +50,191 @@ if has('clipboard')
     set clipboard=unnamed
   endif
 endif
+set timeout timeoutlen=250 ttimeoutlen=100
 " }}}
 
-" Plugin Install {{{
-call plug#begin($HOMEDIR.'/plugged/')
-" == new stuff == {{{2
-Plug 'csscomb/vim-csscomb', {'for': ['css', 'less', 'scss', 'sass'], 'on': 'CSScomb'}
-Plug 'maxboisvert/vim-simple-complete'
-Plug 'tyru/open-browser.vim'
-" Plug 'junegunn/vim-emoji'
-Plug 'skywind3000/asyncrun.vim'
-Plug 'konfekt/fastfold'
-  let g:fastfold_savehook = 0
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'junegunn/vim-peekaboo'
-Plug 'jiangmiao/auto-pairs'
+" Plugin Install {{{1
+let g:plug_threads = 2
+call plug#begin(s:plugdir)
+" == Necessity == {{{2
+Plug 'matchit.zip'
+  let b:match_ignorecase = 1
+" Emmet {{{3
+let emmetlist = ['html','smarty','pug','php','xml','xsl','xslt','xsd','css','sass','scss','less','styl','stylus','mustache','handlebars']
+Plug 'mattn/emmet-vim', {'for': emmetlist }
+  let g:user_emmet_leader_key = '\'
+  function! s:zen_html_tab()
+    if !emmet#isExpandable()
+      return "\<plug>(emmet-move-next)"
+    endif
+    return "\<plug>(emmet-expand-abbr)"
+  endfunction
+  " autocmd FileType stylus,xml,xsl,xslt,xsd,css,less,sass,scss,mustache imap <buffer><tab> <c-y>,
+  " autocmd FileType stylus,xml,xsl,xslt,xsd,css,less,sass,scss,mustache imap <buffer><tab> \,
+  " autocmd FileType stylus,html,css,less,sass,scss imap <buffer><expr><tab> <sid>zen_html_tab()
+  autocmd FileType stylus,html,css,less,sass,scss imap <buffer><expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+
+"}}}3
+
+Plug 'editorconfig/editorconfig-vim'
+Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-repeat'
+" Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-surround'
+" Plug 'junegunn/vim-peekaboo'
 Plug 'kana/vim-textobj-user'
 Plug 'jceb/vim-textobj-uri'
 Plug 'kana/vim-textobj-fold'
-Plug 'kana/vim-textobj-function'
+" Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-indent'
-Plug 'osyo-manga/vim-over', {'on':'OverCommandLine'}
+Plug 'jasonlong/vim-textobj-css'
+Plug 'mhinz/vim-startify' "{{{3
+ nnoremap <F1> :Startify<CR>
+"  let g:startify_list_order = ['files', 'sessions']
+ let g:startify_bookmarks = [{'p': 'E:\Dropbox\TODO\PROSTOR.todo'}, '~\_vimrc']
+ let g:startify_update_oldfiles = 1
+ let g:startify_session_autoload = 1
+ let g:startify_session_persistence = 1
+ let g:startify_session_delete_buffers = 1
+ "}}}3
+Plug 'luochen1990/rainbow' "{{{3
+    let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+" Ag {{{3
+Plug 'rking/ag.vim', {'on' :'Ag'} " trying this one instead of all that
+" if executable('ag')
+"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
+"   let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+" elseif executable('ack-grep')
+"   let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
+" elseif executable('ack')
+"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
+" endif
+"}}}3
+Plug 'tpope/vim-fugitive'
+Plug 'justinmk/vim-sneak'
+  let g:sneak#streak=1
+" ST's PlainTasks compatible!
+Plug 'irrationalistic/vim-tasks'
+
+" == < webdev \> == {{{2
+" Main
+Plug 'othree/html5.vim'
+Plug 'JulesWang/css.vim'
+Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass','less']}
+" ---------------
+" Pre HTML
+Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
+Plug 'tpope/vim-markdown', {'for': ['markdown', 'md', 'mdown', 'mkd', 'mkdn']}
+" ---------------
+" Pre CSS
+Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss']}
+Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'wavded/vim-stylus', {'for':['styl','stylus']}
+" ---------------
+" Js
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'js', 'html'] }
+Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
+  let g:vim_json_syntax_conceal = 0
+" ---------------
+Plug 'KabbAmine/gulp-vim', {'on':['Gulp','GulpExt']}
+Plug 'gorodinskiy/vim-coloresque', {'for': ['html', 'css', 'less', 'sass', 'stylus', 'php']} " *^* This
+" Plug 'ap/vim-css-color', {'for': ['html', 'css', 'less', 'php']} " Trying *^* instead of this colorizer
+
+" == Colorschemes == {{{2
+" -- utilitiy -- {{{3
+Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
+Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
+" Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" -- unused -- {{{3
+" Plug 'ajh17/Spacegray.vim'
+" Plug 'chriskempson/base16-vim'
+" Plug 'chriskempson/vim-tomorrow-theme'
+" Plug 'jacoborus/tender'
+" Plug 'junegunn/seoul256.vim'
+" -- core -- {{{3
+Plug 'KabbAmine/yowish.vim'
+Plug 'dracula/vim'
+Plug 'nanotech/jellybeans.vim'
+Plug 'sjl/badwolf'
+Plug 'tomasr/molokai'
+Plug 'zeis/vim-kolor'
+  let g:kolor_underlined=1
+" -- newest themes -- {{{3
+Plug 'jasonlong/lavalamp'
+Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'Wutzara/vim-materialtheme'
+Plug 'zanglg/nova.vim'
+" -- theme assingment -- {{{3
+" let g:airline_theme = "hybrid"
+let s:cs_wingui='breezy'
+let s:cs_xterm='jellybeans'
+let s:cs_nvim='molokai'
+let s:cs_cmder='badwolf'
+" == new stuff == {{{2
+" 2017-02-22 {{{3
+Plug 'fcpg/vim-showmap'
+" 2017-02-06 {{{3
+Plug 'w0rp/ale'
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+Plug 'ternjs/tern_for_vim'
+Plug 'itspriddle/vim-jquery'
+" 2017-02-01 {{{3
+Plug 'svermeulen/vim-easyclip'
+" 2017-01-26 {{{3
+Plug 'fneu/breezy'
+" 2017-01-18 {{{3
+Plug 'closetag.vim'
+" 2016-12-20 {{{3
+Plug 'vim-scripts/DrawIt', {'on': 'DrawIt'}
+" Nice highlighting for the css and sass but too crude
+Plug 'amadeus/vim-evokai'
+" }}}3
+" new stuff 2016-12-15 {{{3
+Plug 'romainl/vim-qf'
+Plug 'tpope/vim-unimpaired'
+"}}}3
+" old {{{3
+Plug 'wellle/targets.vim'
+" gist-vim {{{4
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
+" }}}4
+
+Plug 'tomtom/tcomment_vim'
+Plug 'kana/vim-operator-user'
+" Plug 'lyokha/vim-xkbswitch'
+"   let g:XkbSwitchEnabled       = 1
+"   let g:XkbSwitchLib           = $DOTVIMDIR . '/lib/libxkbswitch64.dll'
+"   let g:XkbSwitchIMappings     = ['ru']
+"   let g:XkbSwitchSkipIMappings = {'*' : ['[', ']', '{', '}', "'"]}
+" Plug 'kana/vim-repeat'
+" Plug 'tyru/caw.vim'
+"   let g:caw_operator_keymappings = 1
+Plug 'ctrlpvim/ctrlp.vim'
+  nnoremap <leader>b :CtrlPBuffer<cr>
+  let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+Plug 'zhaocai/GoldenView.Vim', {'on' : '<Plug>ToggleGoldenViewAutoResize'} "{{{
+  let g:goldenview__enable_default_mapping=0
+  nmap <F5> <Plug>ToggleGoldenViewAutoResize
+  "}}}
+" Plug 'AndrewRadev/splitjoin.vim'
+Plug 'Raimondi/delimitMate'
+" Plug 'fisadev/FixedTaskList.vim'
+" Plug 'itchyny/vim-cursorword'
+Plug 'konfekt/fastfold'
+  let g:fastfold_savehook = 1
 Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
+" Plug 'mhinz/vim-signify'
+Plug 'osyo-manga/vim-over', {'on':'OverCommandLine'}
+Plug 'skywind3000/asyncrun.vim', {'on':['Gulp','GulpExt']}
+Plug 'tyru/open-browser.vim'
 
 Plug 'nathanaelkane/vim-indent-guides' "{{{3
+  " <leader>ig
   let g:indent_guides_start_level = 2
   let g:indent_guides_guide_size = 1
   let g:indent_guides_color_change_percent=3
@@ -91,105 +255,12 @@ Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } "{{
   nmap <Leader>a <Plug>(EasyAlign)
 " }}}3
 
-Plug 'tpope/vim-markdown', {'for': ['markdown', 'md', 'mdown', 'mkd', 'mkdn']}
-Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
-  let g:vim_json_syntax_conceal = 0
+Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
+" god fucking dammit autochdir is so fucking annoying sometimes - 2016-12-15
 
-" == Already in pack/start dir: == {{{2
-Plug 'KabbAmine/gulp-vim', {'on':['Gulp','GulpExt']}
-Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
-" Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-surround'
-Plug 'mattn/emmet-vim', {'for': ['html','smarty','pug','php','xml','xsl','xslt','xsd','css','sass','scss','less','mustache','handlebars']} "{{{3
-  function! s:zen_html_tab()
-    if !emmet#isExpandable()
-      return "\<plug>(emmet-move-next)"
-    endif
-    return "\<plug>(emmet-expand-abbr)"
-  endfunction
-  autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
-  autocmd FileType html,css,sass,less,scss imap <buffer><expr><tab> <sid>zen_html_tab()
-"}}}3
-
-" == Necessity == {{{2
-Plug 'matchit.zip' "{{{3
-  let b:match_ignorecase = 1
-
-Plug 'mhinz/vim-startify' "{{{3
- nnoremap <F1> :Startify<CR>
- let g:startify_list_order = ['files', 'sessions']
- let g:startify_session_autoload = 1
- let g:startify_session_persistence = 1
- let g:startify_session_delete_buffers = 1
- "}}}3
-Plug 'luochen1990/rainbow' "{{{3
-  if isdirectory($HOMEDIR."/plugged/rainbow/")
-    let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-  endif "}}}3
-" Ag {{{3
-Plug 'rking/ag.vim', {'on' :'Ag'} " trying this one instead of all that
-" if executable('ag')
-"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
-"   let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
-" elseif executable('ack-grep')
-"   let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
-" elseif executable('ack')
-"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
-" endif
-"}}}3
-Plug 'tpope/vim-fugitive'
-Plug 'justinmk/vim-sneak'
-  let g:sneak#streak=1
-Plug 'tpope/vim-repeat'
-Plug 'irrationalistic/vim-tasks' " ST's PlainTasks compatible!
-
-" == Colorschemes == {{{2
-" Plug 'chriskempson/base16-vim'
-" Plug 'chriskempson/vim-tomorrow-theme'
-" Plug 'junegunn/seoul256.vim'
-" Plug 'ajh17/Spacegray.vim'
-Plug 'dracula/vim'
-Plug 'jacoborus/tender'
-Plug 'tomasr/molokai'
-Plug 'sjl/badwolf'
-Plug 'nanotech/jellybeans.vim'
-Plug 'KabbAmine/yowish.vim'
-Plug 'zeis/vim-kolor'
-"{{{3 kolor settings
-   let g:kolor_underlined=1
-"}}}3
-Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
-Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
-let s:cs_wingui='yowish'
-let s:cs_xterm='jellybeans'
-let s:cs_nvim='molokai'
-let s:cs_cmder='badwolf'
-
-" == < webdev \> == {{{2
-Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass','less']}
-Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss']}
-Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'js', 'html'] }
-Plug 'gorodinskiy/vim-coloresque', {'for': ['html', 'css', 'less', 'php']} " *^* This
-" Plug 'ap/vim-css-color', {'for': ['html', 'css', 'less', 'php']} " Trying *^* instead of this colorizer
-
-" == Nyaovim == {{{2
-if s:is_nyaovim
-    " echom "nyaovim version: ".g:nyaovim_version
-    Plug 'rhysd/nyaovim-popup-tooltip'
-    Plug 'rhysd/nyaovim-markdown-preview', {'for': 'markdown'}
-    Plug 'rhysd/nyaovim-mini-browser'
-    " Plug 'rhysd/nyaovim-running-gopher'
-    " Plug 'rhysd/nyaovim-tree-view'
-    Plug 'MaxMEllon/nyaovim-nicolive-comment-viewer', {'do': 'npm install -g nicolive@0.0.4'}
-endif "}}}2
-call plug#end() " required }}}
+call plug#end() " required }}}1
 
 " General {{{
-" Don't set scriptencoding before 'encoding' option is set!
 scriptencoding utf-8
 set iskeyword=@,a-z,A-Z,48-57,_,128-175,192-255
 set keymap=russian-jcukenwin
@@ -197,12 +268,13 @@ set iminsert=0            " раскладка по умолчанию для в
 set imsearch=0            " раскладка по умолчанию для поиска - английская
 set mouse=a
 set sessionoptions-=options         " do not store global and local values in a session
-set autochdir             " Автопереключение рабочей папки.
+set autoread
 set hidden                " Allow buffer switching without saving
 set nobackup              " Отключить создание файлов бекапа
 set nowritebackup
 set noswapfile            " и свапа
-set history=100
+set history=1000
+set path+=** " let's try this ':find'
 "}}}
 
 " Formatting {{{
@@ -227,6 +299,7 @@ set history=100
 
 " UI {{{1
 " New Optimized (?) Statusline {{{2
+
 " Mode list {{{3
 let g:currentmode={
     \ 'n'  : 'N ',
@@ -249,7 +322,6 @@ let g:currentmode={
     \ '!'  : 'Shell ',
     \ 't'  : 'Terminal '
     \}
-
 
 " Highlight statusline {{{3
 function! ChSlCl()
@@ -334,16 +406,17 @@ set statusline=
 " set statusline+=%{ChangeStatuslineColor()}             " Changing the statusline color
 set statusline+=%0*\ %{toupper(g:currentmode[mode()])} " Current mode
 set statusline+=%0*\ %n
+set statusline+=\ %7*
 " set statusline+=\ %4*%*
-set statusline+=\ %7*\ %<%F\ %{ReadOnly()}
+set statusline+=%7*\ %<%F\ %{ReadOnly()}
 " set statusline+=\ %5*
 set statusline+=\ %0*%=                            " Space
-set statusline+=%8*%k%m%r%w
+set statusline+=\ %8*%k%m%r%w
 set statusline+=%0*%y%{(&fenc!=?'utf-8'?'['.&fenc.']':'')}
 set statusline+=%{&ff!=?'unix'?'['.&ff.']':''}         " Encoding & Fileformat
-set statusline+=\ %-3(%{FileSize()}%)                  " File size
+set statusline+=\ \\ %-3(%{FileSize()}%)                  " File size
 set statusline+=%8*%3c:%3l/%L
-set statusline+=\ %0*\ %2p%%\ %*
+" set statusline+=\ %0*\ %2p%%\ %*
 " ========================================
 "display a warning if &et is wrong, or we have mixed-indenting {{{3
 set statusline+=%#error#
@@ -360,17 +433,17 @@ set noeb
 set lazyredraw
 set scrolloff=3                                " Minimum lines to keep above and below cursor
 set scrolljump=5                               " Lines to scroll when cursor leaves screen
-set shortmess+=amr
+set shortmess=amroOtT                           " a doesn't add m and r despite what docs says
 " set shortmess+=amroOtT                           " a doesn't add m and r despite what docs says
 " set shortmess+=filmnrxoOtT                     " Abbrev. of messages (avoids 'hit enter')
 set cursorline
 set number                                     " Line numbers on
 set relativenumber
-set numberwidth=5
 set showmatch                                  " Show matching brackets/parenthesis
 set matchtime=2                                " tens of a second to show matching parentheses
 set incsearch                                  " Find as you type search
-set hlsearch                                   " Highlight search terms
+" it's annoying and distracting, turning it off - 2016-12-15:
+set nohlsearch                                   " Highlight search terms
 set winminheight=0                             " Windows can be 0 line high
 set ignorecase                                 " Case insensitive search
 set smartcase                                  " Case sensitive when uc present
@@ -378,21 +451,22 @@ set wildmenu                                   " Show list instead of just compl
 set wildmode=list:longest,full                 " Command <Tab> completion, list matches, then longest common part, then all.
 " set whichwrap=b,s,h,l,<,>,[,]                  " Backspace and cursor keys wrap too
 set foldenable                                 " Auto fold code
-" set foldcolumn=2 " I don't need it! I don't need eeeet!
 " set foldopen=all                             " Автооткрытие сверток при заходе в них
 set list
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
+set listchars=tab:│\ ,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
+" set listchars=tab:›\ ,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
 " set listchars=tab:▷⋅,trail:⋅,nbsp:⋅          " Alternative settings
 
 set splitright                                 " Puts new vsplit windows to the right of the current
 set splitbelow                                 " Puts new split windows to the bottom of the current
 
+let g:netrw_altv=1          " open splits to the right
 let g:netrw_banner=0
-let g:netrw_liststyle=3
-let g:netrw_altv = 1
-let g:netrw_winsize = 25
-let g:netrw_silent = 1
 let g:netrw_browse_split = 4
+"liststyle=3 has problems
+" let g:netrw_liststyle=2
+let g:netrw_silent = 1
+let g:netrw_winsize = 25
 
 " switched off because they're handled by vim-plug {{{2
 " moved syntax here to be enabled as late as possible
@@ -408,7 +482,8 @@ if s:is_gui
     set guifont=Consolas:h15
   " Win GUI settings {{{2
   elseif s:is_wingui
-    set guifont=DejaVu_Sans_Mono_for_Powerline:h11:cRUSSIAN
+    set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cRUSSIAN
+    let g:airline_powerline_fonts = 1
     " Меню выбора кодировки текста (utf8, cp1251, koi8-r, cp866)
     menu Кодировка.utf-8 :e ++enc=utf8<CR>
     menu Кодировка.windows-1251 :e ++enc=cp1251<CR>
@@ -424,6 +499,7 @@ if s:is_gui
     set guioptions-=b
     set guioptions-=r
     set guioptions-=R
+    set guioptions-=m
   endif
   set guioptions+=c       " Use console dialogs
   set guioptions-=e       " Disable fancy tabline (repositions vim on tab in Win32)
@@ -505,6 +581,31 @@ endif
 
 "}}}
 
+" Mode aware cursor hack {{{1
+" works only if placed here?
+" http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
+" https://github.com/blaenk/dots/blob/9843177fa6155e843eb9e84225f458cd0205c969/vim/vimrc.ln#L49-L64
+set gcr=a:block
+
+" mode aware cursors
+set gcr+=o:hor50-Cursor
+set gcr+=n:Cursor
+set gcr+=i-ci-sm:InsertCursor
+set gcr+=r-cr:ReplaceCursor-hor20
+set gcr+=c:CommandCursor
+set gcr+=v-ve:VisualCursor
+
+" do not blink
+set gcr+=a:blinkon0
+
+hi InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
+hi VisualCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#d33682
+hi ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#dc322f
+hi CommandCursor ctermfg=15 guifg=#fdf6e3 ctermbg=166 guibg=#cb4b16
+" }}}1
+
+hi User8 ctermfg=235 guifg=#483D8B guibg=#A2A3A3
+
 " Functions {{{
 
 " Shell command @ spf-13 {{{2
@@ -525,8 +626,8 @@ endif
       setlocal nomodifiable
       1
   endfunction
-" }}}
-" Cycle through relativenumber + number, number (only), and no numbering. {{{
+" }}}2
+" Cycle through relativenumber + number, number (only), and no numbering. {{{2
 " @ wincent aka Greg Hurrell
 function! Cycle_numbering() abort
     if exists('+relativenumber')
@@ -539,8 +640,8 @@ function! Cycle_numbering() abort
         " No relative numbering, just toggle numbers on and off.
         set number!<CR>
     endif
-endfunction " }}}
-"return '[&et]' if &et is set wrong {{{
+endfunction " }}}2
+"return '[&et]' if &et is set wrong {{{2
 "return '[mixed-indenting]' if spaces and tabs are used to indent
 "return an empty string if everything is fine @ Martin Grefnel
 function! StatuslineTabWarning()
@@ -557,8 +658,8 @@ function! StatuslineTabWarning()
         endif
     endif
     return b:statusline_tab_warning
-endfunction " }}}
-"return '[\s]' if trailing white space is detected {{{
+endfunction " }}}2
+"return '[\s]' if trailing white space is detected {{{2
 "return '' otherwise @ Martin Grefnel
 function! StatuslineTrailingSpaceWarning()
     if !exists("b:statusline_trailing_space_warning")
@@ -569,8 +670,8 @@ function! StatuslineTrailingSpaceWarning()
         endif
     endif
     return b:statusline_trailing_space_warning
-endfunction " }}}
-" Preserve by Jonathan Palardy {{{
+endfunction " }}}2
+" Preserve by Jonathan Palardy {{{2
 function! Preserve(command)
   " Preparation: save last search, and cursor position.
   let _s=@/
@@ -582,8 +683,8 @@ function! Preserve(command)
   let @/=_s
   call cursor(l, c)
 endfunction
-" }}}
-" Window Killer @ bling {{{
+" }}}2
+" Window Killer @ bling {{{2
 function! CloseWindowOrKillBuffer()
     let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
 
@@ -598,18 +699,18 @@ function! CloseWindowOrKillBuffer()
     else
         bdelete
     endif
-endfunction " }}}
-" New Python Buffer Autofill @ jenay.net {{{
+endfunction " }}}2
+" New Python Buffer Autofill @ jenay.net {{{2
 function! BufNewFile_PY()
     0put = '#!/usr/bin/env python3'
     1put = '#-*- coding: utf-8 -*-'
     $put = ''
     normal G
-endfunction " }}}
-function! SkeletonPY() "{{{
+endfunction " }}}2
+function! SkeletonPY() "{{{2
   exe '0r $HOME\vimfiles\skeleton.py | norm 2j'
-endfunction "}}}
-" Current Buffer Indicator @ VimBuddy {{{
+endfunction "}}}2
+" Current Buffer Indicator @ VimBuddy {{{2
 function! CurBufIndicator(sym)
   if !exists('g:actual_curbuf')
     let g:actual_curbuf = bufnr("%")
@@ -621,8 +722,8 @@ function! CurBufIndicator(sym)
     return a:sym
   endif
 endfunction
-" }}}
-" Statusline colorize {{{
+" }}}2
+" Statusline colorize {{{2
 function! ColorStatusline() abort
   hi User1 ctermfg=231 ctermbg=57 guifg=#FFFFFF guibg=#483D8B gui=bold
   hi User2 term=None ctermfg=231 ctermbg=62 guifg=#cccccc guibg=#6A5ACD gui=None
@@ -637,8 +738,8 @@ function! ColorStatusline() abort
   " if exists('g:colors_name') && g:colors_name ==# 'dracula'
   "   hi FoldColumn term=standout ctermfg=61 ctermbg=235 guifg=#6272a4 guibg=#282a36
   " endif
-endfunction " }}}
-" Statusline insert mode indication {{{
+endfunction " }}}2
+" Statusline insert mode indication {{{2
 function! InsertModeStatusline(insert) abort
   if a:insert == 0
     hi User1 ctermfg=231 ctermbg=57 guifg=#FFFFFF guibg=#483D8B gui=bold
@@ -647,18 +748,90 @@ function! InsertModeStatusline(insert) abort
     hi User1 term=reverse ctermbg=5 guifg=black guibg=lavender guisp=Magenta
     hi User7 term=reverse ctermfg=5 ctermbg=62 guifg=lavender guisp=Magenta
   endif
-endfunction " }}}
-" Decolorize the statusline {{{
+endfunction " }}}2
+" Decolorize the statusline {{{2
 function! DeColorStatusline() abort
     hi User1 term=bold,reverse cterm=bold ctermfg=231 ctermbg=236 gui=bold guifg=#f8f8f2 guibg=#64666d
     hi User2 ctermfg=15 ctermbg=8 guifg=#666666 guibg=#282a36
     hi User3 term=standout ctermfg=246 ctermbg=235 guifg=#909194 guibg=#44475a
     hi User7 term=standout ctermfg=236 ctermbg=8 guifg=#64666D guibg=#282a36
-endfunction " }}}
+endfunction " }}}2
+" Simple re-format for minified Javascript {{{2
+" https://coderwall.com/p/lxajqq/vim-function-to-unminify-javascript
+function! UnMinify()
+    %s/{\ze[^\r\n]/{\r/g
+    %s/){/) {/g
+    %s/};\?\ze[^\r\n]/\0\r/g
+    %s/;\ze[^\r\n]/;\r/g
+    %s/[^\s]\zs[=&|]\+\ze[^\s]/ \0 /g
+    normal ggVG=
+endfunction
+command! UnMinify call UnMinify()
+" }}}2
+" Clear registers {{{2
+" https://stackoverflow.com/questions/19430200/how-to-clear-vim-registers-effectively
+function! ClearRegisters()
+  redir => l:register_out
+  silent register
+  redir end
+  let l:register_list = split(l:register_out, '\n')
+  call remove(l:register_list, 0) " remove header (-- Registers --)
+  call map(l:register_list, "substitute(v:val, '^.\\(.\\).*', '\\1', '')")
+  call filter(l:register_list, 'v:val !~ "[%#=.:]"') " skip readonly registers
+  for elem in l:register_list
+    execute 'let @'.elem.'= ""'
+  endfor
+endfunction "}}}2
+" make list-like commands more intuitive {{{2
+" by Romain Lafurcade aka romainl
+" https://gist.github.com/romainl/047aca21e338df7ccf771f96858edb86
+function! CCR()
+    let cmdline = getcmdline()
+    if cmdline =~ '\v\C^(ls|files|buffers)'
+        " like :ls but prompts for a buffer command
+        return "\<CR>:b"
+    elseif cmdline =~ '\v\C/(#|nu|num|numb|numbe|number)$'
+        " like :g//# but prompts for a command
+        return "\<CR>:"
+    elseif cmdline =~ '\v\C^(dli|il)'
+        " like :dlist or :ilist but prompts for a count for :djump or :ijump
+        return "\<CR>:" . cmdline[0] . "j  " . split(cmdline, " ")[1] . "\<S-Left>\<Left>"
+    elseif cmdline =~ '\v\C^(cli|lli)'
+        " like :clist or :llist but prompts for an error/location number
+        return "\<CR>:sil " . repeat(cmdline[0], 2) . "\<Space>"
+    elseif cmdline =~ '\C^old'
+        " like :oldfiles but prompts for an old file to edit
+        set nomore
+        return "\<CR>:sil se more|e #<"
+    elseif cmdline =~ '\C^changes'
+        " like :changes but prompts for a change to jump to
+        set nomore
+        return "\<CR>:sil se more|norm! g;\<S-Left>"
+    elseif cmdline =~ '\C^ju'
+        " like :jumps but prompts for a position to jump to
+        set nomore
+        return "\<CR>:sil se more|norm! \<C-o>\<S-Left>"
+    elseif cmdline =~ '\C^marks'
+        " like :marks but prompts for a mark to jump to
+        return "\<CR>:norm! `"
+    elseif cmdline =~ '\C^undol'
+        " like :undolist but prompts for a change to undo
+        return "\<CR>:u "
+    else
+        return "\<CR>"
+    endif
+endfunction
+cnoremap <expr> <CR> CCR()
+" }}}2
 
 " }}}
 
 " Autocommands {{{
+" Save on losing focus
+" Only available for GUI
+" autocmd FocusLost * :wa
+" Leave Insert Mode on win switch
+" autocmd FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>") | :wa
 
 " --- php ---
 autocmd FileType smarty,tpl setlocal commentstring=<!--\ %s\ -->
@@ -710,7 +883,7 @@ augroup Python " {{{
     autocmd BufNewFile *.py call SkeletonPY()
     autocmd BufNewFile *.pyw call SkeletonPY()
     "Перед сохранением вырезаем пробелы на концах (только в .py файлах)
-    autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
+    autocmd BufWritePre *.py normal! m`:%s/\s\+$//e ``
     autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8
                 \ formatoptions+=croq softtabstop=4 smartindent
     "В .py файлах включаем умные отступы после ключевых слов
@@ -728,178 +901,236 @@ command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
 " >>> Conversion between TABS ans SPACES {{{2
 command! Respace :setlocal expandtab | %retab!
 command! Retab :setlocal noexpandtab | %retab!
+" https://vi.stackexchange.com/questions/2105/how-to-reverse-the-order-of-lines/2107#2107
+command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
 " }}}1
 
 " Mappings {{{1
-" General leader maps
-nnoremap <leader>w :up<cr>
-nnoremap <leader><BS> :set list! list?<cr>
-nnoremap <silent> <leader>r :call Cycle_numbering()<CR>
-nnoremap <leader><F11> :so $MYVIMRC<CR> :echo "* .vimrc loaded *"<CR>
-nnoremap <Leader><F12> :vsp $MYVIMRC<CR>
-" compile LESS
-" nnoremap <Leader>mm :w <BAR> !lessc % > %:t:r.css<CR><space>
-" Map <Leader>ff to display all lines with keyword under cursor
-" and ask which one to jump to
-nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+" +----------------------------------------------------------+
+" | Legend:                                                  |
+" | ======                                                   |
+" | I  - new things and experiments                          |
+" | II - old approved maps that probably never change        |
+" | III- commented maps that maybe, will be useful some day  |
+" +----------------------------------------------------------+
+  "========================================
+  " I -- new things and experiments -- {{{2
+  "========================================
+    " from http://twily.info/.vimrc#view {{{3
+    " Open vimgrep and put the cursor in the right position
+    map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
+    " Vimgreps in the current file
+    map <leader>/ :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
+    "}}}3
+    nnoremap <leader>c <C-W>c
+    nnoremap <S-F12> K
+    nnoremap K m`a<CR><ESC>``
+    map <silent> <M-1> :echo 'whoa1'<cr>
+    map <M-F5> :echo 'whoa f5'<cr>
+    map <M-`> :echo 'cool!'<cr>
+    map <M-space> :echo 'lol i can map it'<cr>
+    map <M-z> :echo "meta keys for the win!\n*pun intended*:P"<cr>
+    nnoremap <C-@> :echo 'heyheyhey'<cr>
+    map <C-k5> :echo 'yup:c5'<cr>
+    " already provided by unimpaired
+    " nmap [b :bprev<CR>
+    " nmap ]b :bnext<CR>
+    nnoremap [<CR> m`i<CR><ESC>``
+    nnoremap ]<CR> m`a<CR><ESC>``
+    " from Konfekt's leader key post
+    " not as useful as emacs binding as it appears
+    " nnoremap : ,
+    " nnoremap , :
+    map <M-=> <C-w>+
+    map <M--> <C-w>-
+    " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+    " so that you can undo CTRL-U after inserting a line break.
+    " Revert with ":iunmap <C-U>".
+    inoremap <C-U> <C-G>u<C-U>
+  " }}}2 /experiments
+  "=================================
+  "  II  -- Proven in battle -- {{{2
+  "=================================
+    " General UI maps
+    nnoremap <leader>w :up<cr>
+    nnoremap <leader><BS> :set list! list?<cr>
 
-" <F#> keys:
-nnoremap <F4> :set hlsearch! hlsearch?<cr>
+    " [sensible.vim] Use <C-L> to clear the highlighting of :set hlsearch.
+    if maparg('<BACKSPACE>', 'n') ==# ''
+        nnoremap <silent> <BACKSPACE> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><BACKSPACE>
+    endif
 
-" toggle paste
-map <F12> :set invpaste<CR>:set paste?<CR>
+    nnoremap <silent> <leader>r :call Cycle_numbering()<CR>
+    nnoremap <leader><F11> :so $MYVIMRC<CR> :echo "* .vimrc loaded *"<CR>
+    nnoremap <Leader><F12> :tabnew $MYVIMRC<CR>
+    " Display all lines with keyword under cursor and ask which one to jump to
+    nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+    " fast copy-paste | do i really need it? #2016-07-21
+    vnoremap <Leader>y "+y
+    vnoremap <Leader>p "+p
 
-" -- Hacks --
+    " <F#> keys:
+    nnoremap <F2> :Vex<CR>
+    nnoremap <F4> :set hlsearch! hlsearch?<cr>
+    " Word-wrap toggle
+    nmap <F6> :setl wrap!<bar>:set wrap?<CR>
+    imap <F6> <C-O><F6>
+    " toggle paste
+    map <F12> :set invpaste<CR>:set paste?<CR>
 
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-" Revert with ":iunmap <C-U>".
-inoremap <C-U> <C-G>u<C-U>
+    " URL opening :\
+    " https://sts10.github.io/blog/2016/02/16/one-solution-to-a-problem-with-vims-gx-command/
+    nnoremap <silent> gx :normal viugx<CR>
+    nmap gk <Plug>(openbrowser-smart-search)
+    vmap gk <Plug>(openbrowser-smart-search)
 
-" [From sensible.vim] Use <C-L> to clear the highlighting of :set hlsearch.
-if maparg('<BACKSPACE>', 'n') ==# ''
-    nnoremap <silent> <BACKSPACE> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><BACKSPACE>
-endif
+    " sane regex {{{3
+    nnoremap / /\v
+    vnoremap / /\v
+    nnoremap ? ?\v
+    vnoremap ? ?\v
+    " nnoremap :s/ :s/\v
+    "}}}3
 
-" URL opening :\
-" https://sts10.github.io/blog/2016/02/16/one-solution-to-a-problem-with-vims-gx-command/
-nnoremap <silent> gx :normal viugx<CR>
-let g:netrw_silent = 1
-nmap gk <Plug>(openbrowser-smart-search)
-vmap gk <Plug>(openbrowser-smart-search)
+    " Allow using the repeat operator with a visual selection (!)
+    " http://stackoverflow.com/a/8064607/127816
+    vnoremap . :normal .<CR>
 
-" sane regex {{{
-nnoremap / /\v
-vnoremap / /\v
-nnoremap ? ?\v
-vnoremap ? ?\v
-nnoremap :s/ :s/\v
-"}}}
-" visual paste without losing the copied content
-" xnoremap p "0p
-" Allow using the repeat operator with a visual selection (!)
-" http://stackoverflow.com/a/8064607/127816
-vnoremap . :normal .<CR>
-" Word-wrap toggle
-nmap <F6> :setl wrap!<bar>:set wrap?<CR>
-imap <F6> <C-O><F6>
+    " Handy line split: before and after cursor
+    " nnoremap <silent> <leader>h i<CR><ESC>
+    " nnoremap <silent> <leader>l a<CR><Esc>k$
+    " nnoremap <M-h> m`i<CR><ESC>``
+    " nnoremap <M-l> m`a<CR><ESC>``
+    " Sneaky new line
+    nnoremap <silent> <M-j> m`o<ESC>``
+    nnoremap <silent> <M-k> m`O<ESC>``
+    " Guard maps if Alt won't work
+    nnoremap <silent> <leader>j m`o<ESC>``
+    nnoremap <silent> <leader>k m`O<ESC>``
+    nnoremap <silent> <C-CR> o<ESC>
+    nnoremap <silent> <S-CR> O<ESC>
+    inoremap <silent> <S-CR> <ESC>O
 
-" Sneaky new line
-nnoremap <silent> <leader><CR> i<CR><ESC>
-nnoremap <silent> <leader>j a<CR><Esc>k$
-nnoremap <silent> <leader>o m`o<ESC>``
-nnoremap <silent> <leader>O m`O<ESC>``
-nnoremap <silent> <C-CR> m`o<ESC>``
-nnoremap <silent> <S-CR> m`O<ESC>``
+    " Insert date on <F3> and <S-F3> {{{3
+    nnoremap <F8> i<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+    inoremap <F8> <C-R>=strftime("%Y-%m-%d")<CR>
+    vnoremap <F8> da<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+    nnoremap <S-F8> i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
+    inoremap <S-F8> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
+    vnoremap <S-F8> da<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
+    " }}}3
 
-" Fast bracketing
-" inoremap {{ {<CR>}<ESC>kA| "}} because it's parsed as foldmarker :\
+    " window killer
+    nnoremap <silent> Q :call CloseWindowOrKillBuffer()<cr>
+    " buffer killer
+    " open next and kill previous
+    nnoremap <leader>Q :bn<bar>sp<bar>bp<bar>bd<cr>
+    " open previous and kill next
+    " nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
+    " and shorter alternative (requires at least 2 buffers)
+    " nnoremap <leader>Q :b#<bar>bd#<cr>
 
-" Insert date on <F3> and <S-F3> {{{
-nnoremap <F3> i<C-R>=strftime("%Y-%m-%d")<CR><Esc>
-inoremap <F3> <C-R>=strftime("%Y-%m-%d")<CR>
-vnoremap <F3> da<C-R>=strftime("%Y-%m-%d")<CR><Esc>
-nnoremap <S-F3> i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
-inoremap <S-F3> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
-vnoremap <S-F3> da<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
-" }}}
+    " shortcuts for windows {{{3
+    nnoremap <leader>= <C-w>=
+    nnoremap <leader>v <C-w>v<C-w>l
+    nnoremap <leader>s <C-w>s
+    nnoremap <leader>vsa :vert sba<cr>
+    nnoremap <C-h> <C-w>h
+    nnoremap <C-j> <C-w>j
+    nnoremap <C-k> <C-w>k
+    nnoremap <C-l> <C-w>l
+    nnoremap <leader><leader> <C-^>
+    "}}}3
 
-" window killer
-nnoremap <silent> Q :call CloseWindowOrKillBuffer()<cr>
-" buffer killer
-nnoremap <leader>q :bn<bar>sp<bar>bp<bar>bd<cr>
-" and shorter alternative (requires at least 2 buffers)
-nnoremap <leader>Q :b#<bar>bd#<cr>
+    " shortcuts for tabs
+    map <leader>tn :tabnew<CR>
+    map <leader>tc :tabclose<CR>
+    nnoremap <up> :tabnext<CR>
+    nnoremap <down> :tabprev<CR>
 
-" shortcuts for windows {{{
-nnoremap <leader>= <C-w>=
-nnoremap <leader>v <C-w>v<C-w>l
-nnoremap <leader>s <C-w>s
-nnoremap <leader>vsa :vert sba<cr>
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-nnoremap <leader><leader> <C-^>
-" nnoremap <C-TAB> <C-^>
-"}}}
+    " quick buffer open
+    " nnoremap gb :ls<cr>:e #
+    nnoremap gb :ls<CR>:b<space>
 
-" shortcuts for tabs
-map <leader>tn :tabnew<CR>
-map <leader>tc :tabclose<CR>
-nnoremap <up> :tabnext<CR>
-nnoremap <down> :tabprev<CR>
+    " formatting shortcuts
+    nmap <leader>f; :call Preserve("%s/;\$//g")<CR>
+    nmap <leader>f= :call Preserve("normal gg=G")<CR>
+    nmap <leader>f4 :call Preserve("%s/\\s\\+$//e")<CR>
+    nmap <expr> <leader>f5 ':%s/' . @/ . '//g<LEFT><LEFT>'
+    nmap <expr> <F3> ':g//#<LEFT><LEFT>'
+    vmap <leader>s :sort<cr>
+    " Easier formatting
+    nnoremap <silent> <leader>fq :call Preserve("normal gwip")<CR>
 
-" buffer scroll
-nnoremap <M-h> :bprev<CR>
-nnoremap <M-l> :bnext<CR>
+    " Yank from the cursor to the end of the line, to be consistent with C and D.
+    nnoremap Y y$
 
-" quick buffer open
-nnoremap gb :ls<cr>:e #
-nnoremap <leader>b :ls<CR>:b<space>
+    " Easier horizontal scrolling
+    map zl zL
+    map zh zH
 
-" formatting shortcuts
-" nmap <leader>f4 :call StripTrailingWhitespace()<CR>
-nmap <leader>f4 :call Preserve("%s/\\s\\+$//e")<CR>
-nmap <expr> <leader>f5 ':%s/' . @/ . '//g<LEFT><LEFT>'
-" nmap _= :call Preserve("normal gg=G")<CR>
-vmap <leader>s :sort<cr>
+    " change cursor position in insert mode
+    " delimitMate might sabotage this map
+    " (or some other plugin maybe?)
+    " inoremap <C-h> <left>
+    inoremap <C-l> <right>
+    " easy paste
+    inoremap <C-q> <C-r><C-p>+
 
-" Yank from the cursor to the end of the line, to be consistent with C and D.
-nnoremap Y y$
+    " folds {{{3
+    nnoremap zr zr:echo 'foldlevel: ' . &foldlevel<cr>
+    nnoremap zm zm:echo 'foldlevel: ' . &foldlevel<cr>
+    nnoremap zR zR:echo 'foldlevel: ' . &foldlevel<cr>
+    nnoremap zM zM:echo 'foldlevel: ' . &foldlevel<cr>
+    " }}}3
 
-" Easier horizontal scrolling
-map zl zL
-map zh zH
+    " screen line scroll - very useful with wrap on
+    nnoremap <silent> j gj
+    nnoremap <silent> k gk
 
-" -- Unused -- {{{
-" Easier formatting
-" nnoremap <silent> <leader>q gwip
+    " auto center {{{3
+    nnoremap <silent> n nzz
+    nnoremap <silent> N Nzz
+    nnoremap <silent> * *zz
+    nnoremap <silent> # #zz
+    nnoremap <silent> g* g*zz
+    nnoremap <silent> g# g#zz
+    nnoremap <silent> <C-o> <C-o>zz
+    nnoremap <silent> <C-i> <C-i>zz
+    "}}}3
 
-" smash escape
-" inoremap ,, <esc>
-" }}}
+    " reselect visual block after indent
+    vnoremap < <gv
+    vnoremap > >gv
 
-" change cursor position in insert mode
-inoremap <C-h> <left>
-inoremap <C-l> <right>
-" easy paste
-inoremap <C-q> <C-r><C-p>+
+    " reselect last paste
+    nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
-" folds {{{
-nnoremap zr zr:echo 'foldlevel: ' . &foldlevel<cr>
-nnoremap zm zm:echo 'foldlevel: ' . &foldlevel<cr>
-nnoremap zR zR:echo 'foldlevel: ' . &foldlevel<cr>
-nnoremap zM zM:echo 'foldlevel: ' . &foldlevel<cr>
-" }}}
+    " language switching
+    nmap <M-s> a<C-^><Esc>
+    " nmap <C-Space> a<C-^><Esc>
+    " vmap <silent> <C-Space> <Esc>a<C-^><Esc>gv
+  " }}}2
+  "==============================
+  " | III -- Unused -- {{{2     |
+  "==============================
+    " Easier formatting
+    " nnoremap <silent> <leader>q gwip
 
-" screen line scroll - very useful with wrap on
-nnoremap <silent> j gj
-nnoremap <silent> k gk
+    " buffer scroll (remapped above to line split)
+    " map <leader>bp :bprev<CR>
+    " map <leader>bn :bnext<CR>
+    "
+    " smash escape
+    inoremap jk <esc>
 
-" auto center {{{
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
-nnoremap <silent> g# g#zz
-nnoremap <silent> <C-o> <C-o>zz
-nnoremap <silent> <C-i> <C-i>zz
-"}}}
-
-" reselect visual block after indent
-vnoremap < <gv
-vnoremap > >gv
-
-" reselect last paste
-nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-
-" language switching
-" cmap <silent> <leader>6 <C-^>
-" nmap <M-s> a<C-^><Esc>
-nmap <C-Space> a<C-^><Esc>
-vmap <silent> <C-Space> <Esc>a<C-^><Esc>gv
+    " Fast bracketing
+    " inoremap {{ {<CR>}<ESC>kA| "}} because it's parsed as foldmarker :\
+    " visual paste without losing the copied content
+    " xnoremap p "0p
+    " consistent menu navigation
+    " https://github.com/jasonlong/dotfiles/blob/master/vimrc
+  " }}}2
 " }}}1
 
 " vim: set sw=2 ts=4 sts=2 et tw=80 foldlevel=0 foldmethod=marker:
