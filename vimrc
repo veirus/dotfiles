@@ -1,6 +1,6 @@
 " PROSTOR _vimrc | based on vimtest3
 " ========================================
-" last edit: 2017-03-02
+" last edit: 2017-03-02 (merged at 2017-04-03 Пн 01:49)
 " ========================================
 " Be Improved, encoding, mapleader, OS detect, rtp and clipboard {{{
 set nocompatible
@@ -30,10 +30,10 @@ let s:is_gui     = has('gui_running')
 let s:is_conemu  = !empty($CONEMUBUILD)
 " ========================================
 " portability shim:
-let $DOTVIMDIR = expand('$HOME/dotfiles')
+let $DOTVIMDIR = expand('$HOME/vimfiles')
 if !isdirectory(expand('$DOTVIMDIR'))
   let $DOTVIMDIR = expand('$VIM/vimfiles')
-  echom "** ! **: dotfiles don't exist"
+  echom "** ! **: dotfiles dir don't exist"
 endif
 set rtp^=$DOTVIMDIR
 " ========================================
@@ -70,9 +70,8 @@ Plug 'mattn/emmet-vim', {'for': emmetlist }
     return "\<plug>(emmet-expand-abbr)"
   endfunction
   " autocmd FileType stylus,xml,xsl,xslt,xsd,css,less,sass,scss,mustache imap <buffer><tab> <c-y>,
-  " autocmd FileType stylus,xml,xsl,xslt,xsd,css,less,sass,scss,mustache imap <buffer><tab> \,
   " autocmd FileType stylus,html,css,less,sass,scss imap <buffer><expr><tab> <sid>zen_html_tab()
-  autocmd FileType stylus,html,css,less,sass,scss imap <buffer><expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+  autocmd FileType stylus,html,css,less,sass,scss imap <buffer><expr> <tab> emmet#expandAbbrIntelligent("\<C-Space>")
 
 "}}}3
 
@@ -174,6 +173,11 @@ let s:cs_xterm='jellybeans'
 let s:cs_nvim='molokai'
 let s:cs_cmder='badwolf'
 " == new stuff == {{{2
+" 2017-03-22 {{{3
+" Track the engine.
+Plug 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
 " 2017-02-22 {{{3
 Plug 'fcpg/vim-showmap'
 " 2017-02-06 {{{3
@@ -292,7 +296,6 @@ set path+=** " let's try this ':find'
   set shiftwidth=4               " размер отступов
   set smarttab
   set noexpandtab
-  " set expandtab
   set nojoinspaces               " Prevents inserting two spaces after punctuation on a join (J)
   set backspace=indent,eol,start " Backspace for dummies
 " }}}
@@ -453,7 +456,7 @@ set wildmode=list:longest,full                 " Command <Tab> completion, list 
 set foldenable                                 " Auto fold code
 " set foldopen=all                             " Автооткрытие сверток при заходе в них
 set list
-set listchars=tab:│\ ,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
+set listchars=tab:│\ ,eol:¬,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
 " set listchars=tab:›\ ,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
 " set listchars=tab:▷⋅,trail:⋅,nbsp:⋅          " Alternative settings
 
@@ -872,7 +875,7 @@ augroup END
 " Autosource for _vimrc {{{
 augroup reload_vimrc
     autocmd!
-    autocmd bufwritepost _vimrc,init.vim nested source $MYVIMRC
+    autocmd bufwritepost _vimrc,init.vim,vimrc nested source $MYVIMRC
     " Alternative, not working very well, so disabled:
     " autocmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC
     " autocmd bufwritepost $HOME/_vimrc execute "normal! :source ~/_vimrc"
@@ -916,6 +919,8 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
   "========================================
   " I -- new things and experiments -- {{{2
   "========================================
+    nnoremap <leader>z zMzvzz
+    nnoremap <silent> <leader>\ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
     " from http://twily.info/.vimrc#view {{{3
     " Open vimgrep and put the cursor in the right position
     map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
@@ -1068,6 +1073,8 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     " Easier horizontal scrolling
     map zl zL
     map zh zH
+    noremap H ^
+    noremap L g_
 
     " change cursor position in insert mode
     " delimitMate might sabotage this map
@@ -1089,8 +1096,8 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     nnoremap <silent> k gk
 
     " auto center {{{3
-    nnoremap <silent> n nzz
-    nnoremap <silent> N Nzz
+    nnoremap <silent> n nzzzv
+    nnoremap <silent> N Nzzzv
     nnoremap <silent> * *zz
     nnoremap <silent> # #zz
     nnoremap <silent> g* g*zz
