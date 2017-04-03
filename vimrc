@@ -1,24 +1,34 @@
-" PROSTOR _vimrc | based on vimtest3
-" ========================================
-" last edit: 2017-03-02 (merged at 2017-04-03 Пн 01:49)
-" ========================================
+" vim: set sw=2 ts=4 sts=2 et tw=80 foldlevel=0 foldmethod=marker:
+" ==========================================================
+" CW's _vimrc | merging with PROSTOR | last edit: 2017-04-03 (merged at 2017-04-03 Вт 13:42)
+" ==========================================================
+
 " Be Improved, encoding, mapleader, OS detect, rtp and clipboard {{{
 set nocompatible
 " ========================================
-set encoding=utf-8
-" Список кодировок для автоматического определения, в порядке предпочтения
-" взято с http://jenyay.net/Programming/Vim
-set fileencodings=utf-8,cp1251,utf-16le,cp866,koi8r,ucs-2le
-set fileencoding=utf-8    " set save encoding
+" set encoding=utf-8
+" " Список кодировок для автоматического определения, в порядке предпочтения
+" " взято с http://jenyay.net/Programming/Vim
+" set fileencodings=utf-8,cp1251,utf-16le,cp866,koi8r,ucs-2le
+" set fileencoding=utf-8    " set save encoding
 " ========================================
-if &termencoding == ""
-  let &termencoding = &encoding
-else
-  set termencoding=utf-8  " set terminal encoding
+" if &termencoding == ""
+"   let &termencoding = &encoding
+" else
+"   set termencoding=utf-8  " set terminal encoding
+" endif
+" ========================================
+"explanation: http://stackoverflow.com/a/5795441/453396
+if has("multi_byte")
+    if &termencoding == ""
+        let &termencoding = &encoding
+    endif
+    set encoding=utf-8                      "better default than latin1
+    setglobal fileencoding=utf-8            "change default file encoding when writing new files
 endif
 " ========================================
 let mapleader    = "\<space>"
-let g:mapleader    = "\<space>"
+let g:mapleader  = "\<space>"
 " ========================================
 let s:is_windows = has('win32') || has('win64')
 let s:is_wingui  = has("gui_win32")
@@ -42,6 +52,17 @@ let s:plugdir = $DOTVIMDIR.'\'.s:plugs
 set backupdir=$DOTVIMDIR/backups
 set directory=$DOTVIMDIR/swap
 set undodir=$DOTVIMDIR/undo
+set viminfo+=n$DOTVIMDIR/swap/viminfo
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+endif
 " ========================================
 if has('clipboard')
   if has('unnamedplus')         " When possible use + register for copy-paste
@@ -50,193 +71,37 @@ if has('clipboard')
     set clipboard=unnamed
   endif
 endif
-set timeout timeoutlen=250 ttimeoutlen=100
+set timeout timeoutlen=230
 " }}}
 
 " Plugin Install {{{1
-let g:plug_threads = 2
+" let g:plug_threads = 2
 call plug#begin(s:plugdir)
 " == Necessity == {{{2
-Plug 'matchit.zip'
-  let b:match_ignorecase = 1
+Plug 'editorconfig/editorconfig-vim'
 " Emmet {{{3
 let emmetlist = ['html','smarty','pug','php','xml','xsl','xslt','xsd','css','sass','scss','less','styl','stylus','mustache','handlebars']
 Plug 'mattn/emmet-vim', {'for': emmetlist }
+  let g:user_emmet_settings = {
+        \ 'php': {
+        \     'snippets': {
+        \         'php': "<?php |; ?>",
+        \         'tf':  "<?php the_field('|', 'options'); ?>",
+        \         'tsf': "<?php the_sub_field('|'); ?>",
+        \         'if':  "<?php if(|${child}): ?>",
+        \         'hr':  "<?php if( have_rows('${cursor}', 'option') ): ?>\n\t<?php while( have_rows('${cursor}', 'option')): the_row(); ?>\n\t${2}\n\t<?php endwhile; ?>\n<?php endif; ?>",
+        \         'els': "<?php elseif(|): ?>",
+        \         'wh':  "<?php while(|${child}): ?>",
+        \         'ei':  "<?php endif; ?>",
+        \         'ew':  "<?php endwhile; ?>",
+        \         },
+        \     },
+        \ }
   let g:user_emmet_leader_key = '\'
-  function! s:zen_html_tab()
-    if !emmet#isExpandable()
-      return "\<plug>(emmet-move-next)"
-    endif
-    return "\<plug>(emmet-expand-abbr)"
-  endfunction
-  " autocmd FileType stylus,xml,xsl,xslt,xsd,css,less,sass,scss,mustache imap <buffer><tab> <c-y>,
-  " autocmd FileType stylus,html,css,less,sass,scss imap <buffer><expr><tab> <sid>zen_html_tab()
-  autocmd FileType stylus,html,css,less,sass,scss imap <buffer><expr> <tab> emmet#expandAbbrIntelligent("\<C-Space>")
-
+  " autocmd FileType stylus,html,css,less,sass,scss imap <buffer><expr><C-Space> <sid>cw#zen_html_tab()
+  autocmd FileType {ht,x,xs}ml,php,pug,s\\\{-\}[ac]ss,less,stylus imap <buffer><expr> <C-Space> emmet#expandAbbrIntelligent("\<C-Space>")
+  " autocmd FileType stylus,html,css,less,sass,scss imap <buffer><expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 "}}}3
-
-Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/vim-rsi'
-Plug 'tpope/vim-repeat'
-" Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-surround'
-" Plug 'junegunn/vim-peekaboo'
-Plug 'kana/vim-textobj-user'
-Plug 'jceb/vim-textobj-uri'
-Plug 'kana/vim-textobj-fold'
-" Plug 'kana/vim-textobj-function'
-Plug 'kana/vim-textobj-indent'
-Plug 'jasonlong/vim-textobj-css'
-Plug 'mhinz/vim-startify' "{{{3
- nnoremap <F1> :Startify<CR>
-"  let g:startify_list_order = ['files', 'sessions']
- let g:startify_bookmarks = [{'p': 'E:\Dropbox\TODO\PROSTOR.todo'}, '~\_vimrc']
- let g:startify_update_oldfiles = 1
- let g:startify_session_autoload = 1
- let g:startify_session_persistence = 1
- let g:startify_session_delete_buffers = 1
- "}}}3
-Plug 'luochen1990/rainbow' "{{{3
-    let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-" Ag {{{3
-Plug 'rking/ag.vim', {'on' :'Ag'} " trying this one instead of all that
-" if executable('ag')
-"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
-"   let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
-" elseif executable('ack-grep')
-"   let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
-" elseif executable('ack')
-"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
-" endif
-"}}}3
-Plug 'tpope/vim-fugitive'
-Plug 'justinmk/vim-sneak'
-  let g:sneak#streak=1
-" ST's PlainTasks compatible!
-Plug 'irrationalistic/vim-tasks'
-
-" == < webdev \> == {{{2
-" Main
-Plug 'othree/html5.vim'
-Plug 'JulesWang/css.vim'
-Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass','less']}
-" ---------------
-" Pre HTML
-Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
-Plug 'tpope/vim-markdown', {'for': ['markdown', 'md', 'mdown', 'mkd', 'mkdn']}
-" ---------------
-" Pre CSS
-Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss']}
-Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'wavded/vim-stylus', {'for':['styl','stylus']}
-" ---------------
-" Js
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'js', 'html'] }
-Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
-  let g:vim_json_syntax_conceal = 0
-" ---------------
-Plug 'KabbAmine/gulp-vim', {'on':['Gulp','GulpExt']}
-Plug 'gorodinskiy/vim-coloresque', {'for': ['html', 'css', 'less', 'sass', 'stylus', 'php']} " *^* This
-" Plug 'ap/vim-css-color', {'for': ['html', 'css', 'less', 'php']} " Trying *^* instead of this colorizer
-
-" == Colorschemes == {{{2
-" -- utilitiy -- {{{3
-Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
-Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
-" Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-" -- unused -- {{{3
-" Plug 'ajh17/Spacegray.vim'
-" Plug 'chriskempson/base16-vim'
-" Plug 'chriskempson/vim-tomorrow-theme'
-" Plug 'jacoborus/tender'
-" Plug 'junegunn/seoul256.vim'
-" -- core -- {{{3
-Plug 'KabbAmine/yowish.vim'
-Plug 'dracula/vim'
-Plug 'nanotech/jellybeans.vim'
-Plug 'sjl/badwolf'
-Plug 'tomasr/molokai'
-Plug 'zeis/vim-kolor'
-  let g:kolor_underlined=1
-" -- newest themes -- {{{3
-Plug 'jasonlong/lavalamp'
-Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'Wutzara/vim-materialtheme'
-Plug 'zanglg/nova.vim'
-" -- theme assingment -- {{{3
-" let g:airline_theme = "hybrid"
-let s:cs_wingui='breezy'
-let s:cs_xterm='jellybeans'
-let s:cs_nvim='molokai'
-let s:cs_cmder='badwolf'
-" == new stuff == {{{2
-" 2017-03-22 {{{3
-" Track the engine.
-Plug 'SirVer/ultisnips'
-" Snippets are separated from the engine. Add this if you want them:
-Plug 'honza/vim-snippets'
-" 2017-02-22 {{{3
-Plug 'fcpg/vim-showmap'
-" 2017-02-06 {{{3
-Plug 'w0rp/ale'
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 0
-Plug 'ternjs/tern_for_vim'
-Plug 'itspriddle/vim-jquery'
-" 2017-02-01 {{{3
-Plug 'svermeulen/vim-easyclip'
-" 2017-01-26 {{{3
-Plug 'fneu/breezy'
-" 2017-01-18 {{{3
-Plug 'closetag.vim'
-" 2016-12-20 {{{3
-Plug 'vim-scripts/DrawIt', {'on': 'DrawIt'}
-" Nice highlighting for the css and sass but too crude
-Plug 'amadeus/vim-evokai'
-" }}}3
-" new stuff 2016-12-15 {{{3
-Plug 'romainl/vim-qf'
-Plug 'tpope/vim-unimpaired'
-"}}}3
-" old {{{3
-Plug 'wellle/targets.vim'
-" gist-vim {{{4
-Plug 'mattn/webapi-vim'
-Plug 'mattn/gist-vim'
-" }}}4
-
-Plug 'tomtom/tcomment_vim'
-Plug 'kana/vim-operator-user'
-" Plug 'lyokha/vim-xkbswitch'
-"   let g:XkbSwitchEnabled       = 1
-"   let g:XkbSwitchLib           = $DOTVIMDIR . '/lib/libxkbswitch64.dll'
-"   let g:XkbSwitchIMappings     = ['ru']
-"   let g:XkbSwitchSkipIMappings = {'*' : ['[', ']', '{', '}', "'"]}
-" Plug 'kana/vim-repeat'
-" Plug 'tyru/caw.vim'
-"   let g:caw_operator_keymappings = 1
-Plug 'ctrlpvim/ctrlp.vim'
-  nnoremap <leader>b :CtrlPBuffer<cr>
-  let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
-Plug 'zhaocai/GoldenView.Vim', {'on' : '<Plug>ToggleGoldenViewAutoResize'} "{{{
-  let g:goldenview__enable_default_mapping=0
-  nmap <F5> <Plug>ToggleGoldenViewAutoResize
-  "}}}
-" Plug 'AndrewRadev/splitjoin.vim'
-Plug 'Raimondi/delimitMate'
-" Plug 'fisadev/FixedTaskList.vim'
-" Plug 'itchyny/vim-cursorword'
-Plug 'konfekt/fastfold'
-  let g:fastfold_savehook = 1
-Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
-" Plug 'mhinz/vim-signify'
-Plug 'osyo-manga/vim-over', {'on':'OverCommandLine'}
-Plug 'skywind3000/asyncrun.vim', {'on':['Gulp','GulpExt']}
-Plug 'tyru/open-browser.vim'
-
 Plug 'nathanaelkane/vim-indent-guides' "{{{3
   " <leader>ig
   let g:indent_guides_start_level = 2
@@ -251,37 +116,231 @@ Plug 'nathanaelkane/vim-indent-guides' "{{{3
     autocmd VimEnter,Colorscheme * call s:indent_set_console_colors()
   endif
 " }}}3
-
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } "{{{3
   " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
   xmap <Enter> <Plug>(EasyAlign)
   " Start interactive EasyAlign for a motion/text object (e.g. gaip)
   nmap <Leader>a <Plug>(EasyAlign)
 " }}}3
-
+Plug 'ctrlpvim/ctrlp.vim' "{{{3
+  nnoremap <leader>b :CtrlPBuffer<cr>
+  nnoremap <Leader>o :CtrlPMRUFiles<CR>
+  let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+Plug 'zhaocai/GoldenView.Vim', {'on' : '<Plug>ToggleGoldenViewAutoResize'} "{{{3
+  let g:goldenview__enable_default_mapping=0
+  nmap <F5> <Plug>ToggleGoldenViewAutoResize
+  " }}}3
+Plug 'mhinz/vim-startify' "{{{3
+ nnoremap <F1> :Startify<CR>
+ let g:startify_list_order = ['files', 'sessions', 'bookmarks']
+ let g:startify_bookmarks = [{'p': 'D:\Dropbox\TODO\PROSTOR.todo'}, {'r': '~\_vimrc'}]
+ let g:startify_update_oldfiles = 1
+ let g:startify_session_autoload = 1
+ let g:startify_session_persistence = 1
+ let g:startify_session_delete_buffers = 1
+ "}}}3
+Plug 'rking/ag.vim', {'on' :'Ag'} " {{{3
+" if executable('ag')
+"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
+"   let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+" elseif executable('ack-grep')
+"   let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
+" elseif executable('ack')
+"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
+" endif
+" }}}3
+" -- open url in browser -- {{{3
+Plug 'kana/vim-textobj-user'
+Plug 'jceb/vim-textobj-uri'
+Plug 'tyru/open-browser.vim'
+" }}}3
+" -- parensis -- {{{3
+Plug 'Raimondi/delimitMate'
+" Plug 'jiangmiao/auto-pairs'
+Plug 'luochen1990/rainbow'
+  let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+Plug 'matchit.zip'
+  let b:match_ignorecase = 1
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
+"}}}3
+" -- hotkeys {{{3
+Plug 'tpope/vim-rsi'
+Plug 'romainl/vim-qf'
+Plug 'tpope/vim-unimpaired'
+" -- repeat {{{3
+Plug 'tpope/vim-repeat'
+" Plug 'kana/vim-repeat'
+" -- comment {{{3
+Plug 'tomtom/tcomment_vim'
+" Plug 'tpope/vim-commentary'
+" Plug 'tyru/caw.vim'
+"   let g:caw_operator_keymappings = 1
+" }}}3
+" -- text objects -- {{{3
+Plug 'kana/vim-textobj-user'
+Plug 'jceb/vim-textobj-uri'
+Plug 'kana/vim-textobj-fold'
+" Plug 'kana/vim-textobj-function'
+Plug 'kana/vim-textobj-indent'
+Plug 'jasonlong/vim-textobj-css'
+" }}}3
+" -- gist-vim {{{3
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
+" }}}3
+" -- utils -- {{{3
 Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
-" god fucking dammit autochdir is so fucking annoying sometimes - 2016-12-15
+Plug 'skywind3000/asyncrun.vim', {'on':['Gulp','GulpExt']}
+Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
+Plug 'tpope/vim-fugitive'
+Plug 'justinmk/vim-sneak'
+  let g:sneak#streak=1
+Plug 'konfekt/fastfold'
+  let g:fastfold_savehook = 1
+" ST's PlainTasks compatible!
+Plug 'irrationalistic/vim-tasks', {'for': [ 'todo', 'tasks' ]}
+" == < webdev \> == {{{2
+" General
+Plug 'othree/html5.vim'
+Plug 'JulesWang/css.vim'
+Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass','less']}
+Plug 'closetag.vim'
+" ---------------
+" Pre HTML
+Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
+Plug 'tpope/vim-markdown', {'for': ['markdown', 'md', 'mdown', 'mkd', 'mkdn']}
+" ---------------
+" Pre CSS
+Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss']}
+Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'wavded/vim-stylus', {'for':['styl','stylus']}
+Plug 'csscomb/vim-csscomb', {'on': 'CSScomb'}
+" ---------------
+" Js
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'js', 'html'] }
+Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
+  let g:vim_json_syntax_conceal = 0
+" ---------------
+Plug 'KabbAmine/gulp-vim', {'on':['Gulp','GulpExt']}
+Plug 'gorodinskiy/vim-coloresque', {'for': ['html', 'css', 'less', 'sass', 'stylus', 'php']} " *^* This
+" Plug 'ap/vim-css-color', {'for': ['html', 'css', 'less', 'php']} " Trying *^* instead of this colorizer
+
+" == Colorschemes == {{{2
+" -- utilitiy -- {{{3
+Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
+" Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" -- * * * --- {{{3
+" Plug 'ajh17/Spacegray.vim'
+Plug 'kristijanhusak/vim-hybrid-material'
+" let g:airline_theme = "hybrid"
+Plug 'jasonlong/lavalamp'
+Plug 'amadeus/vim-evokai'
+" Plug 'jacoborus/tender'
+" Plug 'junegunn/seoul256.vim'
+" -- * * * * -- {{{3
+" Plug 'KabbAmine/yowish.vim'
+" Plug 'dracula/vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'chriskempson/base16-vim'
+Plug 'chriskempson/vim-tomorrow-theme'
+" -- * * * * * -- {{{3
+Plug 'nanotech/jellybeans.vim'
+Plug 'sjl/badwolf'
+Plug 'tomasr/molokai'
+Plug 'zeis/vim-kolor'
+  let g:kolor_underlined=1
+" -- newest themes -- {{{3
+Plug 'Wutzara/vim-materialtheme'
+Plug 'zanglg/nova.vim'
+" -- theme assingment -- {{{3
+let s:cs_wingui='breezy'
+let s:cs_xterm='jellybeans'
+let s:cs_nvim='molokai'
+let s:cs_cmder='badwolf'
+" == new stuff == {{{2
+" 2017-03-31 {{{3
+Plug 'junegunn/fzf', { 'dir': '~/.fzf'}
+Plug 'junegunn/fzf.vim'
+nmap <leader><tab> <plug>(fzf-maps-n)
+imap <c-x><c-k> <plug>(fzf-complete-word)
+" 2017-03-21 {{{3
+Plug 'takac/vim-hardtime'
+nnoremap <leader><F1> <Esc>:HardTimeToggle<CR>
+let g:hardtime_ignore_quickfix = 1
+" 2017-03-22 {{{3
+" Track the engine.
+Plug 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+" let g:UltiSnipsExpandTrigger="<C-Space>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+" 2017-03-09 {{{3
+Plug 'moll/vim-node'
+Plug 'sickill/vim-monokai'
+" 2017-02-22 {{{3
+Plug 'fcpg/vim-showmap'
+" 2017-02-06 {{{3
+Plug 'w0rp/ale'
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+Plug 'ternjs/tern_for_vim'
+Plug 'itspriddle/vim-jquery'
+" 2017-02-01 {{{3
+Plug 'svermeulen/vim-easyclip'
+" 2017-01-26 nice hybrid colorscheme {{{3
+Plug 'fneu/breezy'
+" }}}3
+"}}}3
+" old {{{3
+Plug 'vim-scripts/DrawIt', {'on': 'DrawIt'}
+Plug 'wellle/targets.vim'
+Plug 'kana/vim-operator-user'
+Plug 'osyo-manga/vim-over', {'on':'OverCommandLine'}
+" Plug 'lyokha/vim-xkbswitch'
+"   let g:XkbSwitchEnabled       = 1
+"   let g:XkbSwitchLib           = $DOTVIMDIR . '/lib/libxkbswitch64.dll'
+"   let g:XkbSwitchIMappings     = ['ru']
+"   let g:XkbSwitchSkipIMappings = {'*' : ['[', ']', '{', '}', "'"]}
+   let g:caw_operator_keymappings = 1
+" Plug 'AndrewRadev/splitjoin.vim'
+" Plug 'fisadev/FixedTaskList.vim'
+" Plug 'itchyny/vim-cursorword'
+" Plug 'mhinz/vim-signify'
+" }}}3
 
 call plug#end() " required }}}1
 
 " General {{{
+
 scriptencoding utf-8
 set iskeyword=@,a-z,A-Z,48-57,_,128-175,192-255
 set keymap=russian-jcukenwin
-set iminsert=0            " раскладка по умолчанию для ввода - английская
-set imsearch=0            " раскладка по умолчанию для поиска - английская
+set iminsert=0              " раскладка по умолчанию для ввода - английская
+set imsearch=0              " раскладка по умолчанию для поиска - английская
 set mouse=a
-set sessionoptions-=options         " do not store global and local values in a session
 set autoread
-set hidden                " Allow buffer switching without saving
-set nobackup              " Отключить создание файлов бекапа
+set hidden                  " Allow buffer switching without saving
+set nobackup                " Отключить создание файлов бекапа
 set nowritebackup
-set noswapfile            " и свапа
+set noswapfile              " и свапа
 set history=1000
-set path+=** " let's try this ':find'
-"}}}
+set sessionoptions-=options " do not store global and local values in a session
+set path+=**                " let's try ':find'
+set synmaxcol=800           " Don't try to highlight lines longer than 800 chars
+
+" Better Completion
+set complete=.,w,b,u,t
+set completeopt=longest,menuone
+set formatoptions=qrn1j
+" }}}
 
 " Formatting {{{
+
   set nowrap
   set textwidth=0                " Don't automatically insert linebreaks
   set formatoptions-=t           " don't automatically wrap text when typing
@@ -298,11 +357,12 @@ set path+=** " let's try this ':find'
   set noexpandtab
   set nojoinspaces               " Prevents inserting two spaces after punctuation on a join (J)
   set backspace=indent,eol,start " Backspace for dummies
+
 " }}}
 
 " UI {{{1
-" New Optimized (?) Statusline {{{2
 
+" New Optimized (?) Statusline {{{2
 " Mode list {{{3
 let g:currentmode={
     \ 'n'  : 'N ',
@@ -412,7 +472,6 @@ set statusline+=%0*\ %n
 set statusline+=\ %7*
 " set statusline+=\ %4*%*
 set statusline+=%7*\ %<%F\ %{ReadOnly()}
-" set statusline+=\ %5*
 set statusline+=\ %0*%=                            " Space
 set statusline+=\ %8*%k%m%r%w
 set statusline+=%0*%y%{(&fenc!=?'utf-8'?'['.&fenc.']':'')}
@@ -429,34 +488,30 @@ set statusline+=%*
 " }}}2
 
 set laststatus=2
-" execute "set colorcolumn=".join(range(80,335), ',')|   "Discolor every column past column 80
 set colorcolumn=+1
 set cmdheight=2
 set noeb
 set lazyredraw
 set scrolloff=3                                " Minimum lines to keep above and below cursor
 set scrolljump=5                               " Lines to scroll when cursor leaves screen
-set shortmess=amroOtT                           " a doesn't add m and r despite what docs says
-" set shortmess+=amroOtT                           " a doesn't add m and r despite what docs says
-" set shortmess+=filmnrxoOtT                     " Abbrev. of messages (avoids 'hit enter')
+set shortmess=amroOtT                          " a doesn't add m and r despite what docs says
 set cursorline
 set number                                     " Line numbers on
 set relativenumber
 set showmatch                                  " Show matching brackets/parenthesis
 set matchtime=2                                " tens of a second to show matching parentheses
 set incsearch                                  " Find as you type search
-" it's annoying and distracting, turning it off - 2016-12-15:
-set nohlsearch                                   " Highlight search terms
+set nohlsearch                                 " Highlight search terms; it's annoying and distracting, turning it off - 2016-12-15:
 set winminheight=0                             " Windows can be 0 line high
 set ignorecase                                 " Case insensitive search
 set smartcase                                  " Case sensitive when uc present
 set wildmenu                                   " Show list instead of just completing
 set wildmode=list:longest,full                 " Command <Tab> completion, list matches, then longest common part, then all.
-" set whichwrap=b,s,h,l,<,>,[,]                  " Backspace and cursor keys wrap too
+set whichwrap=b,s,h,l,<,>,[,]                  " Backspace and cursor keys wrap too
 set foldenable                                 " Auto fold code
-" set foldopen=all                             " Автооткрытие сверток при заходе в них
 set list
 set listchars=tab:│\ ,eol:¬,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
+
 " set listchars=tab:›\ ,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
 " set listchars=tab:▷⋅,trail:⋅,nbsp:⋅          " Alternative settings
 
@@ -470,6 +525,11 @@ let g:netrw_browse_split = 4
 " let g:netrw_liststyle=2
 let g:netrw_silent = 1
 let g:netrw_winsize = 25
+
+" set shortmess+=filmnrxoOtT                     " Abbrev. of messages (avoids 'hit enter')
+" set foldopen=all                               " Автооткрытие сверток при заходе в них
+" set whichwrap=b,s,h,l,<,>,[,]                  " Backspace and cursor keys wrap too
+" execute " set colorcolumn=".join(range(80,335), ',')|   "Discolor every column past column 80
 
 " switched off because they're handled by vim-plug {{{2
 " moved syntax here to be enabled as late as possible
@@ -515,7 +575,7 @@ if s:is_gui
 else
   set vb t_vb=
   set ttimeout
-  set ttimeoutlen=100
+  set ttimeoutlen=50
   " neovim {{{2
   if s:is_nvim
     let s:editor_root=expand("~/AppData/Local/nvim")
@@ -919,35 +979,87 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
   "========================================
   " I -- new things and experiments -- {{{2
   "========================================
+    let delimitMate_expand_cr = 1
+    " Indent tag
+    au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>= Vat=
+    " Keep search matches in the middle of the window.
+    nnoremap n nzzzv
+    nnoremap N Nzzzv
+
+    " Same when jumping around
+    nnoremap g; g;zz
+    nnoremap g, g,zz
+    nnoremap <c-o> <c-o>zz
+
+    nnoremap á %
+    vnoremap á %
+    " Unfuck my screen
+    nnoremap <leader>R :syntax sync fromstart<cr>:redraw!<cr>
+    nnoremap gl L
+    nnoremap gh H
+
+    " Join an entire paragraph.
+    " Useful for writing GitHub comments in actual Markdown and then translating it
+    " to their bastardized version of Markdown.
+    nnoremap <leader>J mzvipJ`z
+    " Select (charwise) the contents of the current line, excluding indentation.
+    " Great for pasting Python lines into REPLs.
+    nnoremap vv ^vg_
+    " Substitute
+    nnoremap <c-s> :s/
+    nnoremap <M-s> :%s/
+    vnoremap <c-s> :s/
+    " Keep cutsor line in place when joining lines
+    nnoremap J mzJ`z
+    " echo highligting groups
+    nnoremap <F7> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+                            \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+                            \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+    noremap H ^
+    noremap L g_
     nnoremap <leader>z zMzvzz
     nnoremap <silent> <leader>\ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+    nnoremap <silent> <F11> :silent edit <C-R>=empty(expand('%')) ? '.' : fnameescape(expand('%:p:h'))<CR><CR>
     " from http://twily.info/.vimrc#view {{{3
     " Open vimgrep and put the cursor in the right position
     map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
     " Vimgreps in the current file
     map <leader>/ :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
+    " Close the current buffer
+    map <leader>bd :Bclose<cr>
+
+    " Close all the buffers
+    map <leader>ba :1,1000 bd!<cr>
+
+    " Switch CWD to the directory of the open buffer
+    map <leader>cd :cd %:p:h<cr>:pwd<cr>
     "}}}3
-    nnoremap <leader>c <C-W>c
     nnoremap <S-F12> K
     nnoremap K m`a<CR><ESC>``
-    map <silent> <M-1> :echo 'whoa1'<cr>
+    " Meta keys test {{{3
+    " works in terminal:
     map <M-F5> :echo 'whoa f5'<cr>
+    " doesn't work in terminal:
+    " Split resize
+    map <M-.> 4<C-W><
+    map <M-,> 4<C-W>>
+    " ==============================
+    map <silent> <M-1> :echo 'whoa1'<cr>
     map <M-`> :echo 'cool!'<cr>
     map <M-space> :echo 'lol i can map it'<cr>
-    map <M-z> :echo "meta keys for the win!\n*pun intended*:P"<cr>
     nnoremap <C-@> :echo 'heyheyhey'<cr>
     map <C-k5> :echo 'yup:c5'<cr>
-    " already provided by unimpaired
-    " nmap [b :bprev<CR>
-    " nmap ]b :bnext<CR>
+
+    map <M-=> <C-w>+
+    map <M--> <C-w>-
+    " =============== }}}3
     nnoremap [<CR> m`i<CR><ESC>``
     nnoremap ]<CR> m`a<CR><ESC>``
     " from Konfekt's leader key post
     " not as useful as emacs binding as it appears
     " nnoremap : ,
     " nnoremap , :
-    map <M-=> <C-w>+
-    map <M--> <C-w>-
     " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
     " so that you can undo CTRL-U after inserting a line break.
     " Revert with ":iunmap <C-U>".
@@ -1054,7 +1166,6 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     nnoremap <down> :tabprev<CR>
 
     " quick buffer open
-    " nnoremap gb :ls<cr>:e #
     nnoremap gb :ls<CR>:b<space>
 
     " formatting shortcuts
@@ -1075,6 +1186,21 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     map zh zH
     noremap H ^
     noremap L g_
+    " screen line scroll - very useful with wrap on
+    nnoremap <silent> j gj
+    nnoremap <silent> k gk
+
+    " auto center {{{3
+    nnoremap <silent> n nzzzv
+    nnoremap <silent> N Nzzzv
+    nnoremap <silent> * *zz
+    nnoremap <silent> # #zz
+    nnoremap <silent> g* g*zz
+    nnoremap <silent> g# g#zz
+    nnoremap <silent> <C-o> <C-o>zz
+    nnoremap <silent> <C-i> <C-i>zz
+    "}}}3
+
 
     " change cursor position in insert mode
     " delimitMate might sabotage this map
@@ -1091,21 +1217,6 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     nnoremap zM zM:echo 'foldlevel: ' . &foldlevel<cr>
     " }}}3
 
-    " screen line scroll - very useful with wrap on
-    nnoremap <silent> j gj
-    nnoremap <silent> k gk
-
-    " auto center {{{3
-    nnoremap <silent> n nzzzv
-    nnoremap <silent> N Nzzzv
-    nnoremap <silent> * *zz
-    nnoremap <silent> # #zz
-    nnoremap <silent> g* g*zz
-    nnoremap <silent> g# g#zz
-    nnoremap <silent> <C-o> <C-o>zz
-    nnoremap <silent> <C-i> <C-i>zz
-    "}}}3
-
     " reselect visual block after indent
     vnoremap < <gv
     vnoremap > >gv
@@ -1114,9 +1225,17 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
     " language switching
-    nmap <M-s> a<C-^><Esc>
-    " nmap <C-Space> a<C-^><Esc>
-    " vmap <silent> <C-Space> <Esc>a<C-^><Esc>gv
+    nmap <M-z> a<C-^><Esc>
+    if !s:is_gui
+      " lang switch terminal edition
+      nmap <C-Space> a<C-^><Esc>
+      vmap <silent> <C-Space> <Esc>a<C-^><Esc>gv
+    endif
+
+    " smash escape
+    " use only with 'timeout' and 'timeoutlen'
+    inoremap jk <esc>
+
   " }}}2
   "==============================
   " | III -- Unused -- {{{2     |
@@ -1128,8 +1247,6 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     " map <leader>bp :bprev<CR>
     " map <leader>bn :bnext<CR>
     "
-    " smash escape
-    inoremap jk <esc>
 
     " Fast bracketing
     " inoremap {{ {<CR>}<ESC>kA| "}} because it's parsed as foldmarker :\
@@ -1140,4 +1257,30 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
   " }}}2
 " }}}1
 
-" vim: set sw=2 ts=4 sts=2 et tw=80 foldlevel=0 foldmethod=marker:
+" from http://twily.info/.vimrc#view {{{
+" set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+
+" Specify the behavior when switching between buffers
+try
+  set switchbuf=useopen,usetab,newtab
+  set showtabline=1
+catch
+endtry
+
+" Return to last edit position when opening files (You want this!)
+augroup thaw_file
+  autocmd!
+
+  autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \ exe "normal! g`\"" |
+      \ endif
+augroup END
+" Remember info about open buffers on close
+set viminfo^=%
+
+"}}}
+
+if has('virtualedit')
+  set virtualedit=block               " allow cursor to move where there is no text in visual block mode
+endif
