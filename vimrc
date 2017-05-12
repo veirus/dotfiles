@@ -1,6 +1,6 @@
 " vim: set sw=2 ts=4 sts=2 et tw=80 foldlevel=0 foldmethod=marker:
 " ==========================================================
-" PROSTOR _vimrc | based on vimtest3 | last edit: 2017-04-04 Вт 01:55
+" PROSTOR _vimrc | based on vimtest3 | last edit: 2017-05-10 Ср 06:05 
 " ==========================================================
 
 " Be Improved, encoding, mapleader, OS detect, rtp and clipboard {{{
@@ -358,37 +358,13 @@ set formatoptions=qrn1j
 
 " UI {{{1
 
-" New Optimized (?) Statusline {{{2
-" Mode list {{{3
-let g:currentmode={
-    \ 'n'  : 'N ',
-    \ 'no' : 'N·Operator Pending ',
-    \ 'v'  : 'V ',
-    \ 'V'  : 'V·Line ',
-    \ '' : 'V·Block ',
-    \ 's'  : 'Select ',
-    \ 'S'  : 'S·Line ',
-    \ '' : 'S·Block ',
-    \ 'i'  : 'I ',
-    \ 'R'  : 'R ',
-    \ 'Rv' : 'V·Replace ',
-    \ 'c'  : 'Command ',
-    \ 'cv' : 'Vim Ex ',
-    \ 'ce' : 'Ex ',
-    \ 'r'  : 'Prompt ',
-    \ 'rm' : 'More ',
-    \ 'r?' : 'Confirm ',
-    \ '!'  : 'Shell ',
-    \ 't'  : 'Terminal '
-    \}
-
-" Actual Statusline {{{3
+" Statusline {{{2
 " Powerline symbols quick ref:
 "  > Triangle U+e0b0,  > U+e0b1,  < Triangle U+e0b2,
 "  < U+e0b3,  Git U+e0a0,  LN U+e0a1,  Lock U+e0a2
 set statusline=
-set statusline+=\ %{toupper(g:currentmode[mode()])} " Current mode
-set statusline+=\ %n
+set statusline+=\ %{v:register}
+set statusline+=\ %n
 set statusline+=\ \ %<%F\ %{cw#ReadOnly()}
 set statusline+=\ %=                                " Space
 set statusline+=\ \ %8*%k%m%r%w
@@ -396,12 +372,12 @@ set statusline+=%0*%y%{(&fenc!=?'utf-8'?'['.&fenc.']':'')}
 set statusline+=%{&ff!=?'unix'?'['.&ff.']':''}      " Encoding & Fileformat
 set statusline+=\ \\ %-3(%{cw#FileSize()}%)        " File size
 set statusline+=%8*%3c:%3l/%L
-" set statusline+=\ %0*\ %2p%%\ %*
+set statusline+=\ %*
 " ========================================
-"display a warning if &et is wrong, or we have mixed-indenting {{{3
+"display a warning if &et is wrong, or we have mixed-indenting
 set statusline+=%#error#
 set statusline+=%{anzu#search_status()}
-set statusline+=%{ALEGetStatusLine()}               " ale
+set statusline+=%{ALEGetStatusLine()}
 set statusline+=%{cw#StatuslineTabWarning()}
 set statusline+=%{cw#StatuslineTrailingSpaceWarning()}
 set statusline+=%*
@@ -571,6 +547,12 @@ endif
 " autocmd FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>") | :wa
 
 " --- php ---
+function! SetClosetagPHP()
+  if exists('g:closetag_filenames')
+      let g:closetag_filenames .= ",*.php,*.tpl"
+  endif
+endfunction
+autocmd FileType php,smarty,tpl call SetClosetagPHP()
 autocmd FileType smarty,tpl setlocal commentstring=<!--\ %s\ -->
 
 "recalculate the tab warning flag when idle and after writing
@@ -586,26 +568,6 @@ augroup active_relative_number
     autocmd WinLeave * :setlocal norelativenumber
 augroup END
 " }}}
-" Focus~ cursorline in the active window {{{
-augroup highlight_follows_focus
-    autocmd!
-    autocmd WinEnter,FocusGained * :setlocal cursorline
-    autocmd WinLeave,FocusLost  * :setlocal nocursorline
-augroup END
-" }}}
-" Focus~ Statusline {{{
-" augroup focus_statusline
-"     autocmd!
-"     autocmd BufEnter,FocusGained,VimEnter,WinEnter * call ColorStatusline()
-"     autocmd BufLeave,FocusLost,WinLeave * call DeColorStatusline()
-" augroup END
-"}}}
-" Insert mode statusline indication (from vimwiki) {{{
-" augroup statusline_mode
-"   autocmd!
-"   autocmd InsertEnter * call InsertModeStatusline(1)
-"   autocmd InsertLeave * call InsertModeStatusline(0)
-" augroup END " }}}
 " Autosource for _vimrc {{{
 augroup reload_vimrc
     autocmd!
@@ -951,7 +913,7 @@ function! SetRandomColors()
   echo "Fetching colorschemes..."
   let s:mycolors = split(globpath(&rtp,"**/colors/*.vim"),"\n")
   exe 'so ' . s:mycolors[localtime() % len(s:mycolors)]
-  unlet s:mycolors 
+  unlet s:mycolors
   call SetCursorModes()
   echo "color: " g:colors_name
   return g:colors_name
