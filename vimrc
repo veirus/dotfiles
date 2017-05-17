@@ -266,7 +266,10 @@ let s:cs_xterm='jellybeans'
 let s:cs_nvim='molokai'
 let s:cs_cmder='badwolf'
 " == new stuff == {{{2
+" 2017-05-17 {{{3
+Plug 'ervandew/supertab'
 " 2017-04-26 {{{3
+" I'm not sure what it is doing
 Plug 'dsawardekar/wordpress.vim'
 " 2017-04-20 {{{3
 Plug 'osyo-manga/vim-anzu'
@@ -275,7 +278,7 @@ Plug 'stephenway/postcss.vim'
 " 2017-04-14 {{{3
 Plug 'alvan/vim-closetag'
 Plug 'rstacruz/vim-closer'
-" Plug 'rstacruz/vim-hyperstyle' "requires python27
+Plug 'rstacruz/vim-hyperstyle' "requires python27
 " 2017-03-31 {{{3
 Plug 'junegunn/fzf', { 'dir': '~/.fzf'} | Plug 'junegunn/fzf.vim'
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -910,15 +913,24 @@ function! ExecuteMacroOverVisualRange()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
 function! SetRandomColors()
-  echo "Fetching colorschemes..."
-  let s:mycolors = split(globpath(&rtp,"**/colors/*.vim"),"\n")
-  exe 'so ' . s:mycolors[localtime() % len(s:mycolors)]
-  unlet s:mycolors
+  if !exists('g:mycolors')
+    " echo "* Fetching colorschemes..."
+    " let g:mycolors = split(globpath(&rtp,"**/colors/*.vim"),"\n")
+    let matches = {}
+    for fname in split(globpath(&runtimepath, 'colors/*.vim'), '\n')
+      let name = fnamemodify(fname, ':t:r')
+      let matches[name] = 1
+    endfor
+    let g:mycolors = sort(keys(matches), 1)
+  endif
+  exe 'colorscheme ' . g:mycolors[localtime() % len(g:mycolors)]
+  " unlet s:mycolors
   call SetCursorModes()
-  echo "color: " g:colors_name
-  return g:colors_name
+  redraw
+  echo "* color: " g:colors_name
 endfunction
 command! Rcl call SetRandomColors()
+map <F9> :call SetRandomColors()<CR>
 
 " anzu mapping {{{
 nmap n <Plug>(anzu-n-with-echo)
