@@ -266,6 +266,8 @@ let s:cs_xterm='jellybeans'
 let s:cs_nvim='molokai'
 let s:cs_cmder='badwolf'
 " == new stuff == {{{2
+" 2017-05-18 {{{3
+Plug 'prabirshrestha/asyncomplete.vim'
 " 2017-05-17 {{{3
 Plug 'ervandew/supertab'
 " 2017-04-26 {{{3
@@ -342,12 +344,14 @@ set formatoptions=qrn1j
 
   set nowrap
   set textwidth=0                " Don't automatically insert linebreaks
-  set formatoptions-=t           " don't automatically wrap text when typing
-  set formatoptions+=j           " Delete comment character when joining commented lines
+  " set formatoptions-=t           " don't automatically wrap text when typing
+  " set formatoptions+=j           " Delete comment character when joining commented lines
+  set formatoptions+=M
   set autoindent
   set shiftround
   set linebreak
-  let &showbreak='↪ '
+  " let &showbreak='↪ '
+  let &showbreak='▷ '
   set breakindent
   set tabstop=4                  " размер табов
   set softtabstop=4
@@ -359,17 +363,15 @@ set formatoptions=qrn1j
 
 " }}}
 
-" UI {{{1
-
-" Statusline {{{2
+" Statusline {{{
 " Powerline symbols quick ref:
 "  > Triangle U+e0b0,  > U+e0b1,  < Triangle U+e0b2,
 "  < U+e0b3,  Git U+e0a0,  LN U+e0a1,  Lock U+e0a2
 set statusline=
-set statusline+=\ %{v:register}
 set statusline+=\ %n
 set statusline+=\ \ %<%F\ %{cw#ReadOnly()}
 set statusline+=\ %=                                " Space
+set statusline+=\ \"%{v:register}
 set statusline+=\ \ %8*%k%m%r%w
 set statusline+=%0*%y%{(&fenc!=?'utf-8'?'['.&fenc.']':'')}
 set statusline+=%{&ff!=?'unix'?'['.&ff.']':''}      " Encoding & Fileformat
@@ -384,7 +386,9 @@ set statusline+=%{ALEGetStatusLine()}
 set statusline+=%{cw#StatuslineTabWarning()}
 set statusline+=%{cw#StatuslineTrailingSpaceWarning()}
 set statusline+=%*
-" }}}2
+" }}}
+
+" UI {{{1
 
 set laststatus=2
 set colorcolumn=+1
@@ -552,11 +556,14 @@ endif
 " --- php ---
 function! SetClosetagPHP()
   if exists('g:closetag_filenames')
-      let g:closetag_filenames .= ",*.php,*.tpl"
+      let g:closetag_filenames.= ",*.php,*.tpl"
   endif
 endfunction
-autocmd FileType php,smarty,tpl call SetClosetagPHP()
-autocmd FileType smarty,tpl setlocal commentstring=<!--\ %s\ -->
+augroup PHP_stuff
+  autocmd!
+  autocmd FileType php,smarty,tpl call SetClosetagPHP()
+  autocmd FileType smarty,tpl setlocal commentstring=<!--\ %s\ -->
+augroup END
 
 "recalculate the tab warning flag when idle and after writing
 autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
@@ -579,6 +586,10 @@ augroup reload_vimrc
     " autocmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC
     " autocmd bufwritepost $HOME/_vimrc execute "normal! :source ~/_vimrc"
 augroup END " }}}
+augroup Python_skeleton "{{{
+  autocmd!
+  autocmd BufNewFile *.py[w]\\\{-\} call cw#SkeletonPY()
+augroup END "}}}
 " }}}
 
 " Commands {{{1
@@ -719,7 +730,7 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     nnoremap <F6> :setl wrap!<bar>:set wrap?<CR>
     imap <F6> <C-O><F6>
     " toggle paste
-    map <F12> :set invpaste<CR>:set paste?<CR>
+    noremap <F12> :setl invpaste<CR><bar>:set paste?<CR>
 
     " URL opening :\
     " https://sts10.github.io/blog/2016/02/16/one-solution-to-a-problem-with-vims-gx-command/
@@ -958,7 +969,7 @@ set gcr+=c:CommandCursor
 set gcr+=v-ve:VisualCursor
 
 " do not blink
-set gcr+=a:blinkon0
+" set gcr+=a:blinkon0
 function! SetCursorModes()
   hi InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
   hi VisualCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#d33682
@@ -967,3 +978,6 @@ function! SetCursorModes()
 endfunction
 call SetCursorModes()
 " }}}1
+if s:is_gui
+  call SetRandomColors()
+endif
