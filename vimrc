@@ -547,6 +547,7 @@ endif
 " }}}
 
 " Autocommands {{{
+if has("autocmd")
 " Save on losing focus
 " Only available for GUI
 " autocmd FocusLost * :wa
@@ -590,6 +591,7 @@ augroup Python_skeleton "{{{
   autocmd!
   autocmd BufNewFile *.py[w]\\\{-\} call cw#SkeletonPY()
 augroup END "}}}
+endif " has("autocmd")
 " }}}
 
 " Commands {{{1
@@ -938,7 +940,12 @@ function! SetRandomColors()
   " unlet s:mycolors
   call SetCursorModes()
   redraw
-  echo "* color: " g:colors_name
+  " echo "* color: " g:colors_name
+  if has('title')
+    set titlelen=99
+    set titlestring=%t%(\ %M%)\ -%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{g:colors_name}
+    " set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)\ -\ %{g:colors_name} titlelen=99
+  endif
 endfunction
 command! Rcl call SetRandomColors()
 map <F9> :call SetRandomColors()<CR>
@@ -969,7 +976,7 @@ set gcr+=c:CommandCursor
 set gcr+=v-ve:VisualCursor
 
 " do not blink
-" set gcr+=a:blinkon0
+set gcr+=a:blinkon0
 function! SetCursorModes()
   hi InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
   hi VisualCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#d33682
