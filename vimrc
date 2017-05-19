@@ -256,12 +256,18 @@ Plug 'zeis/vim-kolor'
 " -- newest themes -- {{{3
 Plug 'Wutzara/vim-materialtheme'
 Plug 'zanglg/nova.vim'
+Plug 'google/vim-colorscheme-primary'
 " -- theme assingment -- {{{3
 let s:cs_wingui='breezy'
 let s:cs_xterm='jellybeans'
 let s:cs_nvim='molokai'
 let s:cs_cmder='badwolf'
 " == new stuff == {{{2
+" 2017-04-30 {{{3
+Plug 'google/vim-searchindex'
+" 2017-04-23 {{{3
+Plug 'osyo-manga/vim-jplus'
+Plug 'osyo-manga/vim-trip'
 " 2017-03-31 {{{3
 Plug 'junegunn/fzf', { 'dir': '~/.fzf'}
 Plug 'junegunn/fzf.vim'
@@ -659,7 +665,8 @@ set gcr+=c:CommandCursor
 set gcr+=v-ve:VisualCursor
 
 " do not blink
-set gcr+=a:blinkon0
+" set gcr+=a:blinkon0
+" blink is better for me? - 2017-04-15
 
 hi InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
 hi VisualCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#d33682
@@ -1010,7 +1017,9 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     nnoremap <M-s> :%s/
     vnoremap <c-s> :s/
     " Keep cutsor line in place when joining lines
-    nnoremap J mzJ`z
+    " nnoremap J mzJ`z
+    nmap J <Plug>(jplus)
+    vmap J <Plug>(jplus)
     " echo highligting groups
     nnoremap <F7> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
                             \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
