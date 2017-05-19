@@ -17,7 +17,7 @@ augroup Python " {{{
     autocmd BufWritePre *.py[w] normal! m`:%s/\s\+$//e ``
 augroup END "}}}
 
-setlocal expandtab shiftwidth=4 tabstop=4 formatoptions+=croq softtabstop=4 smartindent
+setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 smartindent formatoptions+=croq
 "В .py файлах включаем умные отступы после ключевых слов
 setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class
 let python_highlight_all = 1
