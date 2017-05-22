@@ -41,7 +41,7 @@ let s:is_gui     = has('gui_running')
 let s:is_conemu  = !empty($CONEMUBUILD)
 " ========================================
 " portability shim:
-let $DOTVIMDIR = expand('$HOME/dotfiles')
+let $DOTVIMDIR = expand('$HOME/vimfiles')
 if !isdirectory(expand('$DOTVIMDIR'))
   let $DOTVIMDIR = expand('$VIM/vimfiles')
   echom "** ! **: dotfiles dir don't exist"
