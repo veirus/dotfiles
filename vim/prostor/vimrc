@@ -1,25 +1,27 @@
 " vim: set sw=2 ts=4 sts=2 et tw=80 foldlevel=0 foldmethod=marker:
 " ==========================================================
-" PROSTOR _vimrc | based on vimtest3 | last edit: 2017-05-10 Ср 06:05 
+" PROSTOR _vimrc | based on vimtest3 | last edit: 2017-05-22 Пн 01:28 
 " ==========================================================
-
-" Be Improved, encoding, mapleader, OS detect, rtp and clipboard {{{
+" = First things first: =
+" Be Improved {{{
 " romainl says it's useless:
 " set nocompatible
 " ========================================
+" encoding {{{1
 " set encoding=utf-8
 " " Список кодировок для автоматического определения, в порядке предпочтения
 " " взято с http://jenyay.net/Programming/Vim
 " set fileencodings=utf-8,cp1251,utf-16le,cp866,koi8r,ucs-2le
 " set fileencoding=utf-8    " set save encoding
 " ========================================
+" v2:
 " if &termencoding == ""
 "   let &termencoding = &encoding
 " else
 "   set termencoding=utf-8  " set terminal encoding
 " endif
 " ========================================
-"explanation: http://stackoverflow.com/a/5795441/453396
+" explanation: http://stackoverflow.com/a/5795441/453396
 if has("multi_byte")
     if &termencoding == ""
         let &termencoding = &encoding
@@ -28,9 +30,11 @@ if has("multi_byte")
     setglobal fileencoding=utf-8            "change default file encoding when writing new files
 endif
 " ========================================
+" mapleader {{{1
 let mapleader    = "\<space>"
 let g:mapleader  = "\<space>"
 " ========================================
+" OS detect {{{1
 let s:is_windows = has('win32') || has('win64')
 let s:is_wingui  = has("gui_win32")
 let s:is_cygwin  = has('win32unix')
@@ -40,6 +44,7 @@ let s:is_nyaovim = exists('g:nyaovim_version')
 let s:is_gui     = has('gui_running')
 let s:is_conemu  = !empty($CONEMUBUILD)
 " ========================================
+" rtp {{{1
 " portability shim:
 let $DOTVIMDIR = expand('$HOME/vimfiles')
 if !isdirectory(expand('$DOTVIMDIR'))
@@ -48,12 +53,15 @@ if !isdirectory(expand('$DOTVIMDIR'))
 endif
 set rtp^=$DOTVIMDIR
 " ========================================
+" plugs, swap, undo, backups {{{1
 let s:plugs = "plugged"
 let s:plugdir = $DOTVIMDIR.'\'.s:plugs
 set backupdir=$DOTVIMDIR/backups
 set directory=$DOTVIMDIR/swap
 set undodir=$DOTVIMDIR/undo
-set viminfo+=n$DOTVIMDIR/swap/viminfo
+if !s:is_nvim
+  set viminfo+=n$DOTVIMDIR/swap/viminfo
+endif
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
     call mkdir(expand(&undodir), "p")
@@ -65,6 +73,7 @@ if !isdirectory(expand(&directory))
     call mkdir(expand(&directory), "p")
 endif
 " ========================================
+" clipboard {{{1
 if has('clipboard')
   if has('unnamedplus')         " When possible use + register for copy-paste
     set clipboard=unnamed,unnamedplus
@@ -72,6 +81,7 @@ if has('clipboard')
     set clipboard=unnamed
   endif
 endif
+
 set timeout timeoutlen=230
 " }}}
 
@@ -266,6 +276,10 @@ let s:cs_xterm='jellybeans'
 let s:cs_nvim='molokai'
 let s:cs_cmder='badwolf'
 " == new stuff == {{{2
+" 2017-05-23 {{{
+Plug 'ludovicchabant/vim-gutentags' 
+" 2017-05-22 {{{3
+Plug 'mtth/scratch.vim'
 " 2017-05-18 {{{3
 Plug 'prabirshrestha/asyncomplete.vim'
 " 2017-05-17 {{{3
@@ -480,9 +494,9 @@ else
   set ttimeout ttimeoutlen=50
   " neovim {{{2
   if s:is_nvim
-    let s:editor_root=expand("~/AppData/Local/nvim")
-    " let g:python_host_prog = '/usr/bin/python'
-    " let g:python3_host_prog = '/usr/bin/python3'
+    " let s:editor_root=expand("~/AppData/Local/nvim")
+    let g:python_host_prog = 'D:/env/neovim/2/Scripts/python.exe'
+    let g:python3_host_prog = 'D:/env/neovim/3/Scripts/python.exe'
     if exists('g:GuiFont')
       " WTF?! Doesn't work?
       " let g:Guifont="DejaVu Sans Mono for Powerline:h13"
@@ -987,4 +1001,8 @@ call SetCursorModes()
 " }}}1
 if s:is_gui
   call SetRandomColors()
+endif
+if executable("ag")
+    set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --vimgrep
+    set grepformat^=%f:%l:%c:%m
 endif
