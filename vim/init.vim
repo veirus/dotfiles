@@ -1,25 +1,27 @@
 " vim: set sw=2 ts=4 sts=2 et tw=80 foldlevel=0 foldmethod=marker:
 " ==========================================================
-" PROSTOR _vimrc | based on vimtest3 | last edit: 2017-04-04 Вт 01:55
+" PROSTOR _vimrc | based on vimtest3 | last edit: 2017-05-23 Вт 08:03 
 " ==========================================================
-
-" Be Improved, encoding, mapleader, OS detect, rtp and clipboard {{{
+" = First things first: =
+" Be Improved {{{
 " romainl says it's useless:
 " set nocompatible
 " ========================================
+" encoding {{{1
 " set encoding=utf-8
 " " Список кодировок для автоматического определения, в порядке предпочтения
 " " взято с http://jenyay.net/Programming/Vim
 " set fileencodings=utf-8,cp1251,utf-16le,cp866,koi8r,ucs-2le
 " set fileencoding=utf-8    " set save encoding
 " ========================================
+" v2:
 " if &termencoding == ""
 "   let &termencoding = &encoding
 " else
 "   set termencoding=utf-8  " set terminal encoding
 " endif
 " ========================================
-"explanation: http://stackoverflow.com/a/5795441/453396
+" explanation: http://stackoverflow.com/a/5795441/453396
 if has("multi_byte")
     if &termencoding == ""
         let &termencoding = &encoding
@@ -28,9 +30,11 @@ if has("multi_byte")
     setglobal fileencoding=utf-8            "change default file encoding when writing new files
 endif
 " ========================================
+" mapleader {{{1
 let mapleader    = "\<space>"
 let g:mapleader  = "\<space>"
 " ========================================
+" OS detect {{{1
 let s:is_windows = has('win32') || has('win64')
 let s:is_wingui  = has("gui_win32")
 let s:is_cygwin  = has('win32unix')
@@ -40,14 +44,16 @@ let s:is_nyaovim = exists('g:nyaovim_version')
 let s:is_gui     = has('gui_running')
 let s:is_conemu  = !empty($CONEMUBUILD)
 " ========================================
+" rtp {{{1
 " portability shim:
-let $DOTVIMDIR = expand('$HOME/dotfiles')
+let $DOTVIMDIR = expand('$HOME/vimfiles')
 if !isdirectory(expand('$DOTVIMDIR'))
   let $DOTVIMDIR = expand('$VIM/vimfiles')
   echom "** ! **: dotfiles dir don't exist"
 endif
 set rtp^=$DOTVIMDIR
 " ========================================
+" plugs, swap, undo, backups {{{1
 let s:plugs = "plugged"
 let s:plugdir = $DOTVIMDIR.'\'.s:plugs
 set backupdir=$DOTVIMDIR/backups
@@ -67,6 +73,7 @@ if !isdirectory(expand(&directory))
     call mkdir(expand(&directory), "p")
 endif
 " ========================================
+" clipboard {{{1
 if has('clipboard')
   if has('unnamedplus')         " When possible use + register for copy-paste
     set clipboard=unnamed,unnamedplus
@@ -74,6 +81,7 @@ if has('clipboard')
     set clipboard=unnamed
   endif
 endif
+
 set timeout timeoutlen=230
 " }}}
 
@@ -261,7 +269,7 @@ Plug 'tomasr/molokai'
 "   let g:kolor_underlined=1
 " -- newest themes -- {{{3
 "}}}3
-" -- theme assingment --
+" -- theme assignment --
 " let s:cs_wingui='base16-mocha'
 let s:cs_wingui='spacegray'
 let s:cs_xterm='jellybeans'
@@ -277,7 +285,7 @@ Plug 'stephenway/postcss.vim'
 " 2017-04-14 {{{3
 Plug 'alvan/vim-closetag'
 Plug 'rstacruz/vim-closer'
-" Plug 'rstacruz/vim-hyperstyle' "requires python27
+Plug 'rstacruz/vim-hyperstyle' "requires python27
 " 2017-03-31 {{{3
 Plug 'junegunn/fzf', { 'dir': '~/.fzf'} | Plug 'junegunn/fzf.vim'
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -341,8 +349,8 @@ set formatoptions=qrn1j
 
   set nowrap
   set textwidth=0                " Don't automatically insert linebreaks
-  set formatoptions-=t           " don't automatically wrap text when typing
-  set formatoptions+=j           " Delete comment character when joining commented lines
+  " set formatoptions-=t           " don't automatically wrap text when typing
+  " set formatoptions+=j           " Delete comment character when joining commented lines
   set autoindent
   set shiftround
   set linebreak
@@ -358,10 +366,8 @@ set formatoptions=qrn1j
 
 " }}}
 
-" UI {{{1
-
-" New Optimized (?) Statusline {{{2
-" Mode list {{{3
+" New Optimized (?) Statusline {{{1
+" Mode list {{{2
 let g:currentmode={
     \ 'n'  : 'N ',
     \ 'no' : 'N·Operator Pending ',
@@ -384,7 +390,7 @@ let g:currentmode={
     \ 't'  : 'Terminal '
     \}
 
-" Actual Statusline {{{3
+" Actual Statusline {{{2
 " Powerline symbols quick ref:
 "  > Triangle U+e0b0,  > U+e0b1,  < Triangle U+e0b2,
 "  < U+e0b3,  Git U+e0a0,  LN U+e0a1,  Lock U+e0a2
@@ -400,14 +406,16 @@ set statusline+=\ \\ %-3(%{cw#FileSize()}%)        " File size
 set statusline+=%8*%3c:%3l/%L
 " set statusline+=\ %0*\ %2p%%\ %*
 " ========================================
-"display a warning if &et is wrong, or we have mixed-indenting {{{3
+"display a warning if &et is wrong, or we have mixed-indenting {{{2
 set statusline+=%#error#
 set statusline+=%{anzu#search_status()}
-set statusline+=%{ALEGetStatusLine()}               " ale
+set statusline+=%{ALEGetStatusLine()}
 set statusline+=%{cw#StatuslineTabWarning()}
 set statusline+=%{cw#StatuslineTrailingSpaceWarning()}
 set statusline+=%*
-" }}}2
+" }}}1
+
+" UI {{{1
 
 set laststatus=2
 set colorcolumn=+1
@@ -496,8 +504,7 @@ if s:is_gui
   " }}}2
 else
   set vb t_vb=
-  set ttimeout
-  set ttimeoutlen=50
+  set ttimeout ttimeoutlen=50
   " neovim {{{2
   if s:is_nvim
     " let s:editor_root=expand("~/AppData/Local/nvim")
@@ -519,42 +526,29 @@ else
     "   " let g:GuiWindowFullScreen=1
     " endif
     if exists('g:GuiFont')
-
       " WTF?! Doesn't work?
       " let g:Guifont="DejaVu Sans Mono for Powerline:h13"
-      " Working in nvim v.0.2 and nvim-qt as of 2017-03-02:
-      " exe "Guifont DejaVu Sans Mono for Powerline:h11"
 
       " Works and even looks nice, however reports bad fixed pitch metrics
       " Also it's risky to install patched version on Windows
-      " exe 'GuiFont Consolas:h12'
+      " GuiFont Consolas:h12
 
       " Warning: bad fixed pitch metrics?!
       " GuiFont Anonymice Powerline:h12
 
       "is not fixed pitch font?!
       " GuiFont Arimo for Powerline:h12
-
-      " is not fixed pitch font?!
       " GuiFont DejaVu Sans Mono for Powerline:h13
+      " GuiFont Literation Mono Powerline:h12
+      " GuiFont Roboto Mono for Powerline:h13
+      " GuiFont Tinos for Powerline:h12
 
       " Sluggish unaliased look
       " GuiFont Droid Sans Mono for Powerline:h12
-
-      " Sluggish unaliased look
       " GuiFont Fira Mono Medium for Powerline:h12
-
-      " is not fixed pitch font?!
-      " GuiFont Literation Mono Powerline:h12
 
       " A little better look than Droid Sans and Fira
       " GuiFont monofur for Powerline:h14
-
-      " is not fixed pitch font?!
-      " GuiFont Roboto Mono for Powerline:h13
-
-      " is not fixed pitch font?!
-      " GuiFont Tinos for Powerline:h12
 
       " Unknown font
       " GuiFont Ubuntu Mono derivative Powerline:h12
@@ -583,29 +577,6 @@ endif
 
 "}}}
 
-" Mode aware cursor hack {{{1
-" works only if placed here?
-" http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
-" https://github.com/blaenk/dots/blob/9843177fa6155e843eb9e84225f458cd0205c969/vim/vimrc.ln#L49-L64
-set gcr=a:block
-
-" mode aware cursors
-set gcr+=o:hor50-Cursor
-set gcr+=n:Cursor
-set gcr+=i-ci-sm:InsertCursor
-set gcr+=r-cr:ReplaceCursor-hor20
-set gcr+=c:CommandCursor
-set gcr+=v-ve:VisualCursor
-
-" do not blink
-set gcr+=a:blinkon0
-
-hi InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
-hi VisualCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#d33682
-hi ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#dc322f
-hi CommandCursor ctermfg=15 guifg=#fdf6e3 ctermbg=166 guibg=#cb4b16
-" }}}1
-
 " Highlighting {{{
 hi User8 ctermfg=235 guifg=#483D8B guibg=#A2A3A3
 
@@ -618,6 +589,7 @@ endif
 " }}}
 
 " Autocommands {{{
+if has("autocmd")
 " Save on losing focus
 " Only available for GUI
 " autocmd FocusLost * :wa
@@ -625,7 +597,16 @@ endif
 " autocmd FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>") | :wa
 
 " --- php ---
-autocmd FileType smarty,tpl setlocal commentstring=<!--\ %s\ -->
+function! SetClosetagPHP()
+  if exists('g:closetag_filenames')
+      let g:closetag_filenames.= ",*.php,*.tpl"
+  endif
+endfunction
+augroup PHP_stuff
+  autocmd!
+  autocmd FileType php,smarty,tpl call SetClosetagPHP()
+  autocmd FileType smarty,tpl setlocal commentstring=<!--\ %s\ -->
+augroup END
 
 "recalculate the tab warning flag when idle and after writing
 autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
@@ -640,26 +621,6 @@ augroup active_relative_number
     autocmd WinLeave * :setlocal norelativenumber
 augroup END
 " }}}
-" Focus~ cursorline in the active window {{{
-augroup highlight_follows_focus
-    autocmd!
-    autocmd WinEnter,FocusGained * :setlocal cursorline
-    autocmd WinLeave,FocusLost  * :setlocal nocursorline
-augroup END
-" }}}
-" Focus~ Statusline {{{
-" augroup focus_statusline
-"     autocmd!
-"     autocmd BufEnter,FocusGained,VimEnter,WinEnter * call ColorStatusline()
-"     autocmd BufLeave,FocusLost,WinLeave * call DeColorStatusline()
-" augroup END
-"}}}
-" Insert mode statusline indication (from vimwiki) {{{
-" augroup statusline_mode
-"   autocmd!
-"   autocmd InsertEnter * call InsertModeStatusline(1)
-"   autocmd InsertLeave * call InsertModeStatusline(0)
-" augroup END " }}}
 " Autosource for _vimrc {{{
 augroup reload_vimrc
     autocmd!
@@ -668,6 +629,11 @@ augroup reload_vimrc
     " autocmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC
     " autocmd bufwritepost $HOME/_vimrc execute "normal! :source ~/_vimrc"
 augroup END " }}}
+augroup Python_skeleton "{{{
+  autocmd!
+  autocmd BufNewFile *.py[w]\\\{-\} call cw#SkeletonPY()
+augroup END "}}}
+endif " has("autocmd")
 " }}}
 
 " Commands {{{1
@@ -808,7 +774,7 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     nnoremap <F6> :setl wrap!<bar>:set wrap?<CR>
     imap <F6> <C-O><F6>
     " toggle paste
-    map <F12> :set invpaste<CR>:set paste?<CR>
+    noremap <F12> :setl invpaste<CR><bar>:set paste?<CR>
 
     " URL opening :\
     " https://sts10.github.io/blog/2016/02/16/one-solution-to-a-problem-with-vims-gx-command/
@@ -1001,6 +967,31 @@ function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
+function! SetRandomColors()
+  if !exists('g:mycolors')
+    " echo "* Fetching colorschemes..."
+    " let g:mycolors = split(globpath(&rtp,"**/colors/*.vim"),"\n")
+    let matches = {}
+    for fname in split(globpath(&runtimepath, 'colors/*.vim'), '\n')
+      let name = fnamemodify(fname, ':t:r')
+      let matches[name] = 1
+    endfor
+    let g:mycolors = sort(keys(matches), 1)
+  endif
+  exe 'colorscheme ' . g:mycolors[localtime() % len(g:mycolors)]
+  " unlet s:mycolors
+  call SetCursorModes()
+  redraw
+  " echo "* color: " g:colors_name
+  if has('title')
+    set titlelen=99
+    set titlestring=%t%(\ %M%)\ -%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{g:colors_name}
+    " set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)\ -\ %{g:colors_name} titlelen=99
+  endif
+endfunction
+command! Rcl call SetRandomColors()
+map <F9> :call SetRandomColors()<CR>
+
 " anzu mapping {{{
 nmap n <Plug>(anzu-n-with-echo)
 nmap N <Plug>(anzu-N-with-echo)
@@ -1012,3 +1003,34 @@ Plug 'jceb/vim-hier'
 Plug 'osyo-manga/vim-agrep'
 " anzu }}}
 
+" Mode aware cursor hack {{{1
+" works only if placed here?
+" http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
+" https://github.com/blaenk/dots/blob/9843177fa6155e843eb9e84225f458cd0205c969/vim/vimrc.ln#L49-L64
+set gcr=a:block
+
+" mode aware cursors
+set gcr+=o:hor50-Cursor
+set gcr+=n:Cursor
+set gcr+=i-ci-sm:InsertCursor
+set gcr+=r-cr:ReplaceCursor-hor20
+set gcr+=c:CommandCursor
+set gcr+=v-ve:VisualCursor
+
+" do not blink
+set gcr+=a:blinkon0
+function! SetCursorModes()
+  hi InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
+  hi VisualCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#d33682
+  hi ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#dc322f
+  hi CommandCursor ctermfg=15 guifg=#fdf6e3 ctermbg=166 guibg=#cb4b16
+endfunction
+call SetCursorModes()
+" }}}1
+if s:is_gui
+  call SetRandomColors()
+endif
+if executable("ag")
+    set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --vimgrep
+    set grepformat^=%f:%l:%c:%m
+endif
