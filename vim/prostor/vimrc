@@ -54,8 +54,8 @@ endif
 set rtp^=$DOTVIMDIR
 " ========================================
 " plugs, swap, undo, backups {{{1
-let s:plugs = "plugged"
-let s:plugdir = $DOTVIMDIR.'\'.s:plugs
+let s:plugs = 'plugged'
+let s:plugdir = expand($DOTVIMDIR.'/'.s:plugs)
 set backupdir=$DOTVIMDIR/backups
 set directory=$DOTVIMDIR/swap
 set undodir=$DOTVIMDIR/undo
@@ -105,6 +105,7 @@ Plug 'mattn/emmet-vim', {'for': emmetlist }
         \         'wh':  "<?php while(|${child}): ?>",
         \         'ei':  "<?php endif; ?>",
         \         'ew':  "<?php endwhile; ?>",
+        \         'echo':  "<?php echo |; ?>",
         \         },
         \     },
         \ }
@@ -144,7 +145,7 @@ Plug 'zhaocai/GoldenView.Vim', {'on' : '<Plug>ToggleGoldenViewAutoResize'} "{{{3
 Plug 'mhinz/vim-startify' "{{{3
  nnoremap <F1> :Startify<CR>
  let g:startify_list_order = ['files', 'sessions', 'bookmarks']
- let g:startify_bookmarks = [{'p': 'D:\Dropbox\TODO\PROSTOR.todo'}, {'r': '~\_vimrc'}]
+ let g:startify_bookmarks = [{'p': 'D:\Dropbox\TODO\PROSTOR.todo'}, {'r': '~\_vimrc'}, {'t': '~\onetab.txt'} ]
  let g:startify_update_oldfiles = 1
  let g:startify_session_autoload = 1
  let g:startify_session_persistence = 1
@@ -187,8 +188,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
 " Plug 'kana/vim-repeat'
 " -- comment {{{3
-" Plug 'tomtom/tcomment_vim'
-Plug 'tpope/vim-commentary'
+Plug 'tomtom/tcomment_vim'
+" Plug 'tpope/vim-commentary'
 " Plug 'tyru/caw.vim'
 "   let g:caw_operator_keymappings = 1
 " }}}3
@@ -204,7 +205,7 @@ Plug 'mattn/gist-vim' | Plug 'mattn/webapi-vim'
 " }}}3
 " -- utils -- {{{3
 Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
-Plug 'skywind3000/asyncrun.vim', {'on':['Gulp','GulpExt']}
+Plug 'skywind3000/asyncrun.vim' ", {'on':['Gulp','GulpExt']}
 Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
 Plug 'tpope/vim-fugitive'
 Plug 'justinmk/vim-sneak'
@@ -227,7 +228,7 @@ Plug 'tpope/vim-markdown', {'for': ['markdown', 'md', 'mdown', 'mkd', 'mkdn']}
 " Pre CSS
 Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss']}
 Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'wavded/vim-stylus', {'for':['styl','stylus']}
+Plug 'wavded/vim-stylus', {'for': ['styl', 'stylus']}
 " ---------------
 " Post CSS
 Plug 'csscomb/vim-csscomb', {'on': 'CSScomb'}
@@ -238,7 +239,7 @@ Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
   let g:vim_json_syntax_conceal = 0
 " ---------------
 Plug 'KabbAmine/gulp-vim', {'on': ['Gulp','GulpExt']}
-Plug 'gorodinskiy/vim-coloresque', {'for': ['html', 'css', 'less', 'sass', 'stylus', 'php']} " *^* This
+Plug 'gko/vim-coloresque', {'for': ['html', 'css', 'less', 'sass', 'stylus', 'php']} " *^* This
 " Plug 'ap/vim-css-color', {'for': ['html', 'css', 'less', 'php']} " Trying *^* instead of this colorizer
 
 " == Colorschemes == {{{2
@@ -249,15 +250,15 @@ Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
 " Plug 'vim-airline/vim-airline-themes'
 " -- * * * --- {{{3
 Plug 'ajh17/Spacegray.vim'
-" Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'kristijanhusak/vim-hybrid-material'
 " let g:airline_theme = "hybrid"
 " Plug 'jasonlong/lavalamp'
 Plug 'amadeus/vim-evokai'
-" Plug 'jacoborus/tender'
-" Plug 'junegunn/seoul256.vim'
+Plug 'jacoborus/tender'
+Plug 'junegunn/seoul256.vim'
 " -- * * * * -- {{{3
-" Plug 'KabbAmine/yowish.vim'
-" Plug 'dracula/vim'
+Plug 'KabbAmine/yowish.vim'
+Plug 'dracula/vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'chriskempson/base16-vim'
 Plug 'chriskempson/vim-tomorrow-theme'
@@ -265,18 +266,24 @@ Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'nanotech/jellybeans.vim'
 Plug 'sjl/badwolf'
 Plug 'tomasr/molokai'
-" Plug 'zeis/vim-kolor'
-"   let g:kolor_underlined=1
+Plug 'zeis/vim-kolor'
+  let g:kolor_underlined=1
 " -- newest themes -- {{{3
 "}}}3
 " -- theme assignment --
 " let s:cs_wingui='base16-mocha'
-let s:cs_wingui='spacegray'
-let s:cs_xterm='jellybeans'
-let s:cs_nvim='molokai'
-let s:cs_cmder='badwolf'
+let s:cs_wingui = 'spacegray'
+let s:cs_xterm  = 'jellybeans'
+let s:cs_nvim   = 'molokai'
+let s:cs_cmder  = 'badwolf'
 " == new stuff == {{{2
-" 2017-05-23 {{{
+" 2017-06-07 {{{3
+Plug 'google/vim-searchindex'
+Plug 'jceb/vim-hier'
+Plug 'osyo-manga/vim-agrep'
+" 2017-05-25 {{{3
+" Plug 'Shougo/denite.nvim'
+" 2017-05-23 {{{3
 Plug 'ludovicchabant/vim-gutentags' 
 " 2017-05-22 {{{3
 Plug 'mtth/scratch.vim'
@@ -287,41 +294,41 @@ Plug 'ervandew/supertab'
 " 2017-04-26 {{{3
 " I'm not sure what it is doing
 Plug 'dsawardekar/wordpress.vim'
-" 2017-04-20 {{{3
-Plug 'osyo-manga/vim-anzu'
-" 2017-04-17 {{{3
+" 2017-04-20 anzu {{{3
+" Plug 'osyo-manga/vim-anzu'
+" 2017-04-17 [ postcss ] {{{3
 Plug 'stephenway/postcss.vim'
-" 2017-04-14 {{{3
+" 2017-04-14 [ closetag ] {{{3
 Plug 'alvan/vim-closetag'
 Plug 'rstacruz/vim-closer'
 Plug 'rstacruz/vim-hyperstyle' "requires python27
-" 2017-03-31 {{{3
+" 2017-03-31 [ fzf ] {{{3
 Plug 'junegunn/fzf', { 'dir': '~/.fzf'} | Plug 'junegunn/fzf.vim'
 nmap <leader><tab> <plug>(fzf-maps-n)
 imap <c-x><c-k> <plug>(fzf-complete-word)
-" 2017-03-21 {{{3
+" 2017-03-21 [ hardtime ] {{{3
 Plug 'takac/vim-hardtime'
 nnoremap <leader><F1> <Esc>:HardTimeToggle<CR>
 let g:hardtime_ignore_quickfix = 1
-" 2017-03-13 {{{3
+" 2017-03-13 [ ultisnips ] {{{3
 " Track the engine.
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " Snippets are separated from the engine. Add this if you want them: Plug 'honza/vim-snippets'
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-" 2017-03-09 {{{3
+" 2017-03-09 [vim-node | monokai ] {{{3
 Plug 'moll/vim-node', {'for': [ 'js', 'javascript' ]}
 Plug 'sickill/vim-monokai'
-" 2017-02-22 {{{3
+" 2017-02-22 [ showmap ] {{{3
 Plug 'fcpg/vim-showmap'
-" 2017-02-06 {{{3
+" 2017-02-06 [ ale ] {{{3
 Plug 'w0rp/ale'
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 0
+" let g:ale_lint_on_save = 1
+" let g:ale_lint_on_text_changed = 0
 let g:ale_statusline_format = [' ✖ %d ', ' ! %d ', '']
 Plug 'ternjs/tern_for_vim', {'for': [ 'js', 'javascript' ]}
 let g:tern_map_keys = 1
-Plug 'itspriddle/vim-jquery', {'for': [ 'js', 'javascript' ]}
+Plug 'itspriddle/vim-jquery', {'for': [ 'js', 'js.jquery', 'javascript' ]}
 " }}}3
 " == old == {{{2
 Plug 'vim-scripts/DrawIt', {'on': 'DrawIt'}
@@ -346,7 +353,8 @@ set noswapfile              " и свапа
 set history=1000
 set sessionoptions-=options " do not store global and local values in a session
 set path+=**                " doesn't work well in Windows
-set synmaxcol=800           " Don't try to highlight lines longer than 800 chars
+" set synmaxcol=800           " Don't try to highlight lines longer than 800 chars
+set synmaxcol=200
 
 " Better Completion
 set complete=.,w,b,u,t
@@ -384,21 +392,23 @@ set formatoptions=qrn1j
 set statusline=
 set statusline+=\ %n
 set statusline+=\ \ %<%F\ %{cw#ReadOnly()}
-set statusline+=\ %=                                " Space
-set statusline+=\ \"%{v:register}
-set statusline+=\ \ %8*%k%m%r%w
-set statusline+=%0*%y%{(&fenc!=?'utf-8'?'['.&fenc.']':'')}
-set statusline+=%{&ff!=?'unix'?'['.&ff.']':''}      " Encoding & Fileformat
-set statusline+=\ \\ %-3(%{cw#FileSize()}%)        " File size
+set statusline+=\ %=
+" set statusline+=\ \"%{v:register}
+set statusline+=\ %8*%k%r%w%m%0*
+set statusline+=\ \ %-3{&ft}
+set statusline+=%{(&fenc!=?'utf-8'?'\ ['.&fenc.']':'')}
+set statusline+=%{&ff!=?'unix'?'\ ['.&ff.']':''} " Fileformat
+set statusline+=\ \\ %-3(%{cw#FileSize()}%)     " File size
 set statusline+=%8*%3c:%3l/%L
 set statusline+=\ %*
 " ========================================
 "display a warning if &et is wrong, or we have mixed-indenting
 set statusline+=%#error#
-set statusline+=%{anzu#search_status()}
+" set statusline+=%{anzu#search_status()}
 set statusline+=%{ALEGetStatusLine()}
 set statusline+=%{cw#StatuslineTabWarning()}
 set statusline+=%{cw#StatuslineTrailingSpaceWarning()}
+set statusline+=%{gutentags#statusline()}
 set statusline+=%*
 " }}}
 
@@ -409,22 +419,24 @@ set colorcolumn=+1
 set cmdheight=2
 set noeb
 set lazyredraw
-set scrolloff=3                                " Minimum lines to keep above and below cursor
-set scrolljump=5                               " Lines to scroll when cursor leaves screen
-set shortmess=amroOtT                          " a doesn't add m and r despite what docs says
+set scrolloff=3                                      " Minimum lines to keep above and below cursor
+set scrolljump=5                                     " Lines to scroll when cursor leaves screen
+set shortmess=amroOtT                                " a doesn't add m and r despite what docs says
 set cursorline
-set number                                     " Line numbers on
+set number                                           " Line numbers on
 set relativenumber
-set showmatch                                  " Show matching brackets/parenthesis
-set matchtime=2                                " tens of a second to show matching parentheses
-set incsearch                                  " Find as you type search
-set nohlsearch                                 " Highlight search terms; it's annoying and distracting, turning it off - 2016-12-15:
-set winminheight=0                             " Windows can be 0 line high
-set ignorecase                                 " Case insensitive search
-set smartcase                                  " Case sensitive when uc present
-set wildmenu                                   " Show list instead of just completing
-set wildmode=list:longest,full                 " Command <Tab> completion, list matches, then longest common part, then all.
-set foldenable                                 " Auto fold code
+set showmatch                                        " Show matching brackets/parenthesis
+set matchtime=2                                      " tens of a second to show matching parentheses
+set incsearch                                        " Find as you type search
+set nohlsearch                                       " Highlight search terms; it's annoying and distracting, turning it off - 2016-12-15:
+set winminheight=0                                   " Windows can be 0 line high
+" set ignorecase                                     " Case insensitive search
+set infercase                                        " https://bluz71.github.io/2017/05/15/vim-tips-tricks.html
+set smartcase                                        " Case sensitive when uc present
+set wildmenu                                         " Show list instead of just completing
+set wildmode=list:longest,full                       " Command <Tab> completion, list matches, then longest common part, then all.
+set wildignore+=node_modules/**
+set foldenable                                       " Auto fold code
 set list
 set listchars=tab:│\ ,eol:¬,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
 
@@ -670,10 +682,10 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
                             \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
                             \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-    " vimgrep last search
-    nnoremap <silent> <leader><F3> :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
     " Browse current dir
     nnoremap <silent> <F11> :silent edit <C-R>=empty(expand('%')) ? '.' : fnameescape(expand('%:p:h'))<CR><CR>
+    " vimgrep last search
+    nnoremap <silent> <leader><F3> :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
     " from http://twily.info/.vimrc#view {{{3
     " Open vimgrep and put the cursor in the right position
     map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
@@ -829,8 +841,11 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     map zh zH
 
     " screen line scroll - very useful with wrap on
-    nnoremap <silent> j gj
-    nnoremap <silent> k gk
+    " nnoremap <silent> j gj
+    " nnoremap <silent> k gk
+    " https://bluz71.github.io/2017/05/15/vim-tips-tricks.html
+    nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
+    nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 
     " auto center {{{3
     nnoremap <silent> n nzz
@@ -965,14 +980,12 @@ command! Rcl call SetRandomColors()
 map <F9> :call SetRandomColors()<CR>
 
 " anzu mapping {{{
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
-nmap * <Plug>(anzu-star-with-echo)
-nmap # <Plug>(anzu-sharp-with-echo)
+" nmap n <Plug>(anzu-n-with-echo)
+" nmap N <Plug>(anzu-N-with-echo)
+" nmap * <Plug>(anzu-star-with-echo)
+" nmap # <Plug>(anzu-sharp-with-echo)
 " clear status
-nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
-Plug 'jceb/vim-hier'
-Plug 'osyo-manga/vim-agrep'
+" nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 " anzu }}}
 
 " Mode aware cursor hack {{{1
@@ -999,10 +1012,26 @@ function! SetCursorModes()
 endfunction
 call SetCursorModes()
 " }}}1
-if s:is_gui
-  call SetRandomColors()
-endif
+" if s:is_gui
+"   call SetRandomColors()
+" endif
 if executable("ag")
     set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --vimgrep
     set grepformat^=%f:%l:%c:%m
 endif
+" Macroses for nefertity {{{
+" vv\,li.area_list_itm.-numj
+" HvL\,li.area_list_itmHj
+" vv\,h3.title.title-dekor
+" \,ol.area_list.-num
+" \,ul.area_list
+" }}}
+"
+let g:gutentags_ctags_exclude=['node_modules']
+
+nnoremap <leader>cp :let @+ = expand("%:p")<CR>
+augroup autoSaveAndRead
+autocmd!
+autocmd TextChanged,InsertLeave,FocusLost * silent! wall
+autocmd CursorHold * silent! checktime
+augroup END
