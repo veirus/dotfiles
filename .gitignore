@@ -11,6 +11,7 @@ desktop.ini
 # https://github.com/github/gitignore/blob/master/Global/Vim.gitignore
 # swap
 swap/
+_/
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
 # session
