@@ -1,6 +1,6 @@
 " vim: set sw=2 ts=4 sts=2 et tw=80 foldlevel=0 foldmethod=marker:
 " ==========================================================
-" CW's _vimrc | merging with PROSTOR | last edit: 2017-06-20 (merged at 2017-04-03 Вт 13:42)
+" CW's _vimrc | merging with PROSTOR | last edit: 2017-06-20 (merged at 2017-06-20 Вт 16:42)
 " ==========================================================
 " = First things first: =
 " Be Improved {{{
@@ -293,12 +293,13 @@ Plug 'zanglg/nova.vim'
 Plug 'google/vim-colorscheme-primary'
 Plug 'ericbn/vim-solarized'
 "}}}3
-" -- theme assignment --
-let s:cs_wingui = 'hybrid_material'
-let s:cs_xterm  = 'jellybeans'
-let s:cs_nvim   = 'molokai'
-let s:cs_cmder  = 'badwolf'
 " == new stuff == {{{2
+" 2017-06-23 {{{3
+Plug 'rlue/vim-getting-things-down'
+" 2017-06-22 {{{3
+Plug 'AndrewRadev/splitjoin.vim'
+let g:splitjoin_split_mapping = 'cx'
+let g:splitjoin_join_mapping  = 'cv'
 " 2017-06-07 [ vim-searchindex | vim-hier | vim-agrep ] {{{3
 Plug 'google/vim-searchindex'
 Plug 'jceb/vim-hier'
@@ -339,10 +340,16 @@ let g:ale_statusline_format = [' ✖ %d ', ' ! %d ', '']
 " }}}3
 " == old == {{{2
 Plug 'vim-scripts/DrawIt', {'on': 'DrawIt'}
-" Plug 'wellle/targets.vim'
+Plug 'wellle/targets.vim'
 " Plug 'kana/vim-operator-user'
 
 call plug#end() " required }}}1
+
+" -- theme assignment --
+let s:cs_wingui = 'dracula'
+let s:cs_xterm  = 'jellybeans'
+let s:cs_nvim   = 'molokai'
+let s:cs_cmder  = 'badwolf'
 
 " General {{{
 
@@ -360,8 +367,8 @@ set noswapfile              " и свапа
 set history=1000
 set sessionoptions-=options " do not store global and local values in a session
 set path+=**                " doesn't work well in Windows
-" set synmaxcol=800           " Don't try to highlight lines longer than 800 chars
-set synmaxcol=200
+set synmaxcol=800           " Don't try to highlight lines longer than 800 chars
+" set synmaxcol=200         " too little :\
 
 " Better Completion
 set complete=.,w,b,u,t
@@ -398,13 +405,13 @@ set formatoptions=qrn1j
 "  < U+e0b3,  Git U+e0a0,  LN U+e0a1,  Lock U+e0a2
 set statusline=
 set statusline+=\ %n
-set statusline+=\ \ %<%F\ %{cw#ReadOnly()}
+set statusline+=\ \ %<%.42F\ %{cw#ReadOnly()}
 set statusline+=\ %=
 " set statusline+=\ \"%{v:register}
 set statusline+=\ %8*%k%r%w%m%0*
 set statusline+=\ \ %-3{&ft}
-set statusline+=%{(&fenc!=?'utf-8'?'\ ['.&fenc.']':'')}
-set statusline+=%{&ff!=?'unix'?'\ ['.&ff.']':''} " Fileformat
+set statusline+=\ %{(&fenc!=?'utf-8'?'\ ['.&fenc.']':'')}
+set statusline+=\ %{&ff!=?'unix'?'\ ['.&ff.']':''} " Fileformat
 set statusline+=\ \\ %-3(%{cw#FileSize()}%)     " File size
 set statusline+=%8*%3c:%3l/%L
 set statusline+=\ %*
@@ -906,9 +913,8 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
       vmap <silent> <C-Space> <Esc>a<C-^><Esc>gv
     endif
 
-    " smash escape
-    " use only with 'timeout' and 'timeoutlen'
-    inoremap jk <esc>
+    " smash escape. Use only with 'timeout' and 'timeoutlen'
+    inoremap kl <esc>
 
   " }}}2
   "==============================
