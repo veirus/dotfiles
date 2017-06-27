@@ -2,10 +2,12 @@
 	name        = veirus
 	email       = thetauleherves@gmail.com
 [alias]
+	br          = branch
 	co          = checkout
 	ci          = commit
+	c           = commit -am
 	st          = status
-	br          = branch
+	s           = status --short
 	hist        = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	lg          = log --all --decorate --graph --date=short --format=format:'%Cblue%h%Creset %Cgreen%ad (%ar)%C(bold yellow)%d%Creset%n        %C(white)%s%Creset%n        %an'
 	type        = cat-file -t
@@ -15,12 +17,13 @@
 	hide-dirty  = 1
 [core]
 	autocrlf    = input
-	editor = \"C:/Program Files (x86)/GitExtensions/GitExtensions.exe\" fileeditor
+	quotepath   = false
+	pager       = iconv.exe -f cp1251 -t utf-8 | less
 [github]
-	user = veirus
+	user        = veirus
 [color]
-	ui = true
+	ui          = true
 [merge]
-	tool = kdiff3
+	tool        = kdiff3
 [diff]
-	guitool = kdiff3
+	guitool     = kdiff3
