@@ -1,0 +1,45 @@
+snippet hr
+	<?php if( have_rows('${1:field_name}', 'option') ): ?>
+		<?php while( have_rows('$1', 'option')): the_row(); ?>
+			${0}
+		<?php endwhile; ?>
+	<?php endif; ?>
+
+snippet hf
+	<?php if( have_rows('${1:field_name}', 'option') ): ?>
+		<?php while( have_rows('$1', 'option')): the_row(); ?>
+			<?php if (get_row_layout() == '${2}'): ?>
+				<?php if ( have_rows( '${3}') ): ?>
+					<?php while( have_rows('$3')): the_row(); ?>
+						<?php the_sub_field('${4}'); ?>
+						${0}
+					<?php endwhile; ?>
+				<?php endif; ?>
+			<?php endif; ?>
+		<?php endwhile; ?>
+	<?php endif; ?>
+
+snippet tf
+	<?php the_field('${0}', 'options'); ?>
+
+snippet tsf
+	<?php the_sub_field('${0}'); ?>
+
+snippet wpif
+   <?php if(${0}): ?>
+
+snippet els
+	<?php elseif(${0}): ?>
+
+snippet wh
+	<?php while(${0}): ?>
+
+snippet ei
+	<?php endif; ?>
+
+snippet ew
+	<?php endwhile; ?>
+
+snippet wpecho
+	<?php echo ${0}; ?>
+
