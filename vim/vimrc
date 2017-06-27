@@ -96,16 +96,16 @@ Plug 'mattn/emmet-vim', {'for': emmetlist }
   let g:user_emmet_settings = {
         \ 'php': {
         \     'snippets': {
-        \         'php': "<?php |; ?>",
-        \         'tf':  "<?php the_field('|', 'options'); ?>",
-        \         'tsf': "<?php the_sub_field('|'); ?>",
-        \         'if':  "<?php if(|${child}): ?>",
-        \         'hr':  "<?php if( have_rows('${cursor}', 'option') ): ?>\n\t<?php while( have_rows('${cursor}', 'option')): the_row(); ?>\n\t${2}\n\t<?php endwhile; ?>\n<?php endif; ?>",
-        \         'els': "<?php elseif(|): ?>",
-        \         'wh':  "<?php while(|${child}): ?>",
-        \         'ei':  "<?php endif; ?>",
-        \         'ew':  "<?php endwhile; ?>",
-        \         'echo':  "<?php echo |; ?>",
+        \         'php':  "<?php |; ?>",
+        \         'tf':   "<?php the_field('|', 'options'); ?>",
+        \         'tsf':  "<?php the_sub_field('|'); ?>",
+        \         'if':   "<?php if(|${child}): ?>",
+        \         'hr':   "<?php if( have_rows('${cursor}', 'option') ): ?>\n\t<?php while( have_rows('${cursor}', 'option')): the_row(); ?>\n\t${2}\n\t<?php endwhile; ?>\n<?php endif; ?>",
+        \         'els':  "<?php elseif(|): ?>",
+        \         'wh':   "<?php while(|${child}): ?>",
+        \         'ei':   "<?php endif; ?>",
+        \         'ew':   "<?php endwhile; ?>",
+        \         'echo': "<?php echo |; ?>",
         \         },
         \     },
         \ }
@@ -294,9 +294,11 @@ Plug 'google/vim-colorscheme-primary'
 Plug 'ericbn/vim-solarized'
 "}}}3
 " == new stuff == {{{2
-" 2017-06-23 {{{3
+" 2017-06-26 [ php indenting ] {{{3
+Plug '2072/PHP-Indenting-for-VIm'
+" 2017-06-23 [ md todo ] {{{3
 Plug 'rlue/vim-getting-things-down'
-" 2017-06-22 {{{3
+" 2017-06-22 [ splitjoin ] {{{3
 Plug 'AndrewRadev/splitjoin.vim'
 let g:splitjoin_split_mapping = 'cx'
 let g:splitjoin_join_mapping  = 'cv'
@@ -731,7 +733,7 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     " ==============================
     map <silent> <M-1> :echo 'whoa1'<cr>
     map <M-`> :echo 'cool!'<cr>
-    map <M-space> :echo 'lol i can map it'<cr>
+    " map <M-space> :echo 'lol i can map it'<cr>
     nnoremap <C-@> :echo 'heyheyhey'<cr>
     map <C-k5> :echo 'yup:c5'<cr>
 
@@ -1050,3 +1052,5 @@ endif
 " }}}
 
 nnoremap <leader>cp :let @+ = expand("%:p")<CR>
+nnoremap <M-space> :call UltiSnips#ExpandSnippet()<CR>
+inoremap <M-space> <C-R>=UltiSnips#ExpandSnippet()<CR>
