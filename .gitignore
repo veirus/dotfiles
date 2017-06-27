@@ -1,25 +1,23 @@
 \!.git/
+_/
+desktop.ini
+# ========================================
+# vim
 .netrwhist
 autoload/
 backups/
-plugged/
-snippets/
-undo/
 lib/
-desktop.ini
-# ========================================
-# https://github.com/github/gitignore/blob/master/Global/Vim.gitignore
-# swap
-swap/
-_/
-[._]*.s[a-w][a-z]
-[._]s[a-w][a-z]
-# session
+plugged/
 session/
 Session.vim
+swap/
+undo/
+# ========================================
+# https://github.com/github/gitignore/blob/master/Global/Vim.gitignore
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
 # ========================================
 # temporary
-.netrwhist
 *~
 # ========================================
 # auto-generated tag files
