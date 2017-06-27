@@ -11,8 +11,9 @@ history=cat %CMDER_ROOT%\config\.history
 vi=vim $*
 gvi=gvim $*
 ls=ls --show-control-chars -F --color $*
-ll=ls -la --color
+ll=ls -la --color $*
 clear=cls
+history=cat %CMDER_ROOT%\config\.history
 
 ..=cd ..
 pwd=cd
@@ -31,6 +32,7 @@ gundopush=push -f origin HEAD^:master
 gl=git log --oneline --all --graph --decorate  $*
 npmls=npm ls -g --depth=0
 nvim=D:\Apps\Neovim\bin\nvim-qt.exe $*
-gd=git diff $*  
-gc=git commit $*  
-gs=git status  
+gd=git diff $*
+gc=git commit $*
+gs=git status
+ytnc=youtube-dl.exe --no-check-certificate $*
