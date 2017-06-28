@@ -74,13 +74,13 @@ if !isdirectory(expand(&directory))
 endif
 " ========================================
 " clipboard {{{1
-if has('clipboard')
-  if has('unnamedplus')         " When possible use + register for copy-paste
-    set clipboard=unnamed,unnamedplus
-  else                          " On mac and Windows, use * register for copy-paste
-    set clipboard=unnamed
-  endif
-endif
+" if has('clipboard')
+"   if has('unnamedplus')         " When possible use + register for copy-paste
+"     set clipboard=unnamed,unnamedplus
+"   else                          " On mac and Windows, use * register for copy-paste
+"     set clipboard=unnamed
+"   endif
+" endif
 
 set timeout timeoutlen=230
 " }}}
@@ -91,7 +91,8 @@ call plug#begin(s:plugdir)
 " == Necessity == {{{2
 Plug 'editorconfig/editorconfig-vim'
 " Emmet {{{3
-let emmetlist = ['html','smarty','pug','php','xml','xsl','xslt','xsd','css','sass','scss','less','styl','stylus','mustache','handlebars']
+let emmetlist = ['html','smarty','pug','php','xml','xsl','xslt','xsd','css',
+      \ 'sass','scss','less','styl','stylus','mustache','handlebars']
 Plug 'mattn/emmet-vim', {'for': emmetlist }
   let g:user_emmet_settings = {
         \ 'php': {
@@ -376,9 +377,15 @@ set synmaxcol=800           " Don't try to highlight lines longer than 800 chars
 set complete=.,w,b,u,t
 set completeopt=longest,menuone
 set formatoptions=qrn1j
+
 " }}}
 
 " Formatting {{{
+
+if has('virtualedit')
+  " allow cursor to move where there is no text in visual block mode
+  set virtualedit=block
+endif
 
   set nowrap
   set textwidth=0                " Don't automatically insert linebreaks
@@ -407,13 +414,13 @@ set formatoptions=qrn1j
 "  < U+e0b3,  Git U+e0a0,  LN U+e0a1,  Lock U+e0a2
 set statusline=
 set statusline+=\ %n
+set statusline+=%{v:this_session!=''?'\ \ '.fnamemodify(this_session,':t'):''}
 set statusline+=\ \ %<%.42F\ %{cw#ReadOnly()}
 set statusline+=\ %=
-" set statusline+=\ \"%{v:register}
 set statusline+=\ %8*%k%r%w%m%0*
-set statusline+=\ \ %-3{&ft}
-set statusline+=\ %{(&fenc!=?'utf-8'?'\ ['.&fenc.']':'')}
-set statusline+=\ %{&ff!=?'unix'?'\ ['.&ff.']':''} " Fileformat
+set statusline+=\ \ %{&ft}
+set statusline+=%{&fenc!=?'utf-8'?'\ \ ['.&fenc.']':''}
+set statusline+=%{&ff!=?'unix'?'\ \ ['.&ff.']':''} " Fileformat
 set statusline+=\ \\ %-3(%{cw#FileSize()}%)     " File size
 set statusline+=%8*%3c:%3l/%L
 set statusline+=\ %*
@@ -426,7 +433,10 @@ set statusline+=%{cw#StatuslineTabWarning()}
 set statusline+=%{cw#StatuslineTrailingSpaceWarning()}
 set statusline+=%{gutentags#statusline()}
 set statusline+=%*
-" }}}
+" from http://twily.info/.vimrc#view {{{2
+" set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+
+" }}}1
 
 " UI {{{1
 
@@ -461,6 +471,13 @@ set listchars=tab:│\ ,eol:¬,trail:•,extends:#,nbsp:⋅ " Highlight problema
 
 set splitright                                 " Puts new vsplit windows to the right of the current
 set splitbelow                                 " Puts new split windows to the bottom of the current
+
+" Specify the behavior when switching between buffers
+try
+  set switchbuf=useopen,usetab,newtab
+  set showtabline=1
+catch
+endtry
 
 let g:netrw_altv=1                             " open splits to the right
 let g:netrw_banner=0
@@ -588,56 +605,70 @@ endif
 " }}}
 " }}}
 
-" Autocommands {{{
+" Autocommands {{{1
 if has("autocmd")
-" Leave Insert Mode on win switch
-" autocmd FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>") | :wa
-
-augroup autoSaveAndRead
+" augroup leave_insert_mode " {{{2 [ disabled ]
+"   au!
+"   autocmd FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>") | :wa
+" augroup END
+augroup auto_save_and_read " {{{2
   autocmd!
   autocmd TextChanged,InsertLeave,FocusLost * silent! wall
   autocmd CursorHold * silent! checktime
 augroup END
-
-" --- php ---
+" PHP_stuff {{{2
 function! SetClosetagPHP()
   if exists('g:closetag_filenames')
       let g:closetag_filenames.= ",*.php,*.tpl"
   endif
 endfunction
+
 augroup PHP_stuff
   autocmd!
   autocmd FileType php,smarty,tpl call SetClosetagPHP()
   autocmd FileType smarty,tpl setlocal commentstring=<!--\ %s\ -->
 augroup END
+augroup indent_tag " {{{2
+  au!
+  au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>= Vat=
+augroup end
 
-"recalculate the tab warning flag when idle and after writing
-autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
-
-"recalculate the trailing whitespace warning when idle, and after saving
-autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
-
-" Relative numbers in the active window {{{
-augroup active_relative_number
+augroup statusline_tab_warning " {{{2
+  autocmd!
+  "recalculate the tab warning flag when idle and after writing
+  autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
+  "recalculate the trailing whitespace warning when idle, and after saving
+  autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
+augroup end
+augroup active_relative_number " {{{2
     autocmd!
     autocmd WinEnter * :setlocal number relativenumber
     autocmd WinLeave * :setlocal norelativenumber
 augroup END
-" }}}
-" Autosource for _vimrc {{{
-augroup reload_vimrc
+augroup reload_vimrc " {{{2
     autocmd!
     autocmd bufwritepost _vimrc,init.vim,vimrc nested source $MYVIMRC
     " Alternative, not working very well, so disabled:
     " autocmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC
     " autocmd bufwritepost $HOME/_vimrc execute "normal! :source ~/_vimrc"
-augroup END " }}}
-augroup Python_skeleton "{{{
+augroup END
+augroup Python_skeleton "{{{2
   autocmd!
   autocmd BufNewFile *.py[w]\\\{-\} call cw#SkeletonPY()
-augroup END "}}}
-endif " has("autocmd")
-" }}}
+augroup END
+" Return to last edit position when opening files (You want this!) {{{2
+augroup thaw_file
+  autocmd!
+
+  autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \ exe "normal! g`\"" |
+      \ endif
+augroup END
+" Remember info about open buffers on close
+set viminfo^=%
+
+endif " }}}1
 
 " Commands {{{1
 " >>> Shell command @ spf-13 {{{2
@@ -652,18 +683,9 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
 " }}}1
 
 " Mappings {{{1
-" +----------------------------------------------------------+
-" | Legend:                                                  |
-" | ======                                                   |
-" | I  - new things and experiments                          |
-" | II - old approved maps that probably never change        |
-" | III- commented maps that maybe, will be useful some day  |
-" +----------------------------------------------------------+
   "========================================
   " I -- new things and experiments -- {{{2
   "========================================
-    " Indent tag
-    au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>= Vat=
     " Keep search matches in the middle of the window.
     nnoremap n nzzzv
     nnoremap N Nzzzv
@@ -713,13 +735,13 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     " Vimgreps in the current file
     map <leader>/ :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
     " Close the current buffer
-    map <leader>bd :Bclose<cr>
-
-    " Close all the buffers
-    map <leader>ba :1,1000 bd!<cr>
+    map <leader>bd :b#\|bd#<CR>
 
     " Switch CWD to the directory of the open buffer
     map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+    " Current file name to clipboard
+    nnoremap <leader>cp :let @+ = expand("%:p")<CR>
     "}}}3
     nnoremap <S-F12> K
     nnoremap K m`a<CR><ESC>``
@@ -818,7 +840,7 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     nnoremap <silent> Q :call cw#CloseWindowOrKillBuffer()<cr>
     " buffer killer
     " open next and kill previous
-    nnoremap <leader>Q :bn<bar>sp<bar>bp<bar>bd<cr>
+    nnoremap <leader>q :bn<bar>sp<bar>bp<bar>bd<cr>
     " open previous and kill next
     " nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
     " and shorter alternative (requires at least 2 buffers)
@@ -881,10 +903,6 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     nnoremap <silent> <C-i> <C-i>zz
     "}}}3
 
-    " change cursor position in insert mode
-    " delimitMate might sabotage this map
-    " (or some other plugin maybe?)
-    " inoremap <C-h> <left>
     inoremap <C-l> <right>
     " easy paste
     inoremap <C-q> <C-r><C-p>+
@@ -918,11 +936,6 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     " smash escape. Use only with 'timeout' and 'timeoutlen'
     inoremap kl <esc>
 
-  " }}}2
-  "==============================
-  " | III -- Unused -- {{{2     |
-  "==============================
-
     " sane regex {{{3
     nnoremap / /\v
     vnoremap / /\v
@@ -931,42 +944,18 @@ command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1|nohl
     nnoremap :s/ :s/\v
     "}}}3
 
+  " }}}2
+  "==============================
+  " | III -- Unused -- {{{2     |
+  "==============================
+
     " Easier formatting
     " nnoremap <silent> <leader>q gwip
-    " Fast bracketing
-    " inoremap {{ {<CR>}<ESC>kA| "}} because it's parsed as foldmarker :\
     " consistent menu navigation
     " https://github.com/jasonlong/dotfiles/blob/master/vimrc
   " }}}2
+
 " }}}1
-
-" from http://twily.info/.vimrc#view {{{
-" set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
-
-" Specify the behavior when switching between buffers
-try
-  set switchbuf=useopen,usetab,newtab
-  set showtabline=1
-catch
-endtry
-
-" Return to last edit position when opening files (You want this!)
-augroup thaw_file
-  autocmd!
-
-  autocmd BufReadPost *
-      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-      \ exe "normal! g`\"" |
-      \ endif
-augroup END
-" Remember info about open buffers on close
-set viminfo^=%
-
-"}}}
-
-if has('virtualedit')
-  set virtualedit=block               " allow cursor to move where there is no text in visual block mode
-endif
 
 " ExecuteMacroOverVisualRange {{{
 " Allows you to visually select a section and then hit @ to run a macro on all lines
@@ -1004,14 +993,6 @@ endfunction
 command! Rcl call SetRandomColors()
 map <F9> :call SetRandomColors()<CR>
 "}}}
-" anzu mapping {{{
-" nmap n <Plug>(anzu-n-with-echo)
-" nmap N <Plug>(anzu-N-with-echo)
-" nmap * <Plug>(anzu-star-with-echo)
-" nmap # <Plug>(anzu-sharp-with-echo)
-" clear status
-" nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
-" anzu }}}
 " Mode aware cursor hack {{{1
 " works only if placed here?
 " http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
@@ -1028,17 +1009,18 @@ set gcr+=v-ve:VisualCursor
 
 " do not blink
 set gcr+=a:blinkon0
+
 function! SetCursorModes()
   hi InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
   hi VisualCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#d33682
   hi ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#dc322f
   hi CommandCursor ctermfg=15 guifg=#fdf6e3 ctermbg=166 guibg=#cb4b16
 endfunction
+
+command! Scm call SetCursorModes()
 call SetCursorModes()
 " }}}1
-" if s:is_gui
-"   call SetRandomColors()
-" endif
+
 if executable("ag")
     set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --vimgrep
     set grepformat^=%f:%l:%c:%m
@@ -1051,6 +1033,5 @@ endif
 " \,ul.area_list
 " }}}
 
-nnoremap <leader>cp :let @+ = expand("%:p")<CR>
 nnoremap <M-space> :call UltiSnips#ExpandSnippet()<CR>
 inoremap <M-space> <C-R>=UltiSnips#ExpandSnippet()<CR>
