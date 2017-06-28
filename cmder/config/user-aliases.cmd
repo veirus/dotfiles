@@ -16,6 +16,7 @@ clear=cls
 history=cat %CMDER_ROOT%\config\.history
 
 ..=cd ..
+cd~=cd /d %USERPROFILE%
 pwd=cd
 cdd=cd /d $1
 cdcmdr=cd /d "%CMDER_ROOT%"
