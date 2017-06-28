@@ -4,14 +4,15 @@ desktop.ini
 # ========================================
 # vim
 .netrwhist
+Session.vim
 autoload/
 backups/
 lib/
 plugged/
 session/
-Session.vim
 swap/
 undo/
+pack/
 # ========================================
 # https://github.com/github/gitignore/blob/master/Global/Vim.gitignore
 [._]*.s[a-w][a-z]

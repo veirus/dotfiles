@@ -18,7 +18,6 @@
 [core]
 	autocrlf    = input
 	quotepath   = false
-	pager       = iconv.exe -f cp1251 -t utf-8 | less
 [github]
 	user        = veirus
 [color]
@@ -27,3 +26,4 @@
 	tool        = kdiff3
 [diff]
 	guitool     = kdiff3
+
