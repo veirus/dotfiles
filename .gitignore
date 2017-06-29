@@ -5,7 +5,7 @@ desktop.ini
 # vim
 .netrwhist
 Session.vim
-autoload/
+autoload/plug.vim.old
 backups/
 lib/
 plugged/
