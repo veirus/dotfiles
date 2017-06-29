@@ -1,0 +1,1594 @@
+msiexec.exe /i http://go.just-install.it
+just-install.exe list
+cinst ag
+ag list
+ag ag
+ripgrep favicon
+rg favicon
+ echo $ENV:CMDER_START
+rm -h
+rm --help
+choco list -lo > d:\choco.list
+cat d:\choco.list 
+choco list -lo > d:\choco.list
+cat d:\choco.list 
+npm i -g jshint
+cd /d d:\projects\himanaliz\
+vim gulpfile.js 
+rm -h
+rm --help
+choco list -lo > d:\choco.list
+cat d:\choco.list 
+choco list -lo > d:\choco.list
+cat d:\choco.list 
+npm i -g jshint
+cd /d D:\projects\himanaliz
+cd
+npm i -g gulp-cli
+e.
+npm i
+gulp build
+gulp
+cd /d D:\projects\himanaliz
+cd
+npm i -g gulp-cli
+e.
+gulp build
+npm rm gulp -g
+npm rm gulp-cli -g
+cd projects\
+ls
+mkdir zaimy
+cd zaimy
+npm init
+npm rm gulp --save-dev
+npm rm gulp --save
+npm rm gulp --save-optional
+npm cache clean
+npm i gulpjs/gulp-cli -g
+npm i gulpjs/gulp#4.0 -D
+gvim package.json 
+npm i
+npm gulp
+pip -V
+pip install PIL
+pip install Pillow
+python
+gulp
+gulp -V
+npm -v gulp
+npm list gulp
+gulp -v
+ag list
+ag ag
+ripgrep favicon
+rg favicon
+ echo $ENV:CMDER_START
+rm -h
+rm --help
+choco list -lo > d:\choco.list
+cat d:\choco.list 
+choco list -lo > d:\choco.list
+cat d:\choco.list 
+npm i -g jshint
+cd /d d:\projects\himanaliz\
+vim gulpfile.js 
+rm -h
+rm --help
+choco list -lo > d:\choco.list
+cat d:\choco.list 
+choco list -lo > d:\choco.list
+cat d:\choco.list 
+npm i -g jshint
+cd /d D:\projects\himanaliz
+cd
+npm i -g gulp-cli
+e.
+npm i
+gulp build
+gulp
+cd /d D:\projects\himanaliz
+cd
+npm i -g gulp-cli
+e.
+npm rm gulp -g
+npm rm gulp-cli -g
+ls
+mkdir zaimy
+cd zaimy
+npm init
+npm rm gulp --save-dev
+npm rm gulp --save
+npm rm gulp --save-optional
+npm cache clean
+npm i gulpjs/gulp-cli -g
+npm i gulpjs/gulp#4.0 -D
+gvim package.json 
+npm gulp
+pip -V
+pip install PIL
+pip install Pillow
+python
+gulp -V
+npm -v gulp
+npm list gulp
+cd d: /d
+cd /d d:
+cd /
+cd projects\
+cd zaimy\
+gulp -v
+gulp build
+npm i
+gulp-sass -v
+npm list gulp-sass
+npm list libsass
+npm ls -g --depth=0
+npm ls
+npm update gulp-sass
+npm update node-sass
+npm ls gulp-sass
+npm ls node-sass
+ls node_modules\
+ls node_modules\gulp-sass\
+ls node_modules\gulp-sass\node_modules\
+gulp
+gulp build
+cd projects\
+cd COTA\
+gulp
+gulp -v
+gulp -v
+cd /d D:\downloads\Neovim\bin
+   :
+nvim
+cd /d D:\downloads\Neovim\bin
+nvim-qt.exe 
+gulp -v
+where nvim
+where nvim
+python -m zen
+python -c 'import zen'
+python -c "import zen"
+python -m this
+python -m this
+node-sass
+cd d/ d:\projects\test\
+cd /d d:\projects\test\
+gulp.cmd sass style.scss 
+npm i -D gulp gulp-sass
+gulp-sass style.scss 
+node-sass style.scss 
+npm ls -D
+npm ls -D --depth=0
+npm init
+npm init -y
+vim gulpfile.js
+clear
+gvim gulpfile.js 
+gulp
+python -m zen
+python -c 'import zen'
+python -c "import zen"
+python -m this
+cd projects\
+cd /d d: projects
+cd /d d:\projects
+cd zaimy\
+ga .
+alias gs='git status'
+gs
+git add .
+git commit -m "+section.terms; +section.reviews; +section.order"
+git status
+where tee
+which tee
+where fg
+vim
+vim vimrc
+python -c "import sys; print(sys.executable)"
+python -c "import sys; print(sys.executable)"
+cd /d D:\projects\_test\ptknvim
+python -m venv .
+Scripts\activate.bat 
+pytknvim
+pip install pytknvim
+deactivate.bat 
+cd ..
+rm -rf ptknvim\
+cd ..
+rm -rf ptknvim\
+alias projects "cd /d D:\projects"
+alias projects 'cd /d D:\projects'
+alias projects="cd /d D:\projects"
+projects
+cd /d d:\projects\
+cd zaimy\
+git add src\assets\js\app.js 
+git commit -m "+ slider code (still buggy)"
+git ignore src\scss\_common_w_overlays.scss 
+git --help
+where vim
+gs
+git diff
+git status
+where gvim
+python -m json.tool '{"one":1,"two":2}'
+python -mjson.tool '{"one":1,"two":2}'
+npm i csscomb -g
+gvim -u NONE
+vim -u NONE
+cd projects\
+cd zaimy\
+gvim ftp://ankushcc_carudo@grey1k.beget.com/master59.shop/public_html/design/master_v2/css/style.css
+gvim ftp://grey1k.beget.com/master59.shop/public_html/design/master_v2/
+python -V
+py -V
+pip install --upgrade neovim
+npm install -g colorguard 
+npm install colorguard 
+yarn install stylelint
+yarn global add stylelint
+npm -g ls --depth==0
+npm -g ls --depth=0
+npm i stylelint
+node --version
+where node
+npm -g ls --depth=0
+yarn global csso
+yarn add global csso
+csso
+yarn add global csso
+csso
+yarn run csso
+yarn -h
+vim package.json 
+yarn remove csso global
+yarn list
+rm package.json 
+ls
+yarn global add csso
+csso -h
+csso -h
+yarn run csso
+yarn list
+npm install -g csso
+csso -v
+csso
+csso
+csso
+csso
+npm ls -g --depth=0
+npm i -g stylelint
+stylelint.cmd master_css_preling.css 
+csscomb.cmd -h
+csscomb.cmd style.css 
+csscomb style.css
+del style.css 
+ls
+python -V
+csso -v
+csso
+csso
+csso
+csso
+npm ls -g --depth=0
+npm i -g stylelint
+stylelint.cmd master_css_preling.css 
+csscomb.cmd -h
+csscomb.cmd style.css 
+csscomb style.css
+del style.css 
+ls
+python -V
+vim
+cd projects\
+cd nefertity\
+bower -h
+npm install normalize.css
+npm i
+npm install --save-dev autoprefixer cssnano
+gulp
+npm install postcss-import
+npm install --save-dev postcss-cssnext
+npm install --save-dev css-mqpacker
+gvim gulpfile.js 
+npm i stylelint stylelint-config-standard --save-dev
+npm i doiuse --save-dev
+npm i immutable-css --save-dev
+npm i postcss-reporter --save-dev
+explorer %cmder_root%
+npm install postcss-font-magician --save-dev
+npm install postcss-property-lookup -D
+git add src\assets\fonts\. src\assets\css\fonts.css 
+gc -m '+ fonts'
+git commit -m "+fonts"
+ga gulpfile.js package.json 
+git add gulpfile.js package.json 
+git commit -m "+postcss plugins: lost, flexbugs, cssnext, font-magician, property-lookup, doiuse, import"
+git commit -m 'layout updated; +sidebar;'
+git commit -m "+header;"
+gs
+git add src\assets\css\style.css 
+git add src\pug\.
+git commit -m "+footer"
+git diff gulpfile
+git diff gulpfile.js
+git add gulpfile.js 
+git commit -m "+postcss-property-lookup"
+git statu
+git status
+grep
+git commit -m "+postcss-property-lookup"
+git statu
+grep
+cd projects\nefertity\
+git add src\assets\css\style.css src\pug\_footer.pug 
+git commit -m "~social icons fix"
+ npm install -g eslint
+npm ls -g --depth=0
+alias npmls 'npm ls -g --depth=0'
+alias npmls='npm ls -g --depth=0'
+npmls
+eslint --init
+git status
+git add src\assets\css\style.css src\pug\.
+git commit -m "+header icons; +sidebar styles; +other sliders"
+ga src\assets\js\app.js 
+git add src\assets\js\app.js
+git commit -m "+other sliders; ~eslint cleanup"
+alias npmls 'npm ls -g --depth=0'
+alias npmls='npm ls -g --depth=0'
+npmls
+eslint --init
+git add src\assets\css\style.css src\pug\.
+git commit -m "+header icons; +sidebar styles; +other sliders"
+ga src\assets\js\app.js 
+git add src\assets\js\app.js
+git commit -m "+other sliders; ~eslint cleanup"
+cd projects\nefertity\
+git add package.json 
+git commit -m "~fixed dependency for postcss-import"
+git add src\assets\css\style.css src\assets\js\app.js src\pug\.
+git commit -m "~fixed top slider; homepage complete;"
+git push
+rm src\assets\js\app_zaymy.js 
+git commit -m "+files for sliders"
+git add src\assets\img\.
+git commit -m "+ images for home page"
+gs
+ga .
+git commit -a -m "~slider arrows moved to slider dir from common images dir, because order"
+git add src\assets\sli\.
+git commit -m "~arrows for slider placed into assets/sli dir"
+git status
+clip < ~/.ssh/github_rsa.pug
+clip < ~/.ssh/github_rsa.pub
+ssh-agent.exe -s
+ssh -T git@github.com
+ssh-add -l
+gulp build
+git add src\assets\img\.
+git commit -m "+ images for home page"
+ga .
+git commit -a -m "~slider arrows moved to slider dir from common images dir, because order"
+git add src\assets\sli\.
+git commit -m "~arrows for slider placed into assets/sli dir"
+clip < ~/.ssh/github_rsa.pug
+clip < ~/.ssh/github_rsa.pub
+ssh-agent.exe -s
+ssh -T git@github.com
+ssh-add -l
+gulp build
+cd /d D:\openserver\domains\nefertity.dev
+git init
+git commit -a "Project Start: Nefertity Wordpress"
+git add .
+git commit -a -m "Project Start: Nefertity Wordpress"
+gs
+git add src\themes\nefertity\.
+git add src\themes\nefertity\
+git status
+projects
+npmls
+npmls
+npmls
+npmls
+npmls
+npmls
+npmls
+npm ls -h
+npm la
+npm ll
+npm ls -g
+npmls
+npmls
+npm ls -g --help
+npm ls -g --depth=0
+npmls
+projects
+cd /d D:\openserver\domains\nefertity.dev
+gs
+gc -a -m
+npmls
+cd /d D:\openserver\domains\nefertity.dev
+gs
+gc -a -m "~plugins cleanup"
+ga .
+npmls
+projects
+gc -a -m
+cd /d D:\openserver\domains\nefertity.dev
+ga .
+ga.
+gc -a -m "X plugins cleanup"
+git ci -a -m "X plugins cleanup"
+git add .
+gs
+cdd D:\openserver\domains\nefertity.dev
+..
+cdenv
+alias
+npm install -g pug-lint
+cdproj
+cd nefertity\
+gs
+git push
+eval $(ssh-agent -s)
+ssh-agent -s
+ssh-add -l
+cdd D:\openserver\domains\nefertity.dev
+..
+cdenv
+alias
+npm install -g pug-lint
+cdproj
+cd nefertity\
+git push
+eval $(ssh-agent -s)
+ssh-agent -s
+ssh-add -l
+gc -a
+gc -a "+boilerplate and config files"
+git ci -a -m "+config and boilerplate"
+gaa
+git ci -a -m "+uncompiled sources"
+gc -a src\themes\nefertity\ "+theme src"
+gc -a src\themes\nefertity\ 
+ga package.json 
+alias ga
+cdcmdr
+cd config
+ls
+gvim user-aliases.cmd 
+cdops
+cd domains\nefertity.dev\
+gs
+ga gulpfile.js 
+git push
+eval $(ssh-agent -s)
+ssh-agent -s
+ssh-add -l
+cdd D:\openserver\domains\nefertity.dev
+cdenv
+alias
+npm install -g pug-lint
+git push
+eval $(ssh-agent -s)
+ssh-agent -s
+ssh-add -l
+gc -a
+gc -a "+boilerplate and config files"
+git ci -a -m "+config and boilerplate"
+gaa
+git ci -a -m "+uncompiled sources"
+gc -a src\themes\nefertity\ "+theme src"
+gc -a src\themes\nefertity\ 
+alias ga
+cdcmdr
+cd config
+gvim user-aliases.cmd 
+ga gulpfile.js 
+gc "~adjusted for wordpress"
+ga package.json 
+gc "-spaces from package name"
+gc -h
+ga src\themes\nefertity\
+ga src\themes\nefertity\.
+gl
+git hist
+npm i pug-filter-php-replace -D
+cd node_modules\
+cd pug-filter
+cd pug-filters
+vim README.md 
+ls lib/
+cd pug-filter-php-replace\
+../..
+npm install pug-php-filter -D
+cdproj
+cd nefertity\
+vim package.json 
+ga README.md 
+git status
+cdops
+cd domains\nefertity.dev\
+cd src\themes\nefertity\
+touch page-data.php
+gvim page-data.php 
+touch layout.pug
+gvim layout.pug 
+gvim functions.php 
+gs
+git diff
+gvim page
+..
+npm install --save-dev gulp-jade2php
+cd src\pug\
+ls
+bash
+ga src\assets\js\app.js 
+git add src\assets\js\app.js
+git commit -m "+other sliders; ~eslint cleanup"
+cd projects\nefertity\
+git add package.json 
+git commit -m "~fixed dependency for postcss-import"
+git add src\assets\css\style.css src\assets\js\app.js src\pug\.
+git commit -m "~fixed top slider; homepage complete;"
+git push
+rm src\assets\js\app_zaymy.js 
+git commit -m "+files for sliders"
+git add src\assets\img\.
+git commit -m "+ images for home page"
+gs
+ga .
+git commit -a -m "~slider arrows moved to slider dir from common images dir, because order"
+git add src\assets\sli\.
+git commit -m "~arrows for slider placed into assets/sli dir"
+git status
+clip < ~/.ssh/github_rsa.pug
+clip < ~/.ssh/github_rsa.pub
+ssh-agent.exe -s
+ssh -T git@github.com
+ssh-add -l
+gulp build
+git add src\assets\img\.
+git commit -m "+ images for home page"
+ga .
+git commit -a -m "~slider arrows moved to slider dir from common images dir, because order"
+git add src\assets\sli\.
+git commit -m "~arrows for slider placed into assets/sli dir"
+clip < ~/.ssh/github_rsa.pug
+clip < ~/.ssh/github_rsa.pub
+ssh-agent.exe -s
+ssh -T git@github.com
+ssh-add -l
+gulp build
+cd /d D:\openserver\domains\nefertity.dev
+git init
+git commit -a "Project Start: Nefertity Wordpress"
+git add .
+git commit -a -m "Project Start: Nefertity Wordpress"
+gs
+git add src\themes\nefertity\.
+git add src\themes\nefertity\
+git status
+projects
+npmls
+npmls
+npmls
+npmls
+npmls
+npmls
+npmls
+npm ls -h
+npm la
+npm ll
+npm ls -g
+npmls
+npmls
+npm ls -g --help
+npm ls -g --depth=0
+npmls
+projects
+cd /d D:\openserver\domains\nefertity.dev
+gs
+gc -a -m
+npmls
+cd /d D:\openserver\domains\nefertity.dev
+gs
+gc -a -m "~plugins cleanup"
+ga .
+npmls
+projects
+gc -a -m
+cd /d D:\openserver\domains\nefertity.dev
+ga .
+ga.
+gc -a -m "X plugins cleanup"
+git ci -a -m "X plugins cleanup"
+git add .
+gs
+cdd D:\openserver\domains\nefertity.dev
+..
+cdenv
+alias
+npm install -g pug-lint
+git push
+eval $(ssh-agent -s)
+ssh-agent -s
+ssh-add -l
+gvim package.json 
+npm i
+npm -ls
+npm ls
+ga gulpfile.js package.json 
+git add gulpfile.js package.json 
+gc "+pug php filter"
+git checkout src\pug\pages\_home.pug 
+npm install php2pug -D
+gvim gulpfile.js 
+gulp
+for file in *.pug.jade; do
+bash
+npm install --save-dev jade2php
+npm install -g jade2php
+jade2php src\pug\index.jade
+npm i -D gulp-jade-php
+gulp p2p
+cdproj/nefertity
+cdproj
+cd nefertity\
+git diff
+cdops
+cd domains\nefertity.dev\
+gs
+cdcmdr
+e.
+cdops
+cd domains\nefertity.dev\
+gs
+gulp
+gulp p2p
+cdproj/nefertity
+cdproj
+cd nefertity\
+git diff
+cdops
+cd domains\nefertity.dev\
+gs
+cdcmdr
+cdops
+cd domains\nefertity.dev\
+gc "~pug templates converted to php"
+e.
+gaa
+gc "~labeled converted results"
+gs
+gvim gulpfile.js 
+gulp
+gs
+gvim gulpfile.js 
+cdops
+cd domains\nefertity.dev\
+gulp
+cdcmdr
+ls
+cd vendor\
+..
+cd config\
+gvim user-aliases.cmd 
+gvim gulpfile.js 
+cdops
+cd domains\nefertity.dev\
+git diff gulpfile.js
+neovim
+gs
+gulp
+alias neovim=D:\Apps\Neovim\bin\neovim-qt.exe $*
+neovim gulp
+alias neovim='D:\Apps\Neovim\bin\neovim-qt.exe $*'
+neovim gulpfile.js 
+alias neovim='D:\Apps\Neovim\bin\neovim-qt.exe $*'
+neovim gulpfile.js 
+cd/d d
+cd /d d
+cd/d d:\env
+mkdir neovim
+cd neovim\
+python -m venv 3
+python -m venv 2
+cd 2
+pip2 install neovim
+deactivate.bat 
+cd..\3
+Scripts\activate.bat 
+pip install neovim
+alias neovim='D:\Apps\Neovim\bin\neovim-qt.exe $*'
+neovim gulpfile.js 
+cdops
+cd domains\nefertity.dev\
+nvim gulpfile.js 
+gs
+gulp
+cdops
+cd domains\nefertity.dev\
+neovim
+gulp
+alias neovim=D:\Apps\Neovim\bin\neovim-qt.exe $*
+neovim gulp
+alias neovim='D:\Apps\Neovim\bin\neovim-qt.exe $*'
+neovim gulpfile.js 
+git diff gulpfile.js
+ga gulpfile.js 
+gc "fixed reload"
+ga .stylelintrc 
+gc "+stylelintrc to prevent warnings in gulp"
+ga src\assets\css\.
+gc "~assets path changed to relative; ~sidebar animation adjusted"
+git diff src/assets/js/app.js
+ga src\assets\js\.
+gc "~fixed jquery wrap for wordpress; smenu animation adjusted; legacy code commented out"
+ga p2p_jade\readme.txt p2p_php\readme.txt 
+gc "+compiled templates marked"
+git diff src/assets/css/style.css
+gaa
+gc "~sliders added to template at index.php"
+ga src\themes\.
+gs
+cd /d D:\env\neovim
+cd 3
+Scripts\activate.bat 
+pip install neovim
+cdops
+cd domains\nefertity.dev\
+gs
+pip2 -h
+gulp
+cd 3
+pip install neovim
+cdops
+cd domains\nefertity.dev\
+gs
+pip2 -h
+gulp
+cd/d d:\env
+python -m venv neovim3
+cd neovim3
+cd..\neovim\3
+rm -rf 3
+rm -rf 2
+ls
+python -m venv 3 && cd 3
+pip3 install neovim
+cd..
+py -2 -m venv 2
+python -m venv 2 && cd 2
+Scripts\activate.bat 
+chcp 866
+pip2 install neovim
+deactivate.bat 
+python -m venv 2 && cd 2
+deactivate.bat 
+cd/d d:\env
+rm -rf neovim3
+cd neovim\
+ls
+rm -rf 2
+py -2 -m virtualenv 2
+cd 2
+Scripts\activate.bat 
+chcp 866
+pip2 install neovim
+chcp 866
+pip2 install neovim
+cdproj
+cd nefertity\
+gulp
+gs
+gaa
+git diff src/assets/js/app.js
+gc "~section.page prefixed to avoid collision with wp class for body"
+git commit -amend "-fail, unknown changes"
+git commit --ammend "-fail, unknown changes"
+git commit --amend "-fail, unknown changes"
+git commit --amend "fail, unknown changes"
+git commit --amend
+git hist
+py -2 -m venv 2
+python -m venv 2 && cd 2
+Scripts\activate.bat 
+pip2 install neovim
+deactivate.bat 
+chcp 866
+pip2 install virtualenv
+cdops
+cd domains\nefertity.dev\
+gs
+gulp
+cdops
+cd domains\nefertity.dev\
+gs
+ga src\assets\css\style.css 
+cd domains\nefertity.dev\
+gs
+ga src\assets\css\style.css 
+cdops
+cd domains\nefertity.dev\
+git diff
+e.
+gs
+gulp
+gs
+find . map.js
+find /?
+dir /?
+dir /b /a-d /s | findstr 'map.js'
+ curl -L git.io/inuitcssnew | vim -
+ curl -L git.io/inuitcssnew | vim -
+cdcmdr
+gvim config\user-aliases.cmd 
+cdops
+ curl -L git.io/inuitcssnew | vim -
+cdops
+cdcmdr
+gvim config\user-aliases.cmd 
+py -V
+python -V
+assoc .py
+ftype /?
+ftype Python.File
+where py.exe
+ftype Python.File="C:\Windows\py.exe" "%1" %*
+ftype Python.File=C:\Windows\py.exe
+ftype Python.File
+where py.exe
+ftype Python.File="C:\Windows\py.exe" "%1" %*
+ftype Python.File=C:\Windows\py.exe
+git branch
+gl
+cd src\themes\
+cd nefertity\
+gs
+cdcmdr
+gvim config\user-aliases.cmd 
+cdops
+ curl -L git.io/inuitcssnew | vim -
+cdcmdr
+gvim config\user-aliases.cmd 
+py -V
+python -V
+assoc .py
+ftype /?
+where py.exe
+ftype Python.File="C:\Windows\py.exe" "%1" %*
+ftype Python.File=C:\Windows\py.exe
+cdops
+cd nef
+cd nefertity.dev\
+git hist
+gh
+git show-index
+git show
+git add src\themes\nefertity_v1\
+git reset HEAD .
+git add src\themes\nefertity
+ga src\themes\nefertity\.
+gulp
+gs
+ga packit.py
+gc "+script: project folder autozip python script"
+ftype Python.File
+ga src\themes\nefertity\.
+gulp
+gs
+ga packit.py
+gc "+script: project folder autozip python script"
+ftype Python.File
+git blame
+git remote -v
+git branch
+git hist
+cd src\themes\
+cd nefertity\
+gitk
+git log
+gvim gulp
+gvim gulpfi
+cd ../../..
+gvim gulpfile.js 
+fzf locale
+fzf -- locale
+fzf 'locale'
+fzf -h
+chcp
+chcp 866
+chcp utf8
+chcp 65001
+fzf -q locale
+Ag /locale
+ga src\themes\nefertity\.
+ga packit.py
+gc "+script: project folder autozip python script"
+ftype Python.File
+cdops
+cd nefertity.dev\
+git diff src/assets/css/style.css
+ga src\assets\css\style.css 
+gc "+person block; +long hr"
+git diff src/assets/js/app.js
+ga src\assets\js\app.js 
+gc "~further clean-up"
+gs
+gulp
+gc "~further clean-up"
+cdops
+cd nefertity.dev\
+gvim .giti
+npm -v
+npm i -g npm@5
+e.
+git ignore
+git -h
+git --help
+gs
+git diff packit.py
+gulp
+Ag /locale
+ga src\themes\nefertity\.
+ga packit.py
+gc "+script: project folder autozip python script"
+ftype Python.File
+cdops
+cd nefertity.dev\
+git diff src/assets/css/style.css
+gc "+person block; +long hr"
+git diff src/assets/js/app.js
+gc "~further clean-up"
+gulp
+gc "~fixed style for sub-menu items"
+gc "~sub-menu accordion is actually working somehow now"
+git diff
+gc "~Fix appearance for ul.sub-sub menus"
+gc "-boilerplate; -redundant and debug comments;"
+cp src\themes\nefertity src\themes\nefertity_v1
+ga src\assets\js\app.js 
+gc "-cleanup of commented code"
+ga src\assets\css\chocolat.css src\assets\js\jquery.chocolat.js 
+gc "+vendor libs for zooming images"
+ga src\assets\css\style.css 
+gc "+gallery docs styles"
+g
+ga src\.
+gvim .gitignore 
+gs
+ga .gitignore 
+gc "+lightbox and its assets"
+gc "+lightbox and its assets"
+cd ..\rti
+gulp
+neovim
+cd d:\env\gazbros /d
+cd d:\env\gazbros
+d:
+gulp
+d:
+cd /d D:\env\postcss-modules-example
+gs
+npm i
+npm i -g npm
+npm -v
+build
+npm build
+npm test
+gulp css
+gulp
+fzf -- locale
+fzf 'locale'
+fzf -h
+chcp
+chcp 866
+chcp utf8
+chcp 65001
+fzf -q locale
+Ag /locale
+ga src\themes\nefertity\.
+ga packit.py
+gc "+script: project folder autozip python script"
+ftype Python.File
+cdops
+cd nefertity.dev\
+git diff src/assets/css/style.css
+ga src\assets\css\style.css 
+gc "+person block; +long hr"
+git diff src/assets/js/app.js
+ga src\assets\js\app.js 
+gc "~further clean-up"
+gs
+gulp
+gc "~further clean-up"
+cdops
+cd nefertity.dev\
+gvim .giti
+npm -v
+npm i -g npm@5
+git ignore
+git -h
+git --help
+gs
+git diff packit.py
+gulp
+Ag /locale
+ga src\themes\nefertity\.
+ga packit.py
+gc "+script: project folder autozip python script"
+ftype Python.File
+cdops
+cd nefertity.dev\
+git diff src/assets/css/style.css
+gc "+person block; +long hr"
+git diff src/assets/js/app.js
+gc "~further clean-up"
+gc "~fixed style for sub-menu items"
+gc "~sub-menu accordion is actually working somehow now"
+git diff
+gc "~Fix appearance for ul.sub-sub menus"
+gc "-boilerplate; -redundant and debug comments;"
+cp src\themes\nefertity src\themes\nefertity_v1
+ga src\assets\js\app.js 
+gc "-cleanup of commented code"
+ga src\assets\css\chocolat.css src\assets\js\jquery.chocolat.js 
+gc "+vendor libs for zooming images"
+ga src\assets\css\style.css 
+gc "+gallery docs styles"
+g
+ga src\.
+gvim .gitignore 
+ga .gitignore 
+gc "+lightbox and its assets"
+cdproj 
+cd bro_gazprom\
+:cd
+cd
+e.
+gulp build:index
+gulp pages
+gulp gen
+cd..
+cd GazBrom\
+pnpm i
+npm i
+git init
+gc -a -m "GazBros first commit"
+gc "+ track all files"
+ga .
+git checkout -- .
+gs
+gulp favicon
+gulp stylus
+gulp pug
+gulp postcss
+gulp build | gulp
+gulp build
+gulp
+gvi gulpfile.js 
+gulp
+gc "~fixed style for sub-menu items"
+gc "~sub-menu accordion is actually working somehow now"
+gc "~Fix appearance for ul.sub-sub menus"
+gc "-boilerplate; -redundant and debug comments;"
+cp src\themes\nefertity src\themes\nefertity_v1
+ga src\assets\js\app.js 
+gc "-cleanup of commented code"
+ga src\assets\css\chocolat.css src\assets\js\jquery.chocolat.js 
+gc "+vendor libs for zooming images"
+ga src\assets\css\style.css 
+gc "+gallery docs styles"
+g
+ga src\.
+gvim .gitignore 
+ga .gitignore 
+gc "+lightbox and its assets"
+gc "+lightbox and its assets"
+cd ..\rti
+gulp
+neovim
+gc "~fix for pug and css, stylus"
+ga src\pug\.
+gc "+ Templates are completed"
+ga src\assets\css\
+gc "+ Styles are completed"
+ga src\assets\fonts\ 
+gc "+ Roboto webfonts"
+ga src\assets\img\
+gc "+ Images; + svg"
+gulp js
+ga src\assets\.
+gc "~js and css paths corrected; +modal assets"
+ga gulpfile.js 
+gc "~js and css paths vars corrected and autoinject in pug template"
+ga src\pug\data\.
+gc "~ variables in data.pug corrected"
+ga src\pug\index.pug 
+gc "~slider corrected"
+ga src\pug\layouts\_default.pug 
+gc "+modal window"
+ga src\pug\partials\_footer.pug 
+gc "~paths to js are now injected via locals"
+git diff src/pug/partials/_header.pug
+ga src\pug\partials\_header.pug 
+gc "+modal id trigger for modal on button"
+ga src\pug\partials\_modal.pug src\style\partials\_modal.styl 
+gc "+ modal window"
+ga src\style\main.styl 
+gc "+import modal"
+ga src\style\pages\_home.styl 
+gc "~styles for slider corrected"
+ga src\style\_variables.styl 
+gc "+z map, + new colors"
+git diff
+ga src\style\.
+gc "~fix for z-index"
+packit.py
+cd ..\velikovek\
+gs
+git init
+alias
+cat pack
+cat package.json
+npm i
+ll
+gvi package.unused.json 
+vi src\assets\css\
+vi src\assets\css\
+cdproj
+cd velikovek\
+ll
+gulp
+echo %cmder_root%
+gc "+modal window"
+ga src\pug\partials\_footer.pug 
+gc "~paths to js are now injected via locals"
+git diff src/pug/partials/_header.pug
+ga src\pug\partials\_header.pug 
+gc "+modal id trigger for modal on button"
+ga src\pug\partials\_modal.pug src\style\partials\_modal.styl 
+gc "+ modal window"
+ga src\style\main.styl 
+gc "+import modal"
+ga src\style\pages\_home.styl 
+gc "~styles for slider corrected"
+ga src\style\_variables.styl 
+gc "+z map, + new colors"
+git diff
+ga src\style\.
+gc "~fix for z-index"
+packit.py
+cd ..\velikovek\
+gs
+git init
+alias
+cat pack
+cat package.json
+npm i
+ll
+gvi package.unused.json 
+vi src\assets\css\
+vi src\assets\css\
+ll
+echo %cmder_root%
+cdproj
+cd velikovek\
+gvi gulp
+gulp doiuse
+gulp postcss
+gulp
+gc "+ Styles are completed"
+ga src\assets\fonts\ 
+gc "+ Roboto webfonts"
+ga src\assets\img\
+gc "+ Images; + svg"
+gulp js
+ga src\assets\.
+gc "~js and css paths corrected; +modal assets"
+ga gulpfile.js 
+gc "~js and css paths vars corrected and autoinject in pug template"
+ga src\pug\data\.
+gc "~ variables in data.pug corrected"
+ga src\pug\index.pug 
+gc "~slider corrected"
+ga src\pug\layouts\_default.pug 
+gc "+modal window"
+ga src\pug\partials\_footer.pug 
+gc "~paths to js are now injected via locals"
+git diff src/pug/partials/_header.pug
+ga src\pug\partials\_header.pug 
+gc "+modal id trigger for modal on button"
+ga src\pug\partials\_modal.pug src\style\partials\_modal.styl 
+gc "+ modal window"
+ga src\style\main.styl 
+gc "+import modal"
+ga src\style\pages\_home.styl 
+gc "~styles for slider corrected"
+ga src\style\_variables.styl 
+gc "+z map, + new colors"
+git diff
+ga src\style\.
+gc "~fix for z-index"
+packit.py
+cd ..\velikovek\
+git init
+alias
+cat pack
+cat package.json
+npm i
+ll
+gvi package.unused.json 
+vi src\assets\css\
+vi src\assets\css\
+cdproj
+cd velikovek\
+ll
+gulp
+echo %cmder_root%
+git c "basic setting and tweaks"
+git commit -am "basic tweaks"
+gc "basic tweaks"
+git remote add origin git@github.com:veirus/pr_vv.git
+ssh-agent
+ssh-agent -s
+ssh-add ~\.ssh\github_rsa
+git push -u origin master
+gc '+fonts'
+gc "+ header (slider in process)"
+git c "+slideeeer!"
+git fetch
+git pull
+del _vimrc
+del src\assets\css\_vimrc src\assets\css\_vimrcbak 
+del src\assets\css\_vimrcgen 
+git c "+2 sections"
+git push 
+ga src\assets\img\bg_pat_2.png 
+gc "+ second bg pattern"
+gc "+ reviews section; + btn icons"
+gulp favicon
+rm src\assets\css\enew 
+gc "Verstka complete"
+gulp postcss
+gc "~css fixes"
+gc "~css optimization"
+npm install --save-dev postcss-csscomb
+gc "+ modals (crappy)"
+gc "~fixes for modal"
+gc "~more fixes for modals!"
+git diff src/assets/css/style.css
+gs
+ga .
+gc "~fix for footer zigzag"
+git push
+ga .
+gc "~fix for footer zigzag"
+ga gulpfile.js stylelintrc.htmlacademy.cwmod.json
+gc "+stylelint in postcss; +stylelint rules"
+ga src\assets\css\.
+gs
+gc "~css slightly fixed after lint"
+git push
+stylelint
+where stylelint
+npm ls -g
+npm ls -g --depth=0
+npm update csscomb
+npm update -g csscomb
+where grep
+vi src\assets\css\
+ll
+echo %cmder_root%
+git c "basic setting and tweaks"
+git commit -am "basic tweaks"
+gc "basic tweaks"
+git remote add origin git@github.com:veirus/pr_vv.git
+ssh-agent
+ssh-agent -s
+ssh-add ~\.ssh\github_rsa
+git push -u origin master
+gc '+fonts'
+gc "+ header (slider in process)"
+git c "+slideeeer!"
+git fetch
+git pull
+del _vimrc
+del src\assets\css\_vimrc src\assets\css\_vimrcbak 
+del src\assets\css\_vimrcgen 
+git c "+2 sections"
+git push 
+ga src\assets\img\bg_pat_2.png 
+gc "+ second bg pattern"
+gc "+ reviews section; + btn icons"
+gulp favicon
+rm src\assets\css\enew 
+gc "Verstka complete"
+gc "~css fixes"
+gc "~css optimization"
+npm install --save-dev postcss-csscomb
+gc "+ modals (crappy)"
+gc "~fixes for modal"
+gc "~more fixes for modals!"
+git diff src/assets/css/style.css
+ga .
+gc "~fix for footer zigzag"
+git push
+cdproj
+cd velikovek\
+gulp postcss > log.log
+gvim log.log
+gs
+gulp postcss
+gulp
+where neovim
+where neovim
+where neovim
+where neovim
+where conemu
+choco list -lo
+choco -h
+choco config
+cdproj
+ls
+cd velikovek\
+ga .stylelintrc
+gc "- default stylelint file"
+gd
+git d
+git diff
+gc -am "~updated with latest fixes"
+gc -a "~updated with latest fixes"
+git commit -am "~updated with latest fixes"
+gs
+git push
+powershell
+gc "- default stylelint file"
+gd
+git d
+git diff
+gc -am "~updated with latest fixes"
+gc -a "~updated with latest fixes"
+git commit -am "~updated with latest fixes"
+git push
+npm i
+gulp theme
+gulp build
+gs
+gulp
+explorer %cmder_root%
+ssh-agent -s
+ssh-add ~\.ssh\github_rsa
+gc '+fonts'
+gc "+ header (slider in process)"
+git c "+slideeeer!"
+git fetch
+git pull
+del _vimrc
+del src\assets\css\_vimrc src\assets\css\_vimrcbak 
+del src\assets\css\_vimrcgen 
+git c "+2 sections"
+git push 
+ga src\assets\img\bg_pat_2.png 
+gc "+ second bg pattern"
+gc "+ reviews section; + btn icons"
+gulp favicon
+rm src\assets\css\enew 
+gc "Verstka complete"
+gc "~css fixes"
+gc "~css optimization"
+npm install --save-dev postcss-csscomb
+gc "+ modals (crappy)"
+gc "~fixes for modal"
+gc "~more fixes for modals!"
+git diff src/assets/css/style.css
+ga .
+gc "~fix for footer zigzag"
+git push
+cdproj
+cd velikovek\
+gulp postcss > log.log
+gvim log.log
+gs
+gulp postcss
+where neovim
+where neovim
+where neovim
+where neovim
+where conemu
+choco list -lo
+choco -h
+choco config
+cdproj
+cd velikovek\
+ga .stylelintrc
+gc "- default stylelint file"
+git d
+git diff
+gc -am "~updated with latest fixes"
+gc -a "~updated with latest fixes"
+git commit -am "~updated with latest fixes"
+npm i -D https://www.npmjs.com/package/gulp-wpstylecss/
+npm install --save-dev gulp-wpstylecss
+gulp wptheme
+pack
+node pack
+npm pack
+icons
+node icons
+node run icons
+npm run icons
+npm run sprite
+node run gulp
+npm run gulp
+node run packit
+npm run packit
+rm velvek.rudev.zip 
+ls
+ll
+npm alias
+npm run -h
+packit
+npmls
+git add -h
+gc "small update: eslint ignore for require keyword, +wpstylecss module, style.css is now can be generated from package.json"
+ga .eslintrc 
+gc "+new eslint config"
+gau
+gc " [-] old example theme"
+ga src\plugins\import-html-pages\
+git reset HEAD
+ga src\themes\vvek\screenshot.png 
+gc "[+] theme preview"
+ga src\themes\vvek\header.php 
+gc "[+] header template"
+ga src\themes\vvek\footer.php 
+gc "[+] footer template"
+ga src\plugins\.
+gc "[+] new plugin: import html"
+gd src\themes\vvek\index.
+alias gd=git diff *$
+alias
+alias gd=git diff $*
+gd src\themes\vvek\index.php
+git diff src\themes\vvek\index.php
+npm start
+gulp -h
+dist
+npm run build
+npm run dist
+gulp --production
+gulp 
+git remote add origin git@github.com:veirus/pr_vvek.wp.git
+git push -u origin master
+gulp debug
+gul
+gulp
+gd index.php
+gd
+gs
+gd gulpfile.js 
+ga gulpfile.js 
+gc "fix proxy"
+git push
+gulp wpstyle
+npm run pack
+npm i
+where nvim
+npm install -g hpm-cli
+cd .hyper_plugins\
+mkdir C:\Users\oldschool\AppData\Local\Yarn\bin
+rm package-lock.json 
+yarn
+npm i
+yarn
+where yarn
+cd .hyper_plugins\
+yarn
+git push
+gulp wpstyle
+npm run pack
+npm i
+where nvim
+npm install -g hpm-cli
+cd .hyper_plugins\
+mkdir C:\Users\oldschool\AppData\Local\Yarn\bin
+rm package-lock.json 
+yarn
+npm i
+yarn
+where yarn
+cd .hyper_plugins\
+yarn
+gd package.json
+gd gulpfile.sj
+gc "~fix for php task"
+vim .gitignore 
+ga .gitignore 
+git reset HEAD gulpfile.js
+gc "+ .lock + .temp to gitignore"
+gd gulpfile.js
+ga gulpfile.js 
+gc "~fix build task (+favicon)"
+gc "~fix build task"
+alias gc
+gc -m "~fix build task"
+gd src/themes/vvek/header.php
+ga src\themes\vvek\header.php 
+gc -m "remove redundant header tag" 
+gs
+gulp icon
+gulp favicon
+gulp theme
+gulp php
+gulp watch
+rm package-lock.json 
+yarn
+npm i
+yarn
+where yarn
+cd .hyper_plugins\
+yarn
+gvim gulpfile.js 
+cls
+gulp watch
+git log
+npm run start
+gulp favicon
+gulp
+gulp watch
+npm i
+gulp
+npm install postcss-discard-comments -D
+gulp postcss
+mkdir vimtest
+cd vimtest
+mkdir pack\minpac\opt
+cd pack\minpac\opt\
+git clone https://github.com/k-takata/minpac.git
+gvim ~\_minrc 
+gvim -u ~\_minrc
+ll
+cd vimtest\
+git clone https://github.com/k-takata/minpac.git
+gvim ~\_minrc 
+gvim -u ~\_minrc
+ll
+cd vimtest\
+vifm
+ga src\assets\js\app.js 
+gc -m "fix function ready"
+ga src\plugins\simple-custom-post-order\
+gc -m "+ plugin for easy post ordering"
+ga src\themes\vvek\.
+gc -m "fiddling with template parts"
+git pull
+gb
+git br
+git push
+gs
+gvim ~\_minrc 
+gvim -u ~\_minrc
+ll
+cd vimtest\
+cd /d D:\OpenServer\domains\nefertity.byalex\public_html\wp-content\themes\nefertity
+cdops
+cd velvek.rudev\
+gd 
+ga gulpfile.js 
+gc -m "fix build task, add strip comments in postcss"
+ga package.json 
+gc -m "changed proj name, fix dist script, + postcss-discard-comments"
+ga package-lock.json 
+gc -m "postcss plugins updated"
+ga src\assets\js\map.js 
+gc -m "
+gc -m "fix map point icons"
+gd
+gs
+gulp
