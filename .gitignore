@@ -1,6 +1,7 @@
 \!.git/
 _/
 desktop.ini
+.history
 # ========================================
 # vim
 .netrwhist
