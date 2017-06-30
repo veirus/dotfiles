@@ -42,3 +42,6 @@ vi=vim $*
 gvi=gvim $*
 nvi=D:\Apps\Neovim\bin\nvim-qt.exe $*
 ytnc=youtube-dl.exe --no-check-certificate $*
+gco=git checkout $*  
+new=touch $*  
+gf=git flow $*  
