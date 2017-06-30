@@ -1,7 +1,7 @@
 \!.git/
 _/
 desktop.ini
-.history
+cmder/config/.history
 # ========================================
 # vim
 .netrwhist
@@ -27,4 +27,6 @@ pack/
 # ========================================
 # auto-generated tag files
 tags
+tags.lock
+tags.temp
 # ========================================
