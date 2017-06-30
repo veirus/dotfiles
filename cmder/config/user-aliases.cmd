@@ -6,14 +6,12 @@
 ;= Add aliases below here
 
 e.=explorer .
+e=explorer $*
 unalias=alias /d $1
 history=cat %CMDER_ROOT%\config\.history
-vi=vim $*
-gvi=gvim $*
 ls=ls --show-control-chars -F --color $*
 ll=ls -la --color $*
 clear=cls
-history=cat %CMDER_ROOT%\config\.history
 
 ..=cd ..
 cd~=cd /d %USERPROFILE%
@@ -26,14 +24,21 @@ cddenw=cd /d D:\denwer
 cdenv=cd /d D:\env
 
 ga=git add $*
+gaa=git add .
 gau=git add -u $*
+gb=git branch $*
+gc=git commit $*
+gcm=git commit -m $*
+gd=git diff $*
+gh=git hist
+gl=git log --oneline --all --graph --decorate  $*
+gs=git status
 gp=git push
 gundo=git reset HEAD~ && git clean -df
 gundopush=push -f origin HEAD^:master
-gl=git log --oneline --all --graph --decorate  $*
+
 npmls=npm ls -g --depth=0
-nvim=D:\Apps\Neovim\bin\nvim-qt.exe $*
-gd=git diff $*
-gc=git commit $*
-gs=git status
+vi=vim $*
+gvi=gvim $*
+nvi=D:\Apps\Neovim\bin\nvim-qt.exe $*
 ytnc=youtube-dl.exe --no-check-certificate $*
