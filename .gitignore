@@ -5,7 +5,9 @@ desktop.ini
 # vim
 .netrwhist
 Session.vim
-autoload/
+# ## Including autoload to ignore was a mistake:
+# ## i'm *really* need my custom autoload scripts... and plug.vim too
+# autoload/
 backups/
 lib/
 plugged/
