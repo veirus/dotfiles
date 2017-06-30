@@ -268,10 +268,17 @@ Plug 'tomasr/molokai'
 " Plug 'zeis/vim-kolor'
 "   let g:kolor_underlined=1
 " -- newest themes -- {{{3
+Plug 'Wutzara/vim-materialtheme'
+Plug 'zanglg/nova.vim'
+Plug 'google/vim-colorscheme-primary'
+Plug 'rakr/vim-one'
+Plug 'bluz71/vim-moonfly-colors'
+Plug 'ericbn/vim-solarized'
 "}}}3
 " -- theme assignment --
 " let s:cs_wingui='base16-mocha'
-let s:cs_wingui='spacegray'
+" let s:cs_wingui='breezy'  " <<<<<<< HEAD:vimrc
+let s:cs_wingui='spacegray' " >>>>>>> 325d8e94f7485332538b79a01c1357bfe30327c4:vim/init.vim
 let s:cs_xterm='jellybeans'
 let s:cs_nvim='molokai'
 let s:cs_cmder='badwolf'
