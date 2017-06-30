@@ -227,19 +227,24 @@ Plug 'konfekt/fastfold'
 Plug 'irrationalistic/vim-tasks'
 " == < webdev \> == {{{2
 " General
-Plug 'othree/html5.vim',       {'for': ['html', 'php', 'tpl']}
-Plug 'JulesWang/css.vim',      {'for': ['css', 'html', 'scss', 'sass', 'less']}
+" Replaced with [ poliglot ] {{{3
+" Plug 'othree/html5.vim',       {'for': ['html', 'php', 'tpl']}
+" Plug 'JulesWang/css.vim',      {'for': ['css', 'html', 'scss', 'sass', 'less']}
+" }}}3
 Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass','less']}
 Plug 'closetag.vim',           {'for': ['html', 'php', 'tpl']}
 " ---------------
 " Pre HTML
-Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']}
-Plug 'tpope/vim-markdown', {'for': ['markdown', 'md', 'mdown', 'mkd', 'mkdn']}
+" Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']} " replaced with [ polyglot ] {{{3
+" Plug 'tpope/vim-markdown', {'for': ['markdown', 'md', 'mdown', 'mkd', 'mkdn']}
+" }}}3
 " ---------------
 " Pre CSS
-Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss']}
-Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'wavded/vim-stylus', {'for': ['styl', 'stylus']}
+" replaced with [ polyglot ] {{{3 "
+" Plug 'cakebaker/scss-syntax.vim', {'for': ['sass', 'scss']}
+" Plug 'groenewege/vim-less', { 'for': 'less' }
+" Plug 'wavded/vim-stylus', {'for': ['styl', 'stylus']}
+" }}} replaced with [ polyglot ] "
 " 2017-04-14
 Plug 'rstacruz/vim-hyperstyle' "requires python27
 " ---------------
@@ -249,10 +254,12 @@ Plug 'csscomb/vim-csscomb', {'on': 'CSScomb'}
 Plug 'stephenway/postcss.vim'
 " ---------------
 " Js
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'js', 'html'] }
-Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
+" replaced with [ polyglot ] {{{3 "
+" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'js', 'html'] }
+" Plug 'elzr/vim-json', { 'for': ['json', 'javascript', 'js', 'html'] }
+" Plug 'moll/vim-node', {'for': [ 'js', 'javascript' ]} " 2017-03-09
+" }}} replaced with [ polyglot ] "
   let g:vim_json_syntax_conceal = 0
-Plug 'moll/vim-node', {'for': [ 'js', 'javascript' ]} " 2017-03-09
 " 2017-02-06
 Plug 'ternjs/tern_for_vim', {'for': [ 'js', 'javascript' ]}
   let g:tern_map_keys = 1
@@ -295,6 +302,8 @@ Plug 'google/vim-colorscheme-primary'
 Plug 'ericbn/vim-solarized'
 "}}}3
 " == new stuff == {{{2
+" 2017-06-30 [ polyglot ] {{{3
+Plug 'sheerun/vim-polyglot'
 " 2017-06-26 [ php indenting ] {{{3
 Plug '2072/PHP-Indenting-for-VIm'
 " 2017-06-23 [ md todo ] {{{3
@@ -348,7 +357,6 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
 \ 'whitelist': ['*'],
 \ 'completor': function('asyncomplete#sources#omni#completor')
 \  }))
-
 
 " 2017-05-17 [supertab] {{{3
 Plug 'ervandew/supertab'
