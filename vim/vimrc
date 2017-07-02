@@ -548,8 +548,12 @@ if s:is_gui
     set guifont=Consolas:h15
   " Win GUI settings {{{2
   elseif s:is_wingui
-    " set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cRUSSIAN
-    set guifont=Iosevka_Term:h11:cRUSSIAN:qDRAFT
+    try
+      set guifont=Iosevka_Term:h11:cRUSSIAN:qDRAFT
+	catch
+    finally
+      set guifont=DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN
+    endtry
     let g:airline_powerline_fonts = 1
     " Меню выбора кодировки текста (utf8, cp1251, koi8-r, cp866)
     menu Кодировка.utf-8 :e ++enc=utf8<CR>
