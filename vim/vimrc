@@ -2,10 +2,16 @@
 " ==========================================================
 " CW's _vimrc | merging with PROSTOR | last edit: 2017-06-20 (merged at 2017-06-20 Вт 16:42)
 " ==========================================================
+if has('vim_starting')
+  " TODO: move some things here to make it better
+  " NOTE: anything inside this section will not be touched by :source
+  " echo 'This message appears at startup but not on `:source $MYVIMRC`'
+endif
 " = First things first: =
 " Be Improved {{{
 " romainl says it's useless:
 " set nocompatible
+if &cp | set nocp | endif
 " ========================================
 " encoding {{{1
 " set encoding=utf-8
@@ -276,7 +282,11 @@ Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
 " -- * * * --- {{{3
+Plug 'rakr/vim-one'
+Plug 'ajmwagar/vim-deus'
+Plug 'sonjapeterson/1989.vim'
 Plug 'ajh17/Spacegray.vim'
+Plug 'fneu/breezy'
 Plug 'kristijanhusak/vim-hybrid-material'
 " let g:airline_theme = "hybrid"
 " Plug 'jasonlong/lavalamp'
@@ -302,6 +312,8 @@ Plug 'google/vim-colorscheme-primary'
 Plug 'ericbn/vim-solarized'
 "}}}3
 " == new stuff == {{{2
+Plug 'vim-jp/syntax-vim-ex'
+Plug 'mattn/ctrlp-swoop'
 " 2017-06-30 [ polyglot ] {{{3
 Plug 'sheerun/vim-polyglot'
 " 2017-06-26 [ php indenting ] {{{3
@@ -370,6 +382,7 @@ Plug 'dsawardekar/wordpress.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf'} | Plug 'junegunn/fzf.vim'
 nmap <leader><tab> <plug>(fzf-maps-n)
 imap <c-x><c-k> <plug>(fzf-complete-word)
+" let g:fzf_launcher = 'cmd.exe /c %CMDER_INSTALL_DIR%\Cmder.exe /START "%v"'
 " 2017-03-21 [ hardtime ] {{{3
 Plug 'takac/vim-hardtime'
 nnoremap <leader><F1> <Esc>:HardTimeToggle<CR>
@@ -387,7 +400,15 @@ let g:ale_statusline_format = [' ✖ %d ', ' ! %d ', '']
 " == old == {{{2
 Plug 'vim-scripts/DrawIt', {'on': 'DrawIt'}
 Plug 'wellle/targets.vim'
+" == unused == {{{2
 " Plug 'kana/vim-operator-user'
+" Plug 'samsonw/vim-task'
+" Plug 'osyo-manga/vim-trip'
+" Plug 'osyo-manga/vim-over'
+" Plug 'osyo-manga/vim-jplus'
+" Plug 'dbmrq/vim-chalk'
+" Plug 'fisadev/FixedTaskList.vim'
+" Plug 'mattn/benchvimrc-vim'
 
 call plug#end() " required }}}1
 
@@ -549,8 +570,12 @@ if s:is_gui
     set guifont=Consolas:h15
   " Win GUI settings {{{2
   elseif s:is_wingui
-    " set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cRUSSIAN
-    set guifont=Iosevka_Term:h11:cRUSSIAN:qDRAFT
+    try
+      set guifont=Iosevka_Term:h11:cRUSSIAN:qDRAFT
+	catch
+    finally
+      set guifont=DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN
+    endtry
     let g:airline_powerline_fonts = 1
     " Меню выбора кодировки текста (utf8, cp1251, koi8-r, cp866)
     menu Кодировка.utf-8 :e ++enc=utf8<CR>
