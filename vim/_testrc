@@ -1,0 +1,21 @@
+if &cp | set nocp | endif
+set encoding=utf-8
+set wildmenu
+set showcmd
+set ruler
+set smartindent
+
+" portability shim:
+let $DOTVIMDIR = expand('$HOME/vimtest')
+if !isdirectory(expand('$DOTVIMDIR'))
+  let $DOTVIMDIR = expand('$VIM/vimfiles')
+  echom "** ! **: dotfiles don't exist"
+endif
+set rtp^=$DOTVIMDIR
+let s:plugs = "plugged"
+let s:plugdir = expand($DOTVIMDIR.'/'.s:plugs)
+
+call plug#begin(s:plugdir)
+Plug 'unblevable/quick-scope'
+call plug#end()
+" vim: set ft=vim :

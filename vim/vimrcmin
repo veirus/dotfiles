@@ -38,13 +38,13 @@ noremap <leader>y "+y$
 " adjusted paste ]p and ]p. this prevents breaking of alignment when pasting
 " in code from websites and etc..
 noremap <leader>p :set paste<cr>"+]p:set nopaste<cr>
-noremap <leader>p :set paste<cr>"+]p:set nopaste<cr>
+noremap <leader>P :set paste<cr>"+[p:set nopaste<cr>
 "==================================================
 " splitting lines
 nnoremap <silent> <leader><cr> i<cr><esc>
 nnoremap <silent> <leader>j a<cr><esc>k$
 nnoremap <silent> <leader>o m`o<esc>``
-nnoremap <silent> <leader>o m`o<esc>``
+nnoremap <silent> <leader>O m`O<esc>``
 "==================================================
 " reselect visual block after indent
 xnoremap < <gv
