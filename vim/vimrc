@@ -1057,14 +1057,14 @@ function! SetCursorModes()
 endfunction
 
 command! Scm call SetCursorModes()
-call SetCursorModes()
 " }}}1
 
-" if executable("ag")
-"   set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --vimgrep
-"   set grepformat^=%f:%l:%c:%m
-"   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-" endif
+if executable("ag")
+  set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --vimgrep
+  set grepformat^=%f:%l:%c:%m
+  let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
+  let g:ctrlp_use_caching = 0
+endif
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --color=never
         " \ --smartcase
@@ -1083,3 +1083,4 @@ nnoremap <C-K> :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 nnoremap <M-space> :call UltiSnips#ExpandSnippet()<CR>
 inoremap <M-space> <C-R>=UltiSnips#ExpandSnippet()<CR>
+call SetCursorModes()
