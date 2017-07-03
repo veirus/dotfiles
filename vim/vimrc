@@ -357,6 +357,7 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
 \ 'whitelist': ['*'],
 \ 'completor': function('asyncomplete#sources#omni#completor')
 \  }))
+let g:asyncomplete_auto_popup = 0
 
 " 2017-05-17 [supertab] {{{3
 Plug 'ervandew/supertab'
