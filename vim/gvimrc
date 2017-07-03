@@ -1,0 +1,34 @@
+" vim:set et sts=2 sw=2 ts=2 tw=78 ft=vim:
+if g:is_macvim
+  set guifont=Consolas:h15
+  " Win GUI settings {{{2
+elseif g:is_wingui
+  set guifont=Iosevka_Term:h12:cRUSSIAN:qDRAFT,DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN,Consolas:h12
+  if &guifont =~? 'powerline'
+    let g:airline_powerline_fonts = 1
+  endif
+  " Меню выбора кодировки текста (utf8, cp1251, koi8-r, cp866)
+  menu Кодировка.utf-8 :e ++enc=utf8<CR>
+  menu Кодировка.windows-1251 :e ++enc=cp1251<CR>
+  menu Кодировка.utf-16le :e ++enc=utf-16le<CR>
+  menu Кодировка.cp866 :e ++enc=cp866<CR>
+  menu Кодировка.koi8-r :e ++enc=koi8-r<CR>
+  execute 'colorscheme '.g:cs_wingui
+endif " }}}2
+" echom "^General GUI block^" {{{2
+" currently is go=gmtch
+if g:is_conemu
+  set guioptions+=h
+  set guioptions-=b
+  set guioptions-=r
+  set guioptions-=R
+  set guioptions-=m
+endif
+set guioptions+=c       " Use console dialogs
+set guioptions-=e       " Disable fancy tabline (repositions vim on tab in Win32)
+set guioptions-=L       " Disable left scrollbar (repositions vim on vsplit in Win32)
+set guioptions-=T       " No toolbar
+set noshowmode
+set ballooneval
+autocmd GUIEnter * set vb t_vb= lines=40 columns=103 linespace=0
+" }}}2

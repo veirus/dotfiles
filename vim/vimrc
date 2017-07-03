@@ -4,29 +4,16 @@
 " ==========================================================
 if has('vim_starting')
   " TODO: move some things here to make it better
-  " NOTE: anything inside this section will not be touched by :source
+  " NOTE: oh wow NOTE gets highlighted! That's neat.
   " echo 'This message appears at startup but not on `:source $MYVIMRC`'
 endif
 " = First things first: =
 " Be Improved {{{
-" romainl says it's useless:
-" set nocompatible
+" romainl says it's useless...
+" But if it's set for some reason, switch of compatibility
 if &cp | set nocp | endif
 " ========================================
 " encoding {{{1
-" set encoding=utf-8
-" " Список кодировок для автоматического определения, в порядке предпочтения
-" " взято с http://jenyay.net/Programming/Vim
-" set fileencodings=utf-8,cp1251,utf-16le,cp866,koi8r,ucs-2le
-" set fileencoding=utf-8    " set save encoding
-" ========================================
-" v2:
-" if &termencoding == ""
-"   let &termencoding = &encoding
-" else
-"   set termencoding=utf-8  " set terminal encoding
-" endif
-" ========================================
 " explanation: http://stackoverflow.com/a/5795441/453396
 if has("multi_byte")
     if &termencoding == ""
@@ -34,6 +21,7 @@ if has("multi_byte")
     endif
     set encoding=utf-8                      "better default than latin1
     setglobal fileencoding=utf-8            "change default file encoding when writing new files
+    set fileencodings=utf-8,cp1251,utf-16le,cp866,koi8r,ucs-2le "cyrillic edition
 endif
 " ========================================
 " mapleader {{{1
@@ -41,14 +29,15 @@ let mapleader    = "\<space>"
 let g:mapleader  = "\<space>"
 " ========================================
 " OS detect {{{1
-let s:is_windows = has('win32') || has('win64')
-let s:is_wingui  = has("gui_win32")
+" let s:is_windows = has('win32') || has('win64') " unused
+let g:is_wingui  = has("gui_win32")
 let s:is_cygwin  = has('win32unix')
-let s:is_macvim  = has('gui_macvim')
-let s:is_nvim    = has('nvim')
+let g:is_macvim  = has('gui_macvim')
+let g:is_nvim    = has('nvim')
 let s:is_nyaovim = exists('g:nyaovim_version')
 let s:is_gui     = has('gui_running')
-let s:is_conemu  = !empty($CONEMUBUILD)
+let g:is_conemu  = !empty($CONEMUBUILD)
+let s:is_prostor = $USERNAME ==? 'oldschool'
 " ========================================
 " rtp {{{1
 " portability shim:
@@ -65,7 +54,7 @@ let s:plugdir = expand($DOTVIMDIR.'/'.s:plugs)
 set backupdir=$DOTVIMDIR/backups
 set directory=$DOTVIMDIR/swap
 set undodir=$DOTVIMDIR/undo
-if !s:is_nvim
+if !g:is_nvim
   set viminfo+=n$DOTVIMDIR/swap/viminfo
 endif
 " Make those folders automatically if they don't already exist.
@@ -282,6 +271,7 @@ Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
 " -- * * * --- {{{3
+Plug 'sickill/vim-monokai' " 2017-03-09 [ monokai ]
 Plug 'rakr/vim-one'
 Plug 'ajmwagar/vim-deus'
 Plug 'sonjapeterson/1989.vim'
@@ -332,7 +322,7 @@ Plug 'osyo-manga/vim-agrep'
 " Plug 'Shougo/denite.nvim'
 " 2017-05-23 [ gutentags ] {{{3
 Plug 'ludovicchabant/vim-gutentags'
-  let g:gutentags_ctags_exclude=['node_modules']
+  let g:gutentags_ctags_exclude=['node_modules', './**/node_modules/']
 " 2017-05-22 [ scratch.vim ] {{{3
 Plug 'mtth/scratch.vim'
 " 2017-05-18 [ asyncomplete.vim ] {{{3
@@ -369,25 +359,49 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
 \ 'whitelist': ['*'],
 \ 'completor': function('asyncomplete#sources#omni#completor')
 \  }))
+let g:asyncomplete_auto_popup = 0
 
 " 2017-05-17 [supertab] {{{3
 Plug 'ervandew/supertab'
 " 2017-04-26 [ wordpress.vim ? ] {{{3
 " I'm not sure what it is doing
 Plug 'dsawardekar/wordpress.vim'
-" 2017-04-20 [ anzu x ] {{{3
-" Plug 'osyo-manga/vim-anzu'
 " 2017-03-31 [ fzf ] {{{3
-Plug 'junegunn/fzf', { 'dir': '~/.fzf'} | Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~\.fzf'} | Plug 'junegunn/fzf.vim'
 nmap <leader><tab> <plug>(fzf-maps-n)
-imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+" fzf + ripgrep config {{{4
+" https://elliotekj.com/2016/10/30/using-ripgrep-and-fzf-instead-of-the-silver-searcher-and-ctrlp-in-vim/
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 " let g:fzf_launcher = 'cmd.exe /c %CMDER_INSTALL_DIR%\Cmder.exe /START "%v"'
+" Let’s take a look at those flags:
+  " --files: Makes ripgrep print each file that would be searched, but prevents
+    "  ripgrep from actually searching it.
+  " --hidden: Makes ripgrep search hidden directories and files.
+  " --smartcase: Makes ripgrep search case-insensitively if the pattern is all
+    "  lowercase, however if there is a capital the search becomes case-sensitive.
+  " --glob: (with an exclamation mark) makes ripgrep ignore directories matching
+    "  the passed patterns. In this case, we want to ignore the .git folder.
+" One flag that I haven’t included, but which you may want to use is
+  " --no-ignore, which will tell ripgrep to search files and directories listed in
+    "  .gitignore, .ignore, etc. By default, files that are set to be ignored in
+    "  those files are ignored by ripgrep.
 " 2017-03-21 [ hardtime ] {{{3
 Plug 'takac/vim-hardtime'
 nnoremap <leader><F1> <Esc>:HardTimeToggle<CR>
 let g:hardtime_ignore_quickfix = 1
-" 2017-03-09 [ monokai ] {{{3
-Plug 'sickill/vim-monokai'
 " 2017-02-22 [ showmap ] {{{3
 Plug 'fcpg/vim-showmap'
 " 2017-02-06 [ ale ] {{{3
@@ -412,7 +426,7 @@ Plug 'wellle/targets.vim'
 call plug#end() " required }}}1
 
 " -- theme assignment --
-let s:cs_wingui = 'dracula'
+let g:cs_wingui = 'dracula'
 let s:cs_xterm  = 'jellybeans'
 let s:cs_nvim   = 'molokai'
 let s:cs_cmder  = 'badwolf'
@@ -432,9 +446,8 @@ set nowritebackup
 set noswapfile              " и свапа
 set history=1000
 set sessionoptions-=options " do not store global and local values in a session
-set path+=**                " doesn't work well in Windows
+set path+=**                " doesn't work well in Windows, laggy
 set synmaxcol=800           " Don't try to highlight lines longer than 800 chars
-" set synmaxcol=200         " too little :\
 
 " Better Completion
 set complete=.,w,b,u,t
@@ -459,7 +472,7 @@ endif
   set shiftround
   set linebreak
   " let &showbreak='↪ '
-  let &showbreak='▷ '
+  let &showbreak='▷ '            " Iosevka doesn't has above symbol
   set breakindent
   set tabstop=4                  " размер табов
   set softtabstop=4
@@ -490,7 +503,6 @@ set statusline+=\ %*
 " ========================================
 "display a warning if &et is wrong, or we have mixed-indenting
 set statusline+=%#error#
-" set statusline+=%{anzu#search_status()}
 set statusline+=%{ALEGetStatusLine()}
 set statusline+=%{cw#StatuslineTabWarning()}
 set statusline+=%{cw#StatuslineTrailingSpaceWarning()}
@@ -524,7 +536,7 @@ set ignorecase                                       " Case insensitive search
 set smartcase                                        " Case sensitive when uc present
 set wildmenu                                         " Show list instead of just completing
 set wildmode=list:longest,full                       " Command <Tab> completion, list matches, then longest common part, then all.
-set wildignore+=node_modules/**
+set wildignore+=node_modules/**,*/.git/*,*/tmp/*,*.swp
 set foldenable                                       " Auto fold code
 set list
 set listchars=tab:│\ ,eol:¬,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
@@ -563,100 +575,60 @@ let g:netrw_winsize = 25
 " }}}2
 " /UI }}}1
 
-" GUI & Terminal settings {{{1
-if s:is_gui
-  if s:is_macvim
-    set guifont=Consolas:h15
-  " Win GUI settings {{{2
-  elseif s:is_wingui
-    try
-      set guifont=Iosevka_Term:h11:cRUSSIAN:qDRAFT
-	catch
-    finally
-      set guifont=DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN
-    endtry
-    let g:airline_powerline_fonts = 1
-    " Меню выбора кодировки текста (utf8, cp1251, koi8-r, cp866)
-    menu Кодировка.utf-8 :e ++enc=utf8<CR>
-    menu Кодировка.windows-1251 :e ++enc=cp1251<CR>
-    menu Кодировка.utf-16le :e ++enc=utf-16le<CR>
-    menu Кодировка.cp866 :e ++enc=cp866<CR>
-    menu Кодировка.koi8-r :e ++enc=koi8-r<CR>
-    execute 'colorscheme '.s:cs_wingui
-  endif " }}}2
-  " echom "^General GUI block^" {{{2
-  " currently is go=gmtch
-  if s:is_conemu
-    set guioptions+=h
-    set guioptions-=b
-    set guioptions-=r
-    set guioptions-=R
-    set guioptions-=m
+" Terminal settings {{{1
+set vb t_vb=
+set ttimeout ttimeoutlen=50
+" neovim {{{2
+if g:is_nvim
+  " let s:editor_root=expand("~/AppData/Local/nvim")
+  let g:python_host_prog = 'D:/env/neovim/2/Scripts/python.exe'
+  let g:python3_host_prog = 'D:/env/neovim/3/Scripts/python.exe'
+  if exists('g:GuiFont')
+	  " WTF?! Doesn't work?
+	  " let g:Guifont="DejaVu Sans Mono for Powerline:h13"
+
+	  " Works and even looks nice, however reports bad fixed pitch metrics
+	  " Also it's risky to install patched version on Windows
+	  " GuiFont Consolas:h12
+
+	  " Warning: bad fixed pitch metrics?!
+	  " GuiFont Anonymice Powerline:h12
+
+	  "is not fixed pitch font?!
+	  " GuiFont Arimo for Powerline:h12
+	  " GuiFont DejaVu Sans Mono for Powerline:h13
+	  " GuiFont Literation Mono Powerline:h12
+	  " GuiFont Roboto Mono for Powerline:h13
+	  " GuiFont Tinos for Powerline:h12
+
+	  " Sluggish unaliased look
+	  " GuiFont Droid Sans Mono for Powerline:h12
+	  " GuiFont Fira Mono Medium for Powerline:h12
+
+	  " A little better look than Droid Sans and Fira
+	  " GuiFont monofur for Powerline:h14
+
+	  " Unknown font
+	  " GuiFont Ubuntu Mono derivative Powerline:h12
   endif
-  set guioptions+=c       " Use console dialogs
-  set guioptions-=e       " Disable fancy tabline (repositions vim on tab in Win32)
-  set guioptions-=L       " Disable left scrollbar (repositions vim on vsplit in Win32)
-  set guioptions-=T       " No toolbar
-  set noshowmode
-  set ballooneval
-  autocmd GUIEnter * set vb t_vb= lines=40 columns=103 linespace=0
-  " }}}2
-else
-  set vb t_vb=
-  set ttimeout ttimeoutlen=50
-  " neovim {{{2
-  if s:is_nvim
-    " let s:editor_root=expand("~/AppData/Local/nvim")
-    let g:python_host_prog = 'D:/env/neovim/2/Scripts/python.exe'
-    let g:python3_host_prog = 'D:/env/neovim/3/Scripts/python.exe'
-    if exists('g:GuiFont')
-      " WTF?! Doesn't work?
-      " let g:Guifont="DejaVu Sans Mono for Powerline:h13"
-
-      " Works and even looks nice, however reports bad fixed pitch metrics
-      " Also it's risky to install patched version on Windows
-      " GuiFont Consolas:h12
-
-      " Warning: bad fixed pitch metrics?!
-      " GuiFont Anonymice Powerline:h12
-
-      "is not fixed pitch font?!
-      " GuiFont Arimo for Powerline:h12
-      " GuiFont DejaVu Sans Mono for Powerline:h13
-      " GuiFont Literation Mono Powerline:h12
-      " GuiFont Roboto Mono for Powerline:h13
-      " GuiFont Tinos for Powerline:h12
-
-      " Sluggish unaliased look
-      " GuiFont Droid Sans Mono for Powerline:h12
-      " GuiFont Fira Mono Medium for Powerline:h12
-
-      " A little better look than Droid Sans and Fira
-      " GuiFont monofur for Powerline:h14
-
-      " Unknown font
-      " GuiFont Ubuntu Mono derivative Powerline:h12
-    endif
-    execute 'colorscheme '.s:cs_nvim
-  endif " }}}2
-
-  " ConEmu terminal settings {{{2
-  if s:is_conemu
-    " it's already set above
-    " set vb t_vb=
-    set term=xterm
-    set termencoding=utf8
-    set t_Co=256
-    let &t_AB="\e[48;5;%dm"
-    let &t_AF="\e[38;5;%dm"
-    execute 'colorscheme '.s:cs_cmder
-  endif
-  " }}}2
-  " Disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  if &term =~ '256color'
-    set t_ut=
-  endif
+  execute 'colorscheme '.g:cs_nvim
+endif " }}}2
+" ConEmu terminal settings {{{2
+if g:is_conemu
+  " it's already set above
+  " set vb t_vb=
+  set term=xterm
+  set termencoding=utf8
+  set t_Co=256
+  let &t_AB="\e[48;5;%dm"
+  let &t_AF="\e[38;5;%dm"
+  execute 'colorscheme '.s:cs_cmder
+endif
+" }}}2
+" Disable Background Color Erase (BCE) so that color schemes
+" render properly when inside 256-color tmux and GNU screen.
+if &term =~ '256color'
+  set t_ut=
 endif
 
 "}}}
@@ -1088,10 +1060,19 @@ command! Scm call SetCursorModes()
 call SetCursorModes()
 " }}}1
 
-if executable("ag")
-    set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --vimgrep
-    set grepformat^=%f:%l:%c:%m
+" if executable("ag")
+"   set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --vimgrep
+"   set grepformat^=%f:%l:%c:%m
+"   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+" endif
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --color=never
+        " \ --smartcase
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
 endif
+" bind K to grep word under cursor
+nnoremap <C-K> :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 " Macroses for nefertity {{{
 " vv\,li.area_list_itm.-numj
 " HvL\,li.area_list_itmHj
