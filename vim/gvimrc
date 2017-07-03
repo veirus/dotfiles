@@ -1,4 +1,5 @@
 " vim:set et sts=2 sw=2 ts=2 tw=78 ft=vim:
+set timeout timeoutlen=230
 if g:is_macvim
   set guifont=Consolas:h15
   " Win GUI settings {{{2
