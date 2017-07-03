@@ -445,19 +445,16 @@ if empty(glob(g:homedir.'/autoload/plug.vim'))
 endif "}}}2
 " }}}1
 " ========================================
-" compile LESS
-nnoremap <Leader>mm :w <BAR> !lessc % > %:t:r.css<CR><space>
-" ========================================
 " ack.vim settings {{{
-" if executable('ag')
-"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
-"   let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
-" elseif executable('ack-grep')
-"   let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
-" elseif executable('ack')
-"   Plug 'mileszs/ack.vim', {'on' :'Ack'}
-" endif
+if executable('ag')
+  Plug 'mileszs/ack.vim', {'on' :'Ack'}
+  let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+elseif executable('ack-grep')
+  let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+  Plug 'mileszs/ack.vim', {'on' :'Ack'}
+elseif executable('ack')
+  Plug 'mileszs/ack.vim', {'on' :'Ack'}
+endif
 " }}}
 " ========================================
 " http://freneticarray.com/quick-compile-in-vim/ {{{
@@ -475,15 +472,48 @@ elseif (&filetype == "tex")
     execute("!open" + expand(%:r) + ".pdf")
 endif
 endfunction
-augroup spaces  
-autocmd!
-autocmd FileType c nnoremap <leader>r :call MakeIfAvailable()<cr>
-autocmd FileType cpp nnoremap <leader>r :call MakeIfAvailable()<cr>
-autocmd FileType tex nnoremap <leader>r :call MakeIfAvailable()<cr>
-autocmd FileType python nnoremap <leader>r :exec '!python' shellescape(@%, 1)<cr>
-autocmd FileType perl nnoremap <leader>r :exec '!perl' shellescape(@%, 1)<cr>
-autocmd FileType sh nnoremap <leader>r :exec '!bash' shellescape(@%, 1)<cr>
-autocmd FileType swift nnoremap <leader>r :exec '!swift' shellescape(@%, 1)<cr>
-nnoremap <leader>R :!<Up><CR>
+augroup spaces
+    autocmd!
+    autocmd FileType c nnoremap <leader>r :call MakeIfAvailable()<cr>
+    autocmd FileType cpp nnoremap <leader>r :call MakeIfAvailable()<cr>
+    autocmd FileType tex nnoremap <leader>r :call MakeIfAvailable()<cr>
+    autocmd FileType python nnoremap <leader>r :exec '!python' shellescape(@%, 1)<cr>
+    autocmd FileType perl nnoremap <leader>r :exec '!perl' shellescape(@%, 1)<cr>
+    autocmd FileType sh nnoremap <leader>r :exec '!bash' shellescape(@%, 1)<cr>
+    autocmd FileType swift nnoremap <leader>r :exec '!swift' shellescape(@%, 1)<cr>
+    nnoremap <leader>R :!<Up><CR>
 augroup END  "}}}
+" ========================================
+" echo highligting groups {{{
+nnoremap <F7> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+            \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+            \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+" }}}
+" ========================================
+" Substitute {{{
+nnoremap <c-s> :s/
+nnoremap <M-s> :%s/
+vnoremap <c-s> :s/
+" 1}}} "
+" ========================================
+" compile LESS
+nnoremap <Leader>mm :w <BAR> !lessc % > %:t:r.css<CR><space>
+" ========================================
+" Easier formatting
+nnoremap <silent> <leader>q gwip
+" ========================================
+" consistent menu navigation
+" https://github.com/jasonlong/dotfiles/blob/master/vimrc
+" ========================================
+" open previous buffer and kill next {{{
+nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
+" and shorter alternative (requires at least 2 buffers)
+nnoremap <leader>Q :b#<bar>bd#<cr>
+" }}}
+" ========================================
+" from Konfekt's leader key post {{{
+" not as useful as emacs binding as it appears
+nnoremap : ,
+nnoremap , :
+" }}}
 " ========================================
