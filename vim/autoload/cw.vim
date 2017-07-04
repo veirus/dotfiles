@@ -364,7 +364,7 @@ function! cw#SetRandomColors()
   endif
   exe 'colorscheme ' . g:mycolors[localtime() % len(g:mycolors)]
   " unlet s:mycolors
-  call SetCursorModes()
+  call cw#SetCursorModes()
   redraw
   " echo "* color: " g:colors_name
   if has('title')
