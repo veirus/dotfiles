@@ -1,6 +1,6 @@
 BoldAsFont=yes
 Font=DejaVu Sans Mono for Powerline
-FontHeight=12
+FontHeight=11
 Transparency=high
 OpaqueWhenFocused=yes
 Columns=88
