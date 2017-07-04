@@ -29,7 +29,7 @@ let mapleader    = "\<space>"
 let g:mapleader  = "\<space>"
 " ========================================
 " OS detect {{{1
-" let s:is_windows = has('win32') || has('win64') " unused
+let s:is_windows = has('win32') || has('win64')
 let g:is_wingui  = has("gui_win32")
 let s:is_cygwin  = has('win32unix')
 let g:is_macvim  = has('gui_macvim')
@@ -1036,28 +1036,28 @@ map <F9> :call SetRandomColors()<CR>
 " works only if placed here?
 " http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
 " https://github.com/blaenk/dots/blob/9843177fa6155e843eb9e84225f458cd0205c969/vim/vimrc.ln#L49-L64
-set gcr=a:block
-
+" set gcr=a:block
+"
 " mode aware cursors
-set gcr+=o:hor50-Cursor
-set gcr+=n:Cursor
-set gcr+=i-ci-sm:InsertCursor
-set gcr+=r-cr:ReplaceCursor-hor20
-set gcr+=c:CommandCursor
-set gcr+=v-ve:VisualCursor
-
+" set gcr+=o:hor50-Cursor
+" set gcr+=n:Cursor
+" set gcr+=i-ci-sm:InsertCursor
+" set gcr+=r-cr:ReplaceCursor-hor20
+" set gcr+=c:CommandCursor
+" set gcr+=v-ve:VisualCursor
+"
 " do not blink
-set gcr+=a:blinkon0
-
-function! SetCursorModes()
-  hi InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
-  hi VisualCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#d33682
-  hi ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#dc322f
-  hi CommandCursor ctermfg=15 guifg=#fdf6e3 ctermbg=166 guibg=#cb4b16
-endfunction
-
-call SetCursorModes()
-command! Scm call SetCursorModes()
+" set gcr+=a:blinkon0
+"
+" function! SetCursorModes()
+"   hi InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
+"   hi VisualCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#d33682
+"   hi ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#dc322f
+"   hi CommandCursor ctermfg=15 guifg=#fdf6e3 ctermbg=166 guibg=#cb4b16
+" endfunction
+"
+" call SetCursorModes()
+" command! Scm call SetCursorModes()
 " }}}1
 
 " if executable("ag")
@@ -1068,22 +1068,25 @@ command! Scm call SetCursorModes()
 "     " fix for windows:
 "     let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
 "   endif
+"   let g:ctrlp_use_caching = 0
 " endif
+
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --color=never
         " \ --smartcase
   let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
   let g:ctrlp_use_caching = 0
 endif
+
 " bind K to grep word under cursor
 nnoremap <C-K> :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 " Macroses for nefertity {{{
-" vv\,li.area_list_itm.-numj
-" HvL\,li.area_list_itmHj
-" vv\,h3.title.title-dekor
-" \,ol.area_list.-num
-" \,ul.area_list
+" let @n=vv\,li.area_list_itm.-numj
+" let @l=HvL\,li.area_list_itmHj
+" let @t=vv\,h3.title.title-dekor
+" let @o=\,ol.area_list.-num
+" let @u=\,ul.area_list
 " }}}
 
-nnoremap <M-space> :call UltiSnips#ExpandSnippet()<CR>
-inoremap <M-space> <C-R>=UltiSnips#ExpandSnippet()<CR>
+" nnoremap <M-space> :call UltiSnips#ExpandSnippet()<CR>
+" inoremap <M-space> <C-R>=UltiSnips#ExpandSnippet()<CR>

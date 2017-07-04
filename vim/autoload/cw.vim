@@ -1,4 +1,4 @@
-" vim: set sw=2 ts=4 sts=2 et tw=80 foldlevel=0 foldmethod=marker:
+" vim: set sw=2 ts=4 sts=2 et tw=80 foldlevel=1 foldmethod=marker:
 " Functions
 " Shell command @ spf-13 {{{2
   function! cw#RunShellCommand(cmdline)
@@ -335,10 +335,49 @@ function! cw#zen_html_tab()
 endfunction
 " }}}2
 " Returns true if paste mode is enabled {{{2
-function! HasPaste()
+function! cw#HasPaste()
     if &paste
         return 'PASTE MODE '
     en
     return ''
 endfunction
 "}}}2
+" ExecuteMacroOverVisualRange {{{2
+" Allows you to visually select a section and then hit @ to run a macro on all lines
+" https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db#.3dcn9prw6
+function! cw#ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+"}}}2
+" Set Random Colorscheme func {{{2
+function! cw#SetRandomColors()
+  if !exists('g:mycolors')
+    " echo "* Fetching colorschemes..."
+    " let g:mycolors = split(globpath(&rtp,"**/colors/*.vim"),"\n")
+    let matches = {}
+    for fname in split(globpath(&runtimepath, 'colors/*.vim'), '\n')
+      let name = fnamemodify(fname, ':t:r')
+      let matches[name] = 1
+    endfor
+    let g:mycolors = sort(keys(matches), 1)
+  endif
+  exe 'colorscheme ' . g:mycolors[localtime() % len(g:mycolors)]
+  " unlet s:mycolors
+  call SetCursorModes()
+  redraw
+  " echo "* color: " g:colors_name
+  if has('title')
+    set titlelen=99
+    set titlestring=%t%(\ %M%)\ -%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{g:colors_name}
+    " set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)\ -\ %{g:colors_name} titlelen=99
+  endif
+endfunction
+" Enforce highlighting for Mode aware cursor hack {{{2
+function! cw#SetCursorModes()
+  hi InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
+  hi VisualCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#d33682
+  hi ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#dc322f
+  hi CommandCursor ctermfg=15 guifg=#fdf6e3 ctermbg=166 guibg=#cb4b16
+endfunction
+

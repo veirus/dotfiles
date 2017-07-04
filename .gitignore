@@ -2,6 +2,7 @@
 _/
 desktop.ini
 cmder/config/.history
+.tmux/
 # ========================================
 # vim
 .netrwhist
