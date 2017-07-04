@@ -636,12 +636,12 @@ endif
 " Highlighting {{{
 hi User8 ctermfg=235 guifg=#483D8B guibg=#A2A3A3
 
-" Only for Dracula colorscheme: {{{
+" Only for Dracula colorscheme: {{{2
 if exists('g:colors_name') && g:colors_name ==# 'dracula'
 " hi! link FoldColumn User8
   hi FoldColumn term=standout ctermfg=61 ctermbg=235 guifg=#6272a4 guibg=#282a36 gui=None
 endif
-" }}}
+" }}}2
 " }}}
 
 " Autocommands {{{1
@@ -1056,14 +1056,18 @@ function! SetCursorModes()
   hi CommandCursor ctermfg=15 guifg=#fdf6e3 ctermbg=166 guibg=#cb4b16
 endfunction
 
-command! Scm call SetCursorModes()
 call SetCursorModes()
+command! Scm call SetCursorModes()
 " }}}1
 
 " if executable("ag")
 "   set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --vimgrep
 "   set grepformat^=%f:%l:%c:%m
 "   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"   if s:is_windows
+"     " fix for windows:
+"     let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
+"   endif
 " endif
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --color=never
