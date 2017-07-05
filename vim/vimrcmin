@@ -30,9 +30,9 @@ nnoremap <f5> :up<cr>:so $myvimrc<cr>
 inoremap <c-l> <right>
 vnoremap . :normal .<cr>
 "==================================================
-map y y$
+map Y y$
 noremap <leader>y "+y
-noremap <leader>y "+y$
+noremap <leader>Y "+y$
 "==================================================
 " when pasting from clipboard toggle the paste feature and use the indent
 " adjusted paste ]p and ]p. this prevents breaking of alignment when pasting
