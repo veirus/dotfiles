@@ -826,12 +826,19 @@ command! Rcl call cw#SetRandomColors()
     nnoremap <leader><F11> :so $MYVIMRC<CR> :echo "* .vimrc loaded *"<CR>
     nnoremap <Leader><F12> :tabnew $MYVIMRC<CR>
     " fast copy-paste | do i really need it? #2016-07-21
-    nnoremap <Leader>y "+y
-    nnoremap <Leader>p "+p
-    vnoremap <Leader>y "+y
-    vnoremap <Leader>p "+p
+    noremap <leader>y "+y
+    noremap <leader>Y "+y$
+    "==================================================
+    " when pasting from clipboard toggle the paste feature and use the indent
+    " adjusted paste ]p and ]p. this prevents breaking of alignment when pasting
+    " in code from websites and etc..
+    noremap <leader>p :set paste<cr>"+]p:set nopaste<cr>
+    noremap <leader>P :set paste<cr>"+[p:set nopaste<cr>
+    " vnoremap <Leader>y "+y
+    " vnoremap <Leader>p "+p
     " Yank from the cursor to the end of the line, to be consistent with C and D.
     nnoremap Y y$
+    " map Y y$
     " easy paste
     inoremap <C-q> <C-r><C-p>+
     " toggle paste
