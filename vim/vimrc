@@ -37,7 +37,7 @@ let s:is_cygwin  = has('win32unix')
 let g:is_macvim  = has('gui_macvim')
 let g:is_nvim    = has('nvim')
 let s:is_nyaovim = exists('g:nyaovim_version')
-let s:is_gui     = has('gui_running')
+let g:is_gui     = has('gui_running')
 let g:is_conemu  = !empty($CONEMUBUILD)
 let s:is_prostor = $USERNAME ==? 'oldschool'
 " ========================================
@@ -569,7 +569,7 @@ set statusline+=%*
 " }}}1
 
 " Terminal settings {{{1
-if !s:is_gui
+if !g:is_gui
   set vb t_vb=
   set ttimeout ttimeoutlen=50
   " ConEmu terminal settings {{{2

@@ -256,7 +256,7 @@ nnoremap <leader>z zMzvzz
 
 " = language switching = {{{2
 nmap <M-z> a<C-^><Esc>
-if !s:is_gui
+if !g:is_gui
   " lang switch terminal edition
   nmap <C-Space> a<C-^><Esc>
   vmap <silent> <C-Space> <Esc>a<C-^><Esc>gv
