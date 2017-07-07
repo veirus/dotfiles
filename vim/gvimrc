@@ -1,4 +1,4 @@
-" vim:set et sts=2 sw=2 ts=4 tw=78 ft=vim:
+" vim:set et sts=2 sw=2 ts=4 tw=78 ft=vim fdl=1:
 if g:is_macvim
   set guifont=Consolas:h15
   " Win GUI settings {{{2
@@ -30,6 +30,11 @@ set guioptions-=L       " Disable left scrollbar (repositions vim on vsplit in W
 set guioptions-=T       " No toolbar
 " set noshowmode        " mah mode aware cursors' dead
 set ballooneval
-autocmd GUIEnter * set vb t_vb= lines=40 linespace=0
+" http://vim.1045645.n5.nabble.com/Initial-Window-Position-td1165538.html
+let g:winx = 273 " =1366/5
+let g:winy = 30  " windows taskbar, ±2px
+" getwinposx() || getwinposy() ||
+autocmd GUIEnter * set vb t_vb= linespace=0 lines=34
+      \ | exe "winpos" g:winx g:winy
       " \ columns=103
 " }}}2
