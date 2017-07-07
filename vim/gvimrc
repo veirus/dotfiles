@@ -1,5 +1,4 @@
-" vim:set et sts=2 sw=2 ts=2 tw=78 ft=vim:
-set timeout timeoutlen=230
+" vim:set et sts=2 sw=2 ts=4 tw=78 ft=vim:
 if g:is_macvim
   set guifont=Consolas:h15
   " Win GUI settings {{{2
@@ -29,7 +28,8 @@ set guioptions+=c       " Use console dialogs
 set guioptions-=e       " Disable fancy tabline (repositions vim on tab in Win32)
 set guioptions-=L       " Disable left scrollbar (repositions vim on vsplit in Win32)
 set guioptions-=T       " No toolbar
-set noshowmode
+" set noshowmode        " mah mode aware cursors' dead
 set ballooneval
-autocmd GUIEnter * set vb t_vb= lines=40 columns=103 linespace=0
+autocmd GUIEnter * set vb t_vb= lines=40 linespace=0
+      " \ columns=103
 " }}}2
