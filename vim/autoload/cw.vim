@@ -159,7 +159,6 @@ function! cw#UnMinify()
     %s/[^\s]\zs[=&|]\+\ze[^\s]/ \0 /g
     normal ggVG=
 endfunction
-command! UnMinify call UnMinify()
 " }}}2
 " Clear registers {{{2
 " https://stackoverflow.com/questions/19430200/how-to-clear-vim-registers-effectively
@@ -178,12 +177,13 @@ endfunction "}}}2
 " make list-like commands more intuitive {{{2
 " by Romain Lafurcade aka romainl
 " https://gist.github.com/romainl/047aca21e338df7ccf771f96858edb86
+" https://www.reddit.com/r/vim/comments/5g63ar/pushing_builtin_features_beyond_their_limits_by/
 function! cw#CCR()
     let cmdline = getcmdline()
     if cmdline =~ '\v\C^(ls|files|buffers)'
         " like :ls but prompts for a buffer command
         return "\<CR>:b"
-    elseif cmdline =~ '\v\C/(#|nu|num|numb|numbe|number)$'
+    elseif cmdline =~ '\v\C/(#|nu%[mber])$'
         " like :g//# but prompts for a command
         return "\<CR>:"
     elseif cmdline =~ '\v\C^(dli|il)'
@@ -214,7 +214,7 @@ function! cw#CCR()
         return "\<CR>"
     endif
 endfunction
-cnoremap <expr> <CR> cw#CCR()
+" cnoremap <expr> <CR> cw#CCR()
 " }}}2
 " Heatseeker {{{2
 function! cw#HeatseekerCommand(choice_command, hs_args, first_command, rest_command)
@@ -325,15 +325,6 @@ function! cw#ReadOnly()
   else
     return ''
 endfunction
-
-" Emmet smart-expando {{{2
-function! cw#zen_html_tab()
-  if !emmet#isExpandable()
-    return "\<plug>(emmet-move-next)"
-  endif
-  return "\<plug>(emmet-expand-abbr)"
-endfunction
-" }}}2
 " Returns true if paste mode is enabled {{{2
 function! cw#HasPaste()
     if &paste
@@ -342,6 +333,14 @@ function! cw#HasPaste()
     return ''
 endfunction
 "}}}2
+" Emmet smart-expando {{{2
+function! cw#zen_html_tab()
+  if !emmet#isExpandable()
+    return "\<plug>(emmet-move-next)"
+  endif
+  return "\<plug>(emmet-expand-abbr)"
+endfunction
+" }}}2
 " ExecuteMacroOverVisualRange {{{2
 " Allows you to visually select a section and then hit @ to run a macro on all lines
 " https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db#.3dcn9prw6
@@ -364,7 +363,7 @@ function! cw#SetRandomColors()
   endif
   exe 'colorscheme ' . g:mycolors[localtime() % len(g:mycolors)]
   " unlet s:mycolors
-  call cw#SetCursorModes()
+  call cw#SetModalCursor()
   redraw
   " echo "* color: " g:colors_name
   if has('title')
@@ -374,10 +373,24 @@ function! cw#SetRandomColors()
   endif
 endfunction
 " Enforce highlighting for Mode aware cursor hack {{{2
-function! cw#SetCursorModes()
+function! cw#SetModalCursor()
+  " http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
+  " https://github.com/blaenk/dots/blob/9843177fa6155e843eb9e84225f458cd0205c969/vim/vimrc.ln#L49-L64
+  set gcr=a:block
+ 
+  " mode aware cursors
+  set gcr+=o:hor50-Cursor
+  set gcr+=n:Cursor
+  set gcr+=i-ci-sm:InsertCursor
+  set gcr+=r-cr:ReplaceCursor-hor20
+  set gcr+=c:CommandCursor
+  set gcr+=v-ve:VisualCursor
+
+  " do not blink
+  set gcr+=a:blinkon0
+
   hi InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
   hi VisualCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#d33682
   hi ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#dc322f
   hi CommandCursor ctermfg=15 guifg=#fdf6e3 ctermbg=166 guibg=#cb4b16
 endfunction
-
