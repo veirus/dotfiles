@@ -1,8 +1,9 @@
 " vim:set et sts=2 sw=2 ts=2 tw=78 ft=vim:
-set timeout timeoutlen=230
+let g:is_wingui  = has("gui_win32")
+let g:is_macvim  = has('gui_macvim')
+let g:is_conemu  = !empty($CONEMUBUILD)
 if g:is_macvim
   set guifont=Consolas:h15
-  " Win GUI settings {{{2
 elseif g:is_wingui
   set guifont=Iosevka_Term:h12:cRUSSIAN:qDRAFT,DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN,Consolas:h12
   if &guifont =~? 'powerline'
@@ -14,9 +15,10 @@ elseif g:is_wingui
   menu Кодировка.utf-16le :e ++enc=utf-16le<CR>
   menu Кодировка.cp866 :e ++enc=cp866<CR>
   menu Кодировка.koi8-r :e ++enc=koi8-r<CR>
-  execute 'colorscheme '.g:cs_wingui
-endif " }}}2
-" echom "^General GUI block^" {{{2
+  if exists('g:cs_wingui')
+    execute 'colorscheme '.g:cs_wingui
+  endif
+endif
 " currently is go=gmtch
 if g:is_conemu
   set guioptions+=h
@@ -29,7 +31,9 @@ set guioptions+=c       " Use console dialogs
 set guioptions-=e       " Disable fancy tabline (repositions vim on tab in Win32)
 set guioptions-=L       " Disable left scrollbar (repositions vim on vsplit in Win32)
 set guioptions-=T       " No toolbar
-set noshowmode
+" set noshowmode
 set ballooneval
-autocmd GUIEnter * set vb t_vb= lines=40 columns=103 linespace=0
-" }}}2
+let g:wposx = 480 " =1920/4
+let g:wposy = 32  " windows taskbar
+autocmd GUIEnter * set vb t_vb= linespace=0 lines=99 columns=103
+      \ | execute ':winpos' g:wposx g:wposy
