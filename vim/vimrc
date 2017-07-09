@@ -1,13 +1,9 @@
 " vim: set sw=2 ts=4 sts=2 et tw=80 fdl=1 foldmethod=marker:
 " ===================================================
-"     CW's _vimrc      " last edit: 2017-07-05
-" ===================================================
-" merging with PROSTOR " at 2017-07-09 Вс 11:24
+" last edit: 2017-07-05 | merging with PROSTOR  at 2017-07-09 Вс 11:24
 " ===================================================
 if has('vim_starting')
   " TODO: move some things here for the great justice!
-  " NOTE: oh wow NOTE gets highlighted! That's neat.
-  " echo 'This message appears at startup but not on `:source $MYVIMRC`'
 endif
 " = First things first: =
 " Be Improved {{{2
@@ -424,6 +420,7 @@ Plug 'ericbn/vim-solarized'
 call plug#end() " required }}}1
 
 " -- theme assignment --
+"  TODO: automate it (maybe place in map/dict and iterate over it?)
 let g:cs_wingui = 'nova'
 let s:cs_xterm  = 'jellybeans'
 let g:cs_nvim   = 'molokai'
@@ -537,37 +534,6 @@ let g:netrw_winsize = 25
 
 " /UI }}}2
 
-" Statusline {{{1
-set laststatus=2
-" Powerline symbols quick ref:
-"  > Triangle U+e0b0,  > U+e0b1,  < Triangle U+e0b2,
-"  < U+e0b3,  Git U+e0a0,  LN U+e0a1,  Lock U+e0a2
-set statusline=
-set statusline+=\ %n
-set statusline+=%{v:this_session!=''?'\ \ '.fnamemodify(this_session,':t'):''}
-set statusline+=\ \ %<%.42F\ %{cw#ReadOnly()}
-set statusline+=\ %=
-set statusline+=\ %8*%k%r%w%m%0*
-set statusline+=\ \ %{&ft}
-set statusline+=%{&fenc!=?'utf-8'?'\ \ ['.&fenc.']':''}
-set statusline+=%{&ff!=?'unix'?'\ \ ['.&ff.']':''} " Fileformat
-set statusline+=\ \\ %-3(%{cw#FileSize()}%)     " File size
-set statusline+=%8*%3c:%3l/%L
-set statusline+=\ %*
-" ========================================
-"display a warning if &et is wrong, or we have mixed-indenting
-set statusline+=%#error#
-set statusline+=%{ALEGetStatusLine()}
-set statusline+=%{cw#StatuslineTabWarning()}
-set statusline+=%{cw#StatuslineTrailingSpaceWarning()}
-set statusline+=%{gutentags#statusline()}
-set statusline+=%*
-
-" from http://twily.info/.vimrc#view {{{2
-" set statusline=\ %{cw#HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
-
-" }}}1
-
 " Terminal settings {{{1
 if !g:is_gui
   set vb t_vb=
@@ -654,7 +620,7 @@ if has("autocmd")
     autocmd FileType php,smarty,tpl call SetClosetagPHP()
     autocmd FileType smarty,tpl setlocal commentstring=<!--\ %s\ -->
   augroup END
-  augroup indent_tag " {{{2
+  augroup indent_tag " {{{2 for html, jango and jinja
     au!
     au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>= Vat=
   augroup end
