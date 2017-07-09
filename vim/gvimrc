@@ -1,7 +1,8 @@
-" vim:set et sts=2 sw=2 ts=2 tw=78 ft=vim:
+" vim:set et sts=2 sw=2 ts=4 tw=78 ft=vim fdl=1:
 let g:is_wingui  = has("gui_win32")
 let g:is_macvim  = has('gui_macvim')
 let g:is_conemu  = !empty($CONEMUBUILD)
+let g:is_prostor = $USERNAME ==? 'oldschool'
 if g:is_macvim
   set guifont=Consolas:h15
 elseif g:is_wingui
@@ -33,7 +34,16 @@ set guioptions-=L       " Disable left scrollbar (repositions vim on vsplit in W
 set guioptions-=T       " No toolbar
 " set noshowmode
 set ballooneval
-let g:wposx = 480 " =1920/4
+if !g:is_prostor
+  let g:wposx = 480 " =1920/4
+  let g:wcols = 103
+  let g:wline = 99
+else
+  let g:winx = 273 " =1366/5
+  let g:wline = 34
+endif
+" http://vim.1045645.n5.nabble.com/Initial-Window-Position-td1165538.html
 let g:wposy = 32  " windows taskbar
-autocmd GUIEnter * set vb t_vb= linespace=0 lines=99 columns=103
+autocmd GUIEnter * set vb t_vb= linespace=0
+      \ | let &lines=g:wline | let &columns=g:wcols
       \ | execute ':winpos' g:wposx g:wposy

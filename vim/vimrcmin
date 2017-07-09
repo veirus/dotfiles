@@ -35,7 +35,7 @@ noremap <leader>y "+y
 noremap <leader>Y "+y$
 "==================================================
 " when pasting from clipboard toggle the paste feature and use the indent
-" adjusted paste ]p and ]p. this prevents breaking of alignment when pasting
+" adjusted paste ]p and ]P. this prevents breaking of alignment when pasting
 " in code from websites and etc..
 noremap <leader>p :set paste<cr>"+]p:set nopaste<cr>
 noremap <leader>P :set paste<cr>"+[p:set nopaste<cr>

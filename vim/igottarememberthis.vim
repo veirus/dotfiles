@@ -517,3 +517,14 @@ nnoremap : ,
 nnoremap , :
 " }}}
 " ========================================
+" Highlighting {{{
+hi User8 ctermfg=235 guifg=#483D8B guibg=#A2A3A3
+
+" Only for Dracula colorscheme: {{{2
+if exists('g:colors_name') && g:colors_name ==# 'dracula'
+" hi! link FoldColumn User8
+  hi FoldColumn term=standout ctermfg=61 ctermbg=235 guifg=#6272a4 guibg=#282a36 gui=None
+endif
+" }}}2
+" }}}
+" ========================================
