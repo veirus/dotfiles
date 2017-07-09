@@ -139,7 +139,7 @@ nnoremap <F1> :Startify<CR>
 let g:startify_list_order = ['bookmarks', 'files', 'sessions']
 let g:startify_bookmarks = [
       \ {'o': '~\prostor.todo.md'},
-      \ {'p': 'D:\Dropbox\TODO\PROSTOR.todo'},
+      \ {'p': '~\PROSTOR.todo'},
       \ {'r': '~\_vimrc'},
       \ {'t': '~\onetab.txt'} ]
 let g:startify_update_oldfiles = 1
@@ -253,6 +253,10 @@ Plug 'gko/vim-coloresque', {'for': ['html', 'css', 'less', 'sass', 'stylus', 'ph
 " Plug 'ap/vim-css-color', {'for': ['html', 'css', 'less', 'php']} " Trying *^* instead of this colorizer
 
 " == new stuff == {{{2
+" 2017-07-10 {{{3
+" currently incompatible with my present todo files, disabling
+" Plug 'aserebryakov/vim-todo-lists'
+" [ vim 8 syntax | ctrlp-swoop ] {{{3
 Plug 'vim-jp/syntax-vim-ex' " for vim 8.0 syntax
 Plug 'mattn/ctrlp-swoop'
 " 2017-06-30 [ polyglot ] {{{3
