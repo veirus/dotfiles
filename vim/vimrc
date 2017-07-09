@@ -1,8 +1,8 @@
 " vim: set sw=2 ts=4 sts=2 et tw=80 fdl=1 fdm=marker:
 " ===================================================
-"     CW's _vimrc      "     last edit: 2017-07-05
+"     CW's _vimrc      " last edit: 2017-07-05
 " ===================================================
-" merging with PROSTOR " merged at 2017-07-05 Ср 02:13
+" merging with PROSTOR " at 2017-07-05 Ср 02:13
 " ===================================================
 if has('vim_starting')
   " TODO: move some things here for the great justice!
@@ -12,7 +12,6 @@ endif
 " = First things first: =
 " Be Improved {{{2
 " romainl says it's useless...
-" But if it's set for some reason, switch of compatibility
 if &cp | set nocp | endif
 " ========================================
 " encoding {{{2
@@ -31,13 +30,13 @@ let mapleader    = "\<space>"
 let g:mapleader  = "\<space>"
 " ========================================
 " ENV detect {{{2
-let s:is_windows = has('win32') || has('win64')
+let g:is_windows = has('win32') || has('win64')
 let g:is_wingui  = has("gui_win32")
-let s:is_cygwin  = has('win32unix')
+let g:is_cygwin  = has('win32unix')
 let g:is_macvim  = has('gui_macvim')
 let g:is_nvim    = has('nvim')
-let s:is_nyaovim = exists('g:nyaovim_version')
-let s:is_gui     = has('gui_running')
+let g:is_nyaovim = exists('g:nyaovim_version')
+let g:is_gui     = has('gui_running')
 let g:is_conemu  = !empty($CONEMUBUILD)
 let s:is_prostor = $USERNAME ==? 'oldschool'
 " ========================================
@@ -253,43 +252,6 @@ Plug 'KabbAmine/gulp-vim', {'on': ['Gulp','GulpExt']}
 Plug 'gko/vim-coloresque', {'for': ['html', 'css', 'less', 'sass', 'stylus', 'php']} " *^* This
 " Plug 'ap/vim-css-color', {'for': ['html', 'css', 'less', 'php']} " Trying *^* instead of this colorizer
 
-" == Colorschemes == {{{2
-" -- utilitiy -- {{{3
-Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
-" Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-" -- * * * --- {{{3
-Plug 'sickill/vim-monokai' " 2017-03-09 [ monokai ]
-Plug 'rakr/vim-one'
-Plug 'ajmwagar/vim-deus'
-Plug 'sonjapeterson/1989.vim'
-Plug 'ajh17/Spacegray.vim'
-Plug 'fneu/breezy'
-Plug 'kristijanhusak/vim-hybrid-material'
-" let g:airline_theme = "hybrid"
-" Plug 'jasonlong/lavalamp'
-Plug 'amadeus/vim-evokai'
-Plug 'jacoborus/tender'
-Plug 'junegunn/seoul256.vim'
-" -- * * * * -- {{{3
-Plug 'KabbAmine/yowish.vim'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'chriskempson/base16-vim'
-Plug 'chriskempson/vim-tomorrow-theme'
-Plug 'dracula/vim'
-" -- * * * * * -- {{{3
-Plug 'nanotech/jellybeans.vim'
-Plug 'sjl/badwolf'
-Plug 'tomasr/molokai'
-Plug 'zeis/vim-kolor'
-  let g:kolor_underlined=1
-" -- newest themes -- {{{3
-Plug 'Wutzara/vim-materialtheme'
-Plug 'zanglg/nova.vim'
-Plug 'google/vim-colorscheme-primary'
-Plug 'ericbn/vim-solarized'
-"}}}3
 " == new stuff == {{{2
 Plug 'vim-jp/syntax-vim-ex'
 Plug 'mattn/ctrlp-swoop'
@@ -399,6 +361,43 @@ Plug 'w0rp/ale'
 " let g:ale_lint_on_text_changed = 0
 let g:ale_statusline_format = [' ✖ %d ', ' ! %d ', '']
 " }}}3
+" == Colorschemes == {{{2
+" -- utilitiy -- {{{3
+Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
+" Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" -- * * * --- {{{3
+Plug 'sickill/vim-monokai' " 2017-03-09 [ monokai ]
+Plug 'rakr/vim-one'
+Plug 'ajmwagar/vim-deus'
+Plug 'sonjapeterson/1989.vim'
+Plug 'ajh17/Spacegray.vim'
+Plug 'fneu/breezy'
+Plug 'kristijanhusak/vim-hybrid-material'
+" let g:airline_theme = "hybrid"
+" Plug 'jasonlong/lavalamp'
+Plug 'amadeus/vim-evokai'
+Plug 'jacoborus/tender'
+Plug 'junegunn/seoul256.vim'
+" -- * * * * -- {{{3
+Plug 'KabbAmine/yowish.vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'chriskempson/base16-vim'
+Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'dracula/vim'
+" -- * * * * * -- {{{3
+Plug 'nanotech/jellybeans.vim'
+Plug 'sjl/badwolf'
+Plug 'tomasr/molokai'
+Plug 'zeis/vim-kolor'
+  let g:kolor_underlined=1
+" -- newest themes -- {{{3
+Plug 'Wutzara/vim-materialtheme'
+Plug 'zanglg/nova.vim'
+Plug 'google/vim-colorscheme-primary'
+Plug 'ericbn/vim-solarized'
+"}}}3
 " == old == {{{2
 Plug 'vim-scripts/DrawIt', {'on': 'DrawIt'}
 Plug 'wellle/targets.vim'
@@ -415,12 +414,14 @@ Plug 'wellle/targets.vim'
 call plug#end() " required }}}1
 
 " -- theme assignment --
-let g:cs_wingui = 'dracula'
+let g:cs_wingui = 'nova'
+" let g:cs_wingui = 'dracula'
 let s:cs_xterm  = 'jellybeans'
 let g:cs_nvim   = 'molokai'
 let s:cs_cmder  = 'badwolf'
 
 " General {{{2
+set timeout timeoutlen=230
 
 scriptencoding utf-8
 set iskeyword=@,a-z,A-Z,48-57,_,128-175,192-255
@@ -561,7 +562,7 @@ let g:netrw_winsize = 25
 " }}}2
 " /UI }}}2
 " Terminal settings {{{1
-if !s:is_gui
+if !g:is_gui
   set vb t_vb=
   set ttimeout ttimeoutlen=50
   " ConEmu terminal settings {{{2
@@ -617,19 +618,12 @@ if !s:is_gui
   if &term =~ '256color'
     set t_ut=
   endif
+else
+  execute 'colorscheme '.g:cs_wingui
 endif
 
 "}}}
-" Highlighting {{{
-hi User8 ctermfg=235 guifg=#483D8B guibg=#A2A3A3
 
-" Only for Dracula colorscheme: {{{2
-if exists('g:colors_name') && g:colors_name ==# 'dracula'
-" hi! link FoldColumn User8
-  hi FoldColumn term=standout ctermfg=61 ctermbg=235 guifg=#6272a4 guibg=#282a36 gui=None
-endif
-" }}}2
-" }}}
 " Autocommands {{{1
 if has("autocmd")
 " augroup leave_insert_mode " {{{2 [ disabled ]
@@ -672,7 +666,8 @@ augroup active_relative_number " {{{2
 augroup END
 augroup reload_vimrc " {{{2
     autocmd!
-    autocmd bufwritepost _vimrc,init.vim,vimrc nested source $MYVIMRC
+    autocmd BufWritePost [_.g]\\\{-\}vimrc,init.vim nested source $MYVIMRC | echo 'vimrc reloaded'
+    " autocmd bufwritepost _vimrc,init.vim,vimrc nested source $MYVIMRC
     " Alternative, not working very well, so disabled:
     " autocmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC
     " autocmd bufwritepost $HOME/_vimrc execute "normal! :source ~/_vimrc"
@@ -920,7 +915,7 @@ command! Rcl call cw#SetRandomColors()
   "=================================
     " language switching
     nmap <M-z> a<C-^><Esc>
-    if !s:is_gui
+    if !g:is_gui
       " lang switch terminal edition
       nmap <C-Space> a<C-^><Esc>
       vmap <silent> <C-Space> <Esc>a<C-^><Esc>gv
@@ -1004,7 +999,7 @@ else
     set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --vimgrep
     set grepformat^=%f:%l:%c:%m
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    if s:is_windows
+    if g:is_windows
       " fix for windows:
       let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
     endif
@@ -1014,17 +1009,10 @@ else
 endif
 
 " bind K to grep word under cursor
-nnoremap <C-K> :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap <M-K> :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 xnoremap @ :<C-u>call cw#ExecuteMacroOverVisualRange()<CR>
 nnoremap <M-space> :call UltiSnips#ExpandSnippet()<CR>
 inoremap <M-space> <C-R>=UltiSnips#ExpandSnippet()<CR>
 map <F9> :call cw#SetRandomColors()<CR>
 call cw#SetCursorModes()
 
-" Macroses for nefertity {{{2
-" let @l=vv\,li.area_list_itm.-numj
-" let @i=HvL\,li.area_list_itmHj
-" let @t=vv\,h3.title.title-dekor
-" let @o=\,ol.area_list.-num
-" let @u=\,ul.area_list
-" }}}2
