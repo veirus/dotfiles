@@ -39,7 +39,8 @@ if !g:is_prostor
   let g:wcols = 103
   let g:wline = 99
 else
-  let g:winx = 273 " =1366/5
+  let g:wposx = 273 " =1366/5
+  let g:wcols = 80
   let g:wline = 34
 endif
 " http://vim.1045645.n5.nabble.com/Initial-Window-Position-td1165538.html
