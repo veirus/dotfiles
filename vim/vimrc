@@ -425,7 +425,11 @@ call plug#end() " required }}}1
 
 " -- theme assignment --
 "  TODO: automate it (maybe place in map/dict and iterate over it?)
-let g:cs_wingui = 'nova'
+if g:is_prostor
+  let g:cs_wingui = 'dracula'
+else
+  let g:cs_wingui = 'nova'
+endif
 let s:cs_xterm  = 'jellybeans'
 let g:cs_nvim   = 'molokai'
 let s:cs_cmder  = 'badwolf'
