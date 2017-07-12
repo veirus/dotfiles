@@ -20,6 +20,7 @@ elseif g:is_wingui
     execute 'colorscheme '.g:cs_wingui
   endif
 endif
+call cw#SetModalCursor()
 " currently is go=gmtch
 if g:is_conemu
   set guioptions+=h
