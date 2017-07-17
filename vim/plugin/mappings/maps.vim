@@ -238,9 +238,9 @@ xnoremap @ :<C-u>call cw#ExecuteMacroOverVisualRange()<CR>
 nnoremap <M-space> :call UltiSnips#ExpandSnippet()<CR>
 inoremap <M-space> <C-R>=UltiSnips#ExpandSnippet()<CR>
 " Substitute
-" nnoremap <c-s> :s/
-" nnoremap <M-s> :%s/
-" vnoremap <c-s> :s/
+nnoremap <c-s> :s/
+nnoremap <M-s> :%s/
+vnoremap <c-s> :s/
 
 " echo highligting groups
 nnoremap <F7> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
