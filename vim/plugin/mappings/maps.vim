@@ -123,8 +123,8 @@ nnoremap K m`a<CR><ESC>``
 nnoremap <S-F12> K
 
 " unimpaired-style, not as nice as i thought
-nnoremap [k m`i<CR><ESC>``
-nnoremap ]k m`a<CR><ESC>``
+nnoremap [<CR> m`i<CR><ESC>``
+nnoremap ]<CR> m`a<CR><ESC>``
 
 " Sneaky new line
 nnoremap <silent> <M-j> m`o<ESC>``
@@ -137,19 +137,21 @@ nnoremap <silent> <S-CR> O<ESC>
 inoremap <silent> <S-CR> <ESC>O
 
 " = Seek and destroy = {{{3
-" vimgrep my last search
-nnoremap <silent> <leader><F3> :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 " from http://twily.info/.vimrc#view
+" When you press gv you vimgrep after the selected text
+vnoremap <silent> <leader>g :call VisualSelection('gv', '')<CR>
 " Open vimgrep and put the cursor in the right position
-map <leader>g :vimgrep // **/*.*<left><left><left><left><left><left><left>
+map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
 " Vimgreps in the current file
 map <leader>/ :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
+" vimgrep my last search
+nnoremap <silent> <leader>n :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 " grep word under cursor
-nnoremap <M-K> :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap <M-g> :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " = -- UI -- = {{{3
 " Update!
-nnoremap <leader>w :up<cr>
+" nnoremap <leader>w :up<cr>
 
 " toggle little nifty symbols
 nnoremap <leader><BS> :set list! list?<cr>
@@ -167,6 +169,7 @@ nnoremap <Leader><F12> :tabnew $MYVIMRC<CR>
 " Buffers {{{3
 " quick buffer open
 nnoremap gb :ls<CR>:b<space>
+nnoremap <leader>d :ls<CR>:bd<space>
 nnoremap <leader><leader> <C-^>
 
 " window killer
@@ -221,9 +224,9 @@ nnoremap <leader>z zMzvzz
 " = language switching = {{{3
 nmap <M-z> a<C-^><Esc>
 if !g:is_gui
-  " lang switch terminal edition
-  nmap <C-Space> a<C-^><Esc>
-  vmap <silent> <C-Space> <Esc>a<C-^><Esc>gv
+	" lang switch terminal edition
+	nmap <C-Space> a<C-^><Esc>
+	vmap <silent> <C-Space> <Esc>a<C-^><Esc>gv
 endif
 " }}}3
 
@@ -244,8 +247,8 @@ vnoremap <c-s> :s/
 
 " echo highligting groups
 nnoremap <F7> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-	  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-	  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Meta keys test {{{3
 " works in terminal:
@@ -271,6 +274,7 @@ nnoremap <silent> <leader>fq :call cw#Preserve("normal gwip")<CR>
 "
 nnoremap <F2> :Vex<CR>
 nnoremap <F4> :set hlsearch! hlsearch?<cr>
+nnoremap <F5> :BufExplorer<CR>
 " consistent menu navigation
 " https://github.com/jasonlong/dotfiles/blob/master/vimrc
 " }}}2

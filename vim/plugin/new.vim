@@ -1,4 +1,6 @@
 " == new stuff == {{{2
+" 2017-07-21 {{{3
+Plug 'jlanzarotta/bufexplorer'
 " 2017-07-10 {{{3
 " currently incompatible with my present todo files, disabling
 " Plug 'aserebryakov/vim-todo-lists'
