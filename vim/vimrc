@@ -87,9 +87,9 @@ runtime plugin\core.vim
 runtime plugin\webdev.vim
 runtime plugin\new.vim
 runtime plugin\old.vim
-runtime plugin\unused.vim
 runtime plugin\colors.vim
 runtime plugin\airline.vim
+" runtime plugin\unused.vim
 " runtime plugin\lightline.vim
 
 call plug#end() " required }}}1
@@ -114,6 +114,7 @@ set keymap=russian-jcukenwin
 set iminsert=0              " раскладка по умолчанию для ввода - английская
 set imsearch=0              " раскладка по умолчанию для поиска - английская
 
+set nrformats-=octal
 set mouse=a
 set autoread
 set hidden                  " Allow buffer switching without saving
@@ -284,7 +285,8 @@ if has("autocmd")
   " augroup END
   augroup auto_save_and_read " {{{2
     autocmd!
-    autocmd TextChanged,InsertLeave,FocusLost * silent! wall
+    autocmd FocusLost * silent! wall
+    " autocmd TextChanged,InsertLeave,FocusLost * silent! wall
     autocmd CursorHold * silent! checktime
   augroup END
   " PHP_stuff {{{2
