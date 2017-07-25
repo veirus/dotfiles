@@ -27,3 +27,5 @@
 [diff]
 	guitool     = kdiff3
 
+[commit]
+	verbose = true
