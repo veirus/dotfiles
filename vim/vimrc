@@ -52,7 +52,7 @@ set history=1000
 set sessionoptions-=options " do not store all options and mappings (also
 " global values for local options)
 " let s:plugs = 'pack/plug/opt' " can't really disable colorschemes
-let s:plugs = 'plugged'
+let s:plugs = 'bundle'
 let s:plugdir = expand($DOTVIMDIR.'/'.s:plugs)
 set backupdir=$DOTVIMDIR/backups
 set directory=$DOTVIMDIR/swap
