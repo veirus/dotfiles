@@ -77,7 +77,7 @@ noremap <F12> :setl invpaste<CR><bar>:set paste?<CR>
 
 " URL opening, uses 100500 plugins :\ {{{3
 " https://sts10.github.io/blog/2016/02/16/one-solution-to-a-problem-with-vims-gx-command/
-nnoremap <silent> gx :normal viugx<CR>
+" nnoremap <silent> gx :normal viugx<CR>
 nmap gk <Plug>(openbrowser-smart-search)
 vmap gk <Plug>(openbrowser-smart-search)
 

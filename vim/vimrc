@@ -84,20 +84,22 @@ endif
 " Plugin Install {{{1
 call plug#begin(s:plugdir)
 runtime plugin\core.vim
+runtime plugin\textobj.vim
 runtime plugin\webdev.vim
 runtime plugin\new.vim
 runtime plugin\old.vim
 runtime plugin\colors.vim
 runtime plugin\airline.vim
-" runtime plugin\unused.vim
-" runtime plugin\lightline.vim
+runtime plugin\asyncomplete.vim
+" "runtime plugin\unused.vim
+" "runtime plugin\lightline.vim
 
 call plug#end() " required }}}1
 
 " -- theme assignment --
 "  TODO: automate it (maybe place in map/dict and iterate over it?)
 if g:is_prostor
-  let g:cs_wingui = 'dracula'
+  let g:cs_wingui = 'Tomorrow'
 else
   let g:cs_wingui = 'nova'
 endif

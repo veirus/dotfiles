@@ -1,30 +1,5 @@
 " == Necessity == {{{2
 Plug 'editorconfig/editorconfig-vim'
-" Emmet {{{3
-let emmetlist = ['html','smarty','pug','php','xml','xsl','xslt','xsd','css',
-      \ 'sass','scss','less','styl','stylus','mustache','handlebars']
-Plug 'mattn/emmet-vim', {'for': emmetlist }
-let g:user_emmet_settings = {
-      \ 'php': {
-      \     'snippets': {
-      \         'php':  "<?php |; ?>",
-      \         'tf':   "<?php the_field('|', 'options'); ?>",
-      \         'tsf':  "<?php the_sub_field('|'); ?>",
-      \         'if':   "<?php if(|${child}): ?>",
-      \         'hr':   "<?php if( have_rows('${cursor}', 'option') ): ?>\n\t<?php while( have_rows('${cursor}', 'option')): the_row(); ?>\n\t${2}\n\t<?php endwhile; ?>\n<?php endif; ?>",
-      \         'els':  "<?php elseif(|): ?>",
-      \         'wh':   "<?php while(|${child}): ?>",
-      \         'ei':   "<?php endif; ?>",
-      \         'ew':   "<?php endwhile; ?>",
-      \         'echo': "<?php echo |; ?>",
-      \         },
-      \     },
-      \ }
-let g:user_emmet_leader_key = '\'
-" autocmd FileType stylus,html,css,less,sass,scss imap <buffer><expr><C-Space> <sid>cw#zen_html_tab()
-autocmd FileType {ht,x,xs}ml,php,pug,s\\\{-\}[ac]ss,less,stylus imap <buffer><expr> <C-Space> emmet#expandAbbrIntelligent("\<C-Space>")
-" autocmd FileType stylus,html,css,less,sass,scss imap <buffer><expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
-"}}}3
 Plug 'nathanaelkane/vim-indent-guides' "{{{3
 " <leader>ig
 let g:indent_guides_start_level = 2
@@ -58,7 +33,7 @@ let g:startify_bookmarks = [
       \ {'r': '~\_vimrc'},
       \ {'t': '~\onetab.txt'} ]
 let g:startify_update_oldfiles = 1
-let g:startify_session_autoload = 1
+" let g:startify_session_autoload = 1
 let g:startify_session_persistence = 1
 let g:startify_session_delete_buffers = 1
 "}}}3
@@ -72,8 +47,6 @@ let g:UltiSnipsEditSplit="vertical"
 "}}}3
 " * * * * *
 " -- open url in browser -- {{{3
-Plug 'kana/vim-textobj-user'
-Plug 'jceb/vim-textobj-uri'
 Plug 'tyru/open-browser.vim'
 " }}}3
 " -- parenthesis -- {{{3
@@ -92,7 +65,7 @@ Plug 'rstacruz/vim-closer' " 2017-04-14
 " -- hotkeys {{{3
 Plug 'tpope/vim-rsi'
 " Plug 'romainl/vim-qf'
-Plug 'tpope/vim-unimpaired'
+" Plug 'tpope/vim-unimpaired'
 " -- repeat {{{3
 Plug 'tpope/vim-repeat'
 " Plug 'kana/vim-repeat'
@@ -102,24 +75,26 @@ Plug 'tomtom/tcomment_vim'
 " Plug 'tyru/caw.vim'
 "   let g:caw_operator_keymappings = 1
 " }}}3
-" -- text objects -- {{{3
-Plug 'kana/vim-textobj-user' " <- dependency!
-Plug 'kana/vim-textobj-fold'
-Plug 'kana/vim-textobj-function'
-Plug 'kana/vim-textobj-indent'
-Plug 'jasonlong/vim-textobj-css', {'for': ['css', 'scss', 'less']}
-" }}}3
 " -- gist-vim {{{3
 Plug 'mattn/gist-vim' | Plug 'mattn/webapi-vim'
 " }}}3
 " -- utils -- {{{3
 Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
 Plug 'skywind3000/asyncrun.vim' ", {'on':['Gulp','GulpExt']}
-Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
+" Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
 Plug 'tpope/vim-fugitive'
 Plug 'justinmk/vim-sneak'
-let g:sneak#streak=1
+" let g:sneak#streak=1
 Plug 'konfekt/fastfold'
+nmap zuz <Plug>(FastFoldUpdate)
 let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+let g:tex_fold_enabled=1
+let g:vimsyn_folding='af'
+let g:xml_syntax_folding = 1
+let g:php_folding = 1
+let g:html_folding = 1
+let g:perl_fold = 1
 " ST's PlainTasks compatible!
 Plug 'irrationalistic/vim-tasks'

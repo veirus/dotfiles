@@ -2,8 +2,6 @@
 " -- utilitiy -- {{{3
 Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
 " Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 " -- * * * --- {{{3
 Plug 'sickill/vim-monokai' " 2017-03-09 [ monokai ]
 Plug 'rakr/vim-one'
