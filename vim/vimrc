@@ -91,20 +91,18 @@ runtime b\old.vim
 runtime b\colors.vim
 runtime b\airline.vim
 runtime b\async.vim
-" bundle\_\unused.vim
+" b\unused.vim
 
 call plug#end() " required }}}1
 
 " -- theme assignment --
 "  TODO: automate it (maybe place in map/dict and iterate over it?)
-if g:is_prostor
-  let g:cs_wingui = 'Tomorrow'
-else
-  let g:cs_wingui = 'nova'
-endif
-let s:cs_xterm  = 'jellybeans'
-let g:cs_nvim   = 'molokai'
-let s:cs_cmder  = 'badwolf'
+let g:cs = {
+      \ 'xterm': 'jellybeans',
+      \ 'nvim':  'molokai',
+      \ 'cmder': 'badwolf',
+      \ 'wingui': g:is_prostor ? 'base16-github' : 'nova'
+      \ }
 
 " General {{{2
 " scriptencoding utf-8
@@ -265,7 +263,7 @@ if !g:is_gui
         " Unknown font
         " GuiFont Ubuntu Mono derivative Powerline:h12
     endif
-    execute 'colorscheme '.g:cs_nvim
+    execute 'colorscheme '.g:cs.nvim
   endif " }}}2
   " Disable Background Color Erase (BCE) so that color schemes
   " render properly when inside 256-color tmux and GNU screen.
@@ -273,7 +271,7 @@ if !g:is_gui
     set t_ut=
   endif
 else
-  execute 'colorscheme '.g:cs_wingui
+  execute 'colorscheme '.g:cs.wingui
 endif
 
 "}}}1
