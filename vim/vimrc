@@ -83,16 +83,15 @@ endif
 
 " Plugin Install {{{1
 call plug#begin(s:plugdir)
-runtime plugin\core.vim
-runtime plugin\textobj.vim
-runtime plugin\webdev.vim
-runtime plugin\new.vim
-runtime plugin\old.vim
-runtime plugin\colors.vim
-runtime plugin\airline.vim
-runtime plugin\asyncomplete.vim
-" "runtime plugin\unused.vim
-" "runtime plugin\lightline.vim
+runtime b\core.vim
+runtime b\textobj.vim
+runtime b\webdev.vim
+runtime b\new.vim
+runtime b\old.vim
+runtime b\colors.vim
+runtime b\airline.vim
+runtime b\async.vim
+" bundle\_\unused.vim
 
 call plug#end() " required }}}1
 

@@ -1,11 +1,10 @@
 " == new stuff == {{{2
-" 2017-07-26 [ leader-f ] {{{3
+" 2017-07-26 {{{3
 Plug 'othree/csscomplete.vim'
 augroup css_complete
 	autocmd!
 	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 augroup END
-Plug 'Yggdroot/LeaderF'
 " 2017-07-10 {{{3
 " currently incompatible with my present todo files, disabling
 " Plug 'aserebryakov/vim-todo-lists'
