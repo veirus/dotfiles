@@ -1,4 +1,3 @@
-"
 " Command mode mappings. ( stolen shamelessly from Greg Hurrel )
 "
 
