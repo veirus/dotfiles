@@ -1,4 +1,9 @@
 " vim:set noet sts=4 sw=4 ts=4 tw=78 fdl=1 :
+if exists('g:cwcommands_loaded')
+	finish
+endif
+let g:cwcommands_loaded = 1
+
 " Commands {{{1
 " >>> Shell command @ spf-13 {{{2
 " e.g. Grep current file for <search_term>: Shell grep -Hn <search_term> %

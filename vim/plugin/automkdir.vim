@@ -1,3 +1,8 @@
+if exists('g:automkdir_loaded')
+	finish
+endif
+let g:automkdir_loaded = 1
+
 function! s:MkNonExDir(file, buf)
     if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
         let dir=fnamemodify(a:file, ':h')
