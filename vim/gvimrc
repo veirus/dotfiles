@@ -16,8 +16,8 @@ elseif g:is_wingui
   menu Кодировка.utf-16le :e ++enc=utf-16le<CR>
   menu Кодировка.cp866 :e ++enc=cp866<CR>
   menu Кодировка.koi8-r :e ++enc=koi8-r<CR>
-  if exists('g:cs_wingui')
-    execute 'colorscheme '.g:cs_wingui
+  if exists('g:cs.wingui')
+    execute 'colorscheme '.g:cs.wingui
   endif
 endif
 call cw#SetModalCursor()
