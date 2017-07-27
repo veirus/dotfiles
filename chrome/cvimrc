@@ -1,19 +1,9 @@
-map о j
-map л k
-map р h
-map д l
-map в d
-map г u
-map пп gg
-map П G
-map ч x
-map Ч X
-map а f
-map А F
-map пш gi
-map пГ gU
-map ъъ ]]
-map хх [[
-unmap <C-b>
-let blacklists = ["http://www.typing.com/*","http://www.heuxasoftware.com/*","http://www.keybr.com/*","http://www.reddit.com/*","https://mail.google.com/*"]
-" let blacklists = ["http://www.typing.com/*","http://www.heuxasoftware.com/*","http://www.keybr.com/*","http://www.reddit.com/*","https://sirxemic.github.io/*","http://vim-adventures.com/*","https://mail.google.com/*","https://timeinvariant.github.io/*","http://www.platinumgames.co.jp/*","http://codecombat.com/*","http://johanw123.nu/*","http://hughsk.io/*","https://np.reddit.com/*","chrome-extension://hgimloonaobbeeagepickockgdcghfnn/*","https://blastar-1984.appspot.com/*","http://redditp.com/*","https://www.reddit.com/*","https://twitter.com/*"]
+" cvim config v.0.0.1
+map gr gT
+"==================================================
+" russian langmap for hotkeys to work in both kb layouts
+" credit: https://gist.github.com/rynffoll/7bb30a47b3b8d39687f588ecc2be5425
+" also:   https://gist.github.com/MaxLevs/f519d361d3946d6d877085f909e13043
+let langmap = "Ё|АFБ<ВDГUДLЕTЖ:ЗPИBЙQКRЛKМVНYОJПGРHСCТNУEФAХ{ЦWЧXШIЩOЪ}ЫSЬMЭ\"Ю>ЯZаfб\\,вdгuдlеtж\\;зpиbйqкrлkмvнyоjпgрhсcтnуeфaх[цwчxшiщoъ]ыsьmэ'ю.яzё\\№#"
+"==================================================
+let blacklists = ["http://www.typing.com/*","http://www.heuxasoftware.com/*","http://www.keybr.com/*","http://www.reddit.com/*","https://sirxemic.github.io/*","http://vim-adventures.com/*","https://mail.google.com/*","https://timeinvariant.github.io/*","http://www.platinumgames.co.jp/*","http://codecombat.com/*","http://johanw123.nu/*","http://hughsk.io/*","https://np.reddit.com/*","chrome-extension://hgimloonaobbeeagepickockgdcghfnn/*","https://blastar-1984.appspot.com/*","http://redditp.com/*","https://www.reddit.com/*","https://twitter.com/*","https://www.youtube.com/*","https://www.blend4web.com/*","https://inbox.google.com/*","https://vk.com/*","http://www.tubechop.com/*"]
