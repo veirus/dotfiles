@@ -9,9 +9,6 @@
 " and it is a waste to store them in my vimrc
 "**************************************************
 "==================================================
-" _vimrc - Links to the vimrc in the vimfiles directory
-runtime vimrc
-"==================================================
 " Encoding @ jenyay.net {{{
 
 " set encoding=utf-8
