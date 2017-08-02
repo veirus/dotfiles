@@ -341,6 +341,12 @@ if has("autocmd")
   " Remember info about open buffers on close
   set viminfo^=%
 
+  " modal cursor {{{2
+  augroup modal_cursor
+    au!
+    au ColorScheme * call cw#SetModalCursor()
+  augroup END
+
 endif " }}}1
 
 if g:is_prostor
