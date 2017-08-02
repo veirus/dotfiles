@@ -1,4 +1,5 @@
 " == new stuff == {{{2
+Plug 'sk1418/HowMuch'
 " 2017-07-26 {{{3
 Plug 'othree/csscomplete.vim'
 augroup css_complete
