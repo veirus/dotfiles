@@ -5,12 +5,9 @@ augroup css_complete
 	autocmd!
 	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 augroup END
-" 2017-07-10 {{{3
-" currently incompatible with my present todo files, disabling
-" Plug 'aserebryakov/vim-todo-lists'
 " [ vim 8 syntax | ctrlp-swoop ] {{{3
 Plug 'vim-jp/syntax-vim-ex' " for vim 8.0 syntax
-Plug 'mattn/ctrlp-swoop'
+" Plug 'mattn/ctrlp-swoop'
 " 2017-06-30 [ polyglot ] {{{3
 Plug 'sheerun/vim-polyglot'
 " 2017-06-26 [ php indenting ] {{{3
@@ -40,8 +37,4 @@ Plug 'w0rp/ale'
 " let g:ale_lint_on_save = 1
 " let g:ale_lint_on_text_changed = 0
 let g:ale_statusline_format = [' ✖ %d ', ' ! %d ', '']
-" }}}3
-" 2017-07-07 [ clever-f ] {{{3
-" Doesn't work with cyrillic
-" Plug 'rhysd/clever-f.vim'
 " }}}3

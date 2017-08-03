@@ -33,6 +33,7 @@ Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass','less']}
 Plug 'closetag.vim',           {'for': ['html', 'php', 'tpl']}
 " ---------------
 " Pre HTML
+Plug 'Glench/Vim-Jinja2-Syntax'
 " Plug 'digitaltoad/vim-pug', {'for': ['jade','pug']} " replaced with [ polyglot ] {{{3
 " Plug 'tpope/vim-markdown', {'for': ['markdown', 'md', 'mdown', 'mkd', 'mkdn']}
 " }}}3

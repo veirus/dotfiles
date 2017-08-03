@@ -1,4 +1,25 @@
 " == unused == {{{2
+
+"------------------------------
+Plug 'konfekt/fastfold'
+nmap zuz <Plug>(FastFoldUpdate)
+let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+let g:tex_fold_enabled=1
+let g:vimsyn_folding='af'
+let g:xml_syntax_folding = 1
+let g:php_folding = 1
+let g:html_folding = 1
+let g:perl_fold = 1
+"------------------------------
+
+" 2017-07-07 [ clever-f ] {{{3
+" Doesn't work with cyrillic
+Plug 'rhysd/clever-f.vim'
+" 2017-07-10 {{{3
+" currently incompatible with my present todo files, disabling
+Plug 'aserebryakov/vim-todo-lists'
 " 2017-07-12 [ lightline ]
 Plug 'itchyny/lightline.vim'
 Plug 'kana/vim-operator-user'
