@@ -1,8 +1,4 @@
 " vim:set et sts=2 sw=2 ts=4 tw=78 ft=vim fdl=1:
-" let g:is.wingui  = has("gui_win32")
-" let g:is.macvim  = has('gui_macvim')
-" let g:is.conemu  = !empty($CONEMUBUILD)
-" let g:is.prostor = $USERNAME ==? 'oldschool'
 if g:is.macvim
   set guifont=Consolas:h15
 elseif g:is.wingui
@@ -16,11 +12,7 @@ elseif g:is.wingui
   menu Кодировка.utf-16le :e ++enc=utf-16le<CR>
   menu Кодировка.cp866 :e ++enc=cp866<CR>
   menu Кодировка.koi8-r :e ++enc=koi8-r<CR>
-  " if exists('g:cs.wingui')
-  "   execute 'colorscheme '.g:cs.wingui
-  " endif
 endif
-" call cw#SetModalCursor()
 " currently is go=gmtch
 if g:is.conemu
   set guioptions+=h
