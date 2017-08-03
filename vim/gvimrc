@@ -1,12 +1,12 @@
 " vim:set et sts=2 sw=2 ts=4 tw=78 ft=vim fdl=1:
-let g:is_wingui  = has("gui_win32")
-let g:is_macvim  = has('gui_macvim')
-let g:is_conemu  = !empty($CONEMUBUILD)
-let g:is_prostor = $USERNAME ==? 'oldschool'
-if g:is_macvim
+" let g:is.wingui  = has("gui_win32")
+" let g:is.macvim  = has('gui_macvim')
+" let g:is.conemu  = !empty($CONEMUBUILD)
+" let g:is.prostor = $USERNAME ==? 'oldschool'
+if g:is.macvim
   set guifont=Consolas:h15
-elseif g:is_wingui
-  set guifont=Iosevka_Term:h12:cRUSSIAN:qDRAFT,DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN,Consolas:h12
+elseif g:is.wingui
+  set guifont=Iosevka_Term:h14:cRUSSIAN:qDRAFT,DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN,Consolas:h12
   if &guifont =~? 'powerline'
     let g:airline_powerline_fonts = 1
   endif
@@ -16,13 +16,13 @@ elseif g:is_wingui
   menu Кодировка.utf-16le :e ++enc=utf-16le<CR>
   menu Кодировка.cp866 :e ++enc=cp866<CR>
   menu Кодировка.koi8-r :e ++enc=koi8-r<CR>
-  if exists('g:cs.wingui')
-    execute 'colorscheme '.g:cs.wingui
-  endif
+  " if exists('g:cs.wingui')
+  "   execute 'colorscheme '.g:cs.wingui
+  " endif
 endif
-call cw#SetModalCursor()
+" call cw#SetModalCursor()
 " currently is go=gmtch
-if g:is_conemu
+if g:is.conemu
   set guioptions+=h
   set guioptions-=b
   set guioptions-=r
@@ -35,7 +35,7 @@ set guioptions-=L       " Disable left scrollbar (repositions vim on vsplit in W
 set guioptions-=T       " No toolbar
 " set noshowmode
 set ballooneval
-if !g:is_prostor
+if !g:is.prostor
   let g:wposx = 480 " =1920/4
   let g:wcols = 103
   let g:wline = 99

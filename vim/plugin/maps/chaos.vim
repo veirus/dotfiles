@@ -223,7 +223,7 @@ nnoremap <leader>z zMzvzz
 " }}}3
 " = language switching = {{{3
 nmap <M-z> a<C-^><Esc>
-if !g:is_gui
+if !g:is.gui
 	" lang switch terminal edition
 	nmap <C-Space> a<C-^><Esc>
 	vmap <silent> <C-Space> <Esc>a<C-^><Esc>gv
@@ -274,7 +274,7 @@ nnoremap <silent> <leader>fq :call cw#Preserve("normal gwip")<CR>
 "
 nnoremap <F2> :Vex<CR>
 nnoremap <F4> :set hlsearch! hlsearch?<cr>
-nnoremap <F5> :BufExplorer<CR>
+nnoremap <F5> :call cw#SetModalCursor()<cr>
 " consistent menu navigation
 " https://github.com/jasonlong/dotfiles/blob/master/vimrc
 " }}}2

@@ -394,3 +394,24 @@ function! cw#SetModalCursor()
   hi ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#dc322f
   hi CommandCursor ctermfg=15 guifg=#fdf6e3 ctermbg=166 guibg=#cb4b16
 endfunction
+
+" Automagical colorscheme assigning :) "{{{2
+function! cw#SetColors()
+  if has('vim_starting')
+    " echom '*** vim starting ***'
+    if !has('syntax')
+      return '*ERROR*: set syntax before colorscheme'
+    endif
+
+    for k in keys(g:is)
+      if get(g:is, k) && has_key(g:cs, k)
+        " echom 'detected: '.k
+        " echom 'has key: '.k
+        execute 'colorscheme '.get(g:cs, k)
+      endif
+    endfor
+  endif
+
+  return 'SetColors END'
+endfunction
+

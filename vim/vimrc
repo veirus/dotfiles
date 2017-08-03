@@ -2,9 +2,6 @@
 " ===================================================
 " last edit: 2017-07-05 | merging with PROSTOR  at 2017-07-09 Вс 11:24
 " ===================================================
-if has('vim_starting')
-  " TODO: move some things here for the great justice!
-endif
 " = First things first: =
 " Be Improved {{{2
 " romainl says it's useless...
@@ -26,15 +23,17 @@ let mapleader    = "\<space>"
 let g:mapleader  = "\<space>"
 " ========================================
 " ENV detect {{{2
-let g:is_windows = has('win32') || has('win64')
-let g:is_wingui  = has("gui_win32")
-let g:is_cygwin  = has('win32unix')
-let g:is_macvim  = has('gui_macvim')
-let g:is_nvim    = has('nvim')
-let g:is_nyaovim = exists('g:nyaovim_version')
-let g:is_gui     = has('gui_running')
-let g:is_conemu  = !empty($CONEMUBUILD)
-let g:is_prostor = $USERNAME ==? 'oldschool'
+let g:is = {
+			\ 'windows' : has('win32') || has('win64'),
+			\ 'cygwin'  : has('win32unix'),
+			\ 'macvim'  : has('gui_macvim'),
+			\ 'nvim'    : has('nvim'),
+			\ 'nyaovim' : exists('g:nyaovim_version'),
+			\ 'gui'     : has('gui_running'),
+			\ 'conemu'  : !empty($CONEMUBUILD),
+			\ 'prostor' : $USERNAME ==? 'oldschool'
+			\ }
+let g:is.wingui = g:is.windows && g:is.gui
 " ========================================
 " rtp {{{2 portability shim:
 let $DOTVIMDIR = expand('$HOME/vimfiles')
@@ -57,7 +56,7 @@ let s:plugdir = expand($DOTVIMDIR.'/'.s:plugs)
 set backupdir=$DOTVIMDIR/backups
 set directory=$DOTVIMDIR/swap
 set undodir=$DOTVIMDIR/undo
-if !g:is_nvim
+if !g:is.nvim
   set viminfo+=n$DOTVIMDIR/swap/viminfo
 endif
 " Make those folders automatically if they don't already exist.
@@ -100,8 +99,8 @@ call plug#end() " required }}}1
 let g:cs = {
       \ 'xterm': 'jellybeans',
       \ 'nvim':  'molokai',
-      \ 'cmder': 'badwolf',
-      \ 'wingui': g:is_prostor ? 'base16-github' : 'nova'
+      \ 'conemu': 'badwolf',
+      \ 'wingui': g:is.prostor ? 'base16-gruvbox-dark-medium' : 'nova'
       \ }
 
 " General {{{2
@@ -149,7 +148,7 @@ set softtabstop=4
 set shiftwidth=4               " размер отступов
 set linebreak
 let &showbreak='▷ '            " Iosevka doesn't has above symbol
-if !g:is_prostor
+if !g:is.prostor
   let &showbreak='↪ '
 endif
 set breakindent
@@ -214,11 +213,11 @@ let g:netrw_winsize = 25
 " /UI }}}2
 
 " Terminal settings {{{1
-if !g:is_gui
+if !g:is.gui
   set vb t_vb=
   set ttimeout ttimeoutlen=50
   " ConEmu terminal settings {{{2
-  if g:is_conemu && !g:is_nvim
+  if g:is.conemu && !g:is.nvim
     " it's already set above
     " set vb t_vb=
     set term=xterm
@@ -226,10 +225,9 @@ if !g:is_gui
     set t_Co=256
     let &t_AB="\e[48;5;%dm"
     let &t_AF="\e[38;5;%dm"
-    execute 'colorscheme '.s:cs_cmder
   " }}}2
   " neovim {{{2
-  elseif g:is_nvim
+  elseif g:is.nvim
     " let s:editor_root=expand("~/AppData/Local/nvim")
     let g:python_host_prog = 'D:/env/neovim/2/Scripts/python.exe'
     let g:python3_host_prog = 'D:/env/neovim/3/Scripts/python.exe'
@@ -263,16 +261,15 @@ if !g:is_gui
         " Unknown font
         " GuiFont Ubuntu Mono derivative Powerline:h12
     endif
-    execute 'colorscheme '.g:cs.nvim
   endif " }}}2
   " Disable Background Color Erase (BCE) so that color schemes
   " render properly when inside 256-color tmux and GNU screen.
   if &term =~ '256color'
     set t_ut=
   endif
-else
-  execute 'colorscheme '.g:cs.wingui
 endif
+
+call cw#SetColors()
 
 "}}}1
 
@@ -343,7 +340,7 @@ if has("autocmd")
 
 endif " }}}1
 
-if g:is_prostor
+if g:is.prostor
   " because 'home' doesn't have ripgrep
   if executable("rg")
     set grepprg=rg\ --vimgrep\ --color=never
@@ -356,10 +353,11 @@ else
     set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --vimgrep
     set grepformat^=%f:%l:%c:%m
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    if g:is_windows
+    if g:is.windows
       " fix for windows:
       let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
     endif
     let g:ctrlp_use_caching = 0
   endif
 endif
+

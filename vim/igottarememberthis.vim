@@ -9,6 +9,10 @@
 " and it is a waste to store them in my vimrc
 "**************************************************
 "==================================================
+if has('vim_starting')
+  " TODO: write something you want execute only on vim startup
+endif
+"==================================================
 " Encoding @ jenyay.net {{{
 
 " set encoding=utf-8
