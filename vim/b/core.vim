@@ -56,12 +56,13 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'luochen1990/rainbow'
 	" 0 if you want to enable it later via :RainbowToggle
 	let g:rainbow_active = 1
-Plug 'matchit.zip'
+Plug 'tmhedberg/matchit'
+" Plug 'matchit.zip'
 	let b:match_ignorecase = 1
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'rstacruz/vim-closer' " 2017-04-14
-"
+
 " -- hotkeys {{{3
 Plug 'tpope/vim-rsi'
 " Plug 'romainl/vim-qf'
@@ -76,8 +77,8 @@ Plug 'tomtom/tcomment_vim'
 " Plug 'tpope/vim-commentary'
 " Plug 'tyru/caw.vim'
 "   let g:caw_operator_keymappings = 1
-" }}}3
-"
+
+
 " -- misc {{{3
 Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
 Plug 'skywind3000/asyncrun.vim' ", {'on':['Gulp','GulpExt']}
