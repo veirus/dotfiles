@@ -403,8 +403,8 @@ function! cw#SetColors()
       return '*ERROR*: set syntax before colorscheme'
     endif
 
-    for k in keys(g:is)
-      if get(g:is, k) && has_key(g:cs, k)
+    for [k,v] in items(g:is)
+      if v && has_key(g:cs, k)
         " echom 'detected: '.k
         " echom 'has key: '.k
         execute 'colorscheme '.get(g:cs, k)
