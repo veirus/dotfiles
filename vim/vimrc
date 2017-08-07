@@ -1,6 +1,6 @@
 " vim: set sw=2 ts=4 sts=2 et tw=80 fdl=1 foldmethod=marker:
 " ===================================================
-" last edit: 2017-07-05 | merging with PROSTOR  at 2017-07-09 Вс 11:24
+" last edit: 2017-07-05 | always unhappy with the result
 " ===================================================
 " = First things first: =
 " Be Improved {{{2
@@ -20,7 +20,7 @@ endif
 " ========================================
 " mapleader {{{2
 let mapleader    = "\<space>"
-let g:mapleader  = "\<space>"
+let g:mapleader  = "\<space>" " why there's a second one?
 " ========================================
 " ENV detect {{{2
 let g:is = {
@@ -214,8 +214,10 @@ let g:netrw_winsize = 25
 
 " Terminal settings {{{1
 if !g:is.gui
+
   set vb t_vb=
   set ttimeout ttimeoutlen=50
+
   " ConEmu terminal settings {{{2
   if g:is.conemu && !g:is.nvim
     " it's already set above
@@ -225,7 +227,7 @@ if !g:is.gui
     set t_Co=256
     let &t_AB="\e[48;5;%dm"
     let &t_AF="\e[38;5;%dm"
-  " }}}2
+
   " neovim {{{2
   elseif g:is.nvim
     " let s:editor_root=expand("~/AppData/Local/nvim")
@@ -261,17 +263,18 @@ if !g:is.gui
         " Unknown font
         " GuiFont Ubuntu Mono derivative Powerline:h12
     endif
-  endif " }}}2
-  " Disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  if &term =~ '256color'
-    set t_ut=
   endif
+
+  " Disable Background Color Erase (BCE) so that color schemes {{{2
+  " render properly when inside 256-color tmux and GNU screen.
+  " if &term =~ '256color'
+  "   set t_ut=
+  " endif
 endif
 
-call cw#SetColors()
-
 "}}}1
+
+call cw#SetColors()
 
 " Autocommands {{{1
 if has("autocmd")
