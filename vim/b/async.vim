@@ -31,10 +31,15 @@ Plug 'prabirshrestha/asyncomplete-tags.vim'
 "     \ }))
 
 Plug 'yami-beta/asyncomplete-omni.vim'
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
-      \ 'name': 'omni',
-      \ 'whitelist': ['*'],
-      \ 'completor': function('asyncomplete#sources#omni#completor')
-      \  }))
-let g:asyncomplete_auto_popup = 0
+augroup asynccomplete
+	au!
+	au User asyncomplete_setup call asyncomplete#register_source(
+		\ asyncomplete#sources#omni#get_source_options({
+			\ 'name': 'omni',
+			\ 'whitelist': ['*'],
+			\ 'completor': function('asyncomplete#sources#omni#completor')
+			\  })
+	\ )
+augroup END
 
+let g:asyncomplete_auto_popup = 0

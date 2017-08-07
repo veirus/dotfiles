@@ -1,5 +1,11 @@
 " == < webdev \> == {{{2
 " General
+" 2017-06-30 [ polyglot ] {{{3
+Plug 'sheerun/vim-polyglot'
+
+" 2017-06-26 [ php indenting ] {{{3
+Plug '2072/PHP-Indenting-for-VIm'
+
 " Emmet {{{3
 let emmetlist = ['html','smarty','pug','php','xml','xsl','xslt','xsd','css',
       \ 'sass','scss','less','styl','stylus','mustache','handlebars']
