@@ -21,7 +21,6 @@ Plug 'rhysd/clever-f.vim'
 " currently incompatible with my present todo files, disabling
 Plug 'aserebryakov/vim-todo-lists'
 " 2017-07-12 [ lightline ]
-Plug 'itchyny/lightline.vim'
 Plug 'kana/vim-operator-user'
 Plug 'samsonw/vim-task'
 Plug 'osyo-manga/vim-trip'

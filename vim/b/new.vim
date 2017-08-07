@@ -40,7 +40,7 @@ Plug 'takac/vim-hardtime'
 	let g:hardtime_ignore_quickfix = 1
 
 " 2017-02-22 [ showmap ] {{{3
-Plug 'fcpg/vim-showmap'
+" Plug 'fcpg/vim-showmap'
 
 " 2017-02-06 [ ale ] {{{3
 Plug 'w0rp/ale'

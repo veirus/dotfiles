@@ -66,7 +66,7 @@ Plug 'rstacruz/vim-closer' " 2017-04-14
 " -- hotkeys {{{3
 Plug 'tpope/vim-rsi'
 " Plug 'romainl/vim-qf'
-" Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-unimpaired'
 
 " -- repeat {{{3
 Plug 'tpope/vim-repeat'

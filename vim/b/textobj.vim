@@ -5,5 +5,5 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-fold'
 Plug 'kana/vim-textobj-indent'
 Plug 'jasonlong/vim-textobj-css', {'for': ['css', 'scss', 'less']}
-" Plug 'adriaanzon/vim-textobj-matchit'
+" Plug 'adriaanzon/vim-textobj-matchit' " doesn't work
 " }}}3

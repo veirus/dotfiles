@@ -22,7 +22,7 @@ endif
 let mapleader    = "\<space>"
 let g:mapleader  = "\<space>"
 " ========================================
-" ENV detect {{{2
+" ENV detect and colors {{{2
 let g:is = {
       \ 'windows' : has('win32') || has('win64'),
       \ 'cygwin'  : has('win32unix'),
@@ -95,10 +95,11 @@ runtime b\webdev.vim
 runtime b\new.vim
 runtime b\old.vim
 runtime b\colors.vim
-runtime b\airline.vim
 runtime b\async.vim
+runtime b\lightline.vim
+" runtime b\statusline.vim
+" runtime b\airline.vim
 " b\unused.vim
-
 call plug#end() " required }}}1
 
 " General {{{2
@@ -364,4 +365,3 @@ else
     let g:ctrlp_use_caching = 0
   endif
 endif
-
