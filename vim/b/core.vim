@@ -56,9 +56,18 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'luochen1990/rainbow'
 	" 0 if you want to enable it later via :RainbowToggle
 	let g:rainbow_active = 1
-Plug 'tmhedberg/matchit'
+
+if has('packages')
+	if !has('nvim')
+		packadd! matchit
+	endif
+else
+	source $VIMRUNTIME/macros/matchit.vim
+endif
 " Plug 'matchit.zip'
+" Plug 'tmhedberg/matchit'
 	let b:match_ignorecase = 1
+
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'rstacruz/vim-closer' " 2017-04-14
