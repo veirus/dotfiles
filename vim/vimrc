@@ -1,8 +1,5 @@
-" vim: set sw=2 ts=4 sts=2 et tw=80 fdl=1 foldmethod=marker:
+" vim: tw=80 fdl=1 fdm=marker:
 " ===================================================
-" last edit: 2017-07-05 | merging with PROSTOR  at 2017-07-09 Вс 11:24
-" ===================================================
-" = First things first: =
 " Be Improved {{{2
 " romainl says it's useless...
 if &cp | set nocp | endif
@@ -10,43 +7,43 @@ if &cp | set nocp | endif
 " encoding {{{2
 " explanation: http://stackoverflow.com/a/5795441/453396
 if has("multi_byte")
-  if &termencoding == ""
-    let &termencoding = &encoding
-  endif
-  set encoding=utf-8                      "better default than latin1
-  setglobal fileencoding=utf-8            "change default file encoding when writing new files
-  set fileencodings=utf-8,cp1251,utf-16le,cp866,koi8r,ucs-2le "cyrillic edition
+	if &termencoding == ""
+		let &termencoding = &encoding
+	endif
+	set encoding=utf-8                      "better default than latin1
+	setglobal fileencoding=utf-8            "change default file encoding when writing new files
+	set fileencodings=utf-8,cp1251,utf-16le,cp866,koi8r,ucs-2le "cyrillic edition
 endif
 " ========================================
 " mapleader {{{2
 let mapleader    = "\<space>"
-let g:mapleader  = "\<space>"
+let g:mapleader  = "\<space>" " why there's a second one?
 " ========================================
 " ENV detect and colors {{{2
 let g:is = {
-      \ 'windows' : has('win32') || has('win64'),
-      \ 'cygwin'  : has('win32unix'),
-      \ 'macvim'  : has('gui_macvim'),
-      \ 'nvim'    : has('nvim'),
-      \ 'nyaovim' : exists('g:nyaovim_version'),
-      \ 'gui'     : has('gui_running'),
-      \ 'conemu'  : !empty($CONEMUBUILD),
-      \ 'prostor' : $USERNAME ==? 'oldschool'
-      \ }
+			\ 'windows' : has('win32') || has('win64'),
+			\ 'cygwin'  : has('win32unix'),
+			\ 'macvim'  : has('gui_macvim'),
+			\ 'nvim'    : has('nvim'),
+			\ 'nyaovim' : exists('g:nyaovim_version'),
+			\ 'gui'     : has('gui_running'),
+			\ 'conemu'  : !empty($CONEMUBUILD),
+			\ 'prostor' : $USERNAME ==? 'oldschool'
+			\ }
 let g:is.wingui = g:is.windows && g:is.gui
 " -- theme assignment --
 let g:cs = {
-      \ 'xterm': 'jellybeans',
-      \ 'nvim':  'molokai',
-      \ 'conemu': 'badwolf',
-      \ 'wingui': g:is.prostor ? 'base16-gruvbox-dark-medium' : 'nova'
-      \ }
+			\ 'xterm': 'jellybeans',
+			\ 'nvim':  'molokai',
+			\ 'conemu': 'badwolf',
+			\ 'wingui': g:is.prostor ? 'base16-gruvbox-dark-medium' : 'nova'
+			\ }
 " ========================================
 " rtp {{{2 portability shim:
 let $DOTVIMDIR = expand('$HOME/vimfiles')
 if !isdirectory(expand('$DOTVIMDIR'))
-  let $DOTVIMDIR = expand('$VIM/vimfiles')
-  echom "** ! **: dotfiles dir don't exist"
+	let $DOTVIMDIR = expand('$VIM/vimfiles')
+	echom "** ! **: dotfiles dir don't exist"
 endif
 set rtp^=$DOTVIMDIR
 " ========================================
@@ -64,30 +61,29 @@ set backupdir=$DOTVIMDIR/backups
 set directory=$DOTVIMDIR/swap
 set undodir=$DOTVIMDIR/undo
 if !g:is.nvim
-  set viminfo+=n$DOTVIMDIR/swap/viminfo
+	set viminfo+=n$DOTVIMDIR/swap/viminfo
 endif
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
-  call mkdir(expand(&undodir), "p")
+	call mkdir(expand(&undodir), "p")
 endif
 if !isdirectory(expand(&backupdir))
-  call mkdir(expand(&backupdir), "p")
+	call mkdir(expand(&backupdir), "p")
 endif
 if !isdirectory(expand(&directory))
-  call mkdir(expand(&directory), "p")
+	call mkdir(expand(&directory), "p")
 endif
 " ========================================
 " clipboard {{{2
 if has('clipboard')
-  if has('unnamedplus')         " When possible use + register for copy-paste
-    set clipboard=unnamed,unnamedplus
-  else                          " On mac and Windows, use * register for copy-paste
-    set clipboard=unnamed
-  endif
+	if has('unnamedplus')         " When possible use + register for copy-paste
+		set clipboard=unnamed,unnamedplus
+	else                          " On mac and Windows, use * register for copy-paste
+		set clipboard=unnamed
+	endif
 endif
 " }}}
-
-" Plugin Install {{{1
+" Plugins {{{1
 call plug#begin(s:plugdir)
 runtime b\core.vim
 runtime b\textobj.vim
@@ -101,7 +97,6 @@ runtime b\lightline.vim
 " runtime b\airline.vim
 " b\unused.vim
 call plug#end() " required }}}1
-
 " General {{{2
 " scriptencoding utf-8
 set timeout timeoutlen=230
@@ -122,12 +117,11 @@ set synmaxcol=800           " Don't try to highlight lines longer than 800 chars
 set complete=.,w,b,u,t
 set completeopt=longest,menuone
 "}}}2
-
 " Formatting {{{2
 
 if has('virtualedit')
-  " allow cursor to move where there is no text in visual block mode
-  set virtualedit=block
+	" allow cursor to move where there is no text in visual block mode
+	set virtualedit=block
 endif
 
 set formatoptions=qrn1j
@@ -148,13 +142,12 @@ set shiftwidth=4               " размер отступов
 set linebreak
 let &showbreak='▷ '            " Iosevka doesn't has above symbol
 if !g:is.prostor
-  let &showbreak='↪ '
+	let &showbreak='↪ '
 endif
 set breakindent
 set nojoinspaces               " Prevents inserting two spaces after punctuation on a join (J)
 
 " }}}2
-
 " UI {{{2
 
 set colorcolumn=+1
@@ -190,8 +183,8 @@ set splitbelow                                 " Puts new split windows to the b
 
 " Specify the behavior when switching between buffers
 try
-  set switchbuf=useopen,usetab,newtab
-  set showtabline=1
+	set switchbuf=useopen,usetab,newtab
+	set showtabline=1
 catch
 endtry
 
@@ -210,158 +203,167 @@ let g:netrw_winsize = 25
 " execute " set colorcolumn=".join(range(80,335), ',')|   "Discolor every column past column 80
 
 " /UI }}}2
-
 " Terminal settings {{{1
 if !g:is.gui
-  set vb t_vb=
-  set ttimeout ttimeoutlen=50
-  " ConEmu terminal settings {{{2
-  if g:is.conemu && !g:is.nvim
-    " it's already set above
-    " set vb t_vb=
-    set term=xterm
-    set termencoding=utf8
-    set t_Co=256
-    let &t_AB="\e[48;5;%dm"
-    let &t_AF="\e[38;5;%dm"
-    " }}}2
-    " neovim {{{2
-  elseif g:is.nvim
-    " let s:editor_root=expand("~/AppData/Local/nvim")
-    let g:python_host_prog = 'D:/env/neovim/2/Scripts/python.exe'
-    let g:python3_host_prog = 'D:/env/neovim/3/Scripts/python.exe'
-    if exists('g:GuiFont')
-      " WTF?! Doesn't work?
-      " let g:Guifont="DejaVu Sans Mono for Powerline:h13"
 
-      " Works and even looks nice, however reports bad fixed pitch metrics
-      " Also it's risky to install patched version on Windows
-      " GuiFont Consolas:h13
-      " works only when :so %
-      " GuiFont DejaVu Sans Mono for Powerline:h13
+	set vb t_vb=
+	set ttimeout ttimeoutlen=50
 
-      " Warning: bad fixed pitch metrics?!
-      " GuiFont Anonymice Powerline:h12
+	" ConEmu terminal settings {{{2
+	if g:is.conemu && !g:is.nvim
+		" it's already set above
+		" set vb t_vb=
+		set term=xterm
+		set termencoding=utf8
+		set t_Co=256
+		let &t_AB="\e[48;5;%dm"
+		let &t_AF="\e[38;5;%dm"
 
-      "is not fixed pitch font?!
-      " GuiFont Arimo for Powerline:h12
-      " GuiFont DejaVu Sans Mono for Powerline:h13
-      " GuiFont Literation Mono Powerline:h12
-      " GuiFont Roboto Mono for Powerline:h13
-      " GuiFont Tinos for Powerline:h12
+		" neovim {{{2
+	elseif g:is.nvim
+		" let s:editor_root=expand("~/AppData/Local/nvim")
+		let g:python_host_prog = 'D:/env/neovim/2/Scripts/python.exe'
+		let g:python3_host_prog = 'D:/env/neovim/3/Scripts/python.exe'
+		if exists('g:GuiFont')
+			" WTF?! Doesn't work?
+			" let g:Guifont="DejaVu Sans Mono for Powerline:h13"
 
-      " Sluggish unaliased look
-      " GuiFont Droid Sans Mono for Powerline:h12
-      " GuiFont Fira Mono Medium for Powerline:h12
+			" Works and even looks nice, however reports bad fixed pitch metrics
+			" Also it's risky to install patched version on Windows
+			" GuiFont Consolas:h13
+			" works only when :so %
+			" GuiFont DejaVu Sans Mono for Powerline:h13
 
-      " A little better look than Droid Sans and Fira
-      " GuiFont monofur for Powerline:h14
+			" Warning: bad fixed pitch metrics?!
+			" GuiFont Anonymice Powerline:h12
 
-      " Unknown font
-      " GuiFont Ubuntu Mono derivative Powerline:h12
-    endif
-  endif " }}}2
-  " Disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  if &term =~ '256color'
-    set t_ut=
-  endif
+			"is not fixed pitch font?!
+			" GuiFont Arimo for Powerline:h12
+			" GuiFont DejaVu Sans Mono for Powerline:h13
+			" GuiFont Literation Mono Powerline:h12
+			" GuiFont Roboto Mono for Powerline:h13
+			" GuiFont Tinos for Powerline:h12
+
+			" Sluggish unaliased look
+			" GuiFont Droid Sans Mono for Powerline:h12
+			" GuiFont Fira Mono Medium for Powerline:h12
+
+			" A little better look than Droid Sans and Fira
+			" GuiFont monofur for Powerline:h14
+
+			" Unknown font
+			" GuiFont Ubuntu Mono derivative Powerline:h12
+		endif
+	endif
+
+	" Disable Background Color Erase (BCE) so that color schemes {{{2
+	" render properly when inside 256-color tmux and GNU screen.
+	" if &term =~ '256color'
+	"   set t_ut=
+	" endif
 endif
-
-call cw#SetColors()
 
 "}}}1
 
+call cw#SetColors()
+
 " Autocommands {{{1
 if has("autocmd")
-  " augroup leave_insert_mode " {{{2 [ disabled ]
-  "   au!
-  "   autocmd FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>") | :wa
-  " augroup END
-  augroup auto_save_and_read " {{{2
-    autocmd!
-    autocmd FocusLost * silent! wall
-    " autocmd TextChanged,InsertLeave,FocusLost * silent! wall
-    autocmd CursorHold * silent! checktime
-  augroup END
-  " PHP_stuff {{{2
-  function! SetClosetagPHP()
-    if exists('g:closetag_filenames')
-      let g:closetag_filenames.= ",*.php,*.tpl"
-    endif
-  endfunction
+	" augroup leave_insert_mode " {{{2 [ disabled ]
+	"   au!
+	"   autocmd FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>") | :wa
+	" augroup END
+	augroup auto_save_and_read " {{{2
+		autocmd!
+		autocmd FocusLost * silent! wall
+		" autocmd TextChanged,InsertLeave,FocusLost * silent! wall
+		autocmd CursorHold * silent! checktime
+	augroup END
 
-  augroup PHP_stuff
-    autocmd!
-    autocmd FileType php,smarty,tpl call SetClosetagPHP()
-    autocmd FileType smarty,tpl setlocal commentstring=<!--\ %s\ -->
-  augroup END
-  augroup indent_tag " {{{2 for html, jango and jinja
-    au!
-    au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>= Vat=
-  augroup end
+	" PHP_stuff {{{2
+	function! SetClosetagPHP()
+		if exists('g:closetag_filenames')
+			let g:closetag_filenames.= ",*.php,*.tpl"
+		endif
+	endfunction
 
-  augroup statusline_tab_warning " {{{2
-    autocmd!
-    "recalculate the tab warning flag when idle and after writing
-    autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
-    "recalculate the trailing whitespace warning when idle, and after saving
-    autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
-  augroup end
-  augroup active_relative_number " {{{2
-    autocmd!
-    autocmd WinEnter * :setlocal number relativenumber
-    autocmd WinLeave * :setlocal norelativenumber
-  augroup END
-  augroup reload_vimrc " {{{2
-    autocmd!
-    autocmd BufWritePost [_.g]\\\{-\}vimrc,init.vim nested source $MYVIMRC | echo 'vimrc reloaded'
-    " autocmd bufwritepost _vimrc,init.vim,vimrc nested source $MYVIMRC
-    " Alternative, not working very well, so disabled:
-    " autocmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC
-    " autocmd bufwritepost $HOME/_vimrc execute "normal! :source ~/_vimrc"
-  augroup END
-  augroup Python_skeleton "{{{2
-    autocmd!
-    autocmd BufNewFile *.py[w]\\\{-\} call cw#SkeletonPY()
-  augroup END
-  " Return to last edit position when opening files (You want this!) {{{2
-  augroup thaw_file
-    autocmd!
+	augroup PHP_stuff
+		autocmd!
+		autocmd FileType php,smarty,tpl call SetClosetagPHP()
+		autocmd FileType smarty,tpl setlocal commentstring=<!--\ %s\ -->
+	augroup END
+	augroup indent_tag " {{{2 for html, jango and jinja
+		au!
+		au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>= Vat=
+	augroup end
 
-    autocmd BufReadPost *
-          \ if line("'\"") > 0 && line("'\"") <= line("$") |
-          \ exe "normal! g`\"" |
-          \ endif
-  augroup END
-  " Remember info about open buffers on close
-  set viminfo^=%
+	augroup statusline_tab_warning " {{{2
+		autocmd!
+		"recalculate the tab warning flag when idle and after writing
+		autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
+		"recalculate the trailing whitespace warning when idle, and after saving
+		autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
+	augroup end
 
-  " modal cursor {{{2
-  augroup modal_cursor
-    au!
-    au ColorScheme * call cw#SetModalCursor()
-  augroup END
+	augroup active_relative_number " {{{2
+		autocmd!
+		autocmd WinEnter * :setlocal number relativenumber
+		autocmd WinLeave * :setlocal norelativenumber
+	augroup END
+
+	augroup reload_vimrc " {{{2
+		autocmd!
+		autocmd BufWritePost [_.g]\\\{-\}vimrc,init.vim nested source $MYVIMRC | echo 'vimrc reloaded'
+		" autocmd bufwritepost _vimrc,init.vim,vimrc nested source $MYVIMRC
+		" Alternative, not working very well, so disabled:
+		" autocmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC
+		" autocmd bufwritepost $HOME/_vimrc execute "normal! :source ~/_vimrc"
+	augroup END
+	augroup Python_skeleton "{{{2
+		autocmd!
+		autocmd BufNewFile *.py[w]\\\{-\} call cw#SkeletonPY()
+	augroup END
+
+	" Return to last edit position when opening files (You want this!) {{{2
+	augroup thaw_file
+		autocmd!
+
+		autocmd BufReadPost *
+					\ if line("'\"") > 0 && line("'\"") <= line("$") |
+					\ exe "normal! g`\"" |
+					\ endif
+	augroup END
+	" Remember info about open buffers on close
+	set viminfo^=%
+
+	" modal cursor {{{2
+	augroup modal_cursor
+		au!
+		au ColorScheme * call cw#SetModalCursor()
+	augroup END
 
 endif " }}}1
+" grepprg, ag, rg & ctrlp {{{ "
 
 if g:is.prostor
-  " because 'home' doesn't have ripgrep
-  if executable("rg")
-    set grepprg=rg\ --vimgrep\ --color=never
-    " \ --smartcase
-    let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-    let g:ctrlp_use_caching = 0
-  endif
+	" because 'home' doesn't have ripgrep
+	if executable("rg")
+		set grepprg=rg\ --vimgrep\ --color=never
+		" \ --smartcase
+		let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+		let g:ctrlp_use_caching = 0
+	endif
 else
-  if executable("ag")
-    set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --vimgrep
-    set grepformat^=%f:%l:%c:%m
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    if g:is.windows
-      " fix for windows:
-      let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
-    endif
-    let g:ctrlp_use_caching = 0
-  endif
+	if executable("ag")
+		set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --vimgrep
+		set grepformat^=%f:%l:%c:%m
+		let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+		if g:is.windows
+			" fix for windows:
+			let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
+		endif
+		let g:ctrlp_use_caching = 0
+	endif
 endif
+
+" }}} grepprg, ag, rg & ctrlp "

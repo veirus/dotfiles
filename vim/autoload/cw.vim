@@ -377,7 +377,7 @@ function! cw#SetModalCursor()
   " http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
   " https://github.com/blaenk/dots/blob/9843177fa6155e843eb9e84225f458cd0205c969/vim/vimrc.ln#L49-L64
   set gcr=a:block
- 
+
   " mode aware cursors
   set gcr+=o:hor50-Cursor
   set gcr+=n:Cursor

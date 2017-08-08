@@ -1,5 +1,47 @@
-" == unused == {{{2
+" == unused ==
+" old {{{1
+Plug 'junegunn/rainbow_parentheses.vim' " doesn't work?
 
+Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind'] } " {{{3
+if isdirectory($HOMEDIR."/plugged/nerdtree")
+  nnoremap <F2> :NERDTreeToggle<CR>
+  nnoremap <leader><F2> :NERDTreeFind<CR>
+  " map <C-e> <plug>NERDTreeTabsToggle<CR>
+  let g:NERDShutUp=1
+  let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+  let NERDTreeChDirMode=0
+  let NERDTreeMouseMode=2
+  let NERDTreeQuitOnOpen=1
+  let NERDTreeShowHidden=1
+  let NERDTreeShowBookmarks=1
+  let NERDTreeShowLineNumbers=1
+  let NERDTreeKeepTreeInNewTab=1
+  let g:nerdtree_tabs_open_on_gui_startup=0
+endif "}}}3
+
+Plug 'Shougo/neocomplete' " {{{3
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
+let g:neosnippet#enable_snipmate_compatibility=1
+
+" == Snipmate and dependencies == {{{3
+lug 'MarcWeber/vim-addon-mw-utils'
+lug 'tomtom/tlib_vim'
+lug 'garbas/vim-snipmate'
+
+Plug 'ervandew/supertab' " {{{3
+set completeopt=longest,menuone
+let g:SuperTabDefaultCompletionType = "context"
+" }}}3
+
+Plug 'lokaltog/vim-easymotion'
+Plug 'critiqjo/vim-bufferline'
+Plug 'itchyny/lightline.vim'
+Plug 'skammer/vim-css-color'
+Plug 'tomtom/tcomment_vim'
+Plug 'vim-scripts/Colour-Sampler-Pack'
+"}}}1
 "------------------------------
 Plug 'konfekt/fastfold'
 nmap zuz <Plug>(FastFoldUpdate)
