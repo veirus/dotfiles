@@ -92,8 +92,8 @@ runtime b\new.vim
 runtime b\old.vim
 runtime b\colors.vim
 runtime b\async.vim
-runtime b\lightline.vim
-" runtime b\statusline.vim
+" runtime b\lightline.vim
+runtime b\statusline.vim
 " runtime b\airline.vim
 " b\unused.vim
 call plug#end() " required }}}1
