@@ -20,6 +20,7 @@ set statusline+=\ %*
 "display a warning if &et is wrong, or we have mixed-indenting
 set statusline+=%#error#
 set statusline+=%{ALEGetStatusLine()}
+set statusline+=%#incsearch#
 set statusline+=%{cw#StatuslineTabWarning()}
 set statusline+=%{cw#StatuslineTrailingSpaceWarning()}
 set statusline+=%{gutentags#statusline()}
