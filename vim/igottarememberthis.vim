@@ -147,37 +147,37 @@ set statusline+=\ %2p%%\ %*
 " https://github.com/ahmedelgabri/dotfiles/blob/c4f40c27b295ecfb7673bd29d373cab26b93379b/vim/vimrc.local
 
 let g:currentmode={
-	\ 'n'  : 'N ',
-	\ 'no' : 'N·Operator Pending ',
-	\ 'v'  : 'V ',
-	\ 'V'  : 'V·Line ',
-	\ '^V' : 'V·Block ',
-	\ 's'  : 'Select ',
-	\ 'S'  : 'S·Line ',
-	\ '^S' : 'S·Block ',
-	\ 'i'  : 'I ',
-	\ 'R'  : 'R ',
-	\ 'Rv' : 'V·Replace ',
-	\ 'c'  : 'Command ',
-	\ 'cv' : 'Vim Ex ',
-	\ 'ce' : 'Ex ',
-	\ 'r'  : 'Prompt ',
-	\ 'rm' : 'More ',
-	\ 'r?' : 'Confirm ',
-	\ '!'  : 'Shell ',
+    \ 'n'  : 'N ',
+    \ 'no' : 'N·Operator Pending ',
+    \ 'v'  : 'V ',
+    \ 'V'  : 'V·Line ',
+    \ '^V' : 'V·Block ',
+    \ 's'  : 'Select ',
+    \ 'S'  : 'S·Line ',
+    \ '^S' : 'S·Block ',
+    \ 'i'  : 'I ',
+    \ 'R'  : 'R ',
+    \ 'Rv' : 'V·Replace ',
+    \ 'c'  : 'Command ',
+    \ 'cv' : 'Vim Ex ',
+    \ 'ce' : 'Ex ',
+    \ 'r'  : 'Prompt ',
+    \ 'rm' : 'More ',
+    \ 'r?' : 'Confirm ',
+    \ '!'  : 'Shell ',
   \ 't'  : 'Terminal '
-	\}
+    \}
 
 " Automatically change the statusline color depending on mode
 function! ChangeStatuslineColor()
   if (mode() =~# '\v(n|no)')
-	exe 'hi! StatusLine ctermfg=008 guifg=RoyalBlue2 guibg=fg'
+    exe 'hi! StatusLine ctermfg=008 guifg=RoyalBlue2 guibg=fg'
   elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
-	exe 'hi! StatusLine ctermfg=005 guifg=goldenrod2 guibg=bg'
+    exe 'hi! StatusLine ctermfg=005 guifg=goldenrod2 guibg=bg'
   elseif (mode() ==# 'i')
-	exe 'hi! StatusLine ctermfg=004 guifg=chartreuse3 guibg=bg'
+    exe 'hi! StatusLine ctermfg=004 guifg=chartreuse3 guibg=bg'
   else
-	exe 'hi! StatusLine ctermfg=006 guifg=lavender guibg=bg'
+    exe 'hi! StatusLine ctermfg=006 guifg=lavender guibg=bg'
   endif
 
   return ''
@@ -185,32 +185,32 @@ endfunction
 
 " Find out current buffer's size and output it.
 function! FileSize()
-	let bytes = getfsize(expand('%:p'))
-	if (bytes >= 1024)
-		let kbytes = bytes / 1024
-	endif
-	if (exists('kbytes') && kbytes >= 1000)
-		let mbytes = kbytes / 1000
-	endif
+    let bytes = getfsize(expand('%:p'))
+    if (bytes >= 1024)
+        let kbytes = bytes / 1024
+    endif
+    if (exists('kbytes') && kbytes >= 1000)
+        let mbytes = kbytes / 1000
+    endif
 
-	if bytes <= 0
-		return '0'
-	endif
+    if bytes <= 0
+        return '0'
+    endif
 
-	if (exists('mbytes'))
-		return mbytes . 'MB '
-	elseif (exists('kbytes'))
-		return kbytes . 'KB '
-	else
-		return bytes . 'B '
-	endif
+    if (exists('mbytes'))
+        return mbytes . 'MB '
+    elseif (exists('kbytes'))
+        return kbytes . 'KB '
+    else
+        return bytes . 'B '
+    endif
 endfunction
 
 function! ReadOnly()
   if &readonly || !&modifiable
-	return ''
+    return ''
   else
-	return ''
+    return ''
 endfunction
 
 hi User1 ctermfg=007
@@ -459,7 +459,7 @@ endif
 " }}}
 " ========================================
 " http://freneticarray.com/quick-compile-in-vim/ {{{
-function! MakeIfAvailable()  
+function! MakeIfAvailable()
 if filereadable("./makefile")
     make
 elseif (&filetype == "cpp")
@@ -502,6 +502,23 @@ nnoremap <Leader>mm :w <BAR> !lessc % > %:t:r.css<CR><space>
 " ========================================
 " Easier formatting
 nnoremap <silent> <leader>q gwip
+nnoremap <silent> <leader>fq :call cw#Preserve("normal gwip")<CR>
+" ========================================
+" Meta keys test {{{1
+" works in terminal:
+map <M-F5> :echo 'whoa f5'<cr>
+" ==============================
+" doesn't work in terminal:
+map <silent> <M-1> :echo 'whoa1'<cr>
+map <M-`> :echo 'cool!'<cr>
+map <M-space> :echo 'lol i can map it'<cr>
+nnoremap <C-@> :echo 'heyheyhey'<cr>
+map <C-k5> :echo 'yup:c5'<cr>
+" =============== }}}1
+" ========================================
+" Browse current dir
+" ( Actually pretty useful, but i'm currently on dirvish )
+nnoremap <silent> <F11> :silent edit <C-R>=empty(expand('%')) ? '.' : fnameescape(expand('%:p:h'))<CR><CR>
 " ========================================
 " buffer killer: open next and kill previous {{{1
 nnoremap <leader>q :bn<bar>sp<bar>bp<bar>bd<cr>
@@ -513,6 +530,8 @@ nnoremap <leader>Q :b#<bar>bd#<cr>
 " ========================================
 " consistent menu navigation
 " https://github.com/jasonlong/dotfiles/blob/master/vimrc
+inoremap <C-j> <C-n>
+inoremap <C-k> <C-p>
 " ========================================
 " open previous buffer and kill next {{{
 nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
@@ -521,7 +540,7 @@ nnoremap <leader>Q :b#<bar>bd#<cr>
 " }}}
 " ========================================
 " from Konfekt's leader key post {{{
-" not as useful as emacs binding as it appears
+" not as useful as "emacs" binding as it appears
 nnoremap : ,
 nnoremap , :
 " }}}
@@ -536,4 +555,9 @@ if exists('g:colors_name') && g:colors_name ==# 'dracula'
 endif
 " }}}2
 " }}}
+" ========================================
+" URL opening, uses 100500 plugins :\ {{{1
+" https://sts10.github.io/blog/2016/02/16/one-solution-to-a-problem-with-vims-gx-command/
+nnoremap <silent> gx :normal viugx<CR>
+" }}}1
 " ========================================

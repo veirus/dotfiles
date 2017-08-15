@@ -1,5 +1,6 @@
 " vim:set noet sts=4 sw=4 ts=4 tw=78 fdm=marker fdl=1:
 " THIS IS CHAOS!!1
+" My problem is that i really like ✨#Sugar 🍬...
 "=================================
 " I -- IMPORTANT -- {{{2
 "=================================
@@ -13,7 +14,6 @@ inoremap <C-U> <C-G>u<C-U>
 " still undecided, it seems i can live with nothing...
 inoremap <C-l> <right>
 " okay, ↑ this ↑ is pretty crucial
-
 
 " = Moving around = {{{3
 " Easier horizontal scrolling
@@ -64,7 +64,7 @@ nnoremap gh H
 
 " Yank and Paste {{{3
 " easy paste
-inoremap <C-q> <C-r><C-p>+
+inoremap <C-v> <C-r><C-p>+
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
 " fast copy-paste
@@ -77,9 +77,7 @@ noremap <leader>P :set paste<cr>"+[p:set nopaste<cr>
 " toggle paste
 noremap <F12> :setl invpaste<CR><bar>:set paste?<CR>
 
-" URL opening, uses 100500 plugins :\ {{{3
-" https://sts10.github.io/blog/2016/02/16/one-solution-to-a-problem-with-vims-gx-command/
-" nnoremap <silent> gx :normal viugx<CR>
+" URL opening, uses plugin {{{3
 nmap gk <Plug>(openbrowser-smart-search)
 vmap gk <Plug>(openbrowser-smart-search)
 
@@ -158,7 +156,7 @@ nnoremap <M-g> :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 " toggle little nifty symbols
 nnoremap <leader><BS> :set list! list?<cr>
 
-" <F#> keys: {{{3
+" <F > keys: {{{3
 " Word-wrap toggle
 nnoremap <F6> :setl wrap!<bar>:set wrap?<CR>
 imap <F6> <C-O><F6>
@@ -233,7 +231,7 @@ endif
 "  III -- Rare -- {{{2
 "=================================
 
-" = WTF?!! = {{{2
+" = WTF?!! = {{{3
 " aka "I don't even know what the fuck it is for or how it get into my config"
 xnoremap @ :<C-u>call cw#ExecuteMacroOverVisualRange()<CR>
 
@@ -242,7 +240,7 @@ inoremap <M-space> <C-R>=UltiSnips#ExpandSnippet()<CR>
 " Substitute
 nnoremap <c-s> :s/
 nnoremap <M-s> :%s/
-vnoremap <c-s> :s/
+xnoremap <c-s> :s/
 
 " echo highligting groups
 nnoremap <F7> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -261,13 +259,6 @@ nnoremap <C-@> :echo 'heyheyhey'<cr>
 map <C-k5> :echo 'yup:c5'<cr>
 
 " =============== }}}3
-
-" from Konfekt's leader key post
-" nnoremap : ,
-" nnoremap , :
-
-" Easier formatting
-nnoremap <silent> <leader>fq :call cw#Preserve("normal gwip")<CR>
 
 " }}}2 /wtf...
 "
@@ -294,12 +285,8 @@ if maparg('<BACKSPACE>', 'n') ==# ''
 	nnoremap <silent> <BACKSPACE> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><BACKSPACE>
 endif
 
-
 " Display all lines with keyword under cursor and ask which one to jump to
 " NOTE: this is quite nifty really
 nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-
-" Browse current dir
-nnoremap <silent> <F11> :silent edit <C-R>=empty(expand('%')) ? '.' : fnameescape(expand('%:p:h'))<CR><CR>
 "}}}2
 "=================================
