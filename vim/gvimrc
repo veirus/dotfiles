@@ -13,7 +13,7 @@ elseif g:is.wingui
   menu Кодировка.cp866 :e ++enc=cp866<CR>
   menu Кодировка.koi8-r :e ++enc=koi8-r<CR>
 endif
-" currently is go=gmtch
+" currently is guioptions=gmtch
 if g:is.conemu
   set guioptions+=h
   set guioptions-=b

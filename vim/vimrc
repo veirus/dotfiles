@@ -92,8 +92,8 @@ runtime b\new.vim
 runtime b\old.vim
 runtime b\colors.vim
 runtime b\async.vim
-" runtime b\lightline.vim
 runtime b\statusline.vim
+" runtime b\lightline.vim
 " runtime b\airline.vim
 " b\unused.vim
 call plug#end() " required }}}1
@@ -169,9 +169,12 @@ set ignorecase                                       " Case insensitive search
 " set infercase                                        " https://bluz71.github.io/2017/05/15/vim-tips-tricks.html
 set smartcase                                        " Case sensitive when uc present
 set wildmenu                                         " Show list instead of just completing
+set wildcharm=<C-z>
 set wildmode=list:longest,full                       " Command <Tab> completion, list matches, then longest common part, then all.
 set wildignore+=node_modules/**,*/.git/*,*/tmp/*,*.swp
 set foldenable                                       " Auto fold code
+
+set guicursor+=a:blinkon0
 
 set list
 set listchars=tab:│\ ,eol:¬,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
@@ -336,11 +339,11 @@ if has("autocmd")
 	" Remember info about open buffers on close
 	set viminfo^=%
 
-	" modal cursor {{{2
-	augroup modal_cursor
-		au!
-		au ColorScheme * call cw#SetModalCursor()
-	augroup END
+	" modal cursor {{{2 [disabled] [possible slowdown] [flickering]
+	" augroup modal_cursor
+	" 	au!
+	" 	au ColorScheme * call cw#SetModalCursor()
+	" augroup END
 
 endif " }}}1
 " grepprg, ag, rg & ctrlp {{{ "
