@@ -1,4 +1,5 @@
 " == new stuff == {{{2
+Plug 'moll/vim-bbye'
 Plug 'jpalardy/vim-slime'
 	let g:slime_target = "conemu"
 Plug 'justinmk/vim-gtfo'
