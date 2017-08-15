@@ -12,7 +12,7 @@ inoremap <C-U> <C-G>u<C-U>
 " = #icantlivewithoutyou = {{{3
 " still undecided, it seems i can live with nothing...
 inoremap <C-l> <right>
-" okay, ↑ this is pretty crucial
+" okay, ↑ this ↑ is pretty crucial
 
 
 " = Moving around = {{{3
@@ -48,6 +48,8 @@ nnoremap <c-o> <c-o>zz
 
 " Comfortable parenthesis jumping
 map <M-a> %
+" Q is free since *closewindoworbuffer* is disabled
+map Q %
 
 " Extremely comfortable traveling to the line ends
 " Indipensible in the combos
@@ -175,7 +177,7 @@ nnoremap <leader><leader> <C-^>
 " window killer
 " doesn't do what i actually may want:
 " nnoremap <silent> Q :call cw#CloseWindowOrKillBuffer()<cr>
-nnoremap <Leader>q :Bdelete<CR>
+nnoremap <leader>q :Bdelete<CR>
 
 " windows {{{3
 nnoremap <leader>= <C-w>=
