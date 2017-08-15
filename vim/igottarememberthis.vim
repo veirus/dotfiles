@@ -503,6 +503,14 @@ nnoremap <Leader>mm :w <BAR> !lessc % > %:t:r.css<CR><space>
 " Easier formatting
 nnoremap <silent> <leader>q gwip
 " ========================================
+" buffer killer: open next and kill previous {{{1
+nnoremap <leader>q :bn<bar>sp<bar>bp<bar>bd<cr>
+" much simpler version than above (requires at least 2 buffers)
+nnoremap <leader>q :b#\|bd#<CR>
+" also can be written like this:
+nnoremap <leader>Q :b#<bar>bd#<cr>
+" }}}1
+" ========================================
 " consistent menu navigation
 " https://github.com/jasonlong/dotfiles/blob/master/vimrc
 " ========================================
