@@ -1,5 +1,5 @@
 " vim:set noet sts=4 sw=4 ts=4 tw=78 fdm=marker fdl=1:
-" Mappings {{{1 THIS IS CHAOS!!1
+" THIS IS CHAOS!!1
 "=================================
 " I -- IMPORTANT -- {{{2
 "=================================
@@ -173,12 +173,9 @@ nnoremap <leader>d :ls<CR>:bd<space>
 nnoremap <leader><leader> <C-^>
 
 " window killer
-nnoremap <silent> Q :call cw#CloseWindowOrKillBuffer()<cr>
-" buffer killer: open next and kill previous
-" nnoremap <leader>q :bn<bar>sp<bar>bp<bar>bd<cr>
-" much simpler version than above (requires at least 2 buffers)
-nnoremap <leader>bd :b#\|bd#<CR>
-" nnoremap <leader>Q :b#<bar>bd#<cr>
+" doesn't do what i actually may want:
+" nnoremap <silent> Q :call cw#CloseWindowOrKillBuffer()<cr>
+nnoremap <Leader>q :Bdelete<CR>
 
 " windows {{{3
 nnoremap <leader>= <C-w>=
@@ -304,4 +301,3 @@ nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<C
 nnoremap <silent> <F11> :silent edit <C-R>=empty(expand('%')) ? '.' : fnameescape(expand('%:p:h'))<CR><CR>
 "}}}2
 "=================================
-" }}}1
