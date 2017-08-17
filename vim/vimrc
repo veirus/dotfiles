@@ -216,7 +216,7 @@ if !g:is.gui
 		let &t_AB="\e[48;5;%dm"
 		let &t_AF="\e[38;5;%dm"
 
-		" neovim {{{2
+	" neovim {{{2
 	elseif g:is.nvim
 		" let s:editor_root=expand("~/AppData/Local/nvim")
 		let g:python_host_prog = 'D:/env/neovim/2/Scripts/python.exe'
