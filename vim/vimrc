@@ -1,5 +1,4 @@
-" vim: tw=80 fdl=1 fdm=marker:
-" ===================================================
+" vim: set fdl=1 fdm=marker:
 " Be Improved {{{2
 " romainl says it's useless...
 if &cp | set nocp | endif
@@ -17,7 +16,7 @@ endif
 " ========================================
 " mapleader {{{2
 let mapleader    = "\<space>"
-let g:mapleader  = "\<space>" " why there's a second one?
+" let g:mapleader  = "\<space>" " why there's a second one?
 " ========================================
 " ENV detect and colors {{{2
 let g:is = {
@@ -52,27 +51,22 @@ set nobackup                " Отключить создание файлов �
 set nowritebackup
 set noswapfile              " и свапа
 set history=1000
-set sessionoptions-=options " do not store all options and mappings (also
-" global values for local options)
-" let s:plugs = 'pack/plug/opt' " can't really disable colorschemes
-let s:plugs = 'bundle'
-let s:plugdir = expand($DOTVIMDIR.'/'.s:plugs)
+set sessionoptions-=options " do not store all options and mappings (also global values for local options)
 set backupdir=$DOTVIMDIR/backups
 set directory=$DOTVIMDIR/swap
 set undodir=$DOTVIMDIR/undo
+let s:plugdir = expand($DOTVIMDIR.'/bundle')
 if !g:is.nvim
 	set viminfo+=n$DOTVIMDIR/swap/viminfo
 endif
 " Make those folders automatically if they don't already exist.
-if !isdirectory(expand(&undodir))
-	call mkdir(expand(&undodir), "p")
-endif
-if !isdirectory(expand(&backupdir))
-	call mkdir(expand(&backupdir), "p")
-endif
-if !isdirectory(expand(&directory))
-	call mkdir(expand(&directory), "p")
-endif
+for i in [&undodir, &backupdir, &directory, s:plugdir]
+	let s:e = expand(i)
+	if !isdirectory(s:e)
+		call mkdir(s:e, "p")
+	endif
+	unlet i s:e
+endfor
 " ========================================
 " clipboard {{{2
 if has('clipboard')
