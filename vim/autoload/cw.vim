@@ -348,9 +348,9 @@ function! cw#ReadOnly()
     echo "@".getcmdline()
     execute ":'<,'>normal @".nr2char(getchar())
   endfunction
-  "}}}2
-  " Set Random Colorscheme func {{{2
-  function! cw#SetRandomColors()
+
+  " Get Colorscheme Names {{{2
+  function cw#GetColorsNames()
     if !exists('g:mycolors')
       " echo "* Fetching colorschemes..."
       " let g:mycolors = split(globpath(&rtp,"**/colors/*.vim"),"\n")
@@ -361,17 +361,36 @@ function! cw#ReadOnly()
       endfor
       let g:mycolors = sort(keys(matches), 1)
     endif
-    exe 'colorscheme ' . g:mycolors[localtime() % len(g:mycolors)]
-    " unlet s:mycolors
-    call cw#SetModalCursor()
-    redraw
-    " echo "* color: " g:colors_name
+    return g:mycolors
+  endfunction
+
+  " Get Random Colorscheme Name {{{2
+  function! cw#GetRandomColors()
+    if !exists('g:mycolors')
+      call cw#GetColorsNames()
+    endif
+    let s:randcl = g:mycolors[localtime() % len(g:mycolors)]
+    return s:randcl
+  endfunction
+
+  " Set Window Title {{{2
+  function! cw#SetGvimTitle()
     if has('title')
       set titlelen=99
       set titlestring=%t%(\ %M%)\ -%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{g:colors_name}
       " set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)\ -\ %{g:colors_name} titlelen=99
     endif
   endfunction
+
+  " Set Random Colorscheme Name {{{2
+  function! cw#SetRandomColors()
+    let s:color = cw#GetRandomColors()
+    exe 'colorscheme ' . s:color
+    call cw#SetGvimTitle()
+    redraw
+    echo "* color: " g:colors_name
+  endfunction
+
   " Enforce highlighting for Mode aware cursor hack {{{2
   function! cw#SetModalCursor()
     " http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
