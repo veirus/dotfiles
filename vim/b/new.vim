@@ -1,4 +1,5 @@
 " == new stuff == {{{2
+Plug 'vim-scripts/renamer.vim'
 Plug 'moll/vim-bbye'
 Plug 'jpalardy/vim-slime'
 	let g:slime_target = "conemu"

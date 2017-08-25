@@ -1,4 +1,4 @@
-" vim: tw=80 fdl=1 fdm=marker:
+" vim: set fdl=1 fdm=marker:
 let s:mycolor = 'Tomorrow'
 " Be Improved {{{2
 if &cp | set nocp | endif
@@ -64,11 +64,11 @@ if !g:is.nvim
 endif
 " Make those folders automatically if they don't already exist.
 for i in [&undodir, &backupdir, &directory, s:plugdir]
-	let e = expand(i)
-	if !isdirectory(e)
-		call mkdir(e, "p")
+	let s:e = expand(i)
+	if !isdirectory(s:e)
+		call mkdir(s:e, "p")
 	endif
-	unlet i e
+	unlet i s:e
 endfor
 " ========================================
 " clipboard {{{2
