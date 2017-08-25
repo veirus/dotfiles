@@ -195,28 +195,33 @@ map <M--> <C-w>-
 " tabs {{{3
 map <leader>tn :tabnew<CR>
 map <leader>tc :tabclose<CR>
-nnoremap <up> :tabnext<CR>
-nnoremap <down> :tabprev<CR>
+nnoremap <leader>tl :tabnext<CR>
+nnoremap <leader>th :tabprev<CR>
 
-" formatting
+" formatting {{{3
+" stylus exclusive: remove all semicolons
 nmap <leader>f; :call cw#Preserve("%s/;\$//g")<CR>
+
 nmap <leader>f= :call cw#Preserve("normal gg=G")<CR>
 nmap <leader>f4 :call cw#Preserve("%s/\\s\\+$//e")<CR>
-nmap <expr> <leader>f5 ':%s/' . @/ . '//g<LEFT><LEFT>'
 nmap <expr> <leader>f3 ':%s///g<LEFT><LEFT><LEFT>'
+nmap <expr> <leader>f5 ':%s/' . @/ . '//g<LEFT><LEFT>'
+nmap <leader>f6 :%s/<c-r><c-a>//g<LEFT><LEFT>
+vmap <leader>f6 y:%s`<c-r>0``g<left><left>
 nmap <expr> <F3> ':g//#<LEFT><LEFT>'
 vmap <leader>s :sort<cr>
 
-" folds {{{3
+" folds {{{3 - folds are awesome
 nnoremap zr zr:echo 'foldlevel: ' . &foldlevel<cr>
 nnoremap zm zm:echo 'foldlevel: ' . &foldlevel<cr>
 nnoremap zR zR:echo 'foldlevel: ' . &foldlevel<cr>
 nnoremap zM zM:echo 'foldlevel: ' . &foldlevel<cr>
-" show me only THIS fold #icantlivewithoutthis
+" *almost* the same:
+nnoremap zx zxzz
 nnoremap <leader>z zMzvzz
-" too radikal4me!!1
-" nnoremap zj :<C-u>silent! normal! zc<CR>zjzo
-" nnoremap zk :<C-u>silent! normal! zc<CR>zkzo[z
+" buggy with multiple fold levels
+nnoremap z] :<C-u>silent! normal! zc<CR>zjzo
+nnoremap z[ :<C-u>silent! normal! zc<CR>zkzo[z
 " }}}3
 " = language switching = {{{3
 nmap <M-z> a<C-^><Esc>

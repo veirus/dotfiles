@@ -56,9 +56,9 @@ set sessionoptions-=options " do not store all options and mappings (also
 " let s:plugs = 'pack/plug/opt' " can't really disable colorschemes
 let s:plugs = 'bundle'
 let s:plugdir = expand($DOTVIMDIR.'/'.s:plugs)
-set backupdir=$DOTVIMDIR/backups
-set directory=$DOTVIMDIR/swap
-set undodir=$DOTVIMDIR/undo
+set backupdir=$DOTVIMDIR/backups//
+set directory=$DOTVIMDIR/swap//
+set undodir=$DOTVIMDIR/undo//
 if !g:is.nvim
 	set viminfo+=n$DOTVIMDIR/swap/viminfo
 endif
@@ -371,3 +371,4 @@ else
 endif
 
 " }}} grepprg, ag, rg & ctrlp "
+map g. @:
