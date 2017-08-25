@@ -12,13 +12,6 @@ augroup css_complete
 	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 augroup END
 
-" [ vim 8 syntax | ctrlp-swoop ] {{{3
-" Plug 'vim-jp/syntax-vim-ex' " for vim 8.0 syntax
-" Plug 'mattn/ctrlp-swoop'
-
-" 2017-06-23 [ md todo ] {{{3
-Plug 'rlue/vim-getting-things-down'
-
 " 2017-06-22 [ splitjoin ] {{{3
 Plug 'AndrewRadev/splitjoin.vim'
 	let g:splitjoin_split_mapping = 'cx'
@@ -30,7 +23,7 @@ Plug 'osyo-manga/vim-agrep'
 
 " 2017-05-23 [ gutentags ] {{{3
 Plug 'ludovicchabant/vim-gutentags'
-  let g:gutentags_ctags_exclude=['node_modules']
+	let g:gutentags_ctags_exclude=['node_modules']
 
 " 2017-05-17 [supertab] {{{3
 Plug 'ervandew/supertab'
@@ -39,9 +32,6 @@ Plug 'ervandew/supertab'
 Plug 'takac/vim-hardtime'
 	nnoremap <leader><F1> <Esc>:HardTimeToggle<CR>
 	let g:hardtime_ignore_quickfix = 1
-
-" 2017-02-22 [ showmap ] {{{3
-" Plug 'fcpg/vim-showmap'
 
 " 2017-02-06 [ ale ] {{{3
 Plug 'w0rp/ale'

@@ -1,4 +1,11 @@
 " == unused ==
+" 2017-02-22 [ showmap ] {{{3
+Plug 'fcpg/vim-showmap'
+
+" [ vim 8 syntax | ctrlp-swoop ] {{{3
+Plug 'vim-jp/syntax-vim-ex' " for vim 8.0 syntax
+Plug 'mattn/ctrlp-swoop'
+
 " old {{{1
 Plug 'junegunn/rainbow_parentheses.vim' " doesn't work?
 

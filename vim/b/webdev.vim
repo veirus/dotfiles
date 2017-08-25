@@ -5,32 +5,6 @@ Plug 'sheerun/vim-polyglot'
 
 " 2017-06-26 [ php indenting ] {{{3
 Plug '2072/PHP-Indenting-for-VIm'
-
-" Emmet {{{3
-let emmetlist = ['html','smarty','pug','php','xml','xsl','xslt','xsd','css',
-      \ 'sass','scss','less','styl','stylus','mustache','handlebars']
-Plug 'mattn/emmet-vim', {'for': emmetlist }
-let g:user_emmet_settings = {
-      \ 'php': {
-      \     'snippets': {
-      \         'php':  "<?php |; ?>",
-      \         'tf':   "<?php the_field('|', 'options'); ?>",
-      \         'tsf':  "<?php the_sub_field('|'); ?>",
-      \         'if':   "<?php if(|${child}): ?>",
-      \         'hr':   "<?php if( have_rows('${cursor}', 'option') ): ?>\n\t<?php while( have_rows('${cursor}', 'option')): the_row(); ?>\n\t${2}\n\t<?php endwhile; ?>\n<?php endif; ?>",
-      \         'els':  "<?php elseif(|): ?>",
-      \         'wh':   "<?php while(|${child}): ?>",
-      \         'ei':   "<?php endif; ?>",
-      \         'ew':   "<?php endwhile; ?>",
-      \         'echo': "<?php echo |; ?>",
-      \         },
-      \     },
-      \ }
-let g:user_emmet_leader_key = '\'
-" autocmd FileType stylus,html,css,less,sass,scss imap <buffer><expr><C-Space> <sid>cw#zen_html_tab()
-autocmd FileType {ht,x,xs}ml,php,pug,s\\\{-\}[ac]ss,less,stylus imap <buffer><expr> <C-Space> emmet#expandAbbrIntelligent("\<C-Space>")
-" autocmd FileType stylus,html,css,less,sass,scss imap <buffer><expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
-"}}}3
 " Replaced with [ poliglot ] {{{3
 " Plug 'othree/html5.vim',       {'for': ['html', 'php', 'tpl']}
 " Plug 'JulesWang/css.vim',      {'for': ['css', 'html', 'scss', 'sass', 'less']}
@@ -67,7 +41,7 @@ Plug 'stephenway/postcss.vim'
 let g:vim_json_syntax_conceal = 0
 " 2017-02-06
 Plug 'ternjs/tern_for_vim', {'for': [ 'js', 'javascript' ]}
-let g:tern_map_keys = 1
+	let g:tern_map_keys = 1
 Plug 'itspriddle/vim-jquery', {'for': [ 'js', 'js.jquery', 'javascript' ]}
 " ---------------
 Plug 'KabbAmine/gulp-vim', {'on': ['Gulp','GulpExt']} " oh wow this is actually usefull!

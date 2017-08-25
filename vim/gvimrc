@@ -1,8 +1,8 @@
-" vim:set et sts=2 sw=2 ts=4 tw=78 ft=vim fdl=1:
+" vim:set tw=80 fdl=1 ft=vim fdl=1 fdm=marker:
 if g:is.macvim
   set guifont=Consolas:h15
 elseif g:is.wingui
-  set guifont=Iosevka_Term:h14:cRUSSIAN:qDRAFT,DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN,Consolas:h12
+  set guifont=mononoki:h14:cRUSSIAN:qDRAFT,Iosevka_Term:h14:cRUSSIAN:qDRAFT,DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN,Consolas:h12
   if &guifont =~? 'powerline'
     let g:airline_powerline_fonts = 1
   endif

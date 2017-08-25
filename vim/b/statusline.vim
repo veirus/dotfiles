@@ -14,7 +14,7 @@ set statusline+=\ \ %{&ft}
 set statusline+=%{&fenc!=?'utf-8'?'\ \ ['.&fenc.']':''}
 set statusline+=%{&ff!=?'unix'?'\ \ ['.&ff.']':''} " Fileformat
 set statusline+=\ \\ %-3(%{cw#FileSize()}%)       " File size
-set statusline+=%8*%3c:%3l/%L
+set statusline+=%7*%3c:%3l/%L
 set statusline+=\ %*
 " ========================================
 "display a warning if &et is wrong, or we have mixed-indenting
@@ -23,10 +23,14 @@ set statusline+=%{ALEGetStatusLine()}
 set statusline+=%#incsearch#
 set statusline+=%{cw#StatuslineTabWarning()}
 set statusline+=%{cw#StatuslineTrailingSpaceWarning()}
-set statusline+=%{gutentags#statusline()}
+set statusline+=%9*%{gutentags#statusline()}
 set statusline+=%*
 
 " from http://twily.info/.vimrc#view {{{2
 " set statusline=\ %{cw#HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
+" highlighting {{{2
+hi User7 term=standout gui=standout
+hi User8 term=bold gui=bold
+hi User9 term=reverse gui=reverse
 " }}}1

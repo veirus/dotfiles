@@ -1,7 +1,6 @@
 " vim: tw=80 fdl=1 fdm=marker:
-" ===================================================
+let s:mycolor = 'Tomorrow'
 " Be Improved {{{2
-" romainl says it's useless...
 if &cp | set nocp | endif
 " ========================================
 " encoding {{{2
@@ -19,7 +18,7 @@ endif
 let mapleader    = "\<space>"
 " let g:mapleader  = "\<space>" " why there's a second one?
 " ========================================
-" ENV detect and colors {{{2
+" ENV detect {{{2
 let g:is = {
 			\ 'windows' : has('win32') || has('win64'),
 			\ 'cygwin'  : has('win32unix'),
@@ -31,12 +30,12 @@ let g:is = {
 			\ 'prostor' : $USERNAME ==? 'oldschool'
 			\ }
 let g:is.wingui = g:is.windows && g:is.gui
-" -- theme assignment --
+" colors {{{2
 let g:cs = {
-			\ 'xterm': 'jellybeans',
-			\ 'nvim':  'molokai',
+			\ 'xterm':  'jellybeans',
+			\ 'nvim':   'molokai',
 			\ 'conemu': 'badwolf',
-			\ 'wingui': g:is.prostor ? 'base16-gruvbox-dark-medium' : 'nova'
+			\ 'wingui': g:is.prostor ? s:mycolor : 'nova'
 			\ }
 " ========================================
 " rtp {{{2 portability shim:
@@ -86,10 +85,12 @@ call plug#begin(s:plugdir)
 runtime b\core.vim
 runtime b\textobj.vim
 runtime b\webdev.vim
+runtime b\emmet.vim
+runtime b\todo.vim
 runtime b\new.vim
 runtime b\old.vim
 runtime b\colors.vim
-runtime b\async.vim
+" runtime b\asynccm.vim
 runtime b\statusline.vim
 " runtime b\lightline.vim
 " runtime b\airline.vim
@@ -127,18 +128,18 @@ set formatoptions+=M
 " set formatoptions-=t           " don't automatically wrap text when typing
 " set formatoptions+=j           " Delete comment character when joining commented lines
 
-set backspace=indent,eol,start " Backspace for dummies
+set backspace=indent,eol,start   " Backspace for dummies
 set nowrap
-set textwidth=0                " Don't automatically insert linebreaks
+" set textwidth=0                " Don't automatically insert linebreaks
 set autoindent
-set shiftround
 set smarttab
 set noexpandtab
 set tabstop=4                  " размер табов
-set softtabstop=4
 set shiftwidth=4               " размер отступов
+set softtabstop=-1             " use shiftwidth value
+set shiftround
 set linebreak
-let &showbreak='▷ '            " Iosevka doesn't has above symbol
+let &showbreak='▷ '            " Iosevka doesn't have above symbol
 if !g:is.prostor
 	let &showbreak='↪ '
 endif
@@ -153,6 +154,7 @@ set cmdheight=2
 set noeb
 set lazyredraw
 set scrolloff=3                                      " Minimum lines to keep above and below cursor
+set sidescrolloff=5
 set scrolljump=5                                     " Lines to scroll when cursor leaves screen
 set shortmess=amroOtT                                " a doesn't add m and r despite what docs says
 set cursorline
@@ -306,11 +308,11 @@ if has("autocmd")
 		autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
 	augroup end
 
-	augroup active_relative_number " {{{2
-		autocmd!
-		autocmd WinEnter * :setlocal number relativenumber
-		autocmd WinLeave * :setlocal norelativenumber
-	augroup END
+	" augroup active_relative_number " {{{2
+	" 	autocmd!
+	" 	autocmd WinEnter * :setlocal number relativenumber
+	" 	autocmd WinLeave * :setlocal norelativenumber
+	" augroup END
 
 	augroup reload_vimrc " {{{2
 		autocmd!
@@ -320,6 +322,7 @@ if has("autocmd")
 		" autocmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC
 		" autocmd bufwritepost $HOME/_vimrc execute "normal! :source ~/_vimrc"
 	augroup END
+
 	augroup Python_skeleton "{{{2
 		autocmd!
 		autocmd BufNewFile *.py[w]\\\{-\} call cw#SkeletonPY()
