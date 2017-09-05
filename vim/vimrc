@@ -1,5 +1,5 @@
 " vim: set fdl=1 fdm=marker:
-let s:mycolor = 'Tomorrow'
+let s:mycolor = 'one'
 " Be Improved {{{2
 if &cp | set nocp | endif
 " ========================================
@@ -95,6 +95,12 @@ runtime b\statusline.vim
 " runtime b\lightline.vim
 " runtime b\airline.vim
 " b\unused.vim
+" ===========================================
+" *** links to mappings for quick access: ***
+" ===========================================
+" plugin\maps\chaos.vim
+" plugin\maps\command.vim
+" ===========================================
 call plug#end() " required }}}1
 " General {{{2
 " scriptencoding utf-8

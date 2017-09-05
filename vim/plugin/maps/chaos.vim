@@ -295,3 +295,6 @@ endif
 nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 "}}}2
 "=================================
+" new {{{
+nnoremap <leader>B :s/{/}/g<CR>
+" new }}}
