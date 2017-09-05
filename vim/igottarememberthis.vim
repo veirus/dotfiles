@@ -561,3 +561,18 @@ endif
 nnoremap <silent> gx :normal viugx<CR>
 " }}}1
 " ========================================
+" matchit fix for (Jinja2 syntax plugin)[https://github.com/Glench/Vim-Jinja2-Syntax] {{{
+" stolen from https://vimtalk.slack.com/archives/C1E0WNMJQ/p1488487832001029
+" nvm, found it, in vim's ftplugin/html.vim, its got:
+" ```
+" HTML:  thanks to Johannes Zellner and Benji Fisher.
+if exists("loaded_matchit")
+    let b:match_ignorecase = 1
+    let b:match_words = '<:>,' .
+                \ '<\@<=[ou]l\>[^>]*\%(>\|$\):<\@<=li\>:<\@<=/[ou]l>,' .
+                \ '<\@<=dl\>[^>]*\%(>\|$\):<\@<=d[td]\>:<\@<=/dl>,' .
+                \ '<\@<=\([^/][^ \t>]*\)[^>]*\%(>\|$\):<\@<=/\1>'
+endif
+" ```
+" }}}
+" ========================================
