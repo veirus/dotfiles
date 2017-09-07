@@ -48,3 +48,9 @@ Plug 'KabbAmine/gulp-vim', {'on': ['Gulp','GulpExt']} " oh wow this is actually 
 Plug 'gko/vim-coloresque', {'for': ['html', 'css', 'less', 'sass', 'stylus', 'php']} " *^* This
 " Plug 'ap/vim-css-color', {'for': ['html', 'css', 'less', 'php']} " Trying *^* instead of this colorizer
 
+" 2017-02-06 [ ale ] {{{3
+Plug 'w0rp/ale'
+	" let g:ale_lint_on_save = 1
+	" let g:ale_lint_on_text_changed = 0
+	let g:ale_statusline_format = [' ✖ %d ', ' ! %d ', '']
+" }}}3
