@@ -1,5 +1,5 @@
 " vim: set fdl=1 fdm=marker:
-let s:mycolor = 'one'
+let g:mycolor = 'PaperColor'
 " Be Improved {{{2
 if &cp | set nocp | endif
 " ========================================
@@ -30,14 +30,6 @@ let g:is = {
 			\ 'prostor' : $USERNAME ==? 'oldschool'
 			\ }
 let g:is.wingui = g:is.windows && g:is.gui
-" colors {{{2
-let g:cs = {
-			\ 'xterm':  'jellybeans',
-			\ 'nvim':   'molokai',
-			\ 'conemu': 'badwolf',
-			\ 'wingui': g:is.prostor ? s:mycolor : 'nova'
-			\ }
-" ========================================
 " rtp {{{2 portability shim:
 let $DOTVIMDIR = expand('$HOME/vimfiles')
 if !isdirectory(expand('$DOTVIMDIR'))
@@ -378,3 +370,4 @@ endif
 
 " }}} grepprg, ag, rg & ctrlp "
 map g. @:
+map <F11> :call cw#SwitchTheLight()<cr>
