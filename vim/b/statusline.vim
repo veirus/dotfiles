@@ -17,9 +17,12 @@ set statusline+=\ \\ %-3(%{cw#FileSize()}%)       " File size
 set statusline+=%7*%3c:%3l/%L
 set statusline+=\ %*
 " ========================================
+function! ALE() abort
+	return exists('*ALEGetStatusLine') ? ALEGetStatusLine() : ''
+endfunction
 "display a warning if &et is wrong, or we have mixed-indenting
 set statusline+=%#error#
-set statusline+=%{ALEGetStatusLine()}
+set statusline+=%{ALE()}
 set statusline+=%#incsearch#
 set statusline+=%{cw#StatuslineTabWarning()}
 set statusline+=%{cw#StatuslineTrailingSpaceWarning()}

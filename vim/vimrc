@@ -344,6 +344,14 @@ if has("autocmd")
 	" 	au ColorScheme * call cw#SetModalCursor()
 	" augroup END
 
+	" Create absent dirs automatically
+	augroup auto_mkdir
+		autocmd!
+		autocmd BufWritePre *
+					\ if !isdirectory(expand('<afile>:p:h')) |
+					\ call mkdir(expand('<afile>:p:h'), 'p') |
+					\ endif
+	augroup end
 endif " }}}1
 " grepprg, ag, rg & ctrlp {{{ "
 
