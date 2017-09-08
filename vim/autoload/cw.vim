@@ -350,7 +350,7 @@ function! cw#ReadOnly()
   endfunction
 
   " Get Colorscheme Names {{{2
-  function cw#GetColorsNames()
+  function! cw#GetColorsNames()
     if !exists('g:mycolors')
       " echo "* Fetching colorschemes..."
       " let g:mycolors = split(globpath(&rtp,"**/colors/*.vim"),"\n")
@@ -434,4 +434,7 @@ function! cw#ReadOnly()
 
     return 'SetColors END'
   endfunction
-
+  " Toggle bg between light and dark {{{2
+  function! cw#SwitchTheLight()
+    exe { 'light': 'set bg=dark', 'dark': 'set bg=light' }[&bg]
+  endfunction
