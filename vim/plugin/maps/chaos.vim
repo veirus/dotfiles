@@ -168,7 +168,7 @@ nnoremap <Leader><F12> :tabnew $MYVIMRC<CR>
 
 " Buffers {{{3
 " quick buffer open
-nnoremap gb :ls<CR>:b<space>
+nnoremap gb :ls<CR>:b
 nnoremap <leader>d :ls<CR>:bd<space>
 nnoremap <leader><leader> <C-^>
 
