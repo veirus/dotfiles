@@ -434,6 +434,7 @@ function! cw#ReadOnly()
 
     return 'SetColors END'
   endfunction
+
   " Toggle bg between light and dark {{{2
   function! cw#SwitchTheLight()
     exe { 'light': 'set bg=dark', 'dark': 'set bg=light' }[&bg]

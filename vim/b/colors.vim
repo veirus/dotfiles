@@ -36,7 +36,8 @@ Plug 'junegunn/seoul256.vim'
 " Plug 'KabbAmine/yowish.vim'
 Plug 'NLKNguyen/papercolor-theme'
 " Plug 'dracula/vim'
-"
+Plug 'zanglg/nova.vim'
+
 " -- * * * * * -- {{{3
 
 Plug 'nanotech/jellybeans.vim'
@@ -49,8 +50,7 @@ Plug 'tomasr/molokai'
 
 " Plug 'cocopon/iceberg.vim'
 " Plug 'Wutzara/vim-materialtheme'
-" Plug 'zanglg/nova.vim'
-" Plug 'google/vim-colorscheme-primary'
+Plug 'google/vim-colorscheme-primary'
 " Plug 'ericbn/vim-solarized'
 
 "}}}3
