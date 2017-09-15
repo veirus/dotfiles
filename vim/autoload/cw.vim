@@ -388,7 +388,9 @@ function! cw#ReadOnly()
     exe 'colorscheme ' . s:color
     call cw#SetGvimTitle()
     redraw
-    echo "* color: " g:colors_name
+    if !has('vim_starting')
+      echo "* color: " g:colors_name
+    endif
   endfunction
 
   " Enforce highlighting for Mode aware cursor hack {{{2

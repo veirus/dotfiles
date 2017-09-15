@@ -379,3 +379,4 @@ endif
 " }}} grepprg, ag, rg & ctrlp "
 map g. @:
 map <F11> :call cw#SwitchTheLight()<cr>
+call cw#SetRandomColors()

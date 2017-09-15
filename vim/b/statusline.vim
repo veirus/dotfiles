@@ -20,13 +20,18 @@ set statusline+=\ %*
 function! ALE() abort
 	return exists('*ALEGetStatusLine') ? ALEGetStatusLine() : ''
 endfunction
+
+function! GUTENTAGSSTATUS() abort
+	return exists('*gutentags#statusline()') ? gutentags#statusline() : ''
+endfunction
+
 "display a warning if &et is wrong, or we have mixed-indenting
 set statusline+=%#error#
 set statusline+=%{ALE()}
 set statusline+=%#incsearch#
 set statusline+=%{cw#StatuslineTabWarning()}
 set statusline+=%{cw#StatuslineTrailingSpaceWarning()}
-set statusline+=%9*%{gutentags#statusline()}
+set statusline+=%9*%{GUTENTAGSSTATUS()}
 set statusline+=%*
 
 " from http://twily.info/.vimrc#view {{{2

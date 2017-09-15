@@ -1,4 +1,5 @@
 " == new stuff == {{{2
+" TODO: test them motherfucker! Use them you moron!
 Plug 'vim-scripts/renamer.vim'
 Plug 'moll/vim-bbye'
 Plug 'jpalardy/vim-slime'
@@ -20,10 +21,10 @@ Plug 'AndrewRadev/splitjoin.vim'
 
 " 2017-06-07 [ vim-searchindex | vim-hier | vim-agrep ] {{{3
 Plug 'google/vim-searchindex' " very cool
-Plug 'osyo-manga/vim-agrep'
+" Plug 'osyo-manga/vim-agrep'
 
 " 2017-05-23 [ gutentags ] {{{3
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags', {'for': ['php','vim','python','javascript','html','make']}
 	let g:gutentags_ctags_exclude=['node_modules']
 
 " 2017-05-17 [supertab] {{{3
