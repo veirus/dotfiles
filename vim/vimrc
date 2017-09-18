@@ -126,22 +126,22 @@ set formatoptions+=M
 " set formatoptions-=t           " don't automatically wrap text when typing
 " set formatoptions+=j           " Delete comment character when joining commented lines
 
-set backspace=indent,eol,start   " Backspace for dummies
+set backspace=indent,eol,start   " Backspace that behaves like in other editors
 set nowrap
 " set textwidth=0                " Don't automatically insert linebreaks
-set autoindent
-set smarttab
-set noexpandtab
-set tabstop=4                  " размер табов
-set shiftwidth=4               " размер отступов
-set softtabstop=-1             " use shiftwidth value
-set shiftround
 set linebreak
-let &showbreak='▷ '            " Iosevka doesn't have above symbol
+let &showbreak='▷ '              " Iosevka doesn't have above symbol
 if !g:is.prostor
 	let &showbreak='↪ '
 endif
 set breakindent
+set autoindent
+set smarttab
+set noexpandtab
+set tabstop=4                  " размер табов
+set shiftwidth=0               " размер отступов, when 0 use tabstop value
+set softtabstop=-1             " when -1 it will use shiftwidth value
+set shiftround
 set nojoinspaces               " Prevents inserting two spaces after punctuation on a join (J)
 
 " }}}2
