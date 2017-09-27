@@ -380,3 +380,4 @@ endif
 map g. @:
 map <F11> :call cw#SwitchTheLight()<cr>
 call cw#SetRandomColors()
+inoremap ; ;<c-g>u
