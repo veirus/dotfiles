@@ -206,10 +206,10 @@ nmap <leader>f= :call cw#Preserve("normal gg=G")<CR>
 nmap <leader>f4 :call cw#Preserve("%s/\\s\\+$//e")<CR>
 nmap <expr> <leader>f3 ':%s///g<LEFT><LEFT><LEFT>'
 nmap <expr> <leader>f5 ':%s/' . @/ . '//g<LEFT><LEFT>'
-nmap <leader>f6 :%s/<c-r><c-a>//g<LEFT><LEFT>
-vmap <leader>f6 y:%s`<c-r>0``g<left><left>
+nmap <leader>f6 :%s/\<<c-r><c-a>\>//g<LEFT><LEFT>
+xmap <leader>f6 y:%s`<c-r>0``g<left><left>
 nmap <expr> <F3> ':g//#<LEFT><LEFT>'
-vmap <leader>s :sort<cr>
+xmap <leader>s :sort<cr>
 
 " folds {{{3 - folds are awesome
 nnoremap zr zr:echo 'foldlevel: ' . &foldlevel<cr>
