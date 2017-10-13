@@ -1,5 +1,5 @@
 " vim: set fdl=1 fdm=marker:
-let g:mycolor = 'PaperColor'
+let g:mycolor = 'dracula'
 " Be Improved {{{2
 if &cp | set nocp | endif
 " ========================================
@@ -381,3 +381,6 @@ map g. @:
 map <F11> :call cw#SwitchTheLight()<cr>
 call cw#SetRandomColors()
 inoremap ; ;<c-g>u
+" ~ toggles ' and " in addition to its normal behaviour
+nnoremap <expr> ~ getline('.')[col('.')-1] == "'" ? "r\"l" : getline('.')[col('.')-1] == '"' ? "r'l" : '~'
+
