@@ -143,9 +143,9 @@ vnoremap <silent> <leader>g :call VisualSelection('gv', '')<CR>
 " Open vimgrep and put the cursor in the right position
 map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
 " Vimgreps in the current file
-map <leader>/ :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
+map <leader>gc :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
 " vimgrep my last search
-nnoremap <silent> <leader>n :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+nnoremap <silent> <leader>gn :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 " grep word under cursor
 nnoremap <M-g> :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
@@ -169,7 +169,7 @@ nnoremap <Leader><F12> :tabnew $MYVIMRC<CR>
 " Buffers {{{3
 " quick buffer open
 nnoremap gb :ls<CR>:b
-nnoremap <leader>d :ls<CR>:bd<space>
+nnoremap <leader>d :ls<CR>:bd
 nnoremap <leader><leader> <C-^>
 
 " window killer
