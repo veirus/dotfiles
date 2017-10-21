@@ -23,10 +23,6 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'google/vim-searchindex' " very cool
 " Plug 'osyo-manga/vim-agrep'
 
-" 2017-05-23 [ gutentags ] {{{3
-Plug 'ludovicchabant/vim-gutentags', {'for': ['php','vim','python','javascript','html','make']}
-	let g:gutentags_ctags_exclude=['node_modules']
-
 " 2017-05-17 [supertab] {{{3
 Plug 'ervandew/supertab'
 

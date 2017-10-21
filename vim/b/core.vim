@@ -7,14 +7,19 @@
 " let g:indent_guides_color_change_percent=3
 "
 " if !has('gui_running')
-"     let g:indent_guides_auto_colors=0
-"     function! s:indent_set_console_colors()
-" 	hi IndentGuidesOdd ctermbg=235
-" 	hi IndentGuidesEven ctermbg=236
-"     endfunction
-"     autocmd VimEnter,Colorscheme * call s:indent_set_console_colors()
+"	  let g:indent_guides_auto_colors=0
+"	  function! s:indent_set_console_colors()
+"	hi IndentGuidesOdd ctermbg=235
+"	hi IndentGuidesEven ctermbg=236
+"	  endfunction
+"	  autocmd VimEnter,Colorscheme * call s:indent_set_console_colors()
 " endif
 " " }}}3
+
+" 2017-05-23 [ gutentags ] {{{3
+Plug 'ludovicchabant/vim-gutentags' ", {'for': ['php','vim','python','javascript','javascript.jsx','js','jsx','html','make']}
+	let g:gutentags_ctags_exclude=['node_modules']
+	let g:gutentags_cache_dir = $DOTVIMDIR.'/gutentags'
 
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } "{{{3
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
@@ -31,10 +36,10 @@ Plug 'mhinz/vim-startify' "{{{3
 nnoremap <F1> :Startify<CR>
 let g:startify_list_order = ['bookmarks', 'files', 'sessions']
 let g:startify_bookmarks = [
-	    \ {'o': '~\prostor.org'},
-	    \ {'p': '~\PROSTOR.todo'},
-	    \ {'r': '$MYVIMRC'},
-	    \ {'t': '~\onetab.txt'} ]
+	\ {'o': '~\prostor.org'},
+	\ {'p': '~\PROSTOR.todo'},
+	\ {'r': '$MYVIMRC'},
+	\ {'t': '~\onetab.txt'} ]
 let g:startify_update_oldfiles = 1
 " let g:startify_session_autoload = 1
 let g:startify_session_persistence = 1
@@ -50,27 +55,28 @@ let g:UltiSnipsEditSplit="vertical"
 
 " -- parenthesis -- {{{3
 " Plug 'Raimondi/delimitMate'
-"   let delimitMate_expand_cr = 1
+"	let delimitMate_expand_cr = 1
 " Plug 'jiangmiao/auto-pairs' " overrides cyrilic letters on [ and ]
 " Plug 'junegunn/rainbow_parentheses.vim'
+
 Plug 'luochen1990/rainbow'
 " 0 if you want to enable it later via :RainbowToggle
-let g:rainbow_active = 1
+	let g:rainbow_active = 1
 
 if has('packages')
-    if !has('nvim')
-	packadd! matchit
-    endif
+	if !has('nvim')
+		packadd! matchit
+	endif
 else
-    source $VIMRUNTIME/macros/matchit.vim
+	source $VIMRUNTIME/macros/matchit.vim
 endif
 " Plug 'matchit.zip'
-" Plug 'tmhedberg/matchit'
+" Plug 'tmhedberg/matchit' " custom matchit, allegedly has some improvements
 let b:match_ignorecase = 1
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
-Plug 'rstacruz/vim-closer' " 2017-04-14
+Plug 'rstacruz/vim-closer' " 2017-04-14 - closes brackets
 
 " -- hotkeys {{{3
 Plug 'tpope/vim-rsi'
@@ -85,12 +91,11 @@ Plug 'tpope/vim-repeat'
 Plug 'tomtom/tcomment_vim'
 " Plug 'tpope/vim-commentary'
 " Plug 'tyru/caw.vim'
-"   let g:caw_operator_keymappings = 1
-
+"	let g:caw_operator_keymappings = 1
 
 " -- misc {{{3
 Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
-Plug 'skywind3000/asyncrun.vim' ", {'on':['Gulp','GulpExt']}
+" Plug 'skywind3000/asyncrun.vim' ", {'on':['Gulp','GulpExt']} " i don't use it
 " Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
 Plug 'tpope/vim-fugitive'
 Plug 'editorconfig/editorconfig-vim'

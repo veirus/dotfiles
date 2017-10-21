@@ -19,6 +19,7 @@ session/
 swap/
 undo/
 pack/
+gutentags/
 # ========================================
 # https://github.com/github/gitignore/blob/master/Global/Vim.gitignore
 [._]*.s[a-w][a-z]
