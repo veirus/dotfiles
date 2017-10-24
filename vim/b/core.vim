@@ -104,5 +104,6 @@ Plug 'tyru/open-browser.vim'
 Plug 'mattn/gist-vim' | Plug 'mattn/webapi-vim'
 
 Plug 'justinmk/vim-sneak'
-" let g:sneak#streak=1
+	let g:sneak#streak=1
+	let g:sneak#label = 1
 
