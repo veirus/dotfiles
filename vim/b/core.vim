@@ -22,28 +22,28 @@ Plug 'ludovicchabant/vim-gutentags' ", {'for': ['php','vim','python','javascript
 	let g:gutentags_cache_dir = $DOTVIMDIR.'/gutentags'
 
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } "{{{3
-" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-xmap <Enter> <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap <Leader>a <Plug>(EasyAlign)
+	" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+	xmap <Enter> <Plug>(EasyAlign)
+	" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+	nmap <Leader>a <Plug>(EasyAlign)
 
 Plug 'ctrlpvim/ctrlp.vim' "{{{3
-nnoremap <leader>b :CtrlPBuffer<cr>
-nnoremap <Leader>o :CtrlPMRUFiles<CR>
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+	nnoremap <leader>b :CtrlPBuffer<cr>
+	nnoremap <Leader>o :CtrlPMRUFiles<CR>
+	let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 Plug 'mhinz/vim-startify' "{{{3
-nnoremap <F1> :Startify<CR>
-let g:startify_list_order = ['bookmarks', 'files', 'sessions']
-let g:startify_bookmarks = [
-	\ {'o': '~\prostor.org'},
-	\ {'p': '~\PROSTOR.todo'},
-	\ {'r': '$MYVIMRC'},
-	\ {'t': '~\onetab.txt'} ]
-let g:startify_update_oldfiles = 1
-" let g:startify_session_autoload = 1
-let g:startify_session_persistence = 1
-let g:startify_session_delete_buffers = 1
+	nnoremap <F1> :Startify<CR>
+	let g:startify_list_order = ['bookmarks', 'files', 'sessions']
+	let g:startify_bookmarks = [
+		\ {'o': '~\prostor.org'},
+		\ {'p': '~\PROSTOR.todo'},
+		\ {'r': '$MYVIMRC'},
+		\ {'t': '~\onetab.txt'} ]
+	let g:startify_update_oldfiles = 1
+	" let g:startify_session_autoload = 1
+	let g:startify_session_persistence = 1
+	let g:startify_session_delete_buffers = 1
 "}}}3
 
 " 2017-03-13 [ ultisnips ] {{{3
@@ -51,7 +51,7 @@ let g:startify_session_delete_buffers = 1
 " Add this if you want them: Plug 'honza/vim-snippets'
 " If you want :UltiSnipsEdit to split your window.
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-let g:UltiSnipsEditSplit="vertical"
+	let g:UltiSnipsEditSplit="vertical"
 
 " -- parenthesis -- {{{3
 " Plug 'Raimondi/delimitMate'
@@ -94,7 +94,7 @@ Plug 'tomtom/tcomment_vim'
 "	let g:caw_operator_keymappings = 1
 
 " -- misc {{{3
-Plug 'justinmk/vim-dirvish' "doesn't work with autochdir
+Plug 'justinmk/vim-dirvish' " doesn't work with autochdir
 " Plug 'skywind3000/asyncrun.vim' ", {'on':['Gulp','GulpExt']} " i don't use it
 " Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
 Plug 'tpope/vim-fugitive'
