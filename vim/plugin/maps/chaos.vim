@@ -297,4 +297,11 @@ nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<C
 "=================================
 " new {{{
 nnoremap <leader>B :s/{/}/g<CR>
+
+map g. @:
+map <F11> :call cw#SwitchTheLight()<cr>
+inoremap ; ;<c-g>u
+" ~ toggles ' and " in addition to its normal behaviour
+nnoremap <expr> ~ getline('.')[col('.')-1] == "'" ? "r\"l" : getline('.')[col('.')-1] == '"' ? "r'l" : '~'
+
 " new }}}
