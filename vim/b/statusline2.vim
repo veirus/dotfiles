@@ -38,14 +38,21 @@ set statusline+=%*
 " set statusline=\ %{cw#HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
 " highlighting {{{2
-hi User1 guibg=green guifg=white
-hi User2 guibg=red guifg=white
-hi User3 guibg=blue guifg=white
-hi User4 guibg=purple guifg=white
-hi User5 guibg=yellow guifg=white
-hi User6 guibg=gray guifg=white
+function StlHi()
+	hi User1 guibg=green guifg=white
+	hi User2 guibg=red guifg=white
+	hi User3 guibg=blue guifg=white
+	hi User4 guibg=purple guifg=white
+	hi User5 guibg=yellow guifg=white
+	hi User6 guibg=gray guifg=white
 
-hi User7 term=standout gui=standout
-hi User8 term=bold gui=bold
-hi User9 term=reverse gui=reverse
+	hi User7 term=standout gui=standout
+	hi User8 term=bold gui=bold
+	hi User9 term=reverse gui=reverse
+endfunction
+
+augroup stl_hi
+	au!
+	au ColorScheme * call StlHi()
+augroup END
 " }}}1
