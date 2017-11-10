@@ -2,9 +2,12 @@
 " General
 " 2017-06-30 [ polyglot ] {{{3
 Plug 'sheerun/vim-polyglot'
-
-" 2017-06-26 [ php indenting ] {{{3
-Plug '2072/PHP-Indenting-for-VIm'
+" 2017-11-02 {{{3
+Plug 'captbaritone/better-indent-support-for-php-with-html'
+" 2017-10-30 [ php completion ] {{{3 hangs vim when opening php file
+" Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+" 2017-06-26 [ php indenting ] {{{3 doesn't fucking work!
+" Plug '2072/PHP-Indenting-for-VIm'
 " Replaced with [ poliglot ] {{{3
 " Plug 'othree/html5.vim',       {'for': ['html', 'php', 'tpl']}
 " Plug 'JulesWang/css.vim',      {'for': ['css', 'html', 'scss', 'sass', 'less']}
