@@ -55,5 +55,6 @@ Plug 'gko/vim-coloresque', {'for': ['html', 'css', 'less', 'sass', 'stylus', 'ph
 Plug 'w0rp/ale'
 	" let g:ale_lint_on_save = 1
 	" let g:ale_lint_on_text_changed = 0
+	let g:ale_lint_on_insert_leave = 1
 	let g:ale_statusline_format = [' ✖ %d ', ' ! %d ', '']
 " }}}3
