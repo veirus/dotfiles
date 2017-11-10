@@ -47,7 +47,7 @@ Plug 'zeis/vim-kolor'
 "   let g:kolor_underlined=1
 
 " -- newest themes -- {{{3
-
+Plug 'archSeer/colibri.vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'Wutzara/vim-materialtheme'
 Plug 'google/vim-colorscheme-primary'
