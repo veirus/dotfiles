@@ -48,6 +48,7 @@ Plug 'zeis/vim-kolor'
 
 " -- newest themes -- {{{3
 
+Plug 'archSeer/colibri.vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'Wutzara/vim-materialtheme'
 Plug 'google/vim-colorscheme-primary'
