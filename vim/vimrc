@@ -96,7 +96,7 @@ runtime b\lightline.vim
 call plug#end() " required }}}1
 " General {{{2
 " scriptencoding utf-8
-set timeout timeoutlen=500
+set timeout timeoutlen=400
 
 set iskeyword=@,a-z,A-Z,48-57,_,128-175,192-255
 set keymap=russian-jcukenwin
@@ -222,6 +222,7 @@ if !g:is.gui
 
 	" neovim {{{2
 	elseif g:is.nvim
+		set title
 		" let s:editor_root=expand("~/AppData/Local/nvim")
 		let g:python_host_prog = 'D:/env/neovim/2/Scripts/python.exe'
 		let g:python3_host_prog = 'D:/env/neovim/3/Scripts/python.exe'
