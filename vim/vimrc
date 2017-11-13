@@ -96,7 +96,7 @@ runtime b\lightline.vim
 call plug#end() " required }}}1
 " General {{{2
 " scriptencoding utf-8
-set timeout timeoutlen=400
+set timeout timeoutlen=380
 
 set iskeyword=@,a-z,A-Z,48-57,_,128-175,192-255
 set keymap=russian-jcukenwin
@@ -169,7 +169,7 @@ set smartcase                                        " Case sensitive when uc pr
 set wildmenu                                         " Show list instead of just completing
 set wildcharm=<C-z>
 set wildmode=list:longest,full                       " Command <Tab> completion, list matches, then longest common part, then all.
-set wildignore+=node_modules/**,*/.git/*,*/tmp/*,*.swp
+set wildignore+=*/min/*,*/vendor/*,*/node_modules/*,*/bower_components/*,*/.git/*,*/tmp/*,*.swp
 set foldenable                                       " Auto fold code
 
 set guicursor+=a:blinkon0
