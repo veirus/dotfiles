@@ -94,7 +94,6 @@ nnoremap / /\v
 vnoremap / /\v
 nnoremap ? ?\v
 vnoremap ? ?\v
-nnoremap :s/ :s/\v
 "}}}3
 
 " reselect visual block after indent #superuseful
