@@ -4,7 +4,8 @@
 Plug 'sheerun/vim-polyglot'
 " 2017-11-02 {{{3
 Plug 'captbaritone/better-indent-support-for-php-with-html'
-" 2017-10-30 [ php completion ] {{{3 hangs vim when opening php file
+" 2017-10-30 [ php completion ] {{{3
+" XXX: hangs vim (and nvim) when opening php file
 " Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 " 2017-06-26 [ php indenting ] {{{3 doesn't fucking work!
 " Plug '2072/PHP-Indenting-for-VIm'
