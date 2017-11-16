@@ -32,7 +32,7 @@ Plug 'Glench/Vim-Jinja2-Syntax'
 " Plug 'rstacruz/vim-hyperstyle' "requires python27
 " ---------------
 " Post CSS
-Plug 'csscomb/vim-csscomb', {'on': 'CSScomb'}
+" Plug 'csscomb/vim-csscomb', {'on': 'CSScomb'} " don't use it, and it's slow
 " 2017-04-17 [ postcss syntax ]
 Plug 'stephenway/postcss.vim'
 " ---------------
@@ -46,7 +46,7 @@ let g:vim_json_syntax_conceal = 0
 " 2017-02-06
 Plug 'ternjs/tern_for_vim', {'for': [ 'js', 'javascript' ]}
 	let g:tern_map_keys = 1
-Plug 'itspriddle/vim-jquery', {'for': [ 'js', 'js.jquery', 'javascript' ]}
+" Plug 'itspriddle/vim-jquery', {'for': [ 'js', 'js.jquery', 'javascript' ]}
 " ---------------
 Plug 'KabbAmine/gulp-vim', {'on': ['Gulp','GulpExt']} " oh wow this is actually usefull!
 Plug 'gko/vim-coloresque', {'for': ['html', 'css', 'less', 'sass', 'stylus', 'php']} " *^* This
