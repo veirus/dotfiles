@@ -233,9 +233,9 @@ if !g:is.gui
 
 			" Works and even looks nice, however reports bad fixed pitch metrics
 			" Also it's risky to install patched version on Windows
-			" GuiFont Consolas:h13
+			" GuiFont Consolas:h14
 			" works only when :so %
-			GuiFont DejaVu Sans Mono for Powerline:h12
+			" GuiFont DejaVu Sans Mono for Powerline:h14
 
 			" Warning: bad fixed pitch metrics?!
 			" GuiFont Anonymice Powerline:h12
@@ -433,3 +433,6 @@ map  <expr> T repmo#ZapKey('<Plug>Sneak_T')|sunmap T
 
 " }}}
 
+if !(is.nvim)
+	set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
+endif
