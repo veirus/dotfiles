@@ -96,7 +96,7 @@ runtime b\lightline.vim
 call plug#end() " required }}}1
 " General {{{2
 " scriptencoding utf-8
-set timeout timeoutlen=500
+set timeout timeoutlen=370
 
 set iskeyword=@,a-z,A-Z,48-57,_,128-175,192-255
 set keymap=russian-jcukenwin
@@ -169,7 +169,7 @@ set smartcase                                        " Case sensitive when uc pr
 set wildmenu                                         " Show list instead of just completing
 set wildcharm=<C-z>
 set wildmode=list:longest,full                       " Command <Tab> completion, list matches, then longest common part, then all.
-set wildignore+=node_modules/**,*/.git/*,*/tmp/*,*.swp
+set wildignore+=*/min/*,*/vendor/*,*/node_modules/*,*/bower_components/*,*/.git/*,*/tmp/*,*.swp
 set foldenable                                       " Auto fold code
 
 set guicursor+=a:blinkon0
@@ -222,18 +222,20 @@ if !g:is.gui
 
 	" neovim {{{2
 	elseif g:is.nvim
+		set title
 		" let s:editor_root=expand("~/AppData/Local/nvim")
 		let g:python_host_prog = 'D:/env/neovim/2/Scripts/python.exe'
 		let g:python3_host_prog = 'D:/env/neovim/3/Scripts/python.exe'
 		if exists('g:GuiFont')
+			echo 'guifont exists'
 			" WTF?! Doesn't work?
 			" let g:Guifont="DejaVu Sans Mono for Powerline:h13"
 
 			" Works and even looks nice, however reports bad fixed pitch metrics
 			" Also it's risky to install patched version on Windows
-			" GuiFont Consolas:h13
+			" GuiFont Consolas:h14
 			" works only when :so %
-			" GuiFont DejaVu Sans Mono for Powerline:h13
+			" GuiFont DejaVu Sans Mono for Powerline:h14
 
 			" Warning: bad fixed pitch metrics?!
 			" GuiFont Anonymice Powerline:h12
@@ -291,7 +293,7 @@ if has("autocmd")
 	augroup PHP_stuff
 		autocmd!
 		autocmd FileType php,smarty,tpl call SetClosetagPHP()
-		autocmd FileType smarty,tpl setlocal commentstring=<!--\ %s\ -->
+		" autocmd FileType smarty,tpl setlocal commentstring=<!--\ %s\ -->
 	augroup END
 	augroup indent_tag " {{{2 for html, jango and jinja
 		au!
@@ -378,4 +380,59 @@ endif
 
 " }}} grepprg, ag, rg & ctrlp "
 
-call cw#SetRandomColors()
+" call cw#SetRandomColors()
+
+" get the leader right {{{
+" https://konfekt.github.io/blog/2016/10/03/get-the-leader-right
+nnoremap : ,
+xnoremap : ,
+onoremap : ,
+
+nnoremap , :
+xnoremap , :
+onoremap , :
+" }}}
+
+" repmo.vim: {{{
+" map a motion and its reverse motion:
+noremap <expr> h repmo#SelfKey('h', 'l')|sunmap h
+noremap <expr> l repmo#SelfKey('l', 'h')|sunmap l
+
+" if you like `:noremap j gj`, you can keep that:
+noremap <expr> j repmo#Key('gj', 'gk')|sunmap j
+noremap <expr> k repmo#Key('gk', 'gj')|sunmap k
+
+" repeat the last [count]motion or the last zap-key:
+map <expr> ; repmo#LastKey(';')|sunmap ;
+map <expr> : repmo#LastRevKey(',')|sunmap :
+" orig:
+" map <expr> , repmo#LastRevKey(',')|sunmap ,
+
+" add these mappings when repeating with `;` or `,`:
+" noremap <expr> f repmo#ZapKey('f')|sunmap f
+" noremap <expr> F repmo#ZapKey('F')|sunmap F
+" noremap <expr> t repmo#ZapKey('t')|sunmap t
+" noremap <expr> T repmo#ZapKey('T')|sunmap T
+
+" repeat scroll commands:
+noremap <expr> <C-E> repmo#SelfKey('<C-E>', '<C-Y>')
+noremap <expr> <C-Y> repmo#SelfKey('<C-Y>', '<C-E>')
+
+" vim-sneak:
+map  <expr> ; repmo#LastKey('<Plug>Sneak_;')|sunmap ;
+map  <expr> : repmo#LastRevKey('<Plug>Sneak_,')|sunmap :
+
+map  <expr> s repmo#ZapKey('<Plug>Sneak_s')|ounmap s|sunmap s
+map  <expr> S repmo#ZapKey('<Plug>Sneak_S')|ounmap S|sunmap S
+omap <expr> z repmo#ZapKey('<Plug>Sneak_s')
+omap <expr> Z repmo#ZapKey('<Plug>Sneak_S')
+map  <expr> f repmo#ZapKey('<Plug>Sneak_f')|sunmap f
+map  <expr> F repmo#ZapKey('<Plug>Sneak_F')|sunmap F
+map  <expr> t repmo#ZapKey('<Plug>Sneak_t')|sunmap t
+map  <expr> T repmo#ZapKey('<Plug>Sneak_T')|sunmap T
+
+" }}}
+
+if !(is.nvim)
+	set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
+endif

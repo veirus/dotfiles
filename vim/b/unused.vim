@@ -78,8 +78,6 @@ Plug 'osyo-manga/vim-jplus'
 Plug 'dbmrq/vim-chalk'
 Plug 'fisadev/FixedTaskList.vim'
 Plug 'mattn/benchvimrc-vim'
-" 2017-05-22 [ scratch.vim ] {{{3
-Plug 'mtth/scratch.vim'
 " 2017-07-21 {{{3
 Plug 'jlanzarotta/bufexplorer'
 Plug 'jceb/vim-hier'

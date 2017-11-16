@@ -2,9 +2,13 @@
 " General
 " 2017-06-30 [ polyglot ] {{{3
 Plug 'sheerun/vim-polyglot'
-
-" 2017-06-26 [ php indenting ] {{{3
-Plug '2072/PHP-Indenting-for-VIm'
+" 2017-11-02 {{{3
+Plug 'captbaritone/better-indent-support-for-php-with-html'
+" 2017-10-30 [ php completion ] {{{3
+" XXX: hangs vim (and nvim) when opening php file
+" Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+" 2017-06-26 [ php indenting ] {{{3 doesn't fucking work!
+" Plug '2072/PHP-Indenting-for-VIm'
 " Replaced with [ poliglot ] {{{3
 " Plug 'othree/html5.vim',       {'for': ['html', 'php', 'tpl']}
 " Plug 'JulesWang/css.vim',      {'for': ['css', 'html', 'scss', 'sass', 'less']}
@@ -28,7 +32,7 @@ Plug 'Glench/Vim-Jinja2-Syntax'
 " Plug 'rstacruz/vim-hyperstyle' "requires python27
 " ---------------
 " Post CSS
-Plug 'csscomb/vim-csscomb', {'on': 'CSScomb'}
+" Plug 'csscomb/vim-csscomb', {'on': 'CSScomb'} " don't use it, and it's slow
 " 2017-04-17 [ postcss syntax ]
 Plug 'stephenway/postcss.vim'
 " ---------------
@@ -42,7 +46,7 @@ let g:vim_json_syntax_conceal = 0
 " 2017-02-06
 Plug 'ternjs/tern_for_vim', {'for': [ 'js', 'javascript' ]}
 	let g:tern_map_keys = 1
-Plug 'itspriddle/vim-jquery', {'for': [ 'js', 'js.jquery', 'javascript' ]}
+" Plug 'itspriddle/vim-jquery', {'for': [ 'js', 'js.jquery', 'javascript' ]}
 " ---------------
 Plug 'KabbAmine/gulp-vim', {'on': ['Gulp','GulpExt']} " oh wow this is actually usefull!
 Plug 'gko/vim-coloresque', {'for': ['html', 'css', 'less', 'sass', 'stylus', 'php']} " *^* This
