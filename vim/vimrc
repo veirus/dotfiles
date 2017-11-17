@@ -233,7 +233,7 @@ if !g:is.gui
 
 			" Works and even looks nice, however reports bad fixed pitch metrics
 			" Also it's risky to install patched version on Windows
-			" GuiFont Consolas:h14
+			GuiFont Consolas:h14
 			" works only when :so %
 			" GuiFont DejaVu Sans Mono for Powerline:h14
 
@@ -382,57 +382,21 @@ endif
 
 " call cw#SetRandomColors()
 
-" get the leader right {{{
-" https://konfekt.github.io/blog/2016/10/03/get-the-leader-right
-nnoremap : ,
-xnoremap : ,
-onoremap : ,
-
-nnoremap , :
-xnoremap , :
-onoremap , :
-" }}}
-
-" repmo.vim: {{{
-" map a motion and its reverse motion:
-noremap <expr> h repmo#SelfKey('h', 'l')|sunmap h
-noremap <expr> l repmo#SelfKey('l', 'h')|sunmap l
-
-" if you like `:noremap j gj`, you can keep that:
-noremap <expr> j repmo#Key('gj', 'gk')|sunmap j
-noremap <expr> k repmo#Key('gk', 'gj')|sunmap k
-
-" repeat the last [count]motion or the last zap-key:
-map <expr> ; repmo#LastKey(';')|sunmap ;
-map <expr> : repmo#LastRevKey(',')|sunmap :
-" orig:
-" map <expr> , repmo#LastRevKey(',')|sunmap ,
-
-" add these mappings when repeating with `;` or `,`:
-" noremap <expr> f repmo#ZapKey('f')|sunmap f
-" noremap <expr> F repmo#ZapKey('F')|sunmap F
-" noremap <expr> t repmo#ZapKey('t')|sunmap t
-" noremap <expr> T repmo#ZapKey('T')|sunmap T
-
-" repeat scroll commands:
-noremap <expr> <C-E> repmo#SelfKey('<C-E>', '<C-Y>')
-noremap <expr> <C-Y> repmo#SelfKey('<C-Y>', '<C-E>')
-
-" vim-sneak:
-map  <expr> ; repmo#LastKey('<Plug>Sneak_;')|sunmap ;
-map  <expr> : repmo#LastRevKey('<Plug>Sneak_,')|sunmap :
-
-map  <expr> s repmo#ZapKey('<Plug>Sneak_s')|ounmap s|sunmap s
-map  <expr> S repmo#ZapKey('<Plug>Sneak_S')|ounmap S|sunmap S
-omap <expr> z repmo#ZapKey('<Plug>Sneak_s')
-omap <expr> Z repmo#ZapKey('<Plug>Sneak_S')
-map  <expr> f repmo#ZapKey('<Plug>Sneak_f')|sunmap f
-map  <expr> F repmo#ZapKey('<Plug>Sneak_F')|sunmap F
-map  <expr> t repmo#ZapKey('<Plug>Sneak_t')|sunmap t
-map  <expr> T repmo#ZapKey('<Plug>Sneak_T')|sunmap T
-
-" }}}
-
 if !(is.nvim)
 	set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
 endif
+
+let s:myFontSize = 0
+let s:myFontSizeList = ["14", "16", "18"]
+let s:myFont = split(&gfn, ":")[0]
+" echom s:myFont
+function! CycleFontSize()
+	echom 'cycle!'
+	let s:myFontSize = s:myFontSize + 1
+	if s:myFontSize >= len(s:myFontSizeList)
+		let s:myFontSize = 0
+	endif
+	exe "set guifont=Consolas:h".s:myFontSizeList[s:myFontSize]
+	redraw
+endfunc
+nnoremap <F11> :call CycleFontSize()<cr>
