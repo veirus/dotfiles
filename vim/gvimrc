@@ -24,6 +24,8 @@ endif
 set guioptions+=c       " Use console dialogs
 set guioptions-=e       " Disable fancy tabline (repositions vim on tab in Win32)
 set guioptions-=L       " Disable left scrollbar (repositions vim on vsplit in Win32)
+set guioptions-=r
+set guioptions-=R
 set guioptions-=T       " No toolbar
 " set noshowmode
 set ballooneval
