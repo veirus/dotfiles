@@ -1,4 +1,7 @@
 " == new stuff == {{{2
+" 2017-11-21 {{{3
+Plug 'maralla/completor.vim'
+"}}}3
 Plug 'Houl/vim-repmo'
 " TODO: test them motherfucker! Use them you moron!
 " Plug 'Shougo/deoplete.nvim'
