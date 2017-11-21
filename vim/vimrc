@@ -389,9 +389,8 @@ endif
 if is.gui
 	let s:myFontSize = 0
 	let s:myFontSizeList = ["12", "13", "14", "16"]
-	" echom s:myFont
-	function! CycleFontSize()
 
+	function! CycleFontSize()
 		let l:myFontsList = split(&gfn, ",")[0]
 		let l:myFont = split(l:myFontsList, ":")[0]
 
@@ -404,4 +403,11 @@ if is.gui
 		redraw
 	endfunc
 	nnoremap <F11> :call CycleFontSize()<cr>
+endif
+
+set completeopt-=longest
+set completeopt+=menuone
+set completeopt-=menu
+if &completeopt !~# 'noinsert\|noselect'
+  set completeopt+=noselect
 endif
