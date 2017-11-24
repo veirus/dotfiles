@@ -29,6 +29,7 @@ gau=git add -u $*
 gb=git branch $*
 gc=git commit $*
 gcm=git commit -m $*
+gca=git commit -am $*
 gd=git diff $*
 gh=git hist
 gl=git log --oneline --all --graph --decorate  $*
