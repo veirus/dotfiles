@@ -405,9 +405,22 @@ if is.gui
 	nnoremap <F11> :call CycleFontSize()<cr>
 endif
 
+" for completor.vim
 set completeopt-=longest
 set completeopt+=menuone
 set completeopt-=menu
 if &completeopt !~# 'noinsert\|noselect'
   set completeopt+=noselect
+
 endif
+
+" Make arrow keys useful
+noremap <Up> ddkP
+noremap <Down> ddp
+noremap <Left> <<
+noremap <Right> >>
+vmap <Left> <gv
+vmap <Right> >gv
+
+" JSX highlighting
+let g:jsx_ext_required=0
