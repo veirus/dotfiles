@@ -18,7 +18,7 @@
 
 " 2017-05-23 [ gutentags ] {{{3
 Plug 'ludovicchabant/vim-gutentags' ", {'for': ['php','vim','python','javascript','javascript.jsx','js','jsx','html','make']}
-	let g:gutentags_ctags_exclude=['node_modules']
+	let g:gutentags_ctags_exclude=['node_modules', '.git']
 	let g:gutentags_cache_dir = $DOTVIMDIR.'/gutentags'
 
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } "{{{3
@@ -27,10 +27,10 @@ Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } "{{
 	" Start interactive EasyAlign for a motion/text object (e.g. gaip)
 	nmap <Leader>a <Plug>(EasyAlign)
 
-Plug 'ctrlpvim/ctrlp.vim' "{{{3
-	nnoremap <leader>b :CtrlPBuffer<cr>
-	nnoremap <Leader>o :CtrlPMRUFiles<CR>
-	let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+" Plug 'ctrlpvim/ctrlp.vim' "{{{3
+" 	nnoremap <leader>b :CtrlPBuffer<cr>
+" 	nnoremap <Leader>o :CtrlPMRUFiles<CR>
+" 	let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 Plug 'mhinz/vim-startify' "{{{3
 	nnoremap <F1> :Startify<CR>
@@ -80,7 +80,7 @@ Plug 'rstacruz/vim-closer' " 2017-04-14 - closes brackets
 
 " -- hotkeys {{{3
 Plug 'tpope/vim-rsi'
-" Plug 'romainl/vim-qf'
+Plug 'romainl/vim-qf'
 Plug 'tpope/vim-unimpaired'
 
 " -- repeat {{{3
@@ -95,7 +95,7 @@ Plug 'tomtom/tcomment_vim'
 
 " -- misc {{{3
 Plug 'justinmk/vim-dirvish' " doesn't work with autochdir
-" Plug 'skywind3000/asyncrun.vim' ", {'on':['Gulp','GulpExt']} " i don't use it
+Plug 'skywind3000/asyncrun.vim', {'on' : ['Gulp', 'GulpExt']} " i don't use it
 " Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
 Plug 'tpope/vim-fugitive'
 Plug 'editorconfig/editorconfig-vim'

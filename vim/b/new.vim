@@ -1,7 +1,19 @@
 " == new stuff == {{{2
+
+" 2017-11-23 {{{3
+" Plug 'easymotion/vim-easymotion'
+" 	map s <Plug>(easymotion-prefix)
+
+" 2017-11-22 {{{3
+Plug 'gregsexton/MatchTag'
+Plug 'Yggdroot/LeaderF'
+	 let g:Lf_StlSeparator = { 'left': '', 'right': '' }
+	 let g:Lf_ShortcutF = '<C-P>'
+
 " 2017-11-21 {{{3
 Plug 'maralla/completor.vim'
 "}}}3
+" repeat motions
 Plug 'Houl/vim-repmo'
 " TODO: test them motherfucker! Use them you moron!
 " Plug 'Shougo/deoplete.nvim'
