@@ -122,7 +122,7 @@ if has('virtualedit')
 endif
 
 set formatoptions=qrn1j
-set formatoptions+=M
+" set formatoptions+=M
 " set formatoptions-=t           " don't automatically wrap text when typing
 " set formatoptions+=j           " Delete comment character when joining commented lines
 
@@ -381,10 +381,6 @@ endif
 " }}} grepprg, ag, rg & ctrlp "
 
 " call cw#SetRandomColors()
-
-if !(is.nvim)
-	set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
-endif
 
 if is.gui
 	let s:myFontSize = 0
