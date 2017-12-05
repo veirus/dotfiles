@@ -7,7 +7,11 @@ set laststatus=2
 set statusline=
 set statusline+=\ %n
 set statusline+=%{v:this_session!=''?'\ \ '.fnamemodify(this_session,':t'):''}
-set statusline+=\ \ \:%{@:}\ \ %<%.92F\ %{cw#ReadOnly()}
+set statusline+=\ 
+" set statusline+=\ \:%{@:}
+" set statusline+=\ 
+set statusline+=\ %<%.92F
+set statusline+=\ %{cw#ReadOnly()}
 set statusline+=\ %=
 set statusline+=\ %#WarningMsg#%k%r%w%m%0*
 set statusline+=\ \ %{&ft}
