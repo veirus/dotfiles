@@ -42,7 +42,7 @@ function! cw#StatuslineTabWarning()
     let spaces = search('^ ', 'nw') != 0
 
     if tabs && spaces
-      let b:statusline_tab_warning =  '[mixed-indent]'
+      let b:statusline_tab_warning =  '[\s+\t]'
     elseif (spaces && !&et) || (tabs && &et)
       let b:statusline_tab_warning = '[&et]'
     else
@@ -369,8 +369,8 @@ function! cw#ReadOnly()
     if !exists('g:mycolors')
       call cw#GetColorsNames()
     endif
-    let s:randcl = g:mycolors[localtime() % len(g:mycolors)]
-    return s:randcl
+    let l:randcl = g:mycolors[localtime() % len(g:mycolors)]
+    return l:randcl
   endfunction
 
   " Set Window Title {{{2
@@ -384,8 +384,8 @@ function! cw#ReadOnly()
 
   " Set Random Colorscheme Name {{{2
   function! cw#SetRandomColors()
-    let s:color = cw#GetRandomColors()
-    exe 'colorscheme ' . s:color
+    let l:color = cw#GetRandomColors()
+    exe 'colorscheme ' . l:color
     call cw#SetGvimTitle()
     redraw
     if !has('vim_starting')
