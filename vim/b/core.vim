@@ -41,7 +41,9 @@ Plug 'mhinz/vim-startify' "{{{3
 		\ {'r': '$MYVIMRC'},
 		\ {'t': '~\onetab.txt'} ]
 	let g:startify_update_oldfiles = 1
-	" let g:startify_session_autoload = 1
+    let g:startify_session_sort = 1
+	let g:startify_session_autoload = 0
+    let g:startify_fortune_use_unicode = 1
 	let g:startify_session_persistence = 1
 	let g:startify_session_delete_buffers = 1
 "}}}3
