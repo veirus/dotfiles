@@ -122,7 +122,7 @@ if has('virtualedit')
 endif
 
 set formatoptions=qrn1j
-set formatoptions+=M
+" set formatoptions+=M
 " set formatoptions-=t           " don't automatically wrap text when typing
 " set formatoptions+=j           " Delete comment character when joining commented lines
 
