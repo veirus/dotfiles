@@ -1,4 +1,5 @@
 " == new stuff == {{{2
+Plug 'vim-scripts/txt.vim'
 
 " 2017-11-23 {{{3
 " Plug 'easymotion/vim-easymotion'
@@ -12,6 +13,9 @@ Plug 'Yggdroot/LeaderF'
 
 " 2017-11-21 {{{3
 Plug 'maralla/completor.vim'
+	let g:completor_auto_trigger = 0
+	" inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+	inoremap <expr> <Tab> pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
 "}}}3
 " repeat motions
 Plug 'Houl/vim-repmo'
