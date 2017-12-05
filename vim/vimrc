@@ -83,8 +83,8 @@ runtime b\new.vim
 runtime b\old.vim
 runtime b\colors.vim
 " runtime b\asynccm.vim
-" runtime b\statusline1.vim
-runtime b\lightline.vim
+runtime b\statusline1.vim
+" runtime b\lightline.vim
 " runtime b\airline.vim
 " b\unused.vim
 " ===========================================
@@ -212,6 +212,7 @@ if !g:is.gui
 
 	" ConEmu terminal settings {{{2
 	if g:is.conemu && !g:is.nvim
+		set termguicolors
 		" it's already set above
 		" set vb t_vb=
 		set term=xterm
@@ -382,10 +383,6 @@ endif
 
 " call cw#SetRandomColors()
 
-if !(is.nvim)
-	set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
-endif
-
 if is.gui
 	let s:myFontSize = 0
 	let s:myFontSizeList = ["12", "13", "14", "16"]
@@ -411,7 +408,6 @@ set completeopt+=menuone
 set completeopt-=menu
 if &completeopt !~# 'noinsert\|noselect'
   set completeopt+=noselect
-
 endif
 
 " Make arrow keys useful
@@ -424,3 +420,5 @@ vmap <Right> >gv
 
 " JSX highlighting
 let g:jsx_ext_required=0
+
+nnoremap gy :%y<CR>
