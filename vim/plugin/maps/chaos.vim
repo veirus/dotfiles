@@ -171,8 +171,8 @@ nnoremap <F5> :call cw#SetModalCursor()<cr>
 nnoremap <F6> :setl wrap!<bar>:set wrap?<CR>
 imap <F6> <C-O><F6>
 
-map <F9> :call cw#SetRandomColors()<CR>
-" map <F11> :call cw#SwitchTheLight()<cr>
+nnoremap <F9> :call cw#SetRandomColors()<CR>
+" noremap <F11> :call cw#SwitchTheLight()<cr>
 nnoremap <leader><F11> :so $MYVIMRC<CR> :echo "* .vimrc loaded *"<CR>
 nnoremap <Leader><F12> :tabnew $MYVIMRC<CR>
 
@@ -210,20 +210,22 @@ map <leader>tc :tabclose<CR>
 
 " formatting {{{3
 " stylus exclusive: remove all semicolons
-nmap <leader>f; :call cw#Preserve("%s/;\$//g")<CR>
+nnoremap <leader>f; :call cw#Preserve("%s/;\$//g")<CR>
 
-nmap <leader>f= :call cw#Preserve("normal gg=G")<CR>
+nnoremap <leader>f= :call cw#Preserve("normal gg=G")<CR>
 
-" most commons substitute patterns
-nmap <leader>f4 :call cw#Preserve("%s/\\s\\+$//e")<CR>
+" most common substitute patterns
+nnoremap <leader>f4 :call cw#Preserve("%s/\\s\\+$//e")<CR>
 nnoremap <leader>B :s/{/}/g<CR>
 
-nmap <expr> <leader>f3 ':%s///g<LEFT><LEFT><LEFT>'
-nmap <expr> <leader>f5 ':%s/' . @/ . '//g<LEFT><LEFT>'
-nmap <leader>f6 :%s/\<<c-r><c-a>\>//g<LEFT><LEFT>
-xmap <leader>f6 y:%s`<c-r>0``g<left><left>
-nmap <expr> <F3> ':g//#<LEFT><LEFT>'
-xmap <leader>s :sort<cr>
+nnoremap <expr> <leader>f3 ':%s///g<LEFT><LEFT><LEFT>'
+nnoremap <expr> <leader>f5 ':%s/' . @/ . '//g<LEFT><LEFT>'
+nnoremap <leader>f6 :%s/\<<c-r><c-a>\>//g<LEFT><LEFT>
+xnoremap <leader>f6 y:%s`<c-r>0``g<left><left>
+
+nnoremap <expr> <F3> ':g//#<LEFT><LEFT>'
+
+xnoremap <leader>s :sort<cr>
 
 " folds {{{3 - folds are awesome
 nnoremap zr zr:echo 'foldlevel: ' . &foldlevel<cr>
