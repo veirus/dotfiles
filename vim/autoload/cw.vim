@@ -173,7 +173,15 @@ function! cw#ClearRegisters()
   for elem in l:register_list
     execute 'let @'.elem.'= ""'
   endfor
-endfunction "}}}2
+endfunction 
+function! cw#CleanReg() abort
+  let l:regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
+  for r in l:regs
+    call setreg(r, [])
+  endfor
+endfunction
+command! Clr :call cw#CleanReg()<cr>
+"}}}2
 " make list-like commands more intuitive {{{2
 " by Romain Lafurcade aka romainl
 " https://gist.github.com/romainl/047aca21e338df7ccf771f96858edb86
