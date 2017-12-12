@@ -40,6 +40,9 @@ gundopush=push -f origin HEAD^:master
 
 npmls=npm ls -g --depth=0
 npmll=npm ls --depth=0
+npmd=npm i -D $*
+npmg=npm i -g $*
+
 vi=vim $*
 gvi=gvim $*
 nvi=D:\Apps\Neovim\bin\nvim-qt.exe $*
