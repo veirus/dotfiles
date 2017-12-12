@@ -1,8 +1,5 @@
 " vim: set fdl=1 fdm=marker:
 let g:mycolor = 'dracula'
-" Be Improved {{{2
-if &cp | set nocp | endif
-" ========================================
 " encoding {{{2
 " explanation: http://stackoverflow.com/a/5795441/453396
 if has("multi_byte")
@@ -84,6 +81,7 @@ runtime b\old.vim
 runtime b\colors.vim
 " runtime b\asynccm.vim
 runtime b\statusline1.vim
+" runtime b\repmo.vim
 " runtime b\lightline.vim
 " runtime b\airline.vim
 " b\unused.vim
@@ -381,7 +379,7 @@ endif
 
 " }}} grepprg, ag, rg & ctrlp "
 
-" call cw#SetRandomColors()
+call cw#SetRandomColors()
 
 if is.gui
 	let s:myFontSize = 0
@@ -407,7 +405,7 @@ set completeopt-=longest
 set completeopt+=menuone
 set completeopt-=menu
 if &completeopt !~# 'noinsert\|noselect'
-  set completeopt+=noselect
+	set completeopt+=noselect
 endif
 
 " Make arrow keys useful
