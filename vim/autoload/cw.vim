@@ -38,11 +38,13 @@ endfunction " }}}2
 "return an empty string if everything is fine @ Martin Grefnel
 function! cw#StatuslineTabWarning()
   if !exists("b:statusline_tab_warning")
-    let tabs = search('^\t', 'nw') != 0
-    let spaces = search('^ ', 'nw') != 0
+    let tabsloc = search('^\t', 'nw')
+    let spaceloc = search('^ ', 'nw')
+    let tabs = tabsloc != 0
+    let spaces = spaceloc != 0
 
     if tabs && spaces
-      let b:statusline_tab_warning =  '[\s+\t]'
+      let b:statusline_tab_warning =  '[\s\t:'.spaceloc.']'
     elseif (spaces && !&et) || (tabs && &et)
       let b:statusline_tab_warning = '[&et]'
     else
@@ -55,8 +57,9 @@ endfunction " }}}2
 "return '' otherwise @ Martin Grefnel
 function! cw#StatuslineTrailingSpaceWarning()
   if !exists("b:statusline_trailing_space_warning")
-    if search('\s\+$', 'nw') != 0
-      let b:statusline_trailing_space_warning = '[\s]'
+	  let l:loc = search('\s\+$', 'nw')
+	if l:loc != 0
+      let b:statusline_trailing_space_warning = '[\s:'.l:loc.']'
     else
       let b:statusline_trailing_space_warning = ''
     endif
@@ -173,7 +176,15 @@ function! cw#ClearRegisters()
   for elem in l:register_list
     execute 'let @'.elem.'= ""'
   endfor
-endfunction "}}}2
+endfunction 
+function! cw#CleanReg() abort
+  let l:regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
+  for r in l:regs
+    call setreg(r, [])
+  endfor
+endfunction
+command! Clr :call cw#CleanReg()<cr>
+"}}}2
 " make list-like commands more intuitive {{{2
 " by Romain Lafurcade aka romainl
 " https://gist.github.com/romainl/047aca21e338df7ccf771f96858edb86
