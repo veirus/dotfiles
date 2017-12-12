@@ -38,11 +38,13 @@ endfunction " }}}2
 "return an empty string if everything is fine @ Martin Grefnel
 function! cw#StatuslineTabWarning()
   if !exists("b:statusline_tab_warning")
-    let tabs = search('^\t', 'nw') != 0
-    let spaces = search('^ ', 'nw') != 0
+    let tabsloc = search('^\t', 'nw')
+    let spaceloc = search('^ ', 'nw')
+    let tabs = tabsloc != 0
+    let spaces = spaceloc != 0
 
     if tabs && spaces
-      let b:statusline_tab_warning =  '[\s+\t]'
+      let b:statusline_tab_warning =  '[\s\t:'.spaceloc.']'
     elseif (spaces && !&et) || (tabs && &et)
       let b:statusline_tab_warning = '[&et]'
     else
@@ -55,8 +57,9 @@ endfunction " }}}2
 "return '' otherwise @ Martin Grefnel
 function! cw#StatuslineTrailingSpaceWarning()
   if !exists("b:statusline_trailing_space_warning")
-    if search('\s\+$', 'nw') != 0
-      let b:statusline_trailing_space_warning = '[\s]'
+	  let l:loc = search('\s\+$', 'nw')
+	if l:loc != 0
+      let b:statusline_trailing_space_warning = '[\s:'.l:loc.']'
     else
       let b:statusline_trailing_space_warning = ''
     endif
