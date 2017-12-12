@@ -10,6 +10,9 @@ Plug 'gregsexton/MatchTag'
 Plug 'Yggdroot/LeaderF'
 	 let g:Lf_StlSeparator = { 'left': '', 'right': '' }
 	 let g:Lf_ShortcutF = '<C-P>'
+	 let g:Lf_IndexTimeLimit = 60
+	 let g:Lf_DefaultExternalTool = 'rg'
+	 let g:Lf_StlColorscheme = 'powerline'
 
 " 2017-11-21 {{{3
 Plug 'maralla/completor.vim'
@@ -17,8 +20,8 @@ Plug 'maralla/completor.vim'
 	" inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 	inoremap <expr> <Tab> pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
 "}}}3
-" repeat motions
-Plug 'Houl/vim-repmo'
+
+
 " TODO: test them motherfucker! Use them you moron!
 " Plug 'Shougo/deoplete.nvim'
 Plug 'vim-scripts/renamer.vim'
@@ -51,7 +54,8 @@ Plug 'google/vim-searchindex' " very cool
 Plug 'takac/vim-hardtime'
 	nnoremap <leader><F1> <Esc>:HardTimeToggle<CR>
 	let g:hardtime_default_on = 1
+	let g:hardtime_maxcount = 2
+	let g:hardtime_showmsg = 1
 	let g:hardtime_ignore_quickfix = 1
 	let g:list_of_normal_keys = ["h", "j", "k", "l", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
 	let g:list_of_visual_keys = ["h", "j", "k", "l", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
-
