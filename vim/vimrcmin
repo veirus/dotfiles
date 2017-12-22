@@ -1,8 +1,19 @@
 " a minimal .vimrc
-set nocompatible
+if &cp | set nocompatible | endif
 " romainl (and help) says it's not needed if you have
 " vimrc in expected location... Hmmmm...
 " requres manual setting when trying vim -u NONE (or any other config)
+" ========================================
+" rtp {{{ portability shim:
+let $DOTVIMDIR = expand('$HOME/vimtest')
+if !isdirectory(expand('$DOTVIMDIR'))
+	let $DOTVIMDIR = expand('$VIM/vimfiles')
+	echom "** ! **: dotfiles dir don't exist"
+endif
+set rtp-=~/vimfiles
+set rtp-=~/vimfiles/after
+set rtp^=$DOTVIMDIR
+" }}}
 "==================================================
 let g:is_windows = has('win32') || has('win64')
 let g:is_cygwin  = has('win32unix')
@@ -12,12 +23,18 @@ let g:is_nyaovim = exists('g:nyaovim_version')
 let g:is_gui     = has('gui_running')
 let g:is_conemu  = !empty($conemubuild)
 "==================================================
-let g:cs_wingui='despacio'
-let g:cs_xterm='papercolor'
-let g:cs_nvim='papercolor'
-let g:cs_cmder='papercolor'
+let g:cs_wingui = 'despacio'
+let g:cs_xterm  = 'papercolor'
+let g:cs_nvim   = 'papercolor'
+let g:cs_cmder  = 'papercolor'
 "==================================================
-" packadd! matchit
+if has('packages')
+	if !has('nvim')
+		packadd! matchit
+	endif
+else
+	source $VIMRUNTIME/macros/matchit.vim
+endif
 "==================================================
 " maps {{{
 "=========
@@ -91,7 +108,7 @@ nnoremap <leader><f11> :so $myvimrc<cr> :echo "* .vimrc loaded *"<cr>
 nnoremap <leader><f12> :vsp $myvimrc<cr>
 "==================================================
 " preserve by jonathan palardy {{{
-nnoremap <leader>f4 :call preserve("%s/\\s\\+$//e")<cr>
+nnoremap <leader>f4 :call Preserve("%s/\\s\\+$//e")<cr>
 function! Preserve(command)
 	" preparation: save last search, and cursor position.
 	let _s=@/
@@ -117,7 +134,7 @@ set imsearch=0
 " mappings end}}}
 "==================================================
 set hidden
-set ts=4 sts=4 sw=4 noexpandtab
+set ts=4 sw=0 sts=-1 noexpandtab
 set nobackup
 set nowritebackup
 set noswapfile
@@ -155,7 +172,7 @@ set statusline+=%#error#%m%r%k%*
 set statusline+=%{&ff!='unix'?'['.&ff.']':''}                   | " display only if &ff != unix
 set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''} | " display only if not utf-8
 set statusline+=%y
-set statusline+=[%l,%c][%l:%p%%]
+set statusline+=[%v,%c][%l:%p%%]
 set statusline+=%#error#
 set statusline+=%{Statuslinetabwarning()}
 set statusline+=%{StatuslineTrailingSpaceWarning()}
@@ -166,11 +183,16 @@ set statusline+=%*
 "return an empty string if everything is fine @ martin grefnel
 function! Statuslinetabwarning()
 	if !exists("b:statusline_tab_warning")
-		let tabs = search('^\t', 'nw') != 0
-		let spaces = search('^ ', 'nw') != 0
+		let tabs_ln = search('^\t', 'nw')
+		let tabs = tabs_ln != 0
+		let spaces_ln = search('^ ', 'nw')
+		let spaces = spaces_ln != 0
+
+		let nr = tabs ? tabs_ln : spaces_ln
+		" echo 'tabs:' tabs_ln '; spaces:' spaces_ln '; nr:' nr
 
 		if tabs && spaces
-			let b:statusline_tab_warning =	'[mixed-indent]'
+			let b:statusline_tab_warning =	'[mixed-indent:'.nr.']'
 		elseif (spaces && !&et) || (tabs && &et)
 			let b:statusline_tab_warning = '[&et]'
 		else
@@ -184,8 +206,9 @@ endfunction " }}}
 "return '' otherwise @ Martin Grefnel
 function! StatuslineTrailingSpaceWarning()
 	if !exists("b:statusline_trailing_space_warning")
-		if search('\s\+$', 'nw') != 0
-			let b:statusline_trailing_space_warning = '[\s]'
+		let l:s = search('\s\+$', 'nw')
+		if l:s != 0
+			let b:statusline_trailing_space_warning = '[\s:'.l:s.']'
 		else
 			let b:statusline_trailing_space_warning = ''
 		endif
@@ -366,4 +389,4 @@ else
 	endif " }}}
 endif
 "}}}
-" vim:set fdm=marker:
+" vim:set ft=vim fdm=marker:
