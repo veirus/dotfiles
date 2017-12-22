@@ -11,6 +11,8 @@ if !isdirectory(expand('$DOTVIMDIR'))
   let $DOTVIMDIR = expand('$VIM/vimfiles')
   echom "** ! **: dotfiles don't exist"
 endif
+set rtp-=~/vimfiles
+set rtp-=~/vimfiles/after
 set rtp^=$DOTVIMDIR
 let s:plugs = "plugged"
 let s:plugdir = expand($DOTVIMDIR.'/'.s:plugs)
