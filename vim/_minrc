@@ -1,0 +1,64 @@
+version 6.0
+if &cp | set nocp | endif
+let s:cpo_save=&cpo
+set cpo&vim
+map! <S-Insert> *
+vmap  "*d
+vmap <C-Del> "*d
+vmap <S-Del> "*d
+vmap <C-Insert> "*y
+vmap <S-Insert> "-d"*P
+nmap <S-Insert> "*P
+let &cpo=s:cpo_save
+unlet s:cpo_save
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,default,latin1
+set helplang=ru
+" set noloadplugins
+" ===============
+" ↑↑↑ mkvimrc ↑↑↑
+" ===============
+set guifont=Consolas:h14
+set keymap=russian-jcukenwin
+set iminsert=0
+set imsearch=0
+set incsearch
+set hidden
+set laststatus=2
+set ruler
+set number
+set noswapfile
+
+if has('autocmd')
+	filetype plugin indent on
+endif
+if has('syntax') && !exists('g:syntax_on')
+	syntax enable
+endif
+
+if &listchars ==# 'eol:$'
+	if has('multi_byte')
+		scriptencoding utf-8
+		set listchars=tab:›\ ,trail:•,extends:#,precedes:<,nbsp:·,eol:¬
+		let &showbreak='┗ '
+		" let &showbreak='↪ '
+	else
+		set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+	endif
+	set list
+endif
+
+exe 'winpos' getwinposx() 32
+
+packadd! editexisting
+packadd! justify
+packadd! matchit
+	map <M-a> %
+packadd! shellmenu
+packadd vim-fugitive
+
+augroup reload_config
+	au!
+	au BufWritePost _vimrc nested so $MYVIMRC | echo '*** RELOADED ***'
+augroup END
+" vim: set ft=vim:
