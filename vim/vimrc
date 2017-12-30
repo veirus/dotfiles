@@ -232,9 +232,10 @@ if !g:is.gui
 
 			" Works and even looks nice, however reports bad fixed pitch metrics
 			" Also it's risky to install patched version on Windows
-			GuiFont Consolas:h14
+			" GuiFont Consolas:h14
 			" works only when :so %
 			" GuiFont DejaVu Sans Mono for Powerline:h14
+			" let g:Guifont="DejaVu Sans Mono for Powerline:h14"
 
 			" Warning: bad fixed pitch metrics?!
 			" GuiFont Anonymice Powerline:h12
