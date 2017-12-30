@@ -1,5 +1,9 @@
 " vim:set noet sts=4 sw=4 ts=4 tw=78 fdm=marker fdl=2:
 " THIS IS CHAOS!!1
+if exists('g:loaded_chaos')
+	finish
+endif
+let g:loaded_chaos = 1
 " My problem is that i really like ✨#Sugar 🍬...
 "=================================
 " I -- IMPORTANT -- {{{2
