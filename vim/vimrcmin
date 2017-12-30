@@ -5,13 +5,14 @@ if &cp | set nocompatible | endif
 " requres manual setting when trying vim -u NONE (or any other config)
 " ========================================
 " rtp {{{ portability shim:
-let $DOTVIMDIR = expand('$HOME/vimtest')
+let $DOTVIMDIR = expand('$HOME/vimfiles')
 if !isdirectory(expand('$DOTVIMDIR'))
 	let $DOTVIMDIR = expand('$VIM/vimfiles')
 	echom "** ! **: dotfiles dir don't exist"
 endif
-set rtp-=~/vimfiles
-set rtp-=~/vimfiles/after
+" exclude default dirs (uncomment when it's not 'vimfiles'):
+" set rtp-=~/vimfiles
+" set rtp-=~/vimfiles/after
 set rtp^=$DOTVIMDIR
 " }}}
 "==================================================
