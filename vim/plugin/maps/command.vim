@@ -1,5 +1,8 @@
 " Command mode mappings. ( stolen shamelessly from Greg Hurrel )
-"
+if exists('g:loaded_commandmaps')
+	finish
+endif
+let g:loaded_commandmaps = 1
 
 " => vim-rsi
 " cnoremap <C-a> <Home>
