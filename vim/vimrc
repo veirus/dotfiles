@@ -379,25 +379,8 @@ endif
 
 " }}} grepprg, ag, rg & ctrlp "
 
-call cw#SetRandomColors()
-
-if is.gui
-	let s:myFontSize = 0
-	let s:myFontSizeList = ["12", "13", "14", "16"]
-
-	function! CycleFontSize()
-		let l:myFontsList = split(&gfn, ",")[0]
-		let l:myFont = split(l:myFontsList, ":")[0]
-
-		let s:myFontSize = s:myFontSize + 1
-		if s:myFontSize >= len(s:myFontSizeList)
-			let s:myFontSize = 0
-		endif
-
-		exe "set guifont=".l:myFont.":h".s:myFontSizeList[s:myFontSize]
-		redraw
-	endfunc
-	nnoremap <F11> :call CycleFontSize()<cr>
+if has('vim_starting')
+	call cw#SetRandomColors()
 endif
 
 " for completor.vim
@@ -420,3 +403,8 @@ vmap <Right> >gv
 let g:jsx_ext_required=0
 
 nnoremap gy :%y<CR>
+" renderoptions working example {{{
+if !(is.nvim) && (is.gui)
+	set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
+endif
+"}}}

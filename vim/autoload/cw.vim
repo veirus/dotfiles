@@ -176,7 +176,7 @@ function! cw#ClearRegisters()
   for elem in l:register_list
     execute 'let @'.elem.'= ""'
   endfor
-endfunction 
+endfunction
 function! cw#CleanReg() abort
   let l:regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
   for r in l:regs
@@ -452,3 +452,32 @@ function! cw#ReadOnly()
   function! cw#SwitchTheLight()
     exe { 'light': 'set bg=dark', 'dark': 'set bg=light' }[&bg]
   endfunction
+
+  " Cycle gui font size [ 12, 13, 14, 16 ] {{{2
+  if is.gui
+      let s:myFontSize = 0
+      let s:myFontSizeList = ["12", "13", "14", "16"]
+
+      function! cw#CycleFontSize()
+          let l:myFontsList = split(&gfn, ",")
+
+          if len(l:myFontsList) > 1
+            let l:myFontsList = get(l:myFontsList, 1, 'Consolas:h14')
+          else
+            let l:myFontsList = get(l:myFontsList, 0, 'Consolas:h14')
+          endif
+
+          let l:myFont = split(l:myFontsList, ":")[0]
+
+          let s:myFontSize = s:myFontSize + 1
+          if s:myFontSize >= len(s:myFontSizeList)
+              let s:myFontSize = 0
+          endif
+
+          exe "set guifont=".l:myFont.":h".s:myFontSizeList[s:myFontSize]
+          redraw
+      endfunc
+
+      nnoremap <F11> :call cw#CycleFontSize()<cr>
+  endif
+
