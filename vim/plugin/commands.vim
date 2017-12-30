@@ -1,4 +1,4 @@
-" vim:set noet sts=4 sw=4 ts=4 tw=78 fdl=1 :
+" vim:set fdl=1:
 if exists('g:cwcommands_loaded')
 	finish
 endif
