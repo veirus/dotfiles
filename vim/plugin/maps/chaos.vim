@@ -106,7 +106,7 @@ nnoremap vv ^vg_
 vnoremap . :normal .<CR>
 
 " Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 " Current file name to clipboard
 nnoremap <leader>cp :let @+ = expand("%:p")<CR>
 
