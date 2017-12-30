@@ -1,20 +1,20 @@
 " == Necessity == {{{2
 
-" Plug 'nathanaelkane/vim-indent-guides' "{{{3
-" " default: <leader>ig
-" let g:indent_guides_start_level = 2
-" let g:indent_guides_guide_size = 1
-" let g:indent_guides_color_change_percent=3
-"
-" if !has('gui_running')
-"	  let g:indent_guides_auto_colors=0
-"	  function! s:indent_set_console_colors()
-"	hi IndentGuidesOdd ctermbg=235
-"	hi IndentGuidesEven ctermbg=236
-"	  endfunction
-"	  autocmd VimEnter,Colorscheme * call s:indent_set_console_colors()
-" endif
-" " }}}3
+Plug 'nathanaelkane/vim-indent-guides' "{{{3
+" default: <leader>ig
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+let g:indent_guides_color_change_percent=3
+
+if !has('gui_running')
+	  let g:indent_guides_auto_colors=0
+	  function! s:indent_set_console_colors()
+	hi IndentGuidesOdd ctermbg=235
+	hi IndentGuidesEven ctermbg=236
+	  endfunction
+	  autocmd VimEnter,Colorscheme * call s:indent_set_console_colors()
+endif
+" }}}3
 
 " 2017-05-23 [ gutentags ] {{{3
 Plug 'ludovicchabant/vim-gutentags' ", {'for': ['php','vim','python','javascript','javascript.jsx','js','jsx','html','make']}
