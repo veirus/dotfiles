@@ -1,4 +1,8 @@
-" vim:set noet sts=4 sw=4 ts=4 tw=78 fdl=1:
+" vim:set fdl=1:
+if exists('g:loaded_cwmacros')
+	finish
+endif
+let g:loaded_cwmacros = 1
 " Macroses for nefertity {{{
 " let @n=vv\,li.area_list_itm.-numj
 " let @l=HvL\,li.area_list_itmHj
