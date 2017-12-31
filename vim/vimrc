@@ -346,15 +346,16 @@ if has("autocmd")
 	" 	au ColorScheme * call cw#SetModalCursor()
 	" augroup END
 
-	" Create absent dirs automatically
-	augroup auto_mkdir
-		autocmd!
-		autocmd BufWritePre *
-					\ if !isdirectory(expand('<afile>:p:h')) |
-					\ call mkdir(expand('<afile>:p:h'), 'p') |
-					\ endif
-	augroup end
+	" Create absent dirs automatically {{{2 [disabled]
+	" augroup auto_mkdir
+	" 	autocmd!
+	" 	autocmd BufWritePre *
+	" 				\ if !isdirectory(expand('<afile>:p:h')) |
+	" 				\ call mkdir(expand('<afile>:p:h'), 'p') |
+	" 				\ endif
+	" augroup END
 endif " }}}1
+
 " grepprg, ag, rg & ctrlp {{{ "
 
 if g:is.prostor
@@ -392,18 +393,9 @@ if &completeopt !~# 'noinsert\|noselect'
 	set completeopt+=noselect
 endif
 
-" Make arrow keys useful
-noremap <Up> ddkP
-noremap <Down> ddp
-noremap <Left> <<
-noremap <Right> >>
-vmap <Left> <gv
-vmap <Right> >gv
-
 " JSX highlighting
 let g:jsx_ext_required=0
 
-nnoremap gy :%y<CR>
 " renderoptions working example {{{
 if !(is.nvim) && (is.gui)
 	set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1

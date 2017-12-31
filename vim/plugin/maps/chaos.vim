@@ -121,7 +121,6 @@ nnoremap <leader>cp :let @+ = expand("%:p")<CR>
 " and then translating it to their bastardized version of Markdown.
 nnoremap <leader>J mzvipJ`z
 
-" 
 " Keep cursor line in place when joining lines
 nnoremap J mzJ`z
 
@@ -165,7 +164,7 @@ nnoremap <silent> <leader>r :call cw#Cycle_numbering()<CR>
 " toggle little nifty symbols
 nnoremap <leader><BS> :set list! list?<cr>
 
-" <F > keys: {{{3
+" = <F > keys: = {{{3
 
 nnoremap <F2> :Vex<CR>
 nnoremap <F4> :set hlsearch! hlsearch?<cr>
@@ -180,7 +179,7 @@ nnoremap <F9> :call cw#SetRandomColors()<CR>
 nnoremap <leader><F11> :so $MYVIMRC<CR> :echo "* .vimrc loaded *"<CR>
 nnoremap <Leader><F12> :tabnew $MYVIMRC<CR>
 
-" Buffers {{{3
+" = Buffers = {{{3
 " quick buffer open
 nnoremap gb :ls<CR>:b
 nnoremap <leader>d :ls<CR>:bd
@@ -193,7 +192,7 @@ nnoremap <leader><leader> <C-^>
 " A better way, preserves window, requires a plugin:
 nnoremap <leader>q :Bdelete<CR>
 
-" windows {{{3
+" = windows = {{{3
 nnoremap <leader>= <C-w>=
 nnoremap <leader>v <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s
@@ -208,11 +207,11 @@ map <M-,> 4<C-W>>
 map <M-=> <C-w>+
 map <M--> <C-w>-
 
-" tabs {{{3
+" = tabs = {{{3
 map <leader>tn :tabnew<CR>
 map <leader>tc :tabclose<CR>
 
-" formatting {{{3
+" = formatting = {{{3
 " stylus exclusive: remove all semicolons
 nnoremap <leader>f; :call cw#Preserve("%s/;\$//g")<CR>
 
@@ -231,7 +230,7 @@ nnoremap <expr> <F3> ':g//#<LEFT><LEFT>'
 
 xnoremap <leader>s :sort<cr>
 
-" folds {{{3 - folds are awesome
+" = folds = {{{3 - folds are awesome
 nnoremap zr zr:echo 'foldlevel: ' . &foldlevel<cr>
 nnoremap zm zm:echo 'foldlevel: ' . &foldlevel<cr>
 nnoremap zR zR:echo 'foldlevel: ' . &foldlevel<cr>
@@ -323,4 +322,13 @@ xnoremap , :
 onoremap , :
 " }}}2
 
+nnoremap gy :%y<CR>
+
+" Make arrow keys useful
+noremap <Up> ddkP
+noremap <Down> ddp
+noremap <Left> <<
+noremap <Right> >>
+vmap <Left> <gv
+vmap <Right> >gv
 " new }}}
