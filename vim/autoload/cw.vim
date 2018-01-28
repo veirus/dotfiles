@@ -428,7 +428,7 @@ function! cw#ReadOnly()
   endfunction
 
   " Automagical colorscheme assigning :) "{{{2
-  function! cw#SetColors()
+  function! cw#SetColorsList()
     if has('vim_starting')
       " echom '*** vim starting ***'
       if !has('syntax')
