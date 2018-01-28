@@ -1,26 +1,27 @@
 " vim:set tw=80 fdl=1 ft=vim fdl=1 fdm=marker:
 if g:is.macvim
-  set guifont=Consolas:h15
+	set guifont=Consolas:h15
 elseif g:is.wingui
-  set guifont=Iosevka_Term:h14:cRUSSIAN:qDRAFT,DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN,Consolas:h12
-  if &guifont =~? 'powerline'
-    let g:airline_powerline_fonts = 1
-  endif
-  " Меню выбора кодировки текста (utf8, cp1251, koi8-r, cp866)
-  menu Кодировка.utf-8 :e ++enc=utf8<CR>
-  menu Кодировка.windows-1251 :e ++enc=cp1251<CR>
-  menu Кодировка.utf-16le :e ++enc=utf-16le<CR>
-  menu Кодировка.cp866 :e ++enc=cp866<CR>
-  menu Кодировка.koi8-r :e ++enc=koi8-r<CR>
+	set guifont=Iosevka_Term:h14:cRUSSIAN:qDRAFT,DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN,Consolas:h12
+	if &guifont =~? 'powerline'
+		let g:airline_powerline_fonts = 1
+	endif
+	" Меню выбора кодировки текста (utf8, cp1251, koi8-r, cp866)
+	menu Кодировка.utf-8 :e ++enc=utf8<CR>
+	menu Кодировка.windows-1251 :e ++enc=cp1251<CR>
+	menu Кодировка.utf-16le :e ++enc=utf-16le<CR>
+	menu Кодировка.cp866 :e ++enc=cp866<CR>
+	menu Кодировка.koi8-r :e ++enc=koi8-r<CR>
 endif
 " currently is guioptions=gmtch
 if g:is.conemu
-  set guioptions+=h
-  set guioptions-=b
-  set guioptions-=r
-  set guioptions-=R
-  set guioptions-=m
+	set guioptions+=h
+	set guioptions-=b
+	set guioptions-=r
+	set guioptions-=R
+	set guioptions-=m
 endif
+set guioptions-=t
 set guioptions+=c       " Use console dialogs
 set guioptions-=e       " Disable fancy tabline (repositions vim on tab in Win32)
 set guioptions-=L       " Disable left scrollbar (repositions vim on vsplit in Win32)
@@ -30,16 +31,16 @@ set guioptions-=T       " No toolbar
 " set noshowmode
 set ballooneval
 if !g:is.prostor
-  let g:wposx = 480 " =1920/4
-  let g:wcols = 103
-  let g:wline = 99
+	let g:wposx = 480 " =1920/4
+	let g:wcols = 103
+	let g:wline = 99
 else
-  let g:wposx = 273 " =1366/5
-  let g:wcols = 80
-  let g:wline = 34
+	let g:wposx = 273 " =1366/5
+	let g:wcols = 80
+	let g:wline = 34
 endif
 " http://vim.1045645.n5.nabble.com/Initial-Window-Position-td1165538.html
 let g:wposy = 32  " windows taskbar
 autocmd GUIEnter * set vb t_vb= linespace=0
-      \ | let &lines=g:wline | let &columns=g:wcols
-      \ | execute ':winpos' g:wposx g:wposy
+			\ | let &lines=g:wline | let &columns=g:wcols
+			\ | execute ':winpos' g:wposx g:wposy
