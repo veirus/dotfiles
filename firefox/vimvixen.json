@@ -24,7 +24,7 @@
 		"d": { "type": "scroll.pages", "count": 0.5 },
 		"в": { "type": "scroll.pages", "count": 0.5 },
 		"<C-B>": { "type": "scroll.pages", "count": -1 },
-		"<C-F>": { "type": "scroll.pages", "count": 1 },
+		"<C-N>": { "type": "scroll.pages", "count": 1 },
 		"gg": { "type": "scroll.top" },
 		"G": { "type": "scroll.bottom" },
 		"$": { "type": "scroll.end" },
@@ -70,7 +70,7 @@
 		"<C-Г>": { "type": "scroll.pages", "count": -0.5 },
 		"<C-В>": { "type": "scroll.pages", "count": 0.5 },
 		"<C-И>": { "type": "scroll.pages", "count": -1 },
-		"<C-А>": { "type": "scroll.pages", "count": 1 },
+		"<C-Т>": { "type": "scroll.pages", "count": 1 },
 		"пп": { "type": "scroll.top" },
 		"П": { "type": "scroll.bottom" },
 		"$": { "type": "scroll.end" },
@@ -113,6 +113,7 @@
 	},
 	"blacklist": [
 		"*.slack.com",
-		"*.youtube.com/*"
+		"*.youtube.com/*",
+		"*.twitch.tv/*"
 	]
 }
