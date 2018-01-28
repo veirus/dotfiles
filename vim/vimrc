@@ -6,14 +6,11 @@ if has("multi_byte")
 	if &termencoding == ""
 		let &termencoding = &encoding
 	endif
-	set encoding=utf-8                      "better default than latin1
-	setglobal fileencoding=utf-8            "change default file encoding when writing new files
-	set fileencodings=utf-8,utf-16le,cp1251,cp866,koi8r,ucs-2le "cyrillic edition
+	set encoding=utf-8                      " better default than latin1
+	setglobal fileencoding=utf-8            " change default file encoding when writing new files
+	" Actually, setting 'fencs' messes up default 'fenc' autodetection:
+	" set fileencodings=utf-8,utf-16le,cp1251,cp866,koi8r,ucs-2le "cyrillic edition
 endif
-" ========================================
-" mapleader {{{2
-let mapleader    = "\<space>"
-" let g:mapleader  = "\<space>" " why there's a second one?
 " ========================================
 " ENV detect {{{2
 let g:is = {
@@ -68,6 +65,9 @@ if has('clipboard')
 		set clipboard=unnamed
 	endif
 endif
+" mapleader {{{2
+let mapleader    = "\<space>"
+" ========================================
 " }}}
 " Plugins {{{1
 call plug#begin(s:plugdir)
@@ -85,11 +85,6 @@ runtime b\statusline1.vim
 " runtime b\lightline.vim
 " runtime b\airline.vim
 " b\unused.vim
-" ===========================================
-" *** links to mappings for quick access: ***
-" ===========================================
-" plugin\maps\chaos.vim
-" plugin\maps\command.vim
 " ===========================================
 call plug#end() " required }}}1
 " General {{{2
@@ -206,6 +201,7 @@ let g:netrw_winsize = 25
 if !g:is.gui
 
 	set vb t_vb=
+	set nocursorline
 	set ttimeout ttimeoutlen=50
 
 	" ConEmu terminal settings {{{2
