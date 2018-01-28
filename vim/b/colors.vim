@@ -1,9 +1,10 @@
 " colors {{{3
+let s:altcolor = 'nova'
 let g:cs = {
 			\ 'xterm':  'jellybeans',
 			\ 'nvim':   'molokai',
 			\ 'conemu': 'badwolf',
-			\ 'wingui': g:is.prostor ? g:mycolor : 'nova'
+			\ 'wingui': g:is.prostor ? g:mycolor : s:altcolor
 			\ }
 " ========================================
 
