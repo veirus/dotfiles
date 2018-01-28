@@ -8,7 +8,7 @@ if has("multi_byte")
 	endif
 	set encoding=utf-8                      "better default than latin1
 	setglobal fileencoding=utf-8            "change default file encoding when writing new files
-	set fileencodings=utf-8,cp1251,utf-16le,cp866,koi8r,ucs-2le "cyrillic edition
+	set fileencodings=utf-8,utf-16le,cp1251,cp866,koi8r,ucs-2le "cyrillic edition
 endif
 " ========================================
 " mapleader {{{2
@@ -268,7 +268,7 @@ endif
 
 "}}}1
 
-call cw#SetColors()
+call cw#SetColorsList()
 
 " Autocommands {{{1
 if has("autocmd")
@@ -382,7 +382,8 @@ endif
 " }}} grepprg, ag, rg & ctrlp "
 
 if has('vim_starting')
-	call cw#SetRandomColors()
+	" call cw#SetRandomColors()
+	color acme
 endif
 
 " for completor.vim
