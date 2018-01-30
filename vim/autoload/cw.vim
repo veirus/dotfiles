@@ -95,13 +95,6 @@ function! cw#CloseWindowOrKillBuffer()
     bdelete
   endif
 endfunction " }}}2
-" New Python Buffer Autofill @ jenay.net {{{2
-function! cw#BufNewFile_PY()
-  0put = '#!/usr/bin/env python3'
-  1put = '#-*- coding: utf-8 -*-'
-  $put = ''
-  normal G
-endfunction " }}}2
 " Python Autofill using Template File {{{2
 function! cw#SkeletonPY()
   exe '0r $HOME\vimfiles\tpl\skeleton.py | norm 2j'
@@ -461,11 +454,8 @@ function! cw#ReadOnly()
       function! cw#CycleFontSize()
           let l:myFontsList = split(&gfn, ",")
 
-          if len(l:myFontsList) > 1
-            let l:myFontsList = get(l:myFontsList, 1, 'Consolas:h14')
-          else
-            let l:myFontsList = get(l:myFontsList, 0, 'Consolas:h14')
-          endif
+          let l:part = len(l:myFontsList) > 1 ? 1 : 0
+          let l:myFontsList = get(l:myFontsList, l:part, 'Consolas:h14')
 
           let l:myFont = split(l:myFontsList, ":")[0]
 
