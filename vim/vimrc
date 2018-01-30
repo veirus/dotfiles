@@ -319,10 +319,6 @@ if has("autocmd")
 		" autocmd bufwritepost $HOME/_vimrc execute "normal! :source ~/_vimrc"
 	augroup END
 
-	augroup Python_skeleton "{{{2
-		autocmd!
-		autocmd BufNewFile *.py[w]\\\{-\} call cw#SkeletonPY()
-	augroup END
 
 	" Return to last edit position when opening files (You want this!) {{{2
 	augroup thaw_file
@@ -350,31 +346,33 @@ if has("autocmd")
 	" 				\ call mkdir(expand('<afile>:p:h'), 'p') |
 	" 				\ endif
 	" augroup END
+
+	augroup vim_omni
+		autocmd!
+		autocmd Filetype *
+				\	if &omnifunc == "" |
+				\		setlocal omnifunc=syntaxcomplete#Complete |
+				\	endif
+	augroup END
 endif " }}}1
 
 " grepprg, ag, rg & ctrlp {{{ "
-
-if g:is.prostor
-	" because 'home' doesn't have ripgrep
-	if executable("rg")
-		set grepprg=rg\ --vimgrep\ --color=never
-		" \ --smartcase
-		let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-		let g:ctrlp_use_caching = 0
+if executable("ag")
+	set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --vimgrep
+	set grepformat^=%f:%l:%c:%m
+	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+	if g:is.windows
+		" fix for windows:
+		let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
 	endif
-else
-	if executable("ag")
-		set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --vimgrep
-		set grepformat^=%f:%l:%c:%m
-		let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-		if g:is.windows
-			" fix for windows:
-			let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
-		endif
-		let g:ctrlp_use_caching = 0
-	endif
+	let g:ctrlp_use_caching = 0
 endif
-
+if executable("rg")
+	set grepprg=rg\ --vimgrep\ --color=never
+	" \ --smartcase
+	let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+	let g:ctrlp_use_caching = 0
+endif
 " }}} grepprg, ag, rg & ctrlp "
 
 if has('vim_starting')
