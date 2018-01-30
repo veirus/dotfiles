@@ -7,12 +7,11 @@ elseif g:is.wingui
 		let g:airline_powerline_fonts = 1
 	endif
 	" Меню выбора кодировки текста (utf8, cp1251, koi8-r, cp866)
-	" XXX: ':' remapped to ',' !!!
-	menu Кодировка.utf-8 ,e ++enc=utf8<CR>
-	menu Кодировка.windows-1251 ,e ++enc=cp1251<CR>
-	menu Кодировка.utf-16le ,e ++enc=utf-16le<CR>
-	menu Кодировка.cp866 ,e ++enc=cp866<CR>
-	menu Кодировка.koi8-r ,e ++enc=koi8-r<CR>
+	noremenu Кодировка.utf-8 :e ++enc=utf8<CR>
+	noremenu Кодировка.windows-1251 :e ++enc=cp1251<CR>
+	noremenu Кодировка.utf-16le :e ++enc=utf-16le<CR>
+	noremenu Кодировка.cp866 :e ++enc=cp866<CR>
+	noremenu Кодировка.koi8-r :e ++enc=koi8-r<CR>
 endif
 " currently is guioptions=gmtch
 if g:is.conemu
