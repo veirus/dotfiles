@@ -1,10 +1,10 @@
-" vim:set noet sts=4 sw=4 ts=4 tw=78 fdm=marker fdl=2:
-" THIS IS CHAOS!!1
-if exists('g:loaded_chaos')
+" vim:set noet sts=4 sw=4 ts=4 fdm=marker fdl=2:
+if exists('g:loaded_maps_chaos')
 	finish
 endif
-let g:loaded_chaos = 1
-" My problem is that i really like ✨#Sugar 🍬...
+let g:loaded_maps_chaos = 1
+"=================================
+" My problem is that i really like ✨ #Sugar 🍬...
 "=================================
 " I -- IMPORTANT -- {{{2
 "=================================
@@ -305,7 +305,6 @@ nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<C
 "}}}2
 "=================================
 " new {{{
-map g. @:
 inoremap ; ;<c-g>u
 " ~ toggles ' and " in addition to its normal behaviour
 nnoremap <expr> ~ getline('.')[col('.')-1] == "'" ? "r\"l" : getline('.')[col('.')-1] == '"' ? "r'l" : '~'
@@ -322,13 +321,6 @@ xnoremap , :
 onoremap , :
 " }}}2
 
+map g. @:
 nnoremap gy :%y<CR>
-
-" Make arrow keys useful
-noremap <Up> ddkP
-noremap <Down> ddp
-noremap <Left> <<
-noremap <Right> >>
-vmap <Left> <gv
-vmap <Right> >gv
 " new }}}
