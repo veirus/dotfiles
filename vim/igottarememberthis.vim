@@ -32,6 +32,14 @@ endif
 "==================================================
 " Python stuff {{{
 
+" New Python Buffer Autofill @ jenay.net {{{2
+function! cw#BufNewFile_PY()
+  0put = '#!/usr/bin/env python3'
+  1put = '#-*- coding: utf-8 -*-'
+  $put = ''
+  normal G
+endfunction " }}}2
+
 autocmd FileType python set omnifunc=python3complete#Complete
 
 let g:jedi#force_py_version = 3
