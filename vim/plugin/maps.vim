@@ -1,4 +1,22 @@
 " vim:set noet sts=4 sw=4 ts=4 fdm=marker fdl=2:
+" cw's Vim mappings file
+" Last change: 2018-02-08 Чт 23:33
+" Version: 0.3
+" WHATSNEW:
+"   ~ changed strftime() format to 24h in <S-F8> mapping
+"   - removed some old mappings, i don't really use
+"   - removed some redundant maps, wich barely improves *life*
+"     (for example <leader>= as <C-w>=)
+"   + added version and last edit date, because i had trouble when
+"     searching for specific edit in the backups
+"   + added this section, not sure i wish to update it everytime though
+"   + added comments to some seemingly absurd and obscure shit,
+"     so it's easier to remember why it's there and what it is doing
+" TODO: learn to use git properly, instead of writing all this nonsense
+" like above. Remember, motherfucker: one change - one commit.
+" Or at least group them somewhat logically.
+" NOTE: suddenly emojis is working, and i have no idea why.
+"       Maybe it's Vim, maybe i installed some fonts.
 if exists('g:loaded_maps_chaos')
 	finish
 endif
@@ -48,8 +66,7 @@ nnoremap g, g,zz
 " auto center }}}4
 
 " Comfortable parenthesis jumping
-map <M-a> %
-" Q is free since *closewindoworbuffer* is disabled
+" <Q> is free since *closewindoworbuffer* is disabled
 map Q %
 
 " Extremely comfortable traveling to the line ends
@@ -86,9 +103,9 @@ vmap gxx <Plug>(openbrowser-smart-search)
 nnoremap <F8> i<C-R>=strftime("%Y-%m-%d")<CR><Esc>
 inoremap <F8> <C-R>=strftime("%Y-%m-%d")<CR>
 vnoremap <F8> da<C-R>=strftime("%Y-%m-%d")<CR><Esc>
-nnoremap <S-F8> i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
-inoremap <S-F8> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
-vnoremap <S-F8> da<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
+nnoremap <S-F8> i<C-R>=strftime("%Y-%m-%d %a %H:%M")<CR><Esc>
+inoremap <S-F8> <C-R>=strftime("%Y-%m-%d %a %H:%M")<CR>
+vnoremap <S-F8> da<C-R>=strftime("%Y-%m-%d %a %H:%M")<CR><Esc>
 
 " sane regex {{{3
 nnoremap / /\v
@@ -97,6 +114,7 @@ nnoremap ? ?\v
 vnoremap ? ?\v
 "}}}3
 
+" Visual mode helpers {{{3
 " reselect visual block after indent #superuseful
 vnoremap < <gv
 vnoremap > >gv
@@ -108,6 +126,7 @@ nnoremap vv ^vg_
 " Allow using the repeat operator with a visual selection (!)
 " http://stackoverflow.com/a/8064607/127816
 vnoremap . :normal .<CR>
+"}}}3
 
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -135,7 +154,7 @@ nnoremap ]<CR> m`a<CR><ESC>``
 " Sneaky new line
 nnoremap <silent> <M-j> m`o<ESC>``
 nnoremap <silent> <M-k> m`O<ESC>``
-" fallback maps if Alt won't work
+" fallback maps if <Alt> won't work
 nnoremap <silent> <leader>j m`o<ESC>``
 nnoremap <silent> <leader>k m`O<ESC>``
 nnoremap <silent> <C-CR> o<ESC>
@@ -143,15 +162,6 @@ nnoremap <silent> <S-CR> O<ESC>
 inoremap <silent> <S-CR> <ESC>O
 
 " = Seek and destroy = {{{3
-" from http://twily.info/.vimrc#view
-" When you press gv you vimgrep after the selected text
-vnoremap <silent> <leader>g :call VisualSelection('gv', '')<CR>
-" Open vimgrep and put the cursor in the right position
-map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
-" Vimgreps in the current file
-map <leader>gc :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
-" vimgrep my last search
-nnoremap <silent> <leader>gn :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 " grep word under cursor
 nnoremap <M-g> :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
@@ -182,7 +192,6 @@ nnoremap <Leader><F12> :tabnew $MYVIMRC<CR>
 " = Buffers = {{{3
 " quick buffer open
 nnoremap gb :ls<CR>:b
-nnoremap <leader>d :ls<CR>:bd
 nnoremap <leader><leader> <C-^>
 
 " window killer
@@ -192,11 +201,9 @@ nnoremap <leader><leader> <C-^>
 " A better way, preserves window, requires a plugin:
 nnoremap <leader>q :Bdelete<CR>
 
-" = windows = {{{3
-nnoremap <leader>= <C-w>=
+" = windows (splits) = {{{3
 nnoremap <leader>v <C-w>v<C-w>l
-nnoremap <leader>s <C-w>s
-nnoremap <leader>vsa :vert sba<cr>
+nnoremap <leader>va :vert sba<cr>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -206,10 +213,6 @@ map <M-.> 4<C-W><
 map <M-,> 4<C-W>>
 map <M-=> <C-w>+
 map <M--> <C-w>-
-
-" = tabs = {{{3
-map <leader>tn :tabnew<CR>
-map <leader>tc :tabclose<CR>
 
 " = formatting = {{{3
 " stylus exclusive: remove all semicolons
@@ -260,10 +263,15 @@ endif
 xnoremap @ :<C-u>call cw#ExecuteMacroOverVisualRange()<CR>
 " }}}3 /wtf...
 " Meta keys test {{{3
+" For some reason map is acting strangely since version 8.0.13xx (maybe?)
+" By strangely i mean it not working. Using noremaps seems to fix this...
+" ...sometimes. I suspect plugins maybe interfereing, but am too lazy to debug
+" ==============================
 " works in terminal:
 map <M-F5> :echo 'whoa f5'<cr>
-" doesn't work in terminal:
 " ==============================
+" doesn't work in terminal:
+" ( tested in cmder v.1.31-32 )
 map <silent> <M-1> :echo 'whoa1'<cr>
 map <M-`> :echo 'cool!'<cr>
 " map <M-space> :echo 'lol i can map it'<cr>
@@ -283,9 +291,11 @@ xnoremap <c-s> :s/
 nnoremap <F7> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-"
+
 " consistent menu navigation
-" https://github.com/jasonlong/dotfiles/blob/master/vimrc
+" https://github.com/jasonlong/dotfiles/blob/master/vimrc#L167-L169
+inoremap <C-j> <C-n>
+inoremap <C-k> <C-p>
 
 " reselect last paste ( not working recently? )
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -305,6 +315,8 @@ nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<C
 "}}}2
 "=================================
 " new {{{
+" This sets a new undo point when <;> is typed.
+" Intended to improve *QoL* somehow. Testing...
 inoremap ; ;<c-g>u
 " ~ toggles ' and " in addition to its normal behaviour
 nnoremap <expr> ~ getline('.')[col('.')-1] == "'" ? "r\"l" : getline('.')[col('.')-1] == '"' ? "r'l" : '~'
