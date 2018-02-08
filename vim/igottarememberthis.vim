@@ -630,3 +630,17 @@ map  <expr> T repmo#ZapKey('<Plug>Sneak_T')|sunmap T
 
 " }}}1
 " ========================================
+" Probably very useful vimgrep commands {{{1
+" (not on Windows though - vimgrep is *INFERNALLY* slow there)
+" from http://twily.info/.vimrc#view 
+" When you press gv you vimgrep after the selected text
+vnoremap <silent> <leader>gv :call VisualSelection('gv', '')<CR>
+" Open vimgrep and put the cursor in the right position
+map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
+" Vimgreps in the current file
+map <leader>gc :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
+" vimgrep my last search
+nnoremap <silent> <leader>gn :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+"}}}1
+" ========================================
+
