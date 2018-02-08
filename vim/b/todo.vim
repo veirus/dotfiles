@@ -1,5 +1,7 @@
 " ST's PlainTasks compatible! {{{3
-Plug 'irrationalistic/vim-tasks' 
+" Plug 'irrationalistic/vim-tasks'
+" Recently updated fork:
+Plug 'jmolero/vim-tasks'
 
 " 2017-06-23 [ md todo ] {{{3
 " Plug 'rlue/vim-getting-things-down'
