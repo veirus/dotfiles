@@ -17,9 +17,9 @@ endif
 " }}}3
 
 " 2017-05-23 [ gutentags ] {{{3
-Plug 'ludovicchabant/vim-gutentags' ", {'for': ['php','vim','python','javascript','javascript.jsx','js','jsx','html','make']}
-	let g:gutentags_ctags_exclude=['node_modules', '.git']
-	let g:gutentags_cache_dir = $DOTVIMDIR.'/gutentags'
+" Plug 'ludovicchabant/vim-gutentags' ", {'for': ['php','vim','python','javascript','javascript.jsx','js','jsx','html','make']}
+	" let g:gutentags_ctags_exclude=['node_modules', '.git']
+	" let g:gutentags_cache_dir = $DOTVIMDIR.'/gutentags'
 
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } "{{{3
 	" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
@@ -36,14 +36,15 @@ Plug 'mhinz/vim-startify' "{{{3
 	nnoremap <F1> :Startify<CR>
 	let g:startify_list_order = ['bookmarks', 'files', 'sessions']
 	let g:startify_bookmarks = [
-		\ {'o': '~\prostor.org'},
+		\ {'o': '~\bigjulytasks.todo'},
 		\ {'p': '~\PROSTOR.todo'},
 		\ {'r': '$MYVIMRC'},
-		\ {'t': '~\onetab.txt'} ]
+		\ {'t': '~\onetab.md'},
+		\ {'y': '~\jrnl.todo' } ]
+	let g:startify_fortune_use_unicode = 1
 	let g:startify_update_oldfiles = 1
-    let g:startify_session_sort = 1
+	let g:startify_session_sort = 1
 	let g:startify_session_autoload = 0
-    let g:startify_fortune_use_unicode = 1
 	let g:startify_session_persistence = 1
 	let g:startify_session_delete_buffers = 1
 "}}}3
