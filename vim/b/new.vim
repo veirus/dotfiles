@@ -1,4 +1,15 @@
-" == new stuff == {{{2
+" == new stuff == {{{1
+
+" 2018-02-02
+Plug 'Shougo/echodoc.vim'
+
+Plug 'jsfaint/gen_tags.vim'
+" Colorscheme
+Plug 'plan9-for-vimspace/acme-colors'
+
+" 2018-01-16
+" Plug 'vim-utils/vim-troll-stopper'
+
 Plug 'vim-scripts/txt.vim'
 
 " 2017-11-23 {{{3
