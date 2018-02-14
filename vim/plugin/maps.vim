@@ -292,11 +292,6 @@ nnoremap <F7> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> t
 			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-" consistent menu navigation
-" https://github.com/jasonlong/dotfiles/blob/master/vimrc#L167-L169
-inoremap <C-j> <C-n>
-inoremap <C-k> <C-p>
-
 " reselect last paste ( not working recently? )
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
