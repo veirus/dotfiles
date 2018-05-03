@@ -1,5 +1,6 @@
 " Перед сохранением вырезаем пробелы на концах
-augroup Python_strip_trailing_spaces " {{{
+" augroup Python_strip_trailing_spaces " {{{
+augroup py "{{{
 	autocmd!
 	autocmd BufWritePre *.py[w] normal! m`:%s/\s\+$//e ``
 augroup END "}}}
