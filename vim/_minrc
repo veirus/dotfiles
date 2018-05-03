@@ -27,6 +27,7 @@ set hidden
 set laststatus=2
 set ruler
 set number
+set wildmenu
 set noswapfile
 
 if has('autocmd')
@@ -48,14 +49,18 @@ if &listchars ==# 'eol:$'
 	set list
 endif
 
-exe 'winpos' getwinposx() 32
+if has('gui_running')
+	exe 'winpos' getwinposx() 32
+endif
 
-packadd! editexisting
-packadd! justify
-packadd! matchit
+if has('packages')
+	packadd! editexisting
+	packadd! justify
+	packadd! matchit
 	map <M-a> %
-packadd! shellmenu
-packadd vim-fugitive
+	packadd! shellmenu
+	packadd vim-fugitive
+endif
 
 augroup reload_config
 	au!
