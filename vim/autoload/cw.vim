@@ -57,8 +57,8 @@ endfunction " }}}2
 "return '' otherwise @ Martin Grefnel
 function! cw#StatuslineTrailingSpaceWarning()
   if !exists("b:statusline_trailing_space_warning")
-	  let l:loc = search('\s\+$', 'nw')
-	if l:loc != 0
+    let l:loc = search('\s\+$', 'nw')
+    if l:loc != 0
       let b:statusline_trailing_space_warning = '[\s:'.l:loc.']'
     else
       let b:statusline_trailing_space_warning = ''
@@ -240,10 +240,12 @@ function! cw#HeatseekerCommand(choice_command, hs_args, first_command, rest_comm
   endfor
 endfunction
 
-if has('win32')
-  nnoremap <leader>hs :call cw#HeatseekerCommand("dir /a-d /s /b", "", ':e', ':tabe')<CR>
-else
-  nnoremap <leader>hs :call cw#HeatseekerCommand("find . ! -path '*/.git/*' -type f -follow", "", ':e', ':tabe')<cr>
+if executable("hs")
+  if has('win32')
+    nnoremap <leader>hs :call cw#HeatseekerCommand("dir /a-d /s /b", "", ':e', ':tabe')<CR>
+  else
+    nnoremap <leader>hs :call cw#HeatseekerCommand("find . ! -path '*/.git/*' -type f -follow", "", ':e', ':tabe')<cr>
+  endif
 endif "}}}2
 " Fuzzy select a buffer. Open the selected buffer with :b. {{{2
 function! cw#HeatseekerBuffer()
@@ -260,7 +262,9 @@ function! cw#HeatseekerBuffer()
   endif
 endfunction
 
-nnoremap <leader>hb :call cw#HeatseekerBuffer()<cr>
+if executable("hs")
+  nnoremap <leader>hb :call cw#HeatseekerBuffer()<cr>
+endif
 "}}}2
 " Highlight statusline {{{2
 function! cw#ChSlCl()
@@ -448,26 +452,26 @@ function! cw#ReadOnly()
 
   " Cycle gui font size [ 12, 13, 14, 16 ] {{{2
   if is.gui
-      let s:myFontSize = 0
-      let s:myFontSizeList = ["12", "13", "14", "16"]
+    let s:myFontSize = 0
+    let s:myFontSizeList = ["12", "13", "14", "16"]
 
-      function! cw#CycleFontSize()
-          let l:myFontsList = split(&gfn, ",")
+    function! cw#CycleFontSize()
+      let l:myFontsList = split(&gfn, ",")
 
-          let l:part = len(l:myFontsList) > 1 ? 1 : 0
-          let l:myFontsList = get(l:myFontsList, l:part, 'Consolas:h14')
+      let l:part = len(l:myFontsList) > 1 ? 1 : 0
+      let l:myFontsList = get(l:myFontsList, l:part, 'Consolas:h14')
 
-          let l:myFont = split(l:myFontsList, ":")[0]
+      let l:myFont = split(l:myFontsList, ":")[0]
 
-          let s:myFontSize = s:myFontSize + 1
-          if s:myFontSize >= len(s:myFontSizeList)
-              let s:myFontSize = 0
-          endif
+      let s:myFontSize = s:myFontSize + 1
+      if s:myFontSize >= len(s:myFontSizeList)
+        let s:myFontSize = 0
+      endif
 
-          exe "set guifont=".l:myFont.":h".s:myFontSizeList[s:myFontSize]
-          redraw
-      endfunc
+      exe "set guifont=".l:myFont.":h".s:myFontSizeList[s:myFontSize]
+      redraw
+    endfunc
 
-      nnoremap <F11> :call cw#CycleFontSize()<cr>
+    nnoremap <F11> :call cw#CycleFontSize()<cr>
   endif
 
