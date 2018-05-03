@@ -3,6 +3,7 @@ if g:is.macvim
 	set guifont=Consolas:h15
 elseif g:is.wingui
 	set guifont=Iosevka_Term:h14:cRUSSIAN:qDEFAULT,DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN,Consolas:h12
+	set guifontwide=Iosevka_Term:h14:cRUSSIAN:qDEFAULT,DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN,Consolas:h12
 	if &guifont =~? 'powerline'
 		let g:airline_powerline_fonts = 1
 	endif
