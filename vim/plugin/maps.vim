@@ -106,6 +106,10 @@ vnoremap <F8> da<C-R>=strftime("%Y-%m-%d")<CR><Esc>
 nnoremap <S-F8> i<C-R>=strftime("%Y-%m-%d %a %H:%M")<CR><Esc>
 inoremap <S-F8> <C-R>=strftime("%Y-%m-%d %a %H:%M")<CR>
 vnoremap <S-F8> da<C-R>=strftime("%Y-%m-%d %a %H:%M")<CR><Esc>
+" Insert current time also
+nnoremap <C-F8> i<C-R>=strftime("%H:%M")<CR><Esc>
+inoremap <C-F8> <C-R>=strftime("%H:%M")<CR>
+vnoremap <C-F8> da<C-R>=strftime("%H:%M")<CR><Esc>
 
 " sane regex {{{3
 nnoremap / /\v
@@ -146,6 +150,8 @@ nnoremap J mzJ`z
 nnoremap K m`a<CR><ESC>``
 " help me obi vim kenobi... I mean i use K from time to time.
 nnoremap <S-F12> K
+" quick check option value
+nnoremap <S-F11> :se <C-R><C-W>?<CR>
 
 " unimpaired-style, not as nice as i thought
 nnoremap [<CR> m`i<CR><ESC>``
@@ -176,7 +182,7 @@ nnoremap <leader><BS> :set list! list?<cr>
 
 " = <F > keys: = {{{3
 
-nnoremap <F2> :Vex<CR>
+nnoremap <F2> :Lex<CR>
 nnoremap <F4> :set hlsearch! hlsearch?<cr>
 nnoremap <F5> :call cw#SetModalCursor()<cr>
 
