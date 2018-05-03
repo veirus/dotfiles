@@ -48,7 +48,8 @@ Plug 'ternjs/tern_for_vim', {'for': [ 'js', 'javascript' ]}
 " ---------------
 Plug 'KabbAmine/gulp-vim', {'on': ['Gulp','GulpExt']} " oh wow this is actually usefull!
 " Plug 'gko/vim-coloresque', {'for': ['html', 'css', 'less', 'sass', 'stylus', 'php']}
-Plug 'ap/vim-css-color', {'for': ['html', 'css', 'less', 'sass', 'stylus', 'php']}
+" the below one is messing with html and Emmet
+Plug 'ap/vim-css-color', {'for': ['css', 'less', 'sass', 'stylus']}
 
 " 2017-02-06 [ ale ] {{{3
 Plug 'w0rp/ale'
