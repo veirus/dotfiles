@@ -1,5 +1,6 @@
 " colors {{{3
-let s:altcolor = 'nova'
+let s:altcolor = 'challenger_deep'
+" let s:altcolor = 'nova'
 let g:cs = {
 			\ 'xterm':  'jellybeans',
 			\ 'nvim':   'molokai',
@@ -7,6 +8,13 @@ let g:cs = {
 			\ 'wingui': g:is.prostor ? g:mycolor : s:altcolor
 			\ }
 " ========================================
+
+" if has('vim_starting')
+" 	" call cw#SetRandomColors()
+" endif
+
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+Plug 'robertmeta/nofrils'
 
 " -- utilitiy -- {{{3
 Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
@@ -36,7 +44,7 @@ Plug 'junegunn/seoul256.vim'
 
 Plug 'KabbAmine/yowish.vim'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'dracula/vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'zanglg/nova.vim'
 
 " -- * * * * * -- {{{3
