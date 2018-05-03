@@ -1,5 +1,13 @@
 " == new stuff == {{{1
 
+" 2018-03-10 Colorscheme
+Plug 'fenetikm/falcon'
+
+Plug 'tpope/vim-characterize'
+Plug 'prettier/vim-prettier', {
+\ 'do': 'yarn install',
+\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+
 " 2018-02-02
 Plug 'Shougo/echodoc.vim'
 
@@ -26,15 +34,12 @@ Plug 'Yggdroot/LeaderF'
 	 let g:Lf_StlColorscheme = 'powerline'
 
 " 2017-11-21 {{{3
+" 2018-02-09: can't properly config it
 Plug 'maralla/completor.vim'
-	let g:completor_auto_trigger = 0
-	" inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-	inoremap <expr> <Tab> pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
+	" let g:completor_auto_trigger = 0
+	" inoremap <expr> <C-`> pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
 "}}}3
 
-
-" TODO: test them motherfucker! Use them you moron!
-" Plug 'Shougo/deoplete.nvim'
 Plug 'vim-scripts/renamer.vim'
 Plug 'moll/vim-bbye'
 Plug 'jpalardy/vim-slime'
@@ -62,11 +67,11 @@ Plug 'google/vim-searchindex' " very cool
 " Plug 'ervandew/supertab'
 
 " 2017-03-21 [ hardtime ] {{{3
-Plug 'takac/vim-hardtime'
-	nnoremap <leader><F1> <Esc>:HardTimeToggle<CR>
-	let g:hardtime_default_on = 1
-	let g:hardtime_maxcount = 2
-	let g:hardtime_showmsg = 1
-	let g:hardtime_ignore_quickfix = 1
-	let g:list_of_normal_keys = ["h", "j", "k", "l", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
-	let g:list_of_visual_keys = ["h", "j", "k", "l", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
+" Plug 'takac/vim-hardtime'
+" 	nnoremap <leader><F1> <Esc>:HardTimeToggle<CR>
+" 	let g:hardtime_default_on = 0
+" 	let g:hardtime_maxcount = 2
+" 	let g:hardtime_showmsg = 1
+" 	let g:hardtime_ignore_quickfix = 1
+" 	let g:list_of_normal_keys = ["h", "j", "k", "l", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
+" 	let g:list_of_visual_keys = ["h", "j", "k", "l", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
