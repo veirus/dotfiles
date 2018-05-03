@@ -1,0 +1,30 @@
+{
+  "settingsVersion": "1.63.3",
+  "exclusionRules": [
+    {
+      "pattern": "https?://mail.google.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://www.youtube.com/*",
+      "passKeys": "jkl<>mnf"
+    }
+  ],
+  "filterLinkHints": false,
+  "waitForEnterForFilteredHints": true,
+  "hideHud": false,
+  "keyMappings": "#Russian kb layout for Vimium v.0.35\n#What's new: gh and gl maps\nmap о scrollDown\nmap л scrollUp\nmap р scrollLeft\nmap д scrollRight\nmap пп scrollToTop\nmap П scrollToBottom\nmap ZH scrollToLeft\nmap ЯР scrollToLeft\nmap ZL scrollToRight\nmap ЯД scrollToRight\nmap в scrollPageDown\nmap г scrollPageUp\nmap к reload\nmap пы toggleViewSource\nmap нн copyCurrentUrl\nmap на LinkHints.activateModeToCopyLinkUrl\nmap з openCopiedUrlInCurrentTab\nmap З openCopiedUrlInNewTab\nmap пг goUp\nmap UU goToRoot\nmap ГГ goToRoot\nmap ш enterInsertMode\nmap пш focusInput\nmap а LinkHints.activateMode\nmap А LinkHints.activateModeToOpenInNewTab\nmap <a-а> LinkHints.activateModeWithQueue\nmap щ Vomnibar.activate\nmap Щ Vomnibar.activateInNewTab\nmap Е Vomnibar.activateTabSelection\nmap и Vomnibar.activateBookmarks\nmap И Vomnibar.activateBookmarksInNewTab\nmap хх goPrevious\nmap ъъ goNext\nmap ь Marks.activateCreateMode\nmap ё Marks.activateGotoMode\nmap па nextFrame\nmap \\ enterFindMode\nmap т performFind\nmap Т performBackwardsFind\nmap gh goBack\nmap gl goForward\nmap пр goBack\nmap пд goForward\nmap Р goBack\nmap Д goForward\nmap Л nextTab\nmap О previousTab\nmap пе nextTab\nmap gr previousTab\nmap пк previousTab\nmap п0 firstTab\nmap п$ lastTab\nmap е createTab\nmap не duplicateTab\nmap ч removeTab\nmap Ч restoreTab\nmap Ц moveTabToNewWindow\nmap <a-з> togglePinTab",
+  "linkHintCharacters": "sadfjklewcmpgh",
+  "linkHintNumbers": "0123456789",
+  "newTabUrl": "about:newtab",
+  "nextPatterns": "next,more,newer,>,›,→,»,≫,>>",
+  "previousPatterns": "prev,previous,back,older,<,‹,←,«,≪,<<",
+  "regexFindMode": false,
+  "ignoreKeyboardLayout": false,
+  "scrollStepSize": 60,
+  "smoothScroll": true,
+  "grabBackFocus": false,
+  "searchEngines": "w: https://www.wikipedia.org/w/index.php?title=Special:Search&search=%s Wikipedia\n\n# More examples.\n#\n# (Vimium supports search completion Wikipedia, as\n# above, and for these.)\n#\n# g: https://www.google.com/search?q=%s Google\n# l: https://www.google.com/search?q=%s&btnI I'm feeling lucky...\n# y: https://www.youtube.com/results?search_query=%s Youtube\n# gm: https://www.google.com/maps?q=%s Google maps\n# b: https://www.bing.com/search?q=%s Bing\n# d: https://duckduckgo.com/?q=%s DuckDuckGo\n# az: https://www.amazon.com/s/?field-keywords=%s Amazon\n# qw: https://www.qwant.com/?q=%s Qwant",
+  "searchUrl": "https://www.google.com/search?q=",
+  "userDefinedLinkHintCss": "div > .vimiumHintMarker {\n/* linkhint boxes */\nbackground: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFF785),\n  color-stop(100%,#FFC542));\nborder: 1px solid #E3BE23;\n}\n\ndiv > .vimiumHintMarker span {\n/* linkhint text */\ncolor: black;\nfont-weight: bold;\nfont-size: 12px;\n}\n\ndiv > .vimiumHintMarker > .matchingCharacter {\n}"
+}
