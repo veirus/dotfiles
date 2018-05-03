@@ -66,6 +66,7 @@ if has('clipboard')
 	endif
 endif
 " mapleader {{{2
+" needs to be before bundle so plugins map correctly
 let mapleader    = "\<space>"
 " ========================================
 " }}}
@@ -242,8 +243,6 @@ if !g:is.gui
 
 			"is not fixed pitch font?!
 			" GuiFont Arimo for Powerline:h12
-			" GuiFont DejaVu Sans Mono for Powerline:h13
-			" GuiFont Literation Mono Powerline:h12
 			" GuiFont Roboto Mono for Powerline:h13
 			" GuiFont Tinos for Powerline:h12
 
@@ -379,18 +378,14 @@ if executable("rg")
 endif
 " }}} grepprg, ag, rg & ctrlp "
 
-if has('vim_starting')
-	" call cw#SetRandomColors()
-	color acme
-endif
-
-" for completor.vim
+" for completor.vim {{{
 set completeopt-=longest
 set completeopt+=menuone
 set completeopt-=menu
 if &completeopt !~# 'noinsert\|noselect'
 	set completeopt+=noselect
 endif
+"}}}
 
 " JSX highlighting
 let g:jsx_ext_required=0
@@ -400,3 +395,6 @@ if !(is.nvim) && (is.gui)
 	set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
 endif
 "}}}
+
+" by Marco Trosi's advice:
+set nostartofline
