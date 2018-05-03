@@ -5,6 +5,7 @@ cmder/config/.history
 .tmux/
 # ========================================
 # vim
+viminfo
 .netrwhist
 Session.vim
 # ## Including autoload to ignore was a mistake:
