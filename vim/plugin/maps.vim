@@ -1,8 +1,10 @@
-" vim:set noet sts=4 sw=4 ts=4 fdm=marker fdl=2:
+" vim: set fdm=marker fdl=2:
 " cw's Vim mappings file
-" Last change: 2018-02-08 Чт 23:33
+" Last change: 2018-05-09 Ср 00:28
 " Version: 0.3
 " WHATSNEW:
+"   ~ cleaned up modeline
+"   =====================
 "   ~ changed strftime() format to 24h in <S-F8> mapping
 "   - removed some old mappings, i don't really use
 "   - removed some redundant maps, wich barely improves *life*
