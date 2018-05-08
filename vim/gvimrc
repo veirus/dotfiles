@@ -1,19 +1,16 @@
 " vim: set ft=vim fdl=1 fdm=marker:
-if g:is.macvim
-	set guifont=Consolas:h15
-elseif g:is.wingui
-	set guifont=Iosevka_Term:h14:cRUSSIAN:qDEFAULT,DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN,Consolas:h12
-	set guifontwide=Iosevka_Term:h14:cRUSSIAN:qDEFAULT,DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN,Consolas:h12
-	if &guifont =~? 'powerline'
-		let g:airline_powerline_fonts = 1
-	endif
-	" Меню выбора кодировки текста (utf8, cp1251, koi8-r, cp866)
-	noremenu Кодировка.utf-8 :e ++enc=utf8<CR>
-	noremenu Кодировка.windows-1251 :e ++enc=cp1251<CR>
-	noremenu Кодировка.utf-16le :e ++enc=utf-16le<CR>
-	noremenu Кодировка.cp866 :e ++enc=cp866<CR>
-	noremenu Кодировка.koi8-r :e ++enc=koi8-r<CR>
+set guifont=Iosevka_Term:h14:cRUSSIAN:qDEFAULT,DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN,Consolas:h12
+set guifontwide=Iosevka_Term:h14:cRUSSIAN:qDEFAULT,DejaVu_Sans_Mono_for_Powerline:h12:cRUSSIAN,Consolas:h12
+if &guifont =~? 'powerline'
+	let g:airline_powerline_fonts = 1
 endif
+" Меню выбора кодировки текста (utf8, cp1251, koi8-r, cp866)
+noremenu Кодировка.utf-8 :e ++enc=utf8<CR>
+noremenu Кодировка.windows-1251 :e ++enc=cp1251<CR>
+noremenu Кодировка.utf-16le :e ++enc=utf-16le<CR>
+noremenu Кодировка.cp866 :e ++enc=cp866<CR>
+noremenu Кодировка.koi8-r :e ++enc=koi8-r<CR>
+
 " currently is guioptions=gmtch
 if g:is.conemu
 	set guioptions+=h
@@ -29,8 +26,11 @@ set guioptions-=L       " Disable left scrollbar (repositions vim on vsplit in W
 set guioptions-=r
 set guioptions-=R
 set guioptions-=T       " No toolbar
+
 " set noshowmode
 set ballooneval
+
+" Frame size and position:
 if !g:is.prostor
 	let g:wposx = 480 " =1920/4
 	let g:wcols = 103
