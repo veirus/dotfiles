@@ -375,7 +375,7 @@ function! cw#SetModalCursor()
 endfunction
 
 " Automagical colorscheme assigning :) "{{{2
-function! cw#SetColorsList()
+function! cw#ApplyColorschemes()
 	if has('vim_starting')
 		" echom '*** vim starting ***'
 		if !has('syntax')
@@ -392,7 +392,7 @@ function! cw#SetColorsList()
 		unlet k v
 	endif
 
-	return 'SetColors END'
+	return 'ApplyColors END'
 endfunction
 
 " Toggle bg between light and dark {{{2
