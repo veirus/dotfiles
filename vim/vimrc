@@ -160,7 +160,6 @@ set ignorecase                 " Case insensitive search
 " set infercase                " https://bluz71.github.io/2017/05/15/vim-tips-tricks.html
 set smartcase                  " Case sensitive when uc present
 set wildmenu                   " Show list instead of just completing
-set wildcharm=<C-z>
 set wildmode=list:longest,full " Command <Tab> completion, list matches, then longest common part, then all.
 set wildignore+=*/min/*,*/vendor/*,*/node_modules/*,*/bower_components/*,*/.git/*,*/tmp/*,*.swp
 set foldenable                 " Auto fold code
@@ -219,7 +218,6 @@ if !g:is.gui
 		" backspace fix for conemu/cmder:
 		inoremap <Char-0x07F> <BS>
 		nnoremap <Char-0x07F> <BS>
-
 
 	" neovim {{{2
 	elseif g:is.nvim
@@ -340,7 +338,7 @@ if has("autocmd")
 	" augroup END
 
 	" Create absent dirs automatically {{{2 [disabled]
-	" replaced with function in plugins/
+	" replaced with function in plugins
 	" augroup auto_mkdir
 	" 	autocmd!
 	" 	autocmd BufWritePre *
