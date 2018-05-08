@@ -1,4 +1,4 @@
-" vim:set tw=80 fdl=1 ft=vim fdl=1 fdm=marker:
+" vim: set ft=vim fdl=1 fdm=marker:
 if g:is.macvim
 	set guifont=Consolas:h15
 elseif g:is.wingui
