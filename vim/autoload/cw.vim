@@ -217,51 +217,6 @@ function! cw#CCR()
 endfunction
 " cnoremap <expr> <CR> cw#CCR()
 " }}}2
-" Heatseeker {{{2
-function! cw#HeatseekerCommand(choice_command, hs_args, first_command, rest_command)
-	try
-		let selections = system(a:choice_command . " | hs " . a:hs_args)
-	catch /Vim:Interrupt/
-		redraw!
-		return
-	endtry
-	redraw!
-	let first = 1
-	for selection in split(selections, "\n")
-		if first
-			exec a:first_command . " " . selection
-			let first = 0
-		else
-			exec a:rest_command . " " . selection
-		endif
-	endfor
-endfunction
-
-if executable("hs")
-	if has('win32')
-		nnoremap <leader>hs :call cw#HeatseekerCommand("dir /a-d /s /b", "", ':e', ':tabe')<CR>
-	else
-		nnoremap <leader>hs :call cw#HeatseekerCommand("find . ! -path '*/.git/*' -type f -follow", "", ':e', ':tabe')<cr>
-	endif
-endif "}}}2
-" Fuzzy select a buffer. Open the selected buffer with :b. {{{2
-function! cw#HeatseekerBuffer()
-	let bufnrs = filter(range(1, bufnr("$")), 'buflisted(v:val)')
-	let buffers = map(bufnrs, 'bufname(v:val)')
-	let named_buffers = filter(buffers, '!empty(v:val)')
-	if has('win32')
-		let filename = tempname()
-		call writefile(named_buffers, filename)
-		call cw#HeatseekerCommand("type " . filename, "", ":b", ":b")
-		silent let _ = system("del " . filename)
-	else
-		call cw#HeatseekerCommand('echo "' . join(named_buffers, "\n") . '"', "", ":b", ":b")
-	endif
-endfunction
-
-if executable("hs")
-	nnoremap <leader>hb :call cw#HeatseekerBuffer()<cr>
-endif "}}}2
 " Highlight statusline {{{2
 function! cw#ChSlCl()
 	" Inverted Error styling, for left-hand side "Powerline" triangle.
