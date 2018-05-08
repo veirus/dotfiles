@@ -1,20 +1,28 @@
 " colors {{{3
+if !exists('g:mycolor')
+    let g:mycolor = 'dracula'
+endif
 let s:altcolor = 'challenger_deep'
 " let s:altcolor = 'nova'
 let g:cs = {
-			\ 'xterm':  'jellybeans',
-			\ 'nvim':   'molokai',
-			\ 'conemu': 'badwolf',
-			\ 'wingui': g:is.prostor ? g:mycolor : s:altcolor
-			\ }
+            \ 'xterm':  'jellybeans',
+            \ 'nvim':   'molokai',
+            \ 'conemu': 'badwolf',
+            \ 'wingui': g:is.prostor ? g:mycolor : s:altcolor
+            \ }
 " ========================================
 
-" if has('vim_starting')
-" 	" call cw#SetRandomColors()
-" endif
+
+" -- new themes -- {{{3
 
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'robertmeta/nofrils'
+
+Plug 'archSeer/colibri.vim'
+Plug 'cocopon/iceberg.vim'
+Plug 'Wutzara/vim-materialtheme'
+Plug 'google/vim-colorscheme-primary'
+Plug 'ericbn/vim-solarized'
 
 " -- utilitiy -- {{{3
 Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
@@ -54,13 +62,5 @@ Plug 'sjl/badwolf'
 Plug 'tomasr/molokai'
 Plug 'zeis/vim-kolor'
 "   let g:kolor_underlined=1
-
-" -- newest themes -- {{{3
-
-Plug 'archSeer/colibri.vim'
-Plug 'cocopon/iceberg.vim'
-Plug 'Wutzara/vim-materialtheme'
-Plug 'google/vim-colorscheme-primary'
-Plug 'ericbn/vim-solarized'
 
 "}}}3
