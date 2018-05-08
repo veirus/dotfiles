@@ -1,4 +1,4 @@
-" vim:set fdl=1:
+" vim: set foldmethod=marker fdl=1:
 if exists('g:cwcommands_loaded')
 	finish
 endif
