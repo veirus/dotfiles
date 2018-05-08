@@ -40,8 +40,7 @@ set history=1000
 set sessionoptions-=options " do not store all options and mappings (also
 " global values for local options)
 " let s:plugs = 'pack/plug/opt' " can't really disable colorschemes
-let s:plugs = 'bundle'
-let s:plugdir = expand($DOTVIMDIR.'/'.s:plugs)
+let s:plugdir = expand($DOTVIMDIR.'/bundle')
 set backupdir=$DOTVIMDIR/backups//
 set directory=$DOTVIMDIR/swap//
 set undodir=$DOTVIMDIR/undo//
@@ -116,14 +115,15 @@ if has('virtualedit')
 endif
 
 set formatoptions=qrn1j
-" set formatoptions+=M
-" set formatoptions-=t           " don't automatically wrap text when typing
-" set formatoptions+=j           " Delete comment character when joining commented lines
+" q - Allow formatting of comments with "gq"
+" r - insert comment leader on <Enter> in Insert mode
+" n - recognize numbered lists when formating text
+" 1 - Don't break a line after a one-letter word, break it before if possible
+" j - remove a comment leader when joining lines
 
 set backspace=indent,eol,start   " Backspace that behaves like in other editors
 set nowrap
-" set textwidth=0                " Don't automatically insert linebreaks
-set linebreak
+" set linebreak                  " Disabled to learn how Vim behaves without it - 2018-05-05
 let &showbreak='▷ '              " Iosevka doesn't have above symbol
 if !g:is.prostor
 	let &showbreak='↪ '
@@ -144,44 +144,45 @@ set nojoinspaces               " Prevents inserting two spaces after punctuation
 set colorcolumn=+1
 set cmdheight=2
 set noeb
-set lazyredraw
-set scrolloff=3                                      " Minimum lines to keep above and below cursor
+set lazyredraw                 " don't redraw when executing macros, registers or commands that not typed
+set scrolloff=3                " Minimum lines to keep above and below cursor
 set sidescrolloff=5
-set scrolljump=5                                     " Lines to scroll when cursor leaves screen
-set shortmess=amroOtT                                " a doesn't add m and r despite what docs says
+set scrolljump=5               " Lines to scroll when cursor leaves screen
+set shortmess=amroOtT          " a doesn't add m and r despite what docs says
 set cursorline
-set number                                           " Line numbers on
-set relativenumber
-set showmatch                                        " Show matching brackets/parenthesis
-set matchtime=2                                      " tens of a second to show matching parentheses
-set incsearch                                        " Find as you type search
-set nohlsearch                                       " Highlight search terms; it's annoying and distracting, turning it off - 2016-12-15:
-set winminheight=0                                   " Windows can be 0 line high
-set ignorecase                                       " Case insensitive search
-" set infercase                                        " https://bluz71.github.io/2017/05/15/vim-tips-tricks.html
-set smartcase                                        " Case sensitive when uc present
-set wildmenu                                         " Show list instead of just completing
+set number                     " Line numbers on
+set relativenumber             " may slowdown Vim
+set showmatch                  " Show matching brackets/parenthesis
+set matchtime=2                " tens of a second to show matching parentheses
+set incsearch                  " Find as you type search
+set nohlsearch                 " Highlight search terms; it's annoying and distracting, turning it off - 2016-12-15:
+set ignorecase                 " Case insensitive search
+" set infercase                " https://bluz71.github.io/2017/05/15/vim-tips-tricks.html
+set smartcase                  " Case sensitive when uc present
+set wildmenu                   " Show list instead of just completing
 set wildcharm=<C-z>
-set wildmode=list:longest,full                       " Command <Tab> completion, list matches, then longest common part, then all.
+set wildmode=list:longest,full " Command <Tab> completion, list matches, then longest common part, then all.
 set wildignore+=*/min/*,*/vendor/*,*/node_modules/*,*/bower_components/*,*/.git/*,*/tmp/*,*.swp
-set foldenable                                       " Auto fold code
+set foldenable                 " Auto fold code
+set winminheight=0             " Splits can be 0 line high
+set splitright                 " Puts new vsplit windows to the right of the current
+set splitbelow                 " Puts new split windows to the bottom of the current
 
-set guicursor+=a:blinkon0
-
-set list
-set listchars=tab:│\ ,eol:¬,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
-" set listchars=tab:›\ ,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
-" set listchars=tab:▷⋅,trail:⋅,nbsp:⋅            " Alternative settings
-
-set splitright                                 " Puts new vsplit windows to the right of the current
-set splitbelow                                 " Puts new split windows to the bottom of the current
+" set guicursor+=a:blinkon0
 
 " Specify the behavior when switching between buffers
 try
+	" is try..catch necessary? - 2018-05-05
 	set switchbuf=useopen,usetab,newtab
 	set showtabline=1
 catch
 endtry
+
+set list
+set listchars=tab:│\ ,eol:¬,trail:•,extends:#,nbsp:⋅ " Highlight problematic whitespace
+" Alternative settings:
+" set listchars=tab:›\ ,trail:•,extends:#,nbsp:⋅
+" set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
 
 " netrw
 let g:netrw_altv=1                             " open splits to the right
@@ -271,17 +272,15 @@ call cw#SetColorsList()
 
 " Autocommands {{{1
 if has("autocmd")
-	" augroup leave_insert_mode " {{{2 [ disabled ]
-	"   au!
-	"   autocmd FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>") | :wa
-	" augroup END
 	augroup auto_save_and_read " {{{2
 		autocmd!
 		autocmd FocusLost * silent! wall
+		" alt method using "^\^n":
+		" autocmd FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>") | :wa
+		" disabled this because it's too disruptive:
 		" autocmd TextChanged,InsertLeave,FocusLost * silent! wall
 		autocmd CursorHold * silent! checktime
 	augroup END
-
 	" PHP_stuff {{{2
 	function! SetClosetagPHP()
 		if exists('g:closetag_filenames')
@@ -322,7 +321,6 @@ if has("autocmd")
 		" autocmd bufwritepost $HOME/_vimrc execute "normal! :source ~/_vimrc"
 	augroup END
 
-
 	" Return to last edit position when opening files (You want this!) {{{2
 	augroup thaw_file
 		autocmd!
@@ -342,6 +340,7 @@ if has("autocmd")
 	" augroup END
 
 	" Create absent dirs automatically {{{2 [disabled]
+	" replaced with function in plugins/
 	" augroup auto_mkdir
 	" 	autocmd!
 	" 	autocmd BufWritePre *
@@ -350,6 +349,7 @@ if has("autocmd")
 	" 				\ endif
 	" augroup END
 
+	" Set default omnifunc to syntax complete for all files {{{2
 	augroup vim_omni
 		autocmd!
 		autocmd Filetype *
