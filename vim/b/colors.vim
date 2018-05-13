@@ -18,6 +18,15 @@ let g:cs = {
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'robertmeta/nofrils'
 
+" 2018-03-10 Colorscheme {{{4
+" i supposed to try it maybe
+Plug 'fenetikm/falcon'
+
+" boring oldschool for uninspired grumps and idiots like myself {{{4
+Plug 'plan9-for-vimspace/acme-colors'
+
+" }}}4
+
 Plug 'archSeer/colibri.vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'Wutzara/vim-materialtheme'
