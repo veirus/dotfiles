@@ -1,5 +1,6 @@
 if &cp | set nocp | endif
 " prevents unexpected shit from happening:
+" as result netrw, showmatch will fail
 set noloadplugins
 
 set nobackup
@@ -153,6 +154,7 @@ nnoremap gb :ls<CR>:b
 " copypaste {{{2
 nnoremap gy :%y+<CR>
 nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <leader>m :CtrlPMRUFiles<CR>
 nnoremap <leader>z zfap
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
