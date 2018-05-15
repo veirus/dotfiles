@@ -1,0 +1,211 @@
+if &cp | set nocp | endif
+" prevents unexpected shit from happening:
+set noloadplugins
+
+set nobackup
+set noswapfile
+set viminfo='50,<1000,s100,:0,n~/vimfiles/tmp/viminfo
+
+set encoding=utf-8
+set keymap=russian-jcukenwin
+set iminsert=0
+
+" visual xpenb {{{1
+if has('gui_running')
+	set gfn=Consolas:h12
+	set guioptions=ac
+endif
+
+" important!
+syntax enable
+
+set novb t_vb=
+set number
+set relativenumber
+set ruler
+
+" statusline {{{2
+
+set laststatus=2
+set statusline=
+set statusline+=%2*▓▒░\ %n%H%M%R%W\ ░▒▓%*         " flags and buf no
+set statusline+=%<\                               " cut at start
+set statusline+=%=%f\                             " path
+set statusline+=%1*▓▒░%y░▒▓%*\                    " file type
+set statusline+=%(%{&modifiable?'░▒▓\ '.(&expandtab?'et\ ':'noet\ ').&shiftwidth:''}\ ▓▒░%)
+set statusline+=\ %{(&fenc!=''?&fenc:&enc)}
+set statusline+=\ \[%{&fileformat}\]
+set statusline+=%8((%l,%c)%)\                     " line and column
+set statusline+=%P                                " percentage of file
+
+" current time, when buffer saved
+set statusline+=\ %2*%{'▓▒░\ '.strftime('%R',getftime(expand('%'))).'\ ░▒▓'}
+
+" statusline }}}2
+
+if &listchars ==# 'eol:$'
+	set listchars=tab:>\ ,trail:·,extends:»,precedes:«,nbsp:+
+	set list
+endif
+
+set showmatch
+set matchtime=2
+
+set linebreak
+let &showbreak='┗ '
+set breakindent
+
+set scrolloff=5
+set sidescroll=5
+
+" cures some of "press <cr> to continue" messages
+" turned off for now
+" set cmdheight=2
+set shortmess+=filmnrwxaoOstTWAIcF
+" }}}1
+
+set hidden
+
+set incsearch
+
+set ignorecase
+set smartcase
+
+set wildmenu
+set wildmode=list,full
+
+set omnifunc=syntaxcomplete#Complete
+
+if has('virtualedit')
+	set virtualedit=block
+endif
+set backspace=indent,eol,start
+
+" maps {{{1
+let g:mapleader = "\<Space>"
+
+" Auto-insert closing parenthesis/brace {{{1
+inoremap ( ()<Left>
+inoremap { {}<Left>
+inoremap [ []<Left>
+" Auto-delete closing parenthesis/brace
+function! BetterBackSpace() abort
+	let cur_line = getline('.')
+	let before_char = cur_line[col('.')-2]
+	let after_char = cur_line[col('.')-1]
+	if (before_char == '(' && after_char == ')') || (before_char == '{' && after_char == '}') || (before_char == '[' && after_char == ']')
+		return "\<Del>\<BS>"
+	else
+		return "\<BS>"
+endfunction
+inoremap <silent> <BS> <C-r>=BetterBackSpace()<CR>
+" Skip over closing parenthesis/brace
+inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
+inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
+inoremap <expr> ] getline('.')[col('.')-1] == "]" ? "\<Right>" : "]"
+" }}}1
+
+" folds {{{2
+nnoremap <Tab> za
+function! InsertFoldMarker(...) abort
+	let l:cur_line = getline('.')
+	let l:cur_col = col('.')
+	let l:markers = split(&l:fmr, ',')
+	let l:marker = l:markers[0]
+	if (a:0) && len(l:markers) > 1
+		let l:marker = l:markers[1]
+	endif
+	let l:cms = split(&l:cms, '%s')
+	if (a:0) && len(l:cms) > 1
+		" TODO: handle paired comment markers
+		let l:cms = l:cms[1]
+	else
+		let l:cms = l:cms[0]
+	endif
+	let l:cnt = count(l:cur_line, l:cms)
+	let l:space = l:cur_col == 1 && len(l:cur_line) < 2 ? '' : ' '
+	if l:cnt % 2 == 0
+		exe "norm! m1A".l:space.l:cms." ".l:marker."1\<Esc>`1"
+	else
+		exe "norm! m1A ".l:marker."1\<Esc>`1"
+	endif
+	return ''
+endfunction
+
+nnoremap <leader><Tab>  :call InsertFoldMarker()<CR>
+nnoremap <leader>1<Tab> :call InsertFoldMarker(1)<CR>
+inoremap <localleader><Tab>  <C-r>=InsertFoldMarker()<CR>
+inoremap <localleader>1<Tab> <C-r>=InsertFoldMarker(1)<CR>
+" }}}2
+
+" count matches @ vim wiki
+map <leader>* *<C-O>:%s///gn<CR>
+
+" insert newlines above and beyond {{{2
+nnoremap <leader>j mjo<Esc>`j
+inoremap <localleader>j <Esc>mjo<C-o>`j
+nnoremap <leader>k mkO<Esc>`k
+inoremap <localleader>k <Esc>mkO<C-o>`k
+" }}}2
+
+nnoremap gb :ls<CR>:b
+
+" copypaste {{{2
+nnoremap gy :%y+<CR>
+nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <leader>z zfap
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+nnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+
+" special {{{2
+nnoremap <F2> :Lex<CR>
+nnoremap <F4> :set hlsearch! hlsearch?<cr>
+nnoremap <F6> :setl wrap! wrap?<CR>
+imap <F6> <C-O><F6>
+nnoremap <F11> :so $MYVIMRC<CR>
+nnoremap <F12> :e $MYVIMRC<CR>
+nnoremap <S-F12> :e ~\vimfiles\packages.vim<CR>
+
+" plugins {{{1
+runtime packages.vim
+
+" autocommands {{{1
+if has("autocmd")
+augroup reload_vimrc " {{{2
+	autocmd!
+	autocmd BufWritePost [_.g]\\\{-\}vimrc,init.vim nested source $MYVIMRC | echo 'vimrc reloaded'
+augroup END
+
+augroup ft_vim " {{{2
+" because vim commentary doesn't know anything
+	autocmd!
+	autocmd FileType vim setlocal com=sO:\"\ -,mO:\"\ \ ,eO:\"\",:\"
+	\ commentstring=\"%s
+augroup END
+
+" vim organizer {{{2
+let g:ft_ignore_pat = '\.org'
+" filetype plugin indent on
+augroup p_VimOrganizer
+	autocmd!
+	autocmd! BufRead,BufWrite,BufWritePost,BufNewFile *.org
+	autocmd BufEnter *.org call org#SetOrgFileType()
+augroup END
+command! OrgCapture :call org#CaptureBuffer()
+command! OrgCaptureFile :call org#OpenCaptureFile()
+" syntax on
+" }}}2
+endif
+
+" plugin settings {{{1
+" maybe should place this into `packages.vim`
+" Use fd for ctrlp.
+if executable('fd')
+	let g:ctrlp_user_command = 'fd -c never "" "%s"'
+	let g:ctrlp_use_caching = 0
+endif
+
+" oh nice, it doesn't load 'opt' packages
+packloadall
