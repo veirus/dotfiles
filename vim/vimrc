@@ -79,16 +79,16 @@ runtime b\todo.vim
 runtime b\new.vim
 runtime b\old.vim
 runtime b\colors.vim
-" runtime b\asynccm.vim
 runtime b\statusline1.vim
-" runtime b\repmo.vim
-" runtime b\lightline.vim
 " runtime b\airline.vim
+" runtime b\asynccm.vim
+" runtime b\lightline.vim
+" runtime b\repmo.vim
 " b\unused.vim
 " ===========================================
 call plug#end() " required }}}1
 " General {{{2
-" scriptencoding utf-8
+" scriptencoding utf-8      " should be after 'set enc'
 set timeout timeoutlen=370
 
 set iskeyword=@,a-z,A-Z,48-57,_,128-175,192-255
@@ -227,21 +227,19 @@ if !g:is.gui
 		let g:python3_host_prog = 'D:/env/neovim/3/Scripts/python.exe'
 		if exists('g:GuiFont')
 			echo 'guifont exists'
-			" WTF?! Doesn't work?
-			" let g:Guifont="DejaVu Sans Mono for Powerline:h13"
-
 			" Works and even looks nice, however reports bad fixed pitch metrics
 			" Also it's risky to install patched version on Windows
 			" GuiFont Consolas:h14
 			" works only when :so %
-			" GuiFont DejaVu Sans Mono for Powerline:h14
 			" let g:Guifont="DejaVu Sans Mono for Powerline:h14"
 
 			" Warning: bad fixed pitch metrics?!
-			" GuiFont Anonymice Powerline:h12
+			" Best looking font on neovim so far
+			GuiFont Anonymice Powerline:h14
 
-			"is not fixed pitch font?!
+			" is not fixed pitch font?! Doesn't work
 			" GuiFont Arimo for Powerline:h12
+			" GuiFont DejaVu Sans Mono for Powerline:h14
 			" GuiFont Roboto Mono for Powerline:h13
 			" GuiFont Tinos for Powerline:h12
 
@@ -266,7 +264,7 @@ endif
 
 "}}}1
 
-call cw#SetColorsList()
+call cw#ApplyColorschemes()
 
 " Autocommands {{{1
 if has("autocmd")
