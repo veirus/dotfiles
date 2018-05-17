@@ -1,5 +1,9 @@
 " vim: set foldmethod=marker:
 "==================================================
+" File: igottarememberthis.vim
+" Author: carudo
+" Description: tips, tricks and vimscript examples
+" Last Modified: Май 14, 2018
 "**************************************************
 " Tips and tricks and vimscript examples
 " ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-
@@ -632,7 +636,7 @@ map  <expr> T repmo#ZapKey('<Plug>Sneak_T')|sunmap T
 " ========================================
 " Probably very useful vimgrep commands {{{1
 " (not on Windows though - vimgrep is *INFERNALLY* slow there)
-" from http://twily.info/.vimrc#view 
+" from http://twily.info/.vimrc#view
 " When you press gv you vimgrep after the selected text
 vnoremap <silent> <leader>gv :call VisualSelection('gv', '')<CR>
 " Open vimgrep and put the cursor in the right position
