@@ -1,5 +1,4 @@
 " vim: set fdl=1 fdm=marker:
-let g:mycolor = 'dracula'
 " encoding {{{2
 " explanation: http://stackoverflow.com/a/5795441/453396
 if has("multi_byte")
@@ -320,14 +319,13 @@ if has("autocmd")
 	" Return to last edit position when opening files (You want this!) {{{2
 	augroup thaw_file
 		autocmd!
-
 		autocmd BufReadPost *
 					\ if line("'\"") > 0 && line("'\"") <= line("$") |
 					\ exe "normal! g`\"" |
 					\ endif
 	augroup END
 	" Remember info about open buffers on close
-	set viminfo^=%
+	" set viminfo^=%
 
 	" modal cursor {{{2 [disabled] [possible slowdown] [flickering]
 	" augroup modal_cursor
@@ -394,3 +392,19 @@ endif
 
 " by Marco Trosi's advice:
 set nostartofline
+
+" new [2018-05-25] {{{1
+fun! InsertPlugFromCb() abort
+	let l:cb = trim(@+)
+	let l:cb = substitute(l:cb, '\v^https://github.com/','','')
+	return 'Plug ''' . l:cb . ''''
+endf
+iabbr plu <C-R>=InsertPlugFromCb()<CR>
+
+" spoiled by Org-mode: {{{2
+nnoremap <expr> <Tab> foldlevel('.') > 0 ? "za" : "\<Tab>"
+nnoremap <expr> <S-Tab> &foldlevel > 0 ? "zM" : "zR"
+"  }}}2
+
+nnoremap <leader>z zfap
+" new [2018-05-25] }}}1
