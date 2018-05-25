@@ -22,7 +22,16 @@ set statusline+=%7*%3c:%3l/%L
 set statusline+=\ %*
 " ========================================
 function! ALE() abort
-	return exists('*ALEGetStatusLine') ? ALEGetStatusLine() : ''
+	let l:counts = ale#statusline#Count(bufnr(''))
+
+	let l:all_errors = l:counts.error + l:counts.style_error
+	let l:all_non_errors = l:counts.total - l:all_errors
+
+	return l:counts.total == 0 ? '' : printf(
+				\   '%dW %dE',
+				\   all_non_errors,
+				\   all_errors
+				\)
 endfunction
 
 function! GUTENTAGSSTATUS() abort
@@ -30,6 +39,7 @@ function! GUTENTAGSSTATUS() abort
 endfunction
 
 "display a warning if &et is wrong, or we have mixed-indenting
+" TODO: chech for pluging presence, to not fuck up rest of statusline
 set statusline+=%#error#
 set statusline+=%{ALE()}
 set statusline+=%#incsearch#
