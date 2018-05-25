@@ -54,8 +54,13 @@ let g:startify_session_delete_buffers = 1
 " Snippets are separated from the engine.
 " Add this if you want them: Plug 'honza/vim-snippets'
 " If you want :UltiSnipsEdit to split your window.
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-let g:UltiSnipsEditSplit="vertical"
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+let g:UltiSnipsEditSplit           = "vertical"
+let g:UltiSnipsExpandTrigger       = "<tab>"
+let g:UltiSnipsListSnippets        = "<c-tab>"
+let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " -- parenthesis -- {{{3
 " Plug 'Raimondi/delimitMate'
