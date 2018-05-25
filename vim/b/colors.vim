@@ -2,7 +2,8 @@
 if !exists('g:mycolor')
     let g:mycolor = 'dracula'
 endif
-let s:altcolor = 'challenger_deep'
+let s:altcolor = 'moot'
+" let s:altcolor = 'challenger_deep'
 " let s:altcolor = 'nova'
 let g:cs = {
             \ 'xterm':  'jellybeans',
@@ -14,13 +15,15 @@ let g:cs = {
 
 
 " -- new themes -- {{{3
-
+Plug 'ivanbrennan/coot'
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'robertmeta/nofrils'
 
 " 2018-03-10 Colorscheme {{{4
 " i supposed to try it maybe
-Plug 'fenetikm/falcon'
+" This shit breaks other colorschemes!!!
+" also it's not dark!
+" Plug 'fenetikm/falcon'
 
 " boring oldschool for uninspired grumps and idiots like myself {{{4
 Plug 'plan9-for-vimspace/acme-colors'
