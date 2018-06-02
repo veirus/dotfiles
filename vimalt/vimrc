@@ -1,7 +1,8 @@
 if &cp | set nocp | endif
-" prevents unexpected shit from happening:
-" as result netrw, showmatch will fail
-set noloadplugins
+" XXX: prevents unexpected shit from happening:
+" XXX: as result netrw, showmatch will fail
+" XXX: use for :debug:
+" set noloadplugins
 
 set nobackup
 set noswapfile
@@ -13,12 +14,9 @@ set iminsert=0
 
 " visual xpenb {{{1
 if has('gui_running')
-	set gfn=Consolas:h12
+	set gfn=Droid_Sans_Mono_Slashed_for_Pow:h12:cRUSSIAN:qCLEARTYPE,Source_Code_Pro:h12:cRUSSIAN:qCLEARTYPE,Consolas:h12
 	set guioptions=ac
 endif
-
-" important!
-syntax enable
 
 set novb t_vb=
 set number
@@ -28,24 +26,12 @@ set ruler
 " statusline {{{2
 
 set laststatus=2
-set statusline=
-set statusline+=%2*▓▒░\ %n%H%M%R%W\ ░▒▓%*         " flags and buf no
-set statusline+=%<\                               " cut at start
-set statusline+=%=%f\                             " path
-set statusline+=%1*▓▒░%y░▒▓%*\                    " file type
-set statusline+=%(%{&modifiable?'░▒▓\ '.(&expandtab?'et\ ':'noet\ ').&shiftwidth:''}\ ▓▒░%)
-set statusline+=\ %{(&fenc!=''?&fenc:&enc)}
-set statusline+=\ \[%{&fileformat}\]
-set statusline+=%8((%l,%c)%)\                     " line and column
-set statusline+=%P                                " percentage of file
-
-" current time, when buffer saved
-set statusline+=\ %2*%{'▓▒░\ '.strftime('%R',getftime(expand('%'))).'\ ░▒▓'}
+runtime stl2.vim
 
 " statusline }}}2
 
 if &listchars ==# 'eol:$'
-	set listchars=tab:>\ ,trail:·,extends:»,precedes:«,nbsp:+
+	set listchars=tab:\│\ ,trail:·,extends:»,precedes:«,nbsp:+
 	set list
 endif
 
@@ -82,14 +68,19 @@ if has('virtualedit')
 endif
 set backspace=indent,eol,start
 
+" fuck 'r', fuck 'o' and fuck automagical addition of shit in my lines
+set formatoptions=qnl1j
+
 " maps {{{1
 let g:mapleader = "\<Space>"
 
-" Auto-insert closing parenthesis/brace {{{1
-inoremap ( ()<Left>
-inoremap { {}<Left>
-inoremap [ []<Left>
-" Auto-delete closing parenthesis/brace
+" evil and heresy {{{2
+nnoremap <C-c><C-s> :up<CR>
+inoremap <C-c><C-s> <C-o>:up<CR>
+nnoremap <M-x> :
+inoremap <M-x> <C-o>:
+
+" Auto-delete closing parenthesis/brace {{{1
 function! BetterBackSpace() abort
 	let cur_line = getline('.')
 	let before_char = cur_line[col('.')-2]
@@ -100,19 +91,25 @@ function! BetterBackSpace() abort
 		return "\<BS>"
 endfunction
 inoremap <silent> <BS> <C-r>=BetterBackSpace()<CR>
-" Skip over closing parenthesis/brace
+" Skip over closing parenthesis/brace {{{2
 inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
 inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
 inoremap <expr> ] getline('.')[col('.')-1] == "]" ? "\<Right>" : "]"
-" }}}1
+" }}}2
 
 " folds {{{2
-nnoremap <Tab> za
+" 'smart' <Tab>
+nnoremap <expr> <Tab> foldlevel('.') > 0 ? "za" : "\<Tab>"
+nnoremap <expr> <S-Tab> &foldlevel > 0 ? "zM" : "zR"
+nnoremap <leader>z zfap
+
 function! InsertFoldMarker(...) abort
 	let l:cur_line = getline('.')
-	let l:cur_col = col('.')
-	let l:markers = split(&l:fmr, ',')
-	let l:marker = l:markers[0]
+	let l:cur_col  = col('.')
+	let l:markers  = split(&l:fmr, ',')
+	let l:marker   = l:markers[0]
+	let l:level    = foldlevel('.')
+	let l:level    = l:level == 0 ? '1' : l:level
 	if (a:0) && len(l:markers) > 1
 		let l:marker = l:markers[1]
 	endif
@@ -126,9 +123,9 @@ function! InsertFoldMarker(...) abort
 	let l:cnt = count(l:cur_line, l:cms)
 	let l:space = l:cur_col == 1 && len(l:cur_line) < 2 ? '' : ' '
 	if l:cnt % 2 == 0
-		exe "norm! m1A".l:space.l:cms." ".l:marker."1\<Esc>`1"
+		exe "norm! m1A".l:space.l:cms." ".l:marker.l:level."\<Esc>`1"
 	else
-		exe "norm! m1A ".l:marker."1\<Esc>`1"
+		exe "norm! m1A ".l:marker.l:level."\<Esc>`1"
 	endif
 	return ''
 endfunction
@@ -149,19 +146,41 @@ nnoremap <leader>k mkO<Esc>`k
 inoremap <localleader>k <Esc>mkO<C-o>`k
 " }}}2
 
+" buffers {{{2
 nnoremap gb :ls<CR>:b
+nnoremap <leader>q :bp<bar>bd#<CR>
+nnoremap <leader>0 :%bd<CR>
 
-" copypaste {{{2
-nnoremap gy :%y+<CR>
+" fuzzy search #plugins {{{2
 nnoremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>m :CtrlPMRUFiles<CR>
-nnoremap <leader>z zfap
+nnoremap <leader>f :FZF<CR>
+
+" copypaste {{{2
+map Y y$
+nnoremap gy :%y+<CR>
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 nnoremap <leader>y "+y
 nnoremap <leader>Y "+Y
 
-" special {{{2
+" better than <leader>ohmygodimissedthatnextbutton
+map! <S-Insert> *
+vmap  "*d
+vmap <C-Del> "*d
+vmap <S-Del> "*d
+vmap <C-Insert> "*y
+vmap <S-Insert> "-d"*P
+nmap <S-Insert> "*P
+
+" QoL {{{2
+nnoremap <C-W>e <C-W>=
+nnoremap vv ^vg_
+vnoremap < <gv
+vnoremap > >gv
+nnoremap <leader>cd :cd %:p:h<CR>
+
+" specials {{{2
 nnoremap <F2> :Lex<CR>
 nnoremap <F4> :set hlsearch! hlsearch?<cr>
 nnoremap <F6> :setl wrap! wrap?<CR>
@@ -172,6 +191,11 @@ nnoremap <S-F12> :e ~\vimfiles\packages.vim<CR>
 
 " plugins {{{1
 runtime packages.vim
+let g:keepeye_autostart = 1
+
+" important!
+filetype plugin indent on
+syntax enable
 
 " autocommands {{{1
 if has("autocmd")
@@ -187,17 +211,32 @@ augroup ft_vim " {{{2
 	\ commentstring=\"%s
 augroup END
 
+augroup ft_python " {{{2
+	au!
+	au FileType python setlocal makeprg=python\ %
+	au FileType python nnoremap <buffer> <F7> :up<bar>make<CR>
+augroup END
+
+" vim-dotoo  {{{2
+augroup p_vimDotoo
+	autocmd!
+	autocmd BufEnter *.dotoo packadd vim-dotoo
+	autocmd BufRead, BufNewFile, BufEnter *.dotoo filetype plugin indent on
+	autocmd BufRead, BufNewFile, BufEnter *.dotoo syntax on
+augroup END
+
 " vim organizer {{{2
 let g:ft_ignore_pat = '\.org'
-" filetype plugin indent on
 augroup p_VimOrganizer
 	autocmd!
-	autocmd! BufRead,BufWrite,BufWritePost,BufNewFile *.org
+	" autocmd! BufRead,BufWrite,BufWritePost,BufNewFile *.org
+	autocmd BufEnter *.org filetype plugin indent on
+	autocmd BufEnter *.org syntax on
+	autocmd BufEnter *.org packadd VimOrganizer
 	autocmd BufEnter *.org call org#SetOrgFileType()
 augroup END
 command! OrgCapture :call org#CaptureBuffer()
 command! OrgCaptureFile :call org#OpenCaptureFile()
-" syntax on
 " }}}2
 endif
 
@@ -209,5 +248,24 @@ if executable('fd')
 	let g:ctrlp_use_caching = 0
 endif
 
-" oh nice, it doesn't load 'opt' packages
-packloadall
+" quick add plugins for a minpac
+function! AddPacFromCb() abort
+	" oldschool way to trim all spaces and whatnot
+	" let l:cb = substitute(@+,'\v^\s*(.{-})\s*\n$','\1','')
+	let l:cb = trim(@+)
+	let l:cb = substitute(l:cb, '\v^https://github.com/','','')
+	put = 'call minpac#add(''' . l:cb . ''')'
+endfunction
+nnoremap <leader>v :call AddPacFromCb()<CR>
+
+" commands {{{1
+command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
+" }}}1
+
+" don't put anything important below this line
+colorscheme vimterial_dark " mustang " railscasts
+
+" XXX: oh nice, it doesn't load 'opt' packages
+" XXX: for :debug:
+" packloadall
+
