@@ -14,7 +14,7 @@
       "passKeys": "jkx."
     }
   ],
-  "filterLinkHints": false,
+  "filterLinkHints": true,
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
   "keyMappings": "#Russian kb layout for Vimium v.0.36\n#What's new: t <-> T for easier tab navigation\nmap о scrollDown\nmap л scrollUp\nmap р scrollLeft\nmap д scrollRight\nmap пп scrollToTop\nmap П scrollToBottom\nmap ZH scrollToLeft\nmap ЯР scrollToLeft\nmap ZL scrollToRight\nmap ЯД scrollToRight\nmap в scrollPageDown\nmap г scrollPageUp\nmap к reload\nmap пы toggleViewSource\nmap нн copyCurrentUrl\nmap на LinkHints.activateModeToCopyLinkUrl\nmap з openCopiedUrlInCurrentTab\nmap З openCopiedUrlInNewTab\nmap пг goUp\nmap UU goToRoot\nmap ГГ goToRoot\nmap ш enterInsertMode\nmap пш focusInput\nmap а LinkHints.activateMode\nmap А LinkHints.activateModeToOpenInNewTab\nmap <a-а> LinkHints.activateModeWithQueue\nmap щ Vomnibar.activate\nmap Щ Vomnibar.activateInNewTab\nmap t Vomnibar.activateTabSelection\nmap е Vomnibar.activateTabSelection\nmap и Vomnibar.activateBookmarks\nmap И Vomnibar.activateBookmarksInNewTab\nmap хх goPrevious\nmap ъъ goNext\nmap ь Marks.activateCreateMode\nmap ё Marks.activateGotoMode\nmap па nextFrame\nmap \\ enterFindMode\nmap т performFind\nmap Т performBackwardsFind\nmap gh goBack\nmap gl goForward\nmap пр goBack\nmap пд goForward\nmap Р goBack\nmap Д goForward\nmap Л nextTab\nmap О previousTab\nmap пе nextTab\nmap gr previousTab\nmap пк previousTab\nmap п0 firstTab\nmap п$ lastTab\nmap Е createTab\nmap T createTab\nmap не duplicateTab\nmap ч removeTab\nmap Ч restoreTab\nmap Ц moveTabToNewWindow\nmap <a-з> togglePinTab",
@@ -24,7 +24,7 @@
   "nextPatterns": "next,more,newer,>,›,→,»,≫,>>",
   "previousPatterns": "prev,previous,back,older,<,‹,←,«,≪,<<",
   "regexFindMode": false,
-  "ignoreKeyboardLayout": false,
+  "ignoreKeyboardLayout": true,
   "scrollStepSize": 60,
   "smoothScroll": true,
   "grabBackFocus": false,
