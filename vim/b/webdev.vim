@@ -14,7 +14,7 @@ Plug 'captbaritone/better-indent-support-for-php-with-html', {'for': 'php'}
 " Plug 'JulesWang/css.vim',      {'for': ['css', 'html', 'scss', 'sass', 'less']}
 " }}}3
 " Plug 'hail2u/vim-css3-syntax', {'for': ['css','html','scss','sass','less']}
-Plug 'closetag.vim', {'for': ['html', 'php', 'tpl']}
+Plug 'vim-scripts/closetag.vim', {'for': ['html', 'php', 'tpl']}
 " ---------------
 " Pre HTML
 Plug 'Glench/Vim-Jinja2-Syntax'
