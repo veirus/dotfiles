@@ -1,5 +1,7 @@
-#Russian kb layout for Vimium v.0.35
-#What's new: gh and gl maps
+#Russian kb layout for Vimium v.0.36
+#What's new: unmap / like in opera
+#turns out it's glitchy in firefox too
+unmap /
 map о scrollDown
 map л scrollUp
 map р scrollLeft
