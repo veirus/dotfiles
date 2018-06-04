@@ -136,6 +136,7 @@ set statusline+=%4*%{&ai?'a':'-'}%{&si?'i':'-'}%{&cin?'c':'-'} "indent values
 set statusline+=%5*%{&wrap?'<':'>'}%6*%{&tw}%*] "wrap/textwidth
 set statusline+=%(\ %{VisualSelectionSize()}%)
 set statusline+=%=%([%l,%c%)][%L:%p%%]\ "current line
+"}}}2
 "==================================================
 " My Statusline {{{2
 " Powerline symbols quick ref: , , , , , , 
@@ -245,7 +246,11 @@ set statusline+=%8*\ %y\                                 " FileType
 set statusline+=%7*\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\ " Encoding & Fileformat
 set statusline+=%8*\ %-3(%{FileSize()}%)                 " File size
 set statusline+=%0*\ %3p%%\ \ %l:\ %3c\                 " Rownumber/total (%)
-
+" }}}2
+"==================================================
+" from http://twily.info/.vimrc#view {{{2
+set statusline=\ %{cw#HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\
+\ \ Line:\ %l
 " }}}2
 "==================================================
 "/ Statusline examples }}}1
@@ -539,11 +544,6 @@ nnoremap <leader>q :b#\|bd#<CR>
 " also can be written like this:
 nnoremap <leader>Q :b#<bar>bd#<cr>
 " }}}1
-" ========================================
-" consistent menu navigation
-" https://github.com/jasonlong/dotfiles/blob/master/vimrc
-inoremap <C-j> <C-n>
-inoremap <C-k> <C-p>
 " ========================================
 " open previous buffer and kill next {{{
 nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
