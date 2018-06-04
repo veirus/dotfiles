@@ -191,7 +191,6 @@ nnoremap <S-F12> :e ~\vimfiles\packages.vim<CR>
 
 " plugins {{{1
 runtime packages.vim
-let g:keepeye_autostart = 1
 
 " important!
 filetype plugin indent on
