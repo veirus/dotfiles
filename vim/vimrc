@@ -79,9 +79,7 @@ runtime b\new.vim
 runtime b\old.vim
 runtime b\colors.vim
 runtime b\statusline1.vim
-" runtime b\airline.vim
 " runtime b\asynccm.vim
-" runtime b\lightline.vim
 " runtime b\repmo.vim
 " b\unused.vim
 " ===========================================
