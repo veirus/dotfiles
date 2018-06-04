@@ -1,23 +1,35 @@
-" vim:set noet sts=4 sw=4 ts=4 tw=78 fdm=marker fdl=1:
+" vim:fdm=marker fdl=1:
 " Statusline {{{1
 set laststatus=2
 " Powerline symbols quick ref:
 "  > Triangle U+e0b0,  > U+e0b1,  < Triangle U+e0b2,
 "  < U+e0b3,  Git U+e0a0,  LN U+e0a1,  Lock U+e0a2
+func! StlEcho(sym) abort
+	return a:sym
+endfunction
+
+if g:is.nvim
+	let lsep = '|'
+	let rsep = '|'
+else
+	let lsep = ''
+	let rsep = ''
+endif
+
 set statusline=
 set statusline+=\ %n
-set statusline+=%{v:this_session!=''?'\ \ '.fnamemodify(this_session,':t'):''}
-set statusline+=\ 
+set statusline+=%{v:this_session!=''?'\ '.fnamemodify(this_session,':t'):''}
+set statusline+=\ %{StlEcho(lsep)}
 " set statusline+=\ \:%{@:}
-" set statusline+=\ 
+" set statusline+=\ %{StlEcho(lsep)}
 set statusline+=\ %<%.92F
 set statusline+=\ %{cw#ReadOnly()}
 set statusline+=\ %=
 set statusline+=\ %#WarningMsg#%k%r%w%m%0*
-set statusline+=\ \ %{&ft}
+set statusline+=\ %{StlEcho(rsep)}\ %{&ft}
 set statusline+=%{&fenc!=?'utf-8'?'\ \ ['.&fenc.']':''}
-set statusline+=%{&ff!=?'unix'?'\ \ ['.&ff.']':''} " Fileformat
-set statusline+=\ \\ %-3(%{cw#FileSize()}%)       " File size
+set statusline+=%{&ff!=?'unix'?'\ \ ['.&ff.']':''}
+set statusline+=\ %{StlEcho(rsep)}\ %-3(%{cw#FileSize()}%)
 set statusline+=%7*%3c:%3l/%L
 set statusline+=\ %*
 " ========================================
@@ -47,9 +59,6 @@ set statusline+=%{cw#StatuslineTabWarning()}
 set statusline+=%{cw#StatuslineTrailingSpaceWarning()}
 set statusline+=%9*%{GUTENTAGSSTATUS()}
 set statusline+=%*
-
-" from http://twily.info/.vimrc#view {{{2
-" set statusline=\ %{cw#HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
 " highlighting {{{2
 hi User7 term=standout gui=standout
