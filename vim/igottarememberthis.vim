@@ -750,3 +750,33 @@ if executable("hs")
 endif "}}}2
 " }}}
 " ========================================
+" from xero config {{{1
+" https://github.com/xero/dotfiles/blob/master/vim/.vim/plugin-settings.vim
+" omnifuncs {{{2
+augroup omnifuncs
+  au!
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+augroup end
+
+" completions {{{2
+let b:vcm_tab_complete = 'omni'
+set omnifunc=syntaxcomplete#Complete
+" select the completion with enter
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" close preview on completion complete
+augroup completionhide
+  au!
+  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+augroup end
+" close if final buffer is netrw or the quickfix {{{2
+augroup finalcountdown
+  au!
+  autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&filetype") == "netrw" || &buftype == 'quickfix' |q|endif
+augroup END
+" }}}1
+" ========================================
