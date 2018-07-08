@@ -6,7 +6,11 @@ if &cp | set nocp | endif
 
 set nobackup
 set noswapfile
-set viminfo='50,<1000,s100,:0,n~/vimfiles/tmp/viminfo
+set viminfo='50,<1000,s100,:0
+if !has('nvim')
+	" XXX: if set this hangs or crashes nvim:
+	set viminfo+=n~/vimfiles/tmp/viminfo
+endif
 
 set encoding=utf-8
 set keymap=russian-jcukenwin
@@ -26,7 +30,7 @@ set ruler
 " statusline {{{2
 
 set laststatus=2
-runtime stl2.vim
+runtime stl4.vim
 
 " statusline }}}2
 
@@ -46,8 +50,7 @@ set scrolloff=5
 set sidescroll=5
 
 " cures some of "press <cr> to continue" messages
-" turned off for now
-" set cmdheight=2
+set cmdheight=2
 set shortmess+=filmnrwxaoOstTWAIcF
 " }}}1
 
@@ -59,7 +62,8 @@ set ignorecase
 set smartcase
 
 set wildmenu
-set wildmode=list,full
+" Command <Tab> completion, list matches, then longest common part, then all.
+set wildmode=list:longest,full
 
 set omnifunc=syntaxcomplete#Complete
 
@@ -91,10 +95,6 @@ function! BetterBackSpace() abort
 		return "\<BS>"
 endfunction
 inoremap <silent> <BS> <C-r>=BetterBackSpace()<CR>
-" Skip over closing parenthesis/brace {{{2
-inoremap <expr> ) getline('.')[col('.')-1] == ")" ? "\<Right>" : ")"
-inoremap <expr> } getline('.')[col('.')-1] == "}" ? "\<Right>" : "}"
-inoremap <expr> ] getline('.')[col('.')-1] == "]" ? "\<Right>" : "]"
 " }}}2
 
 " folds {{{2
@@ -148,21 +148,20 @@ inoremap <localleader>k <Esc>mkO<C-o>`k
 
 " buffers {{{2
 nnoremap gb :ls<CR>:b
+nnoremap <C-Tab> <C-^>
+" also a lang switch
+inoremap <C-Tab> <C-^>
 nnoremap <leader>q :bp<bar>bd#<CR>
 nnoremap <leader>0 :%bd<CR>
 
 " fuzzy search #plugins {{{2
-nnoremap <leader>b :CtrlPBuffer<CR>
-nnoremap <leader>m :CtrlPMRUFiles<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>m :History<CR>
 nnoremap <leader>f :FZF<CR>
 
 " copypaste {{{2
 map Y y$
 nnoremap gy :%y+<CR>
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-nnoremap <leader>y "+y
-nnoremap <leader>Y "+Y
 
 " better than <leader>ohmygodimissedthatnextbutton
 map! <S-Insert> *
@@ -179,6 +178,10 @@ nnoremap vv ^vg_
 vnoremap < <gv
 vnoremap > >gv
 nnoremap <leader>cd :cd %:p:h<CR>
+" screen line scroll - very useful with wrap on
+" https://bluz71.github.io/2017/05/15/vim-tips-tricks.html
+nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
+nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 
 " specials {{{2
 nnoremap <F2> :Lex<CR>
@@ -214,6 +217,8 @@ augroup ft_python " {{{2
 	au!
 	au FileType python setlocal makeprg=python\ %
 	au FileType python nnoremap <buffer> <F7> :up<bar>make<CR>
+	au FileType python nnoremap <buffer> <leader>d iprint(f'***=line('.')<CR>*** : {}')<Esc>==0f{a
+	au FileType python iabbr <buffer> dbg print(f'***=line('.')<CR>***: {}')<Esc>0f{a
 augroup END
 
 " vim-dotoo  {{{2
@@ -241,28 +246,34 @@ endif
 
 " plugin settings {{{1
 " maybe should place this into `packages.vim`
-" Use fd for ctrlp.
+
+" Use fd for ctrlp. {{{2
 if executable('fd')
 	let g:ctrlp_user_command = 'fd -c never "" "%s"'
 	let g:ctrlp_use_caching = 0
 endif
 
-" quick add plugins for a minpac
-function! AddPacFromCb() abort
-	" oldschool way to trim all spaces and whatnot
-	" let l:cb = substitute(@+,'\v^\s*(.{-})\s*\n$','\1','')
-	let l:cb = trim(@+)
-	let l:cb = substitute(l:cb, '\v^https://github.com/','','')
-	put = 'call minpac#add(''' . l:cb . ''')'
-endfunction
-nnoremap <leader>v :call AddPacFromCb()<CR>
+" FZF {{{2
+" To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+nnoremap <C-p> :FZF<CR>
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " commands {{{1
 command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
 " }}}1
 
-" don't put anything important below this line
-colorscheme vimterial_dark " mustang " railscasts
+" XXX: don't put anything important below this line
 
 " XXX: oh nice, it doesn't load 'opt' packages
 " XXX: for :debug:
