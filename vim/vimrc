@@ -30,6 +30,9 @@ if !isdirectory(expand('$DOTVIMDIR'))
 	echom "** ! **: dotfiles dir don't exist"
 endif
 set rtp^=$DOTVIMDIR
+if g:is.nvim
+	let &packpath = &runtimepath
+endif
 " ========================================
 " dirs: plugs, swap, undo, backups {{{2
 set nobackup                " Отключить создание файлов бекапа
@@ -218,6 +221,8 @@ if !g:is.gui
 
 	" neovim {{{2
 	elseif g:is.nvim
+		set clipboard+=unnamedplus
+		set inccommand=nosplit
 		set title
 		" let s:editor_root=expand("~/AppData/Local/nvim")
 		let g:python_host_prog = 'D:/env/neovim/2/Scripts/python.exe'
@@ -398,11 +403,4 @@ fun! InsertPlugFromCb() abort
 	return 'Plug ''' . l:cb . ''''
 endf
 iabbr plu <C-R>=InsertPlugFromCb()<CR>
-
-" spoiled by Org-mode: {{{2
-nnoremap <expr> <Tab> foldlevel('.') > 0 ? "za" : "\<Tab>"
-nnoremap <expr> <S-Tab> &foldlevel > 0 ? "zM" : "zR"
-"  }}}2
-
-nnoremap <leader>z zfap
 " new [2018-05-25] }}}1
