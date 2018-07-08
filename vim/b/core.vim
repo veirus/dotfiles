@@ -36,11 +36,12 @@ Plug 'mhinz/vim-startify' "{{{3
 nnoremap <F1> :Startify<CR>
 let g:startify_list_order = ['bookmarks', 'files', 'sessions']
 let g:startify_bookmarks = [
+            \ {'r': '$MYVIMRC'},
             \ {'o': '~\bigjulytasks.todo'},
             \ {'p': '~\PROSTOR.todo'},
-            \ {'r': '$MYVIMRC'},
+            \ {'y': '~\jrnl.todo' },
+            \ {'u': '~\jrnl.org' },
             \ {'t': '~\onetab.md'},
-            \ {'y': '~\jrnl.todo' }
             \ ]
 let g:startify_fortune_use_unicode = 1
 let g:startify_update_oldfiles = 1
@@ -88,7 +89,7 @@ Plug 'rstacruz/vim-closer' " 2017-04-14 - closes brackets
 
 " -- hotkeys {{{3
 Plug 'tpope/vim-rsi'
-Plug 'romainl/vim-qf'
+" Plug 'romainl/vim-qf' " did i really nead that? Requires config apparently
 Plug 'tpope/vim-unimpaired'
 
 " -- repeat {{{3
