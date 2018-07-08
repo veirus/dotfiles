@@ -62,6 +62,11 @@ nnoremap <silent> g# g#zz
 nnoremap <silent> <C-o> <C-o>zz
 nnoremap <silent> <C-i> <C-i>zz
 
+" spoiled by Org-mode: {{{5
+nnoremap <expr> <Tab> foldlevel('.') > 0 ? "za" : "\<Tab>"
+nnoremap <expr> <S-Tab> &foldlevel > 0 ? "zM" : "zR"
+"  }}}5
+
 " Same when jumping around
 nnoremap g; g;zz
 nnoremap g, g,zz
@@ -249,6 +254,8 @@ nnoremap zM zM:echo 'foldlevel: ' . &foldlevel<cr>
 " *almost* the same:
 nnoremap zx zxzz
 nnoremap <leader>z zMzvzz
+" make folds on the fly:
+" nnoremap <leader>z zfap
 " buggy with multiple fold levels
 nnoremap z] :<C-u>silent! normal! zc<CR>zjzo
 nnoremap z[ :<C-u>silent! normal! zc<CR>zkzo[z
