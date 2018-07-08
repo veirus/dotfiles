@@ -3,6 +3,7 @@ let emmetlist = ['html','smarty','pug','php','xml','xsl','xslt','xsd','css',
             \ 'sass','scss','less','styl','stylus','mustache','handlebars',
             \ 'jinja']
 Plug 'mattn/emmet-vim', { 'for': emmetlist, 'on': ['Emmet', 'EmmetInstall'] }
+" replaced with ultisnips snippet:
 " let g:user_emmet_settings = {
 "       \ 'php': {
 "       \     'snippets': {
