@@ -41,7 +41,7 @@ else
 	let g:wline = 34
 endif
 " http://vim.1045645.n5.nabble.com/Initial-Window-Position-td1165538.html
-let g:wposy = 32  " windows taskbar
+" let g:wposy = 32  " windows8 taskbar on top
 autocmd GUIEnter * set vb t_vb= linespace=0
 			\ | let &lines=g:wline | let &columns=g:wcols
-			\ | execute ':winpos' g:wposx g:wposy
+			\ | execute ':winpos' g:wposx get(g:, 'wposy', 0)
