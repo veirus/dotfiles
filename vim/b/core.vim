@@ -108,7 +108,9 @@ Plug 'skywind3000/asyncrun.vim', {'on' : ['Gulp', 'GulpExt']} " i don't use it
 " Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
 Plug 'tpope/vim-fugitive'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'rking/ag.vim', {'on' :'Ag'}
+" Deprecated by maintaners. Use ack.vim [ 2018-08-11 ]
+" Plug 'rking/ag.vim', {'on' :'Ag'}
+Plug 'mileszs/ack.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'mattn/gist-vim' | Plug 'mattn/webapi-vim'
 
