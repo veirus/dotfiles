@@ -6,7 +6,7 @@ if &cp | set nocp | endif
 
 set nobackup
 set noswapfile
-set viminfo='50,<1000,s100,:0
+set viminfo='50,<1000,s100,:20
 if !has('nvim')
 	" XXX: if set this hangs or crashes nvim:
 	set viminfo+=n~/vimfiles/tmp/viminfo
