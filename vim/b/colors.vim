@@ -2,9 +2,9 @@
 if !exists('g:mycolor')
     let g:mycolor = 'dracula'
 endif
-let s:altcolor = 'moot'
-" let s:altcolor = 'challenger_deep'
-" let s:altcolor = 'nova'
+" let s:altcolor = 'moot' " ← previous, good, but bleak
+let s:altcolor = 'challenger_deep'
+" let s:altcolor = 'nova' " ← second favourite
 let g:cs = {
             \ 'xterm':  'jellybeans',
             \ 'nvim':   'molokai',
