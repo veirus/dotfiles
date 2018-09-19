@@ -22,6 +22,8 @@ cdproj=cd /d D:\projects
 cdops=cd /d D:\OpenServer\domains
 cddenw=cd /d D:\denwer
 cdenv=cd /d D:\env
+cddw=cd /d D:\downloads
+cdvid=cd /d D:\downloads\Videos
 
 ga=git add $*
 gaa=git add .
