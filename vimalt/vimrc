@@ -15,6 +15,7 @@ endif
 set encoding=utf-8
 set keymap=russian-jcukenwin
 set iminsert=0
+set imsearch=-1
 
 " visual xpenb {{{1
 if has('gui_running')
@@ -34,7 +35,7 @@ runtime stl4.vim
 
 " statusline }}}2
 
-if &listchars ==# 'eol:$'
+if &listchars ==# 'eol:$' || has('nvim')
 	set listchars=tab:\│\ ,trail:·,extends:»,precedes:«,nbsp:+
 	set list
 endif
@@ -79,13 +80,24 @@ set formatoptions=qnl1j
 " maps {{{1
 let g:mapleader = "\<Space>"
 
+" get the leader right {{{2
+" https://konfekt.github.io/blog/2016/10/03/get-the-leader-right
+nnoremap : ,
+xnoremap : ,
+onoremap : ,
+
+" <CR> is better option! unless buffer is netrw...
+nnoremap , :
+xnoremap , :
+onoremap , :
+
 " evil and heresy {{{2
 nnoremap <C-c><C-s> :up<CR>
 inoremap <C-c><C-s> <C-o>:up<CR>
 nnoremap <M-x> :
 inoremap <M-x> <C-o>:
 
-" Auto-delete closing parenthesis/brace {{{1
+" Auto-delete closing parenthesis/brace {{{2
 function! BetterBackSpace() abort
 	let cur_line = getline('.')
 	let before_char = cur_line[col('.')-2]
@@ -105,29 +117,27 @@ nnoremap <expr> <S-Tab> &foldlevel > 0 ? "zM" : "zR"
 nnoremap <leader>z zfap
 
 function! InsertFoldMarker(...) abort
-	let l:cur_line = getline('.')
-	let l:cur_col  = col('.')
-	let l:markers  = split(&l:fmr, ',')
-	let l:marker   = l:markers[0]
-	let l:level    = foldlevel('.')
-	let l:level    = l:level == 0 ? '1' : l:level
-	if (a:0) && len(l:markers) > 1
-		let l:marker = l:markers[1]
-	endif
-	let l:cms = split(&l:cms, '%s')
-	if (a:0) && len(l:cms) > 1
-		" TODO: handle paired comment markers
-		let l:cms = l:cms[1]
+	let l:cur_line   = getline('.')
+	let l:markers    = split(&l:fmr, ',')
+	let l:marker     = (a:0) && len(l:markers)>1 ? l:markers[1] : l:markers[0]
+	let l:level      = foldlevel('.')
+	let l:level      = l:level == 0 ? '1' : l:level
+	let l:cms        = split(&l:cms, '%s')
+	" TODO: handle paired comment markers
+	let l:cms        = (a:0) && len(l:cms)>1 ? l:cms[1] : l:cms[0]
+	if has('nvim')
+		let l:marker_cnt = 0
+		for c in split(l:cur_line, '\zs')
+			if c == l:cms
+				let l:marker_cnt += 1
+			endif
+		endfor
 	else
-		let l:cms = l:cms[0]
+		let l:marker_cnt = count(l:cur_line, l:cms)
 	endif
-	let l:cnt = count(l:cur_line, l:cms)
-	let l:space = l:cur_col == 1 && len(l:cur_line) < 2 ? '' : ' '
-	if l:cnt % 2 == 0
-		exe "norm! m1A".l:space.l:cms." ".l:marker.l:level."\<Esc>`1"
-	else
-		exe "norm! m1A ".l:marker.l:level."\<Esc>`1"
-	endif
+	let l:cms        = (l:marker_cnt % 2 == 0) && (l:cur_line[0] != l:cms) ? l:cms.' ' : ''
+	let l:space      = l:cur_line[-1:]  =~ '\s' || len(l:cur_line)<2 ? '' : ' '
+	exe "norm! m1A".l:space.l:cms.l:marker.l:level."\<Esc>`1"
 	return ''
 endfunction
 
@@ -150,8 +160,9 @@ inoremap <localleader>k <Esc>mkO<C-o>`k
 " buffers {{{2
 nnoremap gb :ls<CR>:b
 nnoremap <C-Tab> <C-^>
-" also a lang switch
+" also a lang switch, especially useful on neovim
 inoremap <C-Tab> <C-^>
+cnoremap <C-Tab> <C-^>
 nnoremap <leader>q :bp<bar>bd#<CR>
 nnoremap <leader>0 :%bd<CR>
 
@@ -179,6 +190,9 @@ nnoremap vv ^vg_
 vnoremap < <gv
 vnoremap > >gv
 nnoremap <leader>cd :cd %:p:h<CR>
+" nnoremap <leader>f4 :%s/\s\+$//e<CR>
+" better version:
+nnoremap <silent><leader>f4 :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 " screen line scroll - very useful with wrap on
 " https://bluz71.github.io/2017/05/15/vim-tips-tricks.html
 nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
@@ -273,7 +287,8 @@ command! -bang -nargs=* Rg
 nnoremap <C-p> :FZF<CR>
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
+" complete path doesn't work on Windows:
+" imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
