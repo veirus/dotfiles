@@ -1,9 +1,6 @@
-color github " flatlandia "mustang "railscasts
-" matchit {{{1
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
-	packadd matchit
-	map Q %
-endif
+color tempus_autumn " flatlandia "mustang "railscasts
+
+map Q <plug>(matchup-%)
 
 " minpac commands {{{
 
@@ -29,6 +26,7 @@ function! AddPacFromCb(arg) abort
 endfunction
 nnoremap <leader>v :call AddPacFromCb(1)<CR>
 
+" minpac {{{1
 if !exists('*minpac#init')
 	finish
 endif
@@ -54,17 +52,40 @@ Plug 'croaker/mustang-vim'
 Plug 'dhruvasagar/vim-railscasts-theme'
 Plug 'larsbs/vimterial_dark'
 Plug 'neutaaaaan/iosvkem'
-" misc                        {{{2
-Plug 'amiorin/vim-eval'
+Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
+" orgmode.vim                 {{{2
 Plug 'dhruvasagar/vim-dotoo', {'type': 'opt'}
-Plug 'dhruvasagar/vim-zoom'
-Plug 'honza/vim-snippets'
 Plug 'hsitz/VimOrganizer',    {'type': 'opt'}
+" fuzzy search                {{{2
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/goyo.vim',     {'type': 'opt'}
+" python                      {{{2
 Plug 'kalekundert/vim-coiled-snake'
+" snippets                    {{{2
 Plug 'sirver/UltiSnips'
+Plug 'honza/vim-snippets'
+" split management            {{{2
+Plug 'dhruvasagar/vim-zoom'
+Plug 'andymass/vim-tradewinds'
+" misc                        {{{2
+Plug 'amiorin/vim-eval'
+Plug 'junegunn/goyo.vim',     {'type': 'opt'}
 Plug 'tommcdo/vim-lion'
-" minpac }}}
+Plug 'veirus/vim-devdocs',    {'branch': 'windows'}
+Plug 'ryanoasis/vim-devicons'
+Plug 'vim-scripts/VOoM'
+Plug 'idbrii/vim-gogo'
+Plug 'vim-utils/vim-troll-stopper'
+" Plug 'andymass/vim-matchup'
+Plug 'machakann/vim-highlightedyank'
+if !exists('##TextYankPost')
+  map y <Plug>(highlightedyank)
+endif
 
+" minpac }}}1
+
+" matchit {{{1
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+	packadd matchit
+	map Q %
+endif
