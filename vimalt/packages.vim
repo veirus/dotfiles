@@ -1,8 +1,59 @@
 color tempus_autumn " flatlandia "mustang "railscasts
 
+" plugin settings {{{1
+
 map Q <plug>(matchup-%)
 
-" minpac commands {{{
+" Use fd for ctrlp. {{{2
+if executable('fd')
+	let g:ctrlp_user_command = 'fd -c never "" "%s"'
+	let g:ctrlp_use_caching = 0
+endif
+
+" FZF {{{2
+" To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>m :History<CR>
+nnoremap <C-p> :FZF<CR>
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+" complete path doesn't work on Windows:
+" imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" autocommands {{{1
+if has("autocmd")
+" vim-dotoo  {{{2
+augroup p_vimDotoo
+	autocmd!
+	autocmd BufEnter *.dotoo packadd vim-dotoo
+	autocmd BufRead, BufNewFile, BufEnter *.dotoo filetype plugin indent on
+	autocmd BufRead, BufNewFile, BufEnter *.dotoo syntax on
+augroup END
+
+" vim organizer {{{2
+let g:ft_ignore_pat = '\.org'
+augroup p_VimOrganizer
+	autocmd!
+	" autocmd! BufRead,BufWrite,BufWritePost,BufNewFile *.org
+	autocmd BufEnter *.org filetype plugin indent on
+	autocmd BufEnter *.org syntax on
+	autocmd BufEnter *.org packadd VimOrganizer
+	autocmd BufEnter *.org call org#SetOrgFileType()
+augroup END
+command! OrgCapture :call org#CaptureBuffer()
+command! OrgCaptureFile :call org#OpenCaptureFile()
+endif
+
+" minpac commands {{{1
 
 command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
