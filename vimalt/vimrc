@@ -21,6 +21,7 @@ set imsearch=-1
 if has('gui_running')
 	set gfn=Droid_Sans_Mono_Slashed_for_Pow:h12:cRUSSIAN:qCLEARTYPE,Source_Code_Pro:h12:cRUSSIAN:qCLEARTYPE,Consolas:h12
 	set guioptions=ac
+	set vb t_vb=
 endif
 
 set novb t_vb=
@@ -205,9 +206,9 @@ nnoremap <F2> :Lex<CR>
 nnoremap <F4> :set hlsearch! hlsearch?<cr>
 nnoremap <F6> :setl wrap! wrap?<CR>
 imap <F6> <C-O><F6>
-nnoremap <F11> :so $MYVIMRC<CR>
+nnoremap <F11> :e ~\vimfiles\packages.vim<CR>
 nnoremap <F12> :e $MYVIMRC<CR>
-nnoremap <S-F12> :e ~\vimfiles\packages.vim<CR>
+nnoremap <S-F12> :so $MYVIMRC<CR>
 
 " plugins {{{1
 runtime packages.vim
@@ -218,6 +219,11 @@ syntax enable
 
 " autocommands {{{1
 if has("autocmd")
+augroup no_vb " {{{2
+	autocmd!
+	autocmd GUIEnter * set vb t_vb=
+augroup END
+
 augroup reload_vimrc " {{{2
 	autocmd!
 	autocmd BufWritePost [_.g]\\\{-\}vimrc,init.vim nested source $MYVIMRC | echo 'vimrc reloaded'
