@@ -23,6 +23,7 @@ if has('gui_running')
 	set guioptions=ac
 else
 	set termguicolors
+	set vb t_vb=
 endif
 
 " for fzf {{{2
@@ -256,6 +257,11 @@ syntax enable
 
 " autocommands {{{1
 if has("autocmd")
+augroup no_vb " {{{2
+	autocmd!
+	autocmd GUIEnter * set vb t_vb=
+augroup END
+
 augroup reload_vimrc " {{{2
 	autocmd!
 	autocmd BufWritePost [_.g]\\\{-\}vimrc,init.vim nested source $MYVIMRC | echo 'vimrc reloaded'
