@@ -1,4 +1,4 @@
-color tempus_autumn " flatlandia "mustang "railscasts
+color tempus_classic " tempus_autumn " flatlandia "mustang "railscasts
 
 " plugin settings {{{1
 
@@ -26,38 +26,35 @@ nnoremap <C-p> :FZF<CR>
 imap <c-x><c-k> <plug>(fzf-complete-word)
 " complete path doesn't work on Windows:
 " imap <c-x><c-f> <plug>(fzf-complete-path)
+" possible fix with Rg (not really...)
+" inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " autocommands {{{1
 if has("autocmd")
-" vim-dotoo  {{{2
-augroup p_vimDotoo
-	autocmd!
-	autocmd BufEnter *.dotoo packadd vim-dotoo
-	autocmd BufRead, BufNewFile, BufEnter *.dotoo filetype plugin indent on
-	autocmd BufRead, BufNewFile, BufEnter *.dotoo syntax on
-augroup END
+	" vim-dotoo  {{{2
+	augroup p_vimDotoo
+		autocmd!
+		autocmd BufEnter *.dotoo packadd vim-dotoo
+		autocmd BufRead, BufNewFile, BufEnter *.dotoo filetype plugin indent on
+		autocmd BufRead, BufNewFile, BufEnter *.dotoo syntax on
+	augroup END
 
-" vim organizer {{{2
-let g:ft_ignore_pat = '\.org'
-augroup p_VimOrganizer
-	autocmd!
-	" autocmd! BufRead,BufWrite,BufWritePost,BufNewFile *.org
-	autocmd BufEnter *.org filetype plugin indent on
-	autocmd BufEnter *.org syntax on
-	autocmd BufEnter *.org packadd VimOrganizer
-	autocmd BufEnter *.org call org#SetOrgFileType()
-augroup END
-command! OrgCapture :call org#CaptureBuffer()
-command! OrgCaptureFile :call org#OpenCaptureFile()
+	" vim organizer {{{2
+	let g:ft_ignore_pat = '\.org'
+	augroup p_VimOrganizer
+		autocmd!
+		" autocmd! BufRead,BufWrite,BufWritePost,BufNewFile *.org
+		autocmd BufEnter *.org filetype plugin indent on
+		autocmd BufEnter *.org syntax on
+		autocmd BufEnter *.org packadd VimOrganizer
+		autocmd BufEnter *.org call org#SetOrgFileType()
+	augroup END
+	command! OrgCapture :call org#CaptureBuffer()
+	command! OrgCaptureFile :call org#OpenCaptureFile()
 endif
 
-" minpac commands {{{1
-
-command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
-command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
-command! -nargs=+ -bar Plug call minpac#add(<args>)
 
 " quick add plugins for a minpac {{{1
 function! AddPacFromCb(arg) abort
@@ -77,60 +74,78 @@ function! AddPacFromCb(arg) abort
 endfunction
 nnoremap <leader>v :call AddPacFromCb(1)<CR>
 
+" minpac commands {{{1
+
+command! PackUpdate source $MYVIMRC | call PackInit() | call minpac#update()
+command! PackClean  source $MYVIMRC | call PackInit() | call minpac#clean()
+command! PackStatus packadd minpac | call minpac#status()
+
+" old style:
+" command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
+" command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
+
+command! -nargs=+ -bar Plug call minpac#add(<args>)
 " minpac {{{1
 if !exists('*minpac#init')
 	finish
 endif
 
 " minpac is loaded.
-call minpac#init()
-call minpac#add('k-takata/minpac', {'type': 'opt'})
+function! PackInit() abort
+	packadd minpac
 
-" tpope                       {{{2
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-rsi'
-Plug 'tpope/vim-sleuth',      {'type': 'opt'}
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired',  {'type': 'opt'}
-Plug 'tpope/vim-vinegar'
-" Colorschemes                {{{2
-Plug 'endel/vim-github-colorscheme'
-Plug 'jordwalke/flatlandia'
-Plug 'croaker/mustang-vim'
-Plug 'dhruvasagar/vim-railscasts-theme'
-Plug 'larsbs/vimterial_dark'
-Plug 'neutaaaaan/iosvkem'
-Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
-" orgmode.vim                 {{{2
-Plug 'dhruvasagar/vim-dotoo', {'type': 'opt'}
-Plug 'hsitz/VimOrganizer',    {'type': 'opt'}
-" fuzzy search                {{{2
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-" python                      {{{2
-Plug 'kalekundert/vim-coiled-snake'
-" snippets                    {{{2
-Plug 'sirver/UltiSnips'
-Plug 'honza/vim-snippets'
-" split management            {{{2
-Plug 'dhruvasagar/vim-zoom'
-Plug 'andymass/vim-tradewinds'
-" misc                        {{{2
-Plug 'amiorin/vim-eval'
-Plug 'junegunn/goyo.vim',     {'type': 'opt'}
-Plug 'tommcdo/vim-lion'
-Plug 'veirus/vim-devdocs',    {'branch': 'windows'}
-Plug 'ryanoasis/vim-devicons'
-Plug 'vim-scripts/VOoM'
-Plug 'idbrii/vim-gogo'
-Plug 'vim-utils/vim-troll-stopper'
-" Plug 'andymass/vim-matchup'
-Plug 'machakann/vim-highlightedyank'
+	call minpac#init()
+	call minpac#add('k-takata/minpac', {'type': 'opt'})
+
+	" tpope                       {{{2
+	Plug 'tpope/vim-commentary'
+	Plug 'tpope/vim-eunuch'
+	Plug 'tpope/vim-repeat'
+	Plug 'tpope/vim-rsi'
+	Plug 'tpope/vim-sleuth',      {'type': 'opt'}
+	Plug 'tpope/vim-speeddating'
+	Plug 'tpope/vim-surround'
+	Plug 'tpope/vim-unimpaired',  {'type': 'opt'}
+	Plug 'tpope/vim-vinegar'
+	" Colorschemes                {{{2
+	Plug 'endel/vim-github-colorscheme'
+	Plug 'jordwalke/flatlandia'
+	Plug 'croaker/mustang-vim'
+	Plug 'dhruvasagar/vim-railscasts-theme'
+	Plug 'larsbs/vimterial_dark'
+	Plug 'neutaaaaan/iosvkem'
+	Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
+	Plug 'tomasr/molokai', {'type': 'opt'}
+	" orgmode.vim                 {{{2
+	Plug 'dhruvasagar/vim-dotoo', {'type': 'opt'}
+	Plug 'hsitz/VimOrganizer',    {'type': 'opt'}
+	" fuzzy search                {{{2
+	Plug 'junegunn/fzf'
+	Plug 'junegunn/fzf.vim'
+	" python                      {{{2
+	Plug 'kalekundert/vim-coiled-snake'
+	" snippets                    {{{2
+	Plug 'sirver/UltiSnips'
+	Plug 'honza/vim-snippets'
+	" split management            {{{2
+	Plug 'dhruvasagar/vim-zoom'
+	Plug 'andymass/vim-tradewinds'
+	" misc                        {{{2
+	Plug 'kana/vim-arpeggio'
+	Plug 'amiorin/vim-eval'
+	Plug 'junegunn/goyo.vim',     {'type': 'opt'}
+	Plug 'tommcdo/vim-lion'
+	Plug 'romainl/vim-devdocs'
+	Plug 'ryanoasis/vim-devicons'
+	Plug 'vim-scripts/VOoM'
+	Plug 'idbrii/vim-gogo'
+	Plug 'vim-utils/vim-troll-stopper', {'type': 'opt'}
+	Plug 'andymass/vim-matchup'
+	Plug 'machakann/vim-highlightedyank'
+endfunction
+
 if !exists('##TextYankPost')
-  map y <Plug>(highlightedyank)
+	map y <Plug>(highlightedyank)
 endif
 
 " minpac }}}1
@@ -140,3 +155,4 @@ if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
 	packadd matchit
 	map Q %
 endif
+
