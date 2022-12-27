@@ -1,10 +1,19 @@
-" == unused ==
+" File: unused.vim
+" Author: carudo
+" Description: Plugins that i no longer use. This file should not be sourced
+" Last Modified: 2020-12-27 Sun 20:56
+
 " 2017-02-22 [ showmap ] {{{3
 Plug 'fcpg/vim-showmap'
 
 " [ vim 8 syntax | ctrlp-swoop ] {{{3
 Plug 'vim-jp/syntax-vim-ex' " for vim 8.0 syntax
 Plug 'mattn/ctrlp-swoop'
+
+" Plug 'ctrlpvim/ctrlp.vim' "{{{3
+" nnoremap <leader>b :CtrlPBuffer<cr>
+" nnoremap <Leader>o :CtrlPMRUFiles<CR>
+" let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " old {{{1
 Plug 'junegunn/rainbow_parentheses.vim' " doesn't work?

@@ -1,3 +1,8 @@
+" File: emmet.vim
+" Author: carudo
+" Description: Settings for Emmet
+" Last Modified: 2018-11-17 Ñá 03:28
+
 " Emmet {{{3
 let emmetlist = ['html','smarty','pug','php','xml','xsl','xslt','xsd','css',
             \ 'sass','scss','less','styl','stylus','mustache','handlebars',

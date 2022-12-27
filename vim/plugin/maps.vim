@@ -67,7 +67,7 @@ nnoremap <expr> <Tab> foldlevel('.') > 0 ? "za" : "\<Tab>"
 nnoremap <expr> <S-Tab> &foldlevel > 0 ? "zM" : "zR"
 "  }}}5
 
-" Same when jumping around
+" Same when jumping around (changelist)
 nnoremap g; g;zz
 nnoremap g, g,zz
 " auto center }}}4
@@ -194,7 +194,7 @@ nnoremap <F4> :set hlsearch! hlsearch?<cr>
 nnoremap <F5> :call cw#SetModalCursor()<cr>
 
 " Word-wrap toggle
-nnoremap <F6> :setl wrap!<bar>:set wrap?<CR>
+nnoremap <F6> :setl wrap! wrap?<CR>
 imap <F6> <C-O><F6>
 
 nnoremap <F9> :call cw#SetRandomColors()<CR>
@@ -328,7 +328,8 @@ nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<C
 " This sets a new undo point when <;> is typed.
 " Intended to improve *QoL* somehow. Testing...
 inoremap ; ;<c-g>u
-" ~ toggles ' and " in addition to its normal behaviour
+" ~ toggles ' and " in addition to its normal behaviour.
+" [This is cool - 2020-03-15]
 nnoremap <expr> ~ getline('.')[col('.')-1] == "'" ? "r\"l" : getline('.')[col('.')-1] == '"' ? "r'l" : '~'
 
 " get the leader right {{{2

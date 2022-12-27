@@ -1,17 +1,48 @@
+" File: new.vim
+" Author: carudo
+" Description: Trying new things here
+" Last Modified: 2020-12-27 Sun 20:38
+
 " == new stuff == {{{1
+" 2021-06-22
+Plug 'alok/notational-fzf-vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf'} | Plug 'junegunn/fzf.vim'
+
+" 2020-12-20 Ranger-like file manager. Currently in-dev. Doesn't work.
+" Plug 'ZhiyuanLck/vim-lf'
+
+" 2020-03-15
+" The bang version will try to download the prebuilt binary if cargo does not
+" exist.
+" nice!
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+
+
+" 2019-10-04 - Nice!
+Plug 'zxqfl/tabnine-vim'
+" This is the Vim TabNine client, advanced AI based autocomplete for all
+" programming languages. TabNine Indexes your entire project by reading your
+" .gitignore or others, and determines which files to index.
+
+" 2019-03-24
+" breaks `cmap <Tab>`
+" disable
+" Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
+
+" 2019-04-18
+
+if has('nvim')
+    Plug 'meain/vim-package-info', {'do': 'npm install'}
+endif
+
+" 2019-03-16
+Plug 'romainl/vim-devdocs'
+
+" 2019-03-03
+Plug 'junegunn/vim-emoji'
 
 " `ga` on steroids; adds extra info to `ga` output
 Plug 'tpope/vim-characterize'
-" prettier, great code /uglifier/
-Plug 'prettier/vim-prettier', {
-            \ 'do': 'yarn install',
-            \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
-
-" 2018-02-02
-" Displays function signatures from completions in the command line.
-" Requires configuring
-" Doesn't work, /obviosly/
-Plug 'Shougo/echodoc.vim'
 
 " Promising replacement for gutentags
 " Actually needs testing
@@ -26,6 +57,7 @@ Plug 'jsfaint/gen_tags.vim'
 " making it's kinda useless and obtuse
 " Plug 'vim-utils/vim-troll-stopper'
 " That's why it's disabled, but still here for some emergency
+" Critically useful when copying data from external sources
 
 " Syntax for plain text files
 Plug 'vim-scripts/txt.vim'
@@ -36,7 +68,10 @@ Plug 'vim-scripts/txt.vim'
 " To be fair it's good, still considering it over vim-sneak
 
 " 2017-11-22 {{{3
+" This plugin highlights the matching HTML tag when the cursor is positioned
+" on a tag. It works in much the same way as the MatchParen plugin.
 Plug 'gregsexton/MatchTag'
+
 " Nice replacement for a CtrlP, requires /addiction/
 " yes, that's how google translate said, 'addiction'
 Plug 'Yggdroot/LeaderF'
@@ -87,7 +122,3 @@ Plug 'AndrewRadev/splitjoin.vim'
 " somewhat better than a similar plug from japanese friends
 Plug 'google/vim-searchindex'
 " Plug 'osyo-manga/vim-agrep'
-
-" 2017-05-17 [supertab] {{{3
-" I'm not even sure what it is doing here
-" Plug 'ervandew/supertab'

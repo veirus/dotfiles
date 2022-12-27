@@ -1,4 +1,9 @@
-" == Necessity == {{{2
+" File: core.vim
+" Author: carudo
+" Description: plugins i can't live without
+" Last Modified: 2018-11-17 Ñá 03:22
+
+" == Code == {{{2
 
 Plug 'nathanaelkane/vim-indent-guides' "{{{3
 " default: <leader>ig
@@ -7,7 +12,7 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_color_change_percent=3
 
 if !has('gui_running')
-    let g:indent_guides_auto_colors=0
+    " let g:indent_guides_auto_colors=0
     function! s:indent_set_console_colors()
         hi IndentGuidesOdd ctermbg=235
         hi IndentGuidesEven ctermbg=236
@@ -27,21 +32,16 @@ xmap <Enter> <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap <Leader>a <Plug>(EasyAlign)
 
-" Plug 'ctrlpvim/ctrlp.vim' "{{{3
-" nnoremap <leader>b :CtrlPBuffer<cr>
-" nnoremap <Leader>o :CtrlPMRUFiles<CR>
-" let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
-
 Plug 'mhinz/vim-startify' "{{{3
 nnoremap <F1> :Startify<CR>
 let g:startify_list_order = ['bookmarks', 'files', 'sessions']
 let g:startify_bookmarks = [
-            \ {'r': '$MYVIMRC'},
+            \ {'r': '~\vimfiles\vimrc'},
+            \ {'c': '~\vimfiles\b\colors.vim'},
             \ {'o': '~\bigjulytasks.todo'},
             \ {'p': '~\PROSTOR.todo'},
             \ {'y': '~\jrnl.todo' },
             \ {'u': '~\jrnl.org' },
-            \ {'t': '~\onetab.md'},
             \ ]
 let g:startify_fortune_use_unicode = 1
 let g:startify_update_oldfiles = 1
@@ -49,6 +49,7 @@ let g:startify_session_sort = 1
 let g:startify_session_autoload = 0
 let g:startify_session_persistence = 1
 let g:startify_session_delete_buffers = 1
+let g:startify_enable_unsafe = 0
 "}}}3
 
 " 2017-03-13 [ ultisnips ] {{{3
@@ -104,13 +105,23 @@ Plug 'tomtom/tcomment_vim'
 
 " -- misc {{{3
 Plug 'justinmk/vim-dirvish' " doesn't work with autochdir
-Plug 'skywind3000/asyncrun.vim', {'on' : ['Gulp', 'GulpExt']} " i don't use it
+Plug 'skywind3000/asyncrun.vim', {'on' : ['AsyncRun', 'Gulp', 'GulpExt']} " i don't use it
 " Plug 'mbbill/fencview', {'on' : 'FencAutoDetect'}
 Plug 'tpope/vim-fugitive'
 Plug 'editorconfig/editorconfig-vim'
 " Deprecated by maintaners. Use ack.vim [ 2018-08-11 ]
 " Plug 'rking/ag.vim', {'on' :'Ag'}
-Plug 'mileszs/ack.vim'
+" ack.vim settings {{{
+if executable('ag')
+  Plug 'mileszs/ack.vim', {'on' :'Ack'}
+  let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+elseif executable('ack-grep')
+  let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+  Plug 'mileszs/ack.vim', {'on' :'Ack'}
+elseif executable('ack')
+  Plug 'mileszs/ack.vim', {'on' :'Ack'}
+endif
+" }}}
 Plug 'tyru/open-browser.vim'
 Plug 'mattn/gist-vim' | Plug 'mattn/webapi-vim'
 

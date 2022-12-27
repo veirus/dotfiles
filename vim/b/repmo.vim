@@ -1,6 +1,14 @@
-" Repeat motions. Fucking addictive. Wanna in vanilla vim.
-Plug 'Houl/vim-repmo'
+" File: repmo.vim
+" Author: carudo
+" Description: Repeat motions. Fucking addictive. Wanna in vanilla vim.
+" Last Modified: 2018-11-17 Ñá 03:41
+
 " repmo.vim: {{{2
+Plug 'Houl/vim-repmo'
+
+" I messed up everything with `noremap`
+" using `map` or `noremap` here is critical
+" TODO: look up docs and fix it, it's good!
 " map a motion and its reverse motion:
 noremap <expr> h repmo#SelfKey('h', 'l')|sunmap h
 noremap <expr> l repmo#SelfKey('l', 'h')|sunmap l

@@ -780,3 +780,43 @@ augroup finalcountdown
 augroup END
 " }}}1
 " ========================================
+" From https://dev.to/voyeg3r/comment/7kjm {{{1
+" Alternate "nonumber | number | relativenumber"
+:nnoremap <C-n> :let [&nu, &rnu] = [!&rnu, &nu+&rnu==1]<cr>
+
+" allows me to use a smarter cgn
+nnoremap c* *<c-o>cgn
+nnoremap c# #<C-o>cgn
+
+" allows to type gf to "go to file"
+set path+=.,**
+
+" Use whole "words" when opening URLs.
+" This avoids cutting off parameters (after '?') and anchors (after '#').
+" See http://vi.stackexchange.com/q/2801/1631
+let g:netrw_gx="<cWORD>"
+
+" copy the last command to clipboard
+:let @+=@:
+
+" avoid clipboard hacking security issue
+" http://thejh.net/misc/website-terminal-copy-paste
+inoremap <C-R>+ <C-R><C-R>+
+" }}}1
+" ========================================
+" https://www.reddit.com/r/vim/comments/bn11xh/til_how_to_fullscreen_buffers_while_maintaining/en2jscf/ {{{1
+" Here is one way to "zoom in" the current window only if it is not the only one
+" on the screen:
+
+nnoremap <silent> <Leader><CR> :if winnr('$') != 1 <Bar> tab split <Bar> endif<CR>
+
+" See :help winnr() for more information about this function.
+" }}}1
+" https://www.reddit.com/r/vim/comments/bn11xh/til_how_to_fullscreen_buffers_while_maintaining/en1oojn/ {{{1
+nnoremap <silent><C-w>b :vert resize<CR>:resize<CR>:normal! ze<CR>
+
+" For 'window big' works well for me. <C-w>= to restore
+" }}}1
+" ========================================
+
+

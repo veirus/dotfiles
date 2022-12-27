@@ -28,4 +28,4 @@ Cyan=139,233,253
 BoldCyan=71,223,235
 White=248,248,242
 BoldWhite=249,248,245
-CursorType=line
+CursorType=underscore

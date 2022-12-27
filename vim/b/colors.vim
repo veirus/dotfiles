@@ -1,10 +1,20 @@
-" colors {{{3
+" File: colors.vim
+" Author: carudo
+" Description: Colorschemes
+" Last Modified: 2018-11-17 Ñá 03:27
+
+" -- colors -- {{{3
 if !exists('g:mycolor')
     let g:mycolor = 'dracula'
 endif
 " let s:altcolor = 'moot' " ← previous, good, but bleak
-let s:altcolor = 'challenger_deep'
 " let s:altcolor = 'nova' " ← second favourite
+" let s:altcolor = 'materialtheme'
+" let s:altcolor = 'corvine'
+" let s:altcolor = 'base16-atelier-sulphurpool'
+" let s:altcolor = 'gruvbox8_hard'
+let s:altcolor = 'one' " 'spaceduck' " 'kuroi' " 'aurora'
+" tommorow: acme
 let g:cs = {
             \ 'xterm':  'jellybeans',
             \ 'nvim':   'molokai',
@@ -13,11 +23,19 @@ let g:cs = {
             \ }
 " ========================================
 
+" 2021-05-25 Tue 22:10
+" Plug 'pineapplegiant/spaceduck' " ****
 
+" Disabling *reviewed* themes to prevent clutter
 " -- new themes -- {{{3
-Plug 'ivanbrennan/coot'
-Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
-Plug 'robertmeta/nofrils'
+Plug 'aonemd/kuroi.vim'
+Plug 'rafalbromirski/vim-aurora' " <-- previous
+Plug 'lifepillar/vim-gruvbox8'
+" Plug 'kyoz/purify', { 'rtp': 'vim' } " doesn't work
+" Plug 'arzg/vim-corvine' " ***
+" Plug 'ivanbrennan/coot' " ****
+" Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' } " ****
+" Plug 'robertmeta/nofrils' " retro, no colors ***
 
 " 2018-03-10 Colorscheme {{{4
 " i supposed to try it maybe
@@ -26,15 +44,15 @@ Plug 'robertmeta/nofrils'
 " Plug 'fenetikm/falcon'
 
 " boring oldschool for uninspired grumps and idiots like myself {{{4
-Plug 'plan9-for-vimspace/acme-colors'
+" Plug 'plan9-for-vimspace/acme-colors' " ***
 
 " }}}4
 
-Plug 'archSeer/colibri.vim'
-Plug 'cocopon/iceberg.vim'
-Plug 'Wutzara/vim-materialtheme'
-Plug 'google/vim-colorscheme-primary'
-Plug 'ericbn/vim-solarized'
+" Plug 'archSeer/colibri.vim' " ***
+" Plug 'cocopon/iceberg.vim' " ***
+" Plug 'Wutzara/vim-materialtheme' " ****
+" Plug 'google/vim-colorscheme-primary' " ***
+" Plug 'ericbn/vim-solarized' " ***
 
 " -- utilitiy -- {{{3
 Plug 'vim-scripts/ScrollColors', { 'on': 'SCROLLCOLOR' }
@@ -47,9 +65,9 @@ Plug 'chriskempson/vim-tomorrow-theme'
 
 " -- * * * --- {{{3
 
-Plug 'sickill/vim-monokai' " 2017-03-09 [ monokai ]
-Plug 'rakr/vim-one'
-Plug 'ajmwagar/vim-deus'
+" Plug 'sickill/vim-monokai' " 2017-03-09 [ monokai ]
+Plug 'rakr/vim-one' " ****
+Plug 'ajmwagar/vim-deus' " ****
 Plug 'sonjapeterson/1989.vim'
 Plug 'ajh17/Spacegray.vim'
 Plug 'fneu/breezy'

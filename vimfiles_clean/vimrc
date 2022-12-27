@@ -1,0 +1,164 @@
+" vim: set fen fdl=1 fdm=marker:
+" Clean vim setup | 2019.03.24 17:10:08 | 2021-01-12 03:44
+
+" Necessity {{{2
+if &cp | se nocp | endif
+se enc=utf-8
+se ls=2
+se hidden
+se number
+set ignorecase		       " Case insensitive search
+set incsearch		       " Find as you type search
+set smartcase		       " Case sensitive when uc present
+set wildmenu		       " Show list instead of just completing
+set noeb
+set list
+set listchars=tab:│\ ,eol:¬,trail:•,extends:#,nbsp:· " Highlight problematic whitespace
+set breakindent
+set backspace=indent,eol,start
+set tabstop=4
+set shiftwidth=0
+set softtabstop=-1
+" mapleader needs to be before bundle so plugins map correctly
+let mapleader    = "\<space>"
+" ========================================
+" ENV detect {{{2
+let g:is = {
+			\ 'windows' : has('win32') || has('win64'),
+			\ 'cygwin'  : has('win32unix'),
+			\ 'macvim'  : has('gui_macvim'),
+			\ 'nvim'    : has('nvim'),
+			\ 'nyaovim' : exists('g:nyaovim_version'),
+			\ 'gui'     : has('gui_running'),
+			\ 'conemu'  : !empty($CONEMUBUILD),
+			\ 'prostor' : $USERNAME ==? 'oldschool'
+			\ }
+let g:is.wingui = g:is.windows && g:is.gui
+" ========================================
+" rtp {{{2 portability shim:
+let $DOTVIMDIR = expand('$HOME/vimfiles')
+if !isdirectory(expand('$DOTVIMDIR'))
+	let $DOTVIMDIR = expand('$VIM/vimfiles')
+	echom "** ! **: dotfiles dir don't exist"
+endif
+set rtp^=$DOTVIMDIR
+if g:is.nvim
+	let &packpath = &runtimepath
+endif
+" ========================================
+" dirs: plugs, swap, undo, backups {{{2
+set nobackup		    " Отключить создание файлов бекапа
+set nowritebackup
+set noswapfile		    " и свапа
+set history=1000
+set sessionoptions-=options " do not store all options and mappings (also
+" global values for local options)
+" let s:plugs = 'pack/plug/opt' " can't really disable colorschemes
+let s:plugdir = expand($DOTVIMDIR.'/bundle')
+set backupdir=$DOTVIMDIR/backups//
+set directory=$DOTVIMDIR/swap//
+set undodir=$DOTVIMDIR/undo//
+if !g:is.nvim
+	set viminfo+=n$DOTVIMDIR/swap/viminfo
+endif
+" Make those folders automatically if they don't already exist.
+for i in [&undodir, &backupdir, &directory, s:plugdir]
+	let s:e = expand(i)
+	if !isdirectory(s:e)
+		call mkdir(s:e, "p")
+	endif
+	unlet i s:e
+endfor
+" ========================================
+
+" GUI {{{2
+if has('gui_running')
+	" se gfn=Droid_Sans_Mono_Slashed_for_Pow:h12:cRUSSIAN:qDRAFT
+	se go=
+	se gfn=Fira_Mono_for_Powerline:h14:cRUSSIAN:h14:cRUSSIAN:qDRAFT
+	augroup GUI
+		autocmd!
+		autocmd GUIEnter * set vb t_vb= linespace=0
+	augroup END
+endif
+
+" Plugins {{{1
+call plug#begin(s:plugdir)
+Plug '~/vimfiles/b/deline'
+
+" Deoplete {{{2
+if has('nvim')
+	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	color evening " neovim's default is horrific
+else
+	Plug 'Shougo/deoplete.nvim'
+	Plug 'roxma/nvim-yarp'
+	Plug 'roxma/vim-hug-neovim-rpc'
+endif
+	let g:deoplete#enable_at_startup = 1
+	let g:python3_host_prog = 'D:/env/neovim/deoplete/Scripts/python.exe'
+	inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+	inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+
+	" deoplete' completion sources {{{2
+	Plug 'Shougo/neco-syntax'
+	Plug 'Shougo/neco-vim'
+	Plug 'fszymanski/deoplete-emoji'
+
+	Plug 'Shougo/echodoc.vim'
+	    set noshowmode
+	    set cmdheight=2
+	    let g:echodoc#enable_at_startup = 1
+	" }}}2 //deolpete
+
+	" colorschemes
+		Plug 'jsit/toast.vim'
+	" core plugins
+		Plug 'tpope/vim-commentary'
+		Plug 'tpope/vim-surround'
+		Plug 'tpope/vim-repeat'
+call plug#end()
+
+" matchit {{{2
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+	packadd! matchit
+	map Q %
+endif
+
+" Maps {{{2
+" Word-wrap toggle
+nnoremap <F4> :setl hlsearch! hlsearch?<CR>
+nnoremap <F6> :setl wrap! wrap?<CR>
+imap <F6> <C-O><F6>
+nnoremap <F12> :e ~\vimfiles\vimrc<CR>
+nnoremap <F11> :so ~\vimfiles\vimrc<CR> :echo "* .vimrc loaded *"<CR>
+
+if has("autocmd")
+	augroup reload_vimrc " {{{2
+		autocmd!
+		autocmd BufWritePost [_.g]\\\{-\}vimrc,init.vim nested source ~\vimfiles\vimrc | echo 'vimrc reloaded'
+	augroup END
+	" Set default omnifunc to syntax complete for all files {{{2
+	augroup vim_omni
+		autocmd!
+		autocmd Filetype *
+					\	if &omnifunc == "" |
+					\		setlocal omnifunc=syntaxcomplete#Complete |
+					\	endif
+	augroup END
+	" Trim whitespace {{{2
+	" source: https://youtu.be/DogKdiRx7ls?t=1234
+	fun! TrimWhitespace()
+		let l:save = winsaveview()
+		keeppatterns %s/\s\+$//e
+		call winrestview(l:save)
+	endfun
+	augroup trim_whitespace
+		au!
+		au BufWritePre * :call TrimWhitespace()
+	augroup END
+endif
+
+
+" Misc {{{1
+color toast

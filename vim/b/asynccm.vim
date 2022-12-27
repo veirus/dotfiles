@@ -1,3 +1,8 @@
+" File: asynccm.vim
+" Author: carudo
+" Description: settings for async plugins - too much even for separate file
+" Last Modified: 2018-11-17 Ñá 03:25
+
 " 2017-05-18 [ asyncomplete.vim ] {{{3
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -32,14 +37,14 @@ Plug 'prabirshrestha/asyncomplete-tags.vim'
 
 Plug 'yami-beta/asyncomplete-omni.vim'
 augroup asynccomplete
-	au!
-	au User asyncomplete_setup call asyncomplete#register_source(
-		\ asyncomplete#sources#omni#get_source_options({
-			\ 'name': 'omni',
-			\ 'whitelist': ['*'],
-			\ 'completor': function('asyncomplete#sources#omni#completor')
-			\  })
-	\ )
+    au!
+    au User asyncomplete_setup call asyncomplete#register_source(
+                \ asyncomplete#sources#omni#get_source_options({
+                \ 'name': 'omni',
+                \ 'whitelist': ['*'],
+                \ 'completor': function('asyncomplete#sources#omni#completor')
+                \  })
+                \ )
 augroup END
 
 let g:asyncomplete_auto_popup = 0

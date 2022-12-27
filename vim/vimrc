@@ -10,6 +10,7 @@ if has("multi_byte")
 	" Actually, setting 'fencs' messes up default 'fenc' autodetection:
 	" set fileencodings=utf-8,utf-16le,cp1251,cp866,koi8r,ucs-2le "cyrillic edition
 endif
+set langmenu=ru_RU
 " ========================================
 " ENV detect {{{2
 let g:is = {
@@ -23,6 +24,7 @@ let g:is = {
 			\ 'prostor' : $USERNAME ==? 'oldschool'
 			\ }
 let g:is.wingui = g:is.windows && g:is.gui
+" ========================================
 " rtp {{{2 portability shim:
 let $DOTVIMDIR = expand('$HOME/vimfiles')
 if !isdirectory(expand('$DOTVIMDIR'))
@@ -81,7 +83,8 @@ runtime b\todo.vim
 runtime b\new.vim
 runtime b\old.vim
 runtime b\colors.vim
-runtime b\statusline1.vim
+runtime b\lightline.vim
+" runtime b\statusline1.vim
 " runtime b\asynccm.vim
 " runtime b\repmo.vim
 " b\unused.vim
@@ -91,6 +94,10 @@ call plug#end() " required }}}1
 " scriptencoding utf-8      " should be after 'set enc'
 set timeout timeoutlen=370
 
+" language specific
+" must be set before loading menus, filetype or syntax
+" set langmenu=en_US.UTF-8    " sets the language of the menu (gvim)
+language en                 " sets the language of the messages / ui (vim)
 set iskeyword=@,a-z,A-Z,48-57,_,128-175,192-255
 set keymap=russian-jcukenwin
 set iminsert=0              " раскладка по умолчанию для ввода - английская
@@ -187,6 +194,7 @@ set listchars=tab:│\ ,eol:¬,trail:•,extends:#,nbsp:⋅ " Highlight problema
 let g:netrw_altv=1                             " open splits to the right
 let g:netrw_banner=0
 let g:netrw_browse_split = 4
+let g:netrw_preview   = 1
 " liststyle=3 has problems
 " let g:netrw_liststyle=2
 let g:netrw_silent = 1
@@ -225,8 +233,8 @@ if !g:is.gui
 		set inccommand=nosplit
 		set title
 		" let s:editor_root=expand("~/AppData/Local/nvim")
-		let g:python_host_prog = 'D:/env/neovim/2/Scripts/python.exe'
-		let g:python3_host_prog = 'D:/env/neovim/3/Scripts/python.exe'
+		" let g:python_host_prog = 'D:/env/neovim/2/Scripts/python.exe'
+		" let g:python3_host_prog = 'D:/env/neovim/3/Scripts/python.exe'
 	endif
 
 	" Disable Background Color Erase (BCE) so that color schemes {{{2
@@ -326,6 +334,10 @@ if has("autocmd")
 				\		setlocal omnifunc=syntaxcomplete#Complete |
 				\	endif
 	augroup END
+	augroup help_maps
+		autocmd!
+		au FileType help noremap <buffer> q :q<cr>
+	augroup END
 endif " }}}1
 
 " grepprg, ag, rg & ctrlp {{{ "
@@ -342,18 +354,57 @@ endif
 if executable("rg")
 	set grepprg=rg\ --vimgrep\ --color=never
 	" \ --smartcase
+	set grepformat=%f:%l:%c:%m,%f:%l:%m
+	let g:ackprg = 'rg --vimgrep --no-heading'
 	let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 	let g:ctrlp_use_caching = 0
 endif
 " }}} grepprg, ag, rg & ctrlp "
 
 " for completor.vim {{{
-set completeopt-=longest
-set completeopt+=menuone
-set completeopt-=menu
-if &completeopt !~# 'noinsert\|noselect'
-	set completeopt+=noselect
-endif
+
+" obligatory:
+" set completeopt+=noinsert
+" set completeopt&
+" ???
+" if &completeopt !~# 'noinsert\|noselect'
+" 	set completeopt+=noselect
+" endif
+" ???
+let g:completor_complete_options = 'menuone,noselect,preview'
+
+" doesn't work:
+" let g:completor_node_binary = escape(fnamemodify('C:\Program Files\nodejs\node.exe',':p:gs?\\?/?g'), '')
+let g:completor_node_binary = escape(expand('$programfiles\nodejs\node.exe'), '')
+
+" Use TAB to complete when typing words, else inserts TABs as usual.  Uses
+" dictionary, source files, and completor to find matching words to complete.
+
+" Note: usual completion is on <C-n> but more trouble to press all the time.
+" Never type the same word twice and maybe learn a new spellings!
+" Use the Linux dictionary when spelling is in doubt.
+function! Tab_Or_Complete() abort
+  " If completor is already open the `tab` cycles through suggested completions.
+  if pumvisible()
+	return "\<C-N>"
+  " If completor is not open and we are in the middle of typing a word then
+  " `tab` opens completor menu.
+  elseif col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^[[:keyword:][:ident:]]'
+	return "\<C-R>=completor#do('complete')\<CR>"
+  else
+	" If we aren't typing a word and we press `tab` simply do the normal `tab`
+	" action.
+	return "\<Tab>"
+  endif
+endfunction
+
+" Use `tab` key to select completions.  Default is arrow keys.
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use tab to trigger auto completion.  Default suggests completions as you type.
+" let g:completor_auto_trigger = 0
+inoremap <expr> <S-Tab> Tab_Or_Complete()
 "}}}
 
 " JSX highlighting
@@ -368,11 +419,83 @@ endif
 " by Marco Trosi's advice:
 set nostartofline
 
-" new [2018-05-25] {{{1
-fun! InsertPlugFromCb() abort
-	let l:cb = trim(@+)
+" quick add plugins for a minpac {{{1
+" 2019-03-19
+function! AddPacFromCb(...) abort
+	if v:version >= 801 || (v:version == 800 && has("patch1630"))
+		let l:cb = trim(@+)
+	else
+		" do oldschool way to trim all spaces and whatnot
+		let l:cb = substitute(@+,'\v^\s*(.{-})\s*\n$','\1','')
+	endif
 	let l:cb = substitute(l:cb, '\v^https://github.com/','','')
-	return 'Plug ''' . l:cb . ''''
-endf
-iabbr plu <C-R>=InsertPlugFromCb()<CR>
-" new [2018-05-25] }}}1
+	if a:0
+		put = 'Plug ''' . l:cb . ''''
+	else
+		" without the `Plug` command
+		" put = 'call minpac#add(''' . l:cb . ''')'
+		return 'Plug ''' . l:cb . ''''
+	endif
+endfunction
+nnoremap <leader>l :call AddPacFromCb(1)<CR>
+iabbr plu <C-R>=AddPacFromCb()<CR>
+
+" 2019-06-22
+set gdefault
+
+" 2020-03-24 from discord
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+
+cnoreabbrev X x
+cnoreabbrev Xa xa
+
+cnoreabbrev H h
+cnoreabbrev hg helpgrep
+cnoreabbrev Hg helpgrep
+
+" Does anyone now how i could make it so that tapping the colon twice in a row would bring up my last command?
+" so :: would do what : upArrow would do
+" , because i have it switched with :
+cnoremap <expr> , getcmdpos() == 1? '<c-p>' : ','
+cnoremap <expr> : getcmdpos() == 1? '<c-p>' : ':'
+
+" Quick jump to errors
+nmap <silent> <M-h> <Plug>(ale_previous_wrap)
+nmap <silent> <M-l> <Plug>(ale_next_wrap)
+
+"ctrl-l autocorrect misspelled words
+inoremap <C-i> u[s1z=`]au
+hi clear SpellBad
+hi SpellBad cterm=underline 
+
+" http://karolis.koncevicius.lt/posts/porn_zen_and_vimr
+" make n always search forward and N backward
+nnoremap <expr> n 'Nn'[v:searchforward]
+nnoremap <expr> N 'nN'[v:searchforward]
+
+" make ; always "find" forward and , backward
+" NOTE: remember that i remapped , to : !!!
+nnoremap <expr> ; getcharsearch().forward ? ';' : ':'
+nnoremap <expr> : getcharsearch().forward ? ':' : ';'c/
+
+" for vim-emoji
+inoremap <leader>e <C-O>:%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
+nnoremap <leader>e :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
+
+" [2021-01-12 03:12]
+" https://stevelosh.com/blog/2010/09/coming-home-to-vim/#using-the-leader
+" I work with HTML often, so I have ,ft mapped to a "fold tag" function:
+nnoremap <leader>ft Vatzf
+
+" I also work with Nick Sergeant and he likes his CSS properties sorted, so here's a ,S mapping that sorts them for me:
+nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
+let g:nv_search_paths = ['~/txt', '~/Dropbox/TODO/']

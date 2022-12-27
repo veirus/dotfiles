@@ -1,0 +1,49 @@
+                                                              *deline-example*
+
+==============================================================================
+CONTENTS                                             *deline-example-contents*
+
+  Examples ..................................... |deline-example-examples|
+  Functions .................................... |deline-example-functions|
+
+
+==============================================================================
+EXAMPLES                                             *deline-example-examples*
+
+Deline provides some statusline definitions in form of function.
+
+Statusline is changed by calling deline#example#xxx().
+You may copy these functions and modify as you like.
+
+Setting Example: >
+        " diable Deline's defaults.
+        let g:Deline_DefaultDefinitions = 0
+        let g:Deline_Powerful = 0
+
+        " call an example function.
+        augroup Deline_mysetting 
+            autocmd VimEnter * call deline#example#gradient()
+        augroup END
+<
+
+==============================================================================
+FUNCTIONS                                           *deline-example-functions*
+
+USAGE                           DESCRIPTION~
+
+deline#example#simple()          defines a simple statusline
+deline#example#gradient()        gradient color of mode
+deline#example#powerful()        powerline like definition
+deline#example#expandable()      expanded area in large size window
+
+                                                   *deline#example#gradient()*
+deline#example#gradient()
+                 It causes error in some colorschemes that are without guixxx.
+
+                                                   *deline#example#powerful()*
+deline#example#powerful()
+                 It requires powerline font that contains (\ue0b0) (\ue0b1) (\ue0b2)
+                 (\ue0b3) (\ue0a2)
+
+
+ vim: set et ft=help sts=8 sw=8 ts=8 tw=78:

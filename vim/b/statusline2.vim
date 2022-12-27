@@ -1,4 +1,9 @@
 " vim:set noet sts=4 sw=4 ts=4 tw=78 fdm=marker fdl=1:
+" File: statusline2.vim
+" Author: carudo
+" Description: alternative statusline
+" Last Modified: 2018-11-17 Ñá 03:44
+
 " Statusline {{{1
 set laststatus=2
 " Powerline symbols quick ref:

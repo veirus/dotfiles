@@ -1,0 +1,29 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("c:/Users/Neil/vimfiles/" . "b/")
+ ("c:/Users/Neil/" . "vimfiles/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ 
+)
+
+;; ----- ido-work-file-list -----
+(
+ 
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("c:/Users/Neil/vimfiles/b/" (23363 45086 0 0) "webdev.vim" "unused.vim" "todo.vim" "textobj.vim" "statusline2.vim" "statusline1.vim" "repmo.vim" "old.vim" "new.vim" "emmet.vim" "core.vim" "colors.vim" "asynccm.vim" "../" "./")
+
+ ("c:/Users/Neil/vimfiles/" (23581 28586 0 0) "_minrc" "vimrcalt" "vimrc" "viminfo" "undo/" "tpl/" "test.php" "syntax/" "swap/" "snippets/" "session/" "plugin/" "pack.md" "pack/" "keymap/" "indent/" "igottarememberthis.vim" "gvimrc" "gutentags/" "ftplugin/" "ftdetect/" "emmet-custom/" "doc/" "compiler/" "colors/" "bundle/" "bitmaps/" "backups/" "b/" "autoload/" "after/" ".netrwhist" ".editorconfig" "../" "./")
+
+ ("c:/Users/Neil/" (23677 23424 0 0) "Шаблоны/" "Мои документы/" "главное меню/" "__pycache__/" "_vimrc_" "_viminfo" "[Retrothon] VoD Thread 2018.md" "zanudy_tg.md" "yad/" "wallpapers.md" "vmlogs/" "vivaldi_onetab.md" "vim_deoplete_tg_example.vim" "vimium_FF.vim" "vimium+Saka.vim" "vimfiles1/" "vimfiles/" "vendor/" "txt/" "twitch.txt" "tmp.vim" "test2.org" "test.org" "test.md" "temp.vim" "stihes.md" "steam_gameslist.md" "status.vim" "spencer_and_hill.md" "source-install.log" "SkyDrive/" "sgdq2018VODThread.md.org" "SendTo/" "Searches/" "scoop/" "Saved Games/" "Recent/" "randonetab.py" "PROSTOR.todo" "projects/" "PrintHood/" "prices.vim" "Pictures/" "package-lock.json" "orglearn.org" "obyavleniya.md" "nvim/" "nuuid.ini" "ntuser.ini" "NTUSER.DAT{00100404-2977-11e3-93f9-0026b955b121}.TMContainer00000000000000000002.regtrans-ms" "NTUSER.DAT{00100404-2977-11e3-93f9-0026b955b121}.TMContainer00000000000000000001.regtrans-ms" "NTUSER.DAT{00100404-2977-11e3-93f9-0026b955b121}.TM.blf" "ntuser.dat.LOG2" "ntuser.dat.LOG1" "NTUSER.DAT" "Nox_share/" "node_modules/" "NetHood/" "neovim_open_with.reg" "marco.html" "logs/" "Local Settings/" "Links/" "jrnl.todo" "jrnl.org_archive" "jrnl.org" "journal.txt" "Javascript_by_example2017/" "Intel/" "inst.ini" "ico/" "hotkey.py" "Favorites/" "esa2019Winter_RUSC_commenters.org" "esa2018Summer_goldensplit_pasta_love_respect_unity(nazi).md" "esa2018Summer_goldensplit_fav_commenters.md" "esa2018SummerVODThread.org" "Dropbox/" "dotoo.dotoo" "dotfiles/" "Documents/" "digraphs.vim" "Desktop/" "cw_wo_plan.org" "cw_pu_plan.org" "cr3/" "Cookies/" "Contacts/" "composer.lock" "composer.json" "columns.org" "chrome_sync_status" "chrome_onetab_2018-10-14.md" "chrome_onetab_2018-10-06.md" "chrome_flags.md" "Boostnote/" "bin/" "bigjulytasks.todo" "bethesda.svg" "bethesda.net_secret.md" "Application Data/" "AppData/" "alu_dam.md" "AGDQ2019_GoldenSplit_pastas.md" ".yarnrc" ".xonsh_man_completions" ".xonshrc" ".vs/" ".VirtualBox/" ".vire.json" ".viminfo" ".v8flags.6.8.275.32-node.45.Neil.json" ".v8flags.6.8.275.32-node.28.Neil.json" ".v8flags.6.2.414.66.Neil.json" ".v8flags.6.2.414.66.873065134b4e543a5812e15b5a9ec8a5.json" ".v8flags.6.1.534.42.Neil.json" ".v8flags.6.1.534.42.873065134b4e543a5812e15b5a9ec8a5.json" ".v8flags.5.5.372.43.Neil.json" ".v8flags.4.5.103.36.Neil.json" ".tomighty/" ".tikione/" ".thumbnails/" ".stylelintrc" ".ssh/" ".SpaceVim.d/" ".scoop" ".qucs/" ".QtWebEngineProcess/" ".ptpython/" ".Origin/" ".oracle_jre_usage/" ".npmrc" ".node_repl_history" ".node-gyp/" ".Nimi Places/" ".netrwhist" ".netrwbook" ".netranger/" ".NERDTreeBookmarks" ".minttyrc" ".local/" ".LfCache/" ".koala/" ".jrnl_config" ".jmol/" ".ipython/" ".inputrc" ".idlerc/" ".gstreamer-0.10/" ".gonvim/" ".gitconfig" ".eslintrc.json" ".emacs.d/" ".electron/" ".docker/" ".csshat/" ".cookiecutter_replay/" ".cookiecutters/" ".config/" ".CocosCreator/" ".chrome/" ".cache/" ".blingrc" ".bash_profile" ".bash_history" ".bashrc" ".babel.json" ".android/" "../" "./")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t

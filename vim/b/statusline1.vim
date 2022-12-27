@@ -1,4 +1,9 @@
 " vim:fdm=marker fdl=1:
+" File: statusline1.vim
+" Author: carudo
+" Description: statusline settings v1
+" Last Modified: 2018-11-17 Ñá 03:42
+
 " Statusline {{{1
 set laststatus=2
 " Powerline symbols quick ref:

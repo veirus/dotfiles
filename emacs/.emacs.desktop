@@ -1,0 +1,55 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Thu Nov  8 08:13:19 2018
+;; Desktop file format version 208
+;; Emacs version 25.3.1
+
+;; Global section:
+(setq desktop-saved-frameset [frameset 1 (23523 43471 106065 800000) (desktop . "208") "Neil@MAURICE" nil nil ((((font-backend uniscribe gdi) (font . "-outline-DejaVu Sans Mono for Powerline-normal-normal-normal-mono-16-*-*-*-p-*-iso8859-1") (border-width . 2) (internal-border-width . 0) (right-divider-width . 0) (bottom-divider-width . 0) (vertical-scroll-bars) (horizontal-scroll-bars) (foreground-color . "#c0c5ce") (background-color . "#2b303b") (mouse-color . "black") (border-color . "black") (screen-gamma) (line-spacing) (left-fringe . 8) (right-fringe . 8) (alpha) (menu-bar-lines . 1) (tool-bar-lines . 0) (height . 58) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 0) (scroll-bar-height . 0) (fullscreen) (display-type . color) (background-mode . dark) (cursor-color . "#5F87FF") (environment) (powerline-cache) (frameset--id . "A05D-C019-1855-617D") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (icon-name) (visibility . t) (display . "w32") (explicit-name) (tool-bar-position . top) (width . 93) (left . 960) (top . 0)) ((min-height . 4) (min-width . 11) (min-height-ignore . 3) (min-width-ignore . 11) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 76) (min-pixel-width . 110) (min-pixel-height-ignore . 57) (min-pixel-width-ignore . 110) (min-pixel-height-safe . 19) (min-pixel-width-safe . 20)) leaf (pixel-width . 952) (pixel-height . 1090) (total-width . 95) (total-height . 57) (normal-height . 1.0) (normal-width . 1.0) (buffer "packages.el" (selected . t) (hscroll . 0) (fringes 8 8 nil) (margins 7) (scroll-bars nil 0 t nil 0 t) (vscroll . 0) (dedicated) (point . 670) (start . 1))))])
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring nil)
+(setq regexp-search-ring '("diminish" "evil" "molo" "desktop" "icon" "icons" "package.el"))
+(setq register-alist '((48 . "    :diminish evil-snipe-mode\n")))
+(setq file-name-history '("~/.emacs.d/base.el" "~/.emacs.d/packages.el" "~/.emacs.d/pa" "~/esa2018Summer_goldensplit_pasta_love_respect_unity(nazi).md" "~/sgdq2018VODThread.md.org" "~/.emacs.d/init.el" "~/.emacs.d/custom.el" "d:/env/egghead.io/react/02-jsx.html" "~/Dropbox/TODO/orglearn.org" "~/jrnl.org" "~/Dropbox/TODO/orglearn.org_archive" "~/esa2018SummerVODThread.org" "~/test.org" "~/columns.org" "~/.emacs.d/elpa/sublime-themes-20170606.1144/sublime-themes-autoloads.el" "~/txt/tg_removed.md" "~/Dropbox/txt/journal.txt" "~/.emacs.d/bookmarks" "d:/galaxy/org/orglearn.org" "~/.emacs.d/elpa/evil-org-20180323.1606/evil-org-autoloads.el" "~/jrnl.org_archive"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 208
+  "c:/Users/Neil/.emacs.d/packages.el"
+  "packages.el"
+  'emacs-lisp-mode
+  '(override-global-mode linum-mode global-whitespace-mode company-mode indent-guide-mode undo-tree-mode rainbow-delimiters-mode evil-rsi-mode evil-snipe-local-mode helm-mode)
+  670
+  '(787 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-dos) (overwrite-mode))
+  '((mark-ring (305 2259 2157 1986 1718 1701 1641 584 525 2472 968 1121 1090 631 917 866))))
+
+(desktop-create-buffer 208
+  "c:/Users/Neil/.emacs.d/base.el"
+  "base.el"
+  'emacs-lisp-mode
+  '(override-global-mode linum-mode global-whitespace-mode company-mode indent-guide-mode undo-tree-mode rainbow-delimiters-mode evil-rsi-mode evil-snipe-local-mode helm-mode)
+  173
+  '(173 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-dos) (overwrite-mode))
+  '((mark-ring (1))))
+
+(desktop-create-buffer 208
+  "c:/Users/Neil/.emacs.d/init.el"
+  "init.el"
+  'emacs-lisp-mode
+  '(override-global-mode linum-mode global-whitespace-mode company-mode indent-guide-mode undo-tree-mode rainbow-delimiters-mode evil-rsi-mode evil-snipe-local-mode helm-mode)
+  807
+  '(807 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-dos) (overwrite-mode))
+  '((mark-ring (807 788 475 131 1447 398 398 398 398 395 1766 711 711 711 711 1412))))
+

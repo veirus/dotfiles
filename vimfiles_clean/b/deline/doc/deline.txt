@@ -1,0 +1,309 @@
+*deline*    A lightweight statusline plugin with construction functionality. 
+
+==============================================================================
+CONTENTS                                                     *deline-contents*
+
+  Variables .................................... |deline-variables|
+  Functions .................................... |deline-functions|
+  Examples ..................................... |deline-example|
+
+
+==============================================================================
+VARIABLES                                                   *deline-variables*
+
+                                                 *g:Deline_DefaultDefinitions*
+g:Deline_DefaultDefinitions = 1
+                If non-zero, define statusline by deline's settings.
+                
+
+                                                           *g:Deline_Powerful*
+g:Deline_Powerful = 0
+                If non-zero, define statusline by deline's powerful settings.
+                It requires a powerline font. like 
+
+
+==============================================================================
+FUNCTIONS                                                   *deline-functions*
+
+USAGE                           DESCRIPTION~
+
+Deline({list})                  Define |'statusline'| with |deline-functions|.
+DelineConfig({config})          Configure Deline settings.
+deline#argpos()                 %a
+deline#bar()                    |
+deline#bufnr()                  %n
+deline#char()                   %b
+deline#charhex()                %B
+deline#column()                 %c
+deline#columnv()                %v
+deline#columnvoptional()        %V
+deline#comment({text})          comment (simply ignored as statusline)
+deline#defHL({hlname}, {keyexpr}, {attrs})
+                                 define highlight {hlname} with "attr=value attr=value ..." format string {attrs}
+deline#defHLAdjFG({hlname}, {keyexpr}, {basehlname})
+                                 define highlight {hlname} from {basehlname} with distinctive fg color.
+deline#defHLCombined({hlname}, {keyexpr}, {fghlname}, {bghlname}, {method})
+                                 define combined highlight {hlname} from fg:{fghlname} and bg:{bghlname}
+deline#defHLInv({hlname}, {keyexpr}, {basehlname})
+                                 define highlight {hlname} from inverted {basehlname}
+deline#defHLMode({hlname})      re-define highlight as {hlname}
+deline#defHLSeparator({hlname}, {keyexpr}, {lhlname}, {rhlname})
+                                 define combined highlight {hlname} from fg:bg of {lhlname} and bg:bg of {rhlname}
+deline#expr({expr})             evaluated vim expr
+deline#file({fmt})              file name
+deline#fileencoding()           &fileencoding
+deline#fileformat()             &fileformat
+deline#filehead({filepath}, {interval})
+                                displays the first line of the {filepath} at {inteerval}.
+deline#filetail({filepath}, {interval})
+                                displays the last line of the {filepath} at {inteerval}.
+deline#filetype()               &filetype
+deline#helpfile()               %h
+deline#hl({hlname})             change highlight {hlname}.
+deline#if({expr}, {t}, {f})     evaluates {expr} and returns {t} or {f}
+deline#keymap()                 %k
+deline#line()                   %l
+deline#linepercent()            %p
+deline#mode()                   the name of mode 'NORMAL', ...
+deline#modeHL({hlname})         DEPLICATED. use |deline#defHLMode|
+deline#modified({t}, {f})       returns {t} if &modified, else {f}
+deline#notsaved({min_ago})      displays delta time from last save. 
+deline#numlines()               %L
+deline#offset()                 %o
+deline#offsethex()              %O
+deline#page()                   %N
+deline#preview()                %w
+deline#quickfix()               %q
+deline#readonly({t}, {f})       returns {t} if &readonly, else {f}
+deline#rightalign()             %=
+deline#serial({list})           simply joins {list}
+deline#space()                  ' '
+deline#strftime({fmt})          |strftime()|
+deline#system({cmd})            |system()|
+deline#winpercent()             %P
+deline#extra#weatherhacks({url}, {interval})
+                                 fetch & displays weather info from weatherhacks site. 
+deline#meta#onmodechanged({stlist})
+                                 (EXPERIMENTAL) manipulates {stlist} (a list of `deline#xxx()`), each element is evaluated only when mode is changed.
+deline#dynamic#cyclic({list})   elem of {list} one by one
+deline#dynamic#expr({expr})     returns {expr} dynamically.
+deline#dynamic#if({expr}, {t}, {f})
+                                if eval({expr}) then {t} else {f}
+deline#dynamic#if_mode_changed({t})
+                                (EXPERIMENTAL) if mode is chaned, {t} is evaluated.
+deline#dynamic#periodic({period})
+                                defines {period} by millisecond.
+
+                                                                    *Deline()*
+Deline({list})
+                Example: >
+                    call Deline([
+                        \ "mode:",
+                        \ deline#mode(),
+                        \ deline#rightalign(),
+                        \ deline#modified('+ ', ''),
+                        \ deline#file(':p:h:t/:p:t'),
+                        \ ])
+<
+                    ______________________________________ 
+                    mode:NORMAL         + mydir/myfile.txt 
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+
+                                                              *DelineConfig()*
+DelineConfig({config})
+                Example: >
+                    call DelineConfig({
+                        \ "no_name": "*NAME_NOT_DEFINED*",
+                        \
+                        \ "mode_c": {
+                        \ "": " COMMAND ",
+                        \ "guifg": "#000000",
+                        \ "guibg": "#ffffff",
+                        \ },
+                        \ })
+<
+                
+                KEY		DESCRIPTION ~
+                
+                hl_1		highlight group User1: textual part
+                hl_3		highlight group User3: separator
+                hl_4		highlight group User4: cautious
+                hl_mode_	highlight group User2: mode `"hl_mode_" . mode()`
+                no_name		fallback name of |deline#file()|
+                		default: [No Name]
+                interval	throttling interval of re-evaluating of
+                		dynamic functions in second.
+                		default: 0.5
+
+                                                              *deline#defHL()*
+deline#defHL({hlname}, {keyexpr}, {attrs})
+                 See |highlight-gui| for {attrs}.
+                 
+                 {keyexpr} is Vim script  expression or empty string.
+                 {hlname} is not redifined IF {keyexpr} is previously passed value.
+                 {keyexpr} is sometimes takes value of 'mode()' to change its highlight
+                 definition by mode.
+                 If {keyexpr} is '', {hlname} is not redifined.
+                
+                Example1: >
+                    call Deline([
+                          :
+                        \ deline#defHL('MY_1' '', ''uifg=#ffffff guibg=#000000'',
+                          :
+                        \ ])
+<
+                 In Example1, MY_1 is defined ONCE with {keyexpr} ''.
+                 
+                Example2: >
+                    call Deline([
+                          :
+                        \ deline#comment('MY_2 varies by mode'),
+                        \ deline#defHLMode('MY_2'),
+                          :
+                        \ deline#defHLCombined('MY_3', '', 'StatusLine', 'MY_2'),
+                        \ deline#defHLCombined('MY_4', 'mode()', 'StatusLine', 'MY_2'),
+                          :
+                        \ ])
+<
+                 Now, MY_3 and MY_4 each is a combined highlight. They have same fg and
+                 bg.
+                 MY_3 is static. Because its {keyexpr} (2nd argument) is '', and '' is
+                 statically ''.
+                 MY_4 is dynamic. Because its {keyexpr} is 'mode()', and it changes in
+                 modes of Vim operations. You can use any Vim script expression, like 
+                 '&modified'.
+
+                                                         *deline#defHLAdjFG()*
+deline#defHLAdjFG({hlname}, {keyexpr}, {basehlname})
+                 Sometimes, combining highlights results in vague foreground color.
+                 Then call this function to define another more distinctive highlight.
+                
+                 The result may not be satisfiable for you, sorry.
+
+                                                      *deline#defHLCombined()*
+deline#defHLCombined({hlname}, {keyexpr}, {fghlname}, {bghlname}, {method})
+                 {fghlname} and {bghlname} can be "attr=value attr=value ..." format string.
+                
+                 See |deline#defHL| for {keyexpr}.
+                
+                 {method} takes one of bellow:                  *deline-combination-method*
+                   ''  or  'fg/bg'   {fghlname} overwritten with xxxbg of {bghlname}
+                   'fg/fg+bg'        xxxbg is half of {fghlname} and half of {bghlname}
+                   'fg/fg+bg9'       xxxbg is 1/10 of {fghlname} and 9/10 of {bghlname}
+                   'fg/fg+bg7'       xxxbg is 3/10 of {fghlname} and 7/10 of {bghlname}
+                   'fg/fg+bg3'       xxxbg is 7/10 of {fghlname} and 3/10 of {bghlname}
+                   'fg/fg+bg1'       xxxbg is 9/10 of {fghlname} and 1/10 of {bghlname}
+
+                                                               *deline#file()*
+deline#file({fmt})
+                 {fmt} consists of expand-expr and slice-expr.
+                 expand-expr: see |expand()|
+                 slice-expr: [{number}] or [:{number}] sets max length
+                 Example: :p:t:h[2] ==> 'myfolder' -> 'myf'
+
+                                                           *deline#notsaved()*
+deline#notsaved({min_ago})
+                Returns duration from last save in "{hour}h{minute}m" format.
+                {min_ago} is a Number to suppress output if the duration(in minute) < {min_ago}. 
+
+                                                 *deline#extra#weatherhacks()*
+deline#extra#weatherhacks({url}, {interval})
+                 Tokyo: http://weather.livedoor.com/weather_hacks/ical
+
+                                                     *deline#dynamic#cyclic()*
+deline#dynamic#cyclic({list})
+                {list} is a list of text.
+                Changes texts one by one on every evaluation.
+                
+                Example: >
+                    call Deline([
+                        \ deline#dynamic#cyclic(["a", "b", "c"]),
+                        \ ])
+<
+                        * moving cursor ...
+                        ______________________________________ 
+                        a
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+                        ______________________________________ 
+                        b
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+                        ______________________________________ 
+                        c
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+                        ______________________________________ 
+                        a
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+
+                                                       *deline#dynamic#expr()*
+deline#dynamic#expr({expr})
+                {expr} is a string of Vim expression like function call.
+                Unlike |deline#expr()|, this function does not return string to be
+                passed to statusline. This returns an object that holds "return the
+                result of evaluation".
+                
+                Example: >
+                	call Deline([
+                	    \ deline#comment("(1)"),
+                	    \ deline#dynamic#expr("strftime('%T')"),
+                	    \ 
+                	    \ deline#comment("(2)"),
+                	    \ deline#expr("strftime('%T')"),
+                	    \ ])
+<
+                	(1) At EVERY evaluation of statusline, dynamically returns the
+                	    result of strftime('%T').
+                	(2) At ONCE, returns the result of strftime('%T').
+
+                                                         *deline#dynamic#if()*
+deline#dynamic#if({expr}, {t}, {f})
+                Dynamically returns {t} or {f} by eval({expr}).
+
+                                            *deline#dynamic#if_mode_changed()*
+deline#dynamic#if_mode_changed({t})
+                Use |deline#serial()| to eval multiple functions.
+
+                                                   *deline#dynamic#periodic()*
+deline#dynamic#periodic({period})
+                Start timer so that |deline-dynamic-functions| are called periodicaly.
+                Non-dynamic functions are not in effect by this function.
+                
+                Without calling this function, all dynamic functions are only
+                evaluated as statusline is evaluated.
+                (Moving cursor, changing mode, ...)
+                
+                Example1: >
+                    call Deline([
+                        \ deline#comment("(1)"),
+                        \ deline#dynamic#periodic(100),
+                        \
+                        \ deline#comment("(2)"),
+                        \ deline#dynamic#expr("strftime('%T')"),
+                        \
+                        \ deline#comment("(3)"),
+                        \ deline#expr("strftime('%T')"),
+                        \ ])
+<
+                    (1) Declare period is 100ms.
+                    (2) Dynamic expr is evaluated every period.
+                    (3) This non-dynamic expr is evaluated once before call
+                        Deline().
+                
+                Example2: >
+                    call Deline([
+                        \ deline#comment("(1) NO deline#dynamic#periodic()"),
+                
+                        \ deline#comment("(2)"),
+                        \ deline#dynamic#expr("strftime('%T')"),
+                        \
+                        \ deline#comment("(3)"),
+                        \ deline#expr("strftime('%T')"),
+                        \ ])
+<
+                    (1) NO deline#dynamic#periodic().
+                    (2) Dynamic expr is evaluated every re-evaluation of
+                        statusline.
+                    (3) This non-dynamic expr is evaluated once before call
+                        Deline().
+
+
+ vim: set et ft=help sts=8 sw=8 ts=8 tw=78:
